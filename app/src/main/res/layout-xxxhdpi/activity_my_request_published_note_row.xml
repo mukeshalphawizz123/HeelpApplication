@@ -71,6 +71,7 @@
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNoteBudgetsRowId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvofferid"
@@ -91,6 +92,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDaysNotesRowId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_2_days_ago"

@@ -1,7 +1,7 @@
 package com.freelanceapp.detailsPkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,38 +13,59 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.freelanceapp.ApiPkg.ApiServices;
+import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.Adapter.DetailsAdapter;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.MyMissionInDisputeActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionLiveryActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestOngoingPkg.MyRequestOngoingActivity;
+import com.freelanceapp.detailsPkg.detailModlePkg.MissionViewDetailModle;
+import com.freelanceapp.detailsPkg.detailModlePkg.YourMission;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyRequestPublishedTablayoutFragment;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsAppOnClickLister, View.OnClickListener {
     private DetailsAdapter detailsAdapter;
     private RecyclerView rvdetails;
     private ImageView ivdetailsback, ivnotification;
     private String onGoing;
+    private ProgressBar pbMymissionDetail;
+    private ApiServices apiServices;
+    private List<YourMission> yourMissionList;
+    private AppCompatTextView etdescription, ettitletext, etbudget;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_details, container, false);
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
         getPreference();
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            myMissionViewDetail("12");
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
     private void init(View view) {
+        etbudget = view.findViewById(R.id.etbudgetid);
+        ettitletext = view.findViewById(R.id.ettitletextid);
+        etdescription = view.findViewById(R.id.etdescriptionid);
+        pbMymissionDetail = view.findViewById(R.id.pbMymissionDetailId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
         ivdetailsback = view.findViewById(R.id.ivdetailsbackId);
@@ -67,7 +88,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                 if (onGoing.equalsIgnoreCase("OnGoing")) {
                     removeThisFragment();
                     // replaceFragement(new MyMissionOngoingActivity());
-                   // removeAllFragment(new MyMissionOngoingActivity(), false, Constants.MY_MISSION_ONGOING_ACTIVITY);
+                    // removeAllFragment(new MyMissionOngoingActivity(), false, Constants.MY_MISSION_ONGOING_ACTIVITY);
                     //   removeThisFragment();
                 } else if (onGoing.equalsIgnoreCase("Complete")) {
                     //replaceFragement(new MyMissionCompleteActivity());
@@ -77,17 +98,17 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                 } else if (onGoing.equalsIgnoreCase("litige")) {
                     // replaceFragement(new MyMissionInDisputeActivity());
                     removeThisFragment();
-                  //  addFragment(new MyMissionInDisputeActivity(), false, Constants.MY_MISSION_DISPUTE_ACTIVITY);
+                    //  addFragment(new MyMissionInDisputeActivity(), false, Constants.MY_MISSION_DISPUTE_ACTIVITY);
 
                 } else if (onGoing.equalsIgnoreCase("Proposee")) {
                     // replaceFragement(new MyMissionProposeeActivity());
                     removeThisFragment();
-                   // addFragment(new MyMissionProposeeActivity(), false, Constants.MY_MISSION_PROPOSEE_ACTIVITY);
+                    // addFragment(new MyMissionProposeeActivity(), false, Constants.MY_MISSION_PROPOSEE_ACTIVITY);
 
                 } else if (onGoing.equalsIgnoreCase("Livree")) {
                     removeThisFragment();
-                    // replaceFragement(new MyMissionLiveryActivity());
-                   // addFragment(new MyMissionLiveryActivity(), false, Constants.MY_MISSION_LIVERY_ACTIVITY);
+                    // replaceFragement(new MyMissionDeliveryActivity());
+                    // addFragment(new MyMissionDeliveryActivity(), false, Constants.MY_MISSION_LIVERY_ACTIVITY);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqPubliee")) {
                     removeThisFragment();
@@ -96,23 +117,23 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
                 } else if (onGoing.equalsIgnoreCase("MyReqEncours")) {
                     removeThisFragment();
-                    // replaceFragement(new MyRequestOngoingActivity());
-                  //  addFragment(new MyRequestOngoingActivity(), false, Constants.MY_REQUEST_ONGOING_FRAGMENT);
+                    // replaceFragement(new MyDemandsOngoingActivity());
+                    //  addFragment(new MyDemandsOngoingActivity(), false, Constants.MY_REQUEST_ONGOING_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqLivree")) {
                     removeThisFragment();
                     //replaceFragement(new MyRequestLiveryActivity());
-                   // addFragment(new MyRequestLiveryActivity(), false, Constants.MY_REQUEST_LIVERY_FRAGMENT);
+                    // addFragment(new MyRequestLiveryActivity(), false, Constants.MY_REQUEST_LIVERY_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqCompletee")) {
                     removeThisFragment();
                     // replaceFragement(new MyRequestCompleteeActivity());
-                   // addFragment(new MyRequestCompleteeActivity(), false, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
+                    // addFragment(new MyRequestCompleteeActivity(), false, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqEnlitige")) {
                     removeThisFragment();
                     // replaceFragement(new MyRequestOpenlitigationActivity());
-                   // addFragment(new MyRequestOpenlitigationActivity(), false, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT);
+                    // addFragment(new MyRequestOpenlitigationActivity(), false, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT);
 
                 }
                 break;
@@ -158,6 +179,48 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         }
         ft.replace(R.id.flHomeId, replaceFragment);
         ft.commit();
+    }
+
+
+    private void myMissionViewDetail(String myMissionId) {
+        pbMymissionDetail.setVisibility(View.VISIBLE);
+        apiServices.myMisionViewDetail(myMissionId).enqueue(new Callback<MissionViewDetailModle>() {
+            @Override
+            public void onResponse(Call<MissionViewDetailModle> call, Response<MissionViewDetailModle> response) {
+                if (response.isSuccessful()) {
+                    pbMymissionDetail.setVisibility(View.GONE);
+                    MissionViewDetailModle missionViewDetailModle = response.body();
+                    if (missionViewDetailModle.getStatus() == true) {
+                        yourMissionList = missionViewDetailModle.getYourMissions();
+                        etdescription.setText(yourMissionList.get(0).getMissionDescription());
+                        ettitletext.setText(yourMissionList.get(0).getCategoryTitle());
+                        etbudget.setText(yourMissionList.get(0).getMissionBudget());
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbMymissionDetail.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MissionViewDetailModle> call, Throwable t) {
+                pbMymissionDetail.setVisibility(View.GONE);
+            }
+        });
+
     }
 
 }

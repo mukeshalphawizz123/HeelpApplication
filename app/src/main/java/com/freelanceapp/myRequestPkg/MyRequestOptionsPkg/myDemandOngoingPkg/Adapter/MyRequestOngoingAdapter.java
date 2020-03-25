@@ -1,4 +1,4 @@
-package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestOngoingPkg.Adapter;
+package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestOngoingPkg.MyRequestOngoingActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 
 
 public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoingAdapter.ViewHolder> {
@@ -18,7 +18,7 @@ public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoi
     private MyRequestOngoingAdapter.MyRequestOngoingAppOnClickListener myRequestOngoingAppOnClickListener;
 
 
-    public MyRequestOngoingAdapter(Context context, MyRequestOngoingActivity myRequestOngoingAdapter) {
+    public MyRequestOngoingAdapter(Context context, MyDemandsOngoingActivity myRequestOngoingAdapter) {
         this.context = context;
         this.myRequestOngoingAppOnClickListener = myRequestOngoingAppOnClickListener;
     }

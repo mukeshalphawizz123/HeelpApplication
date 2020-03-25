@@ -169,7 +169,6 @@
                         android:layout_toEndOf="@+id/ivdescriptionimageid"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/raleway_medium"
-                        android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries"
                         android:textColor="@color/lessBlack"
                         android:textSize="11sp"
                         android:editable="false"
@@ -280,6 +279,17 @@
 
     </ScrollView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/pbMymissionDetailId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
 </RelativeLayout>
 

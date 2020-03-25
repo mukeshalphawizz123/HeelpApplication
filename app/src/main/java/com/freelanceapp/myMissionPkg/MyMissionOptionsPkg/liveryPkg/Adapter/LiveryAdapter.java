@@ -9,9 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionLiveryActivity;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity;
 
 
 public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder> {
@@ -21,7 +19,7 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
     private LiveryAdapter.LiveryAppOnClickListener liveryAppOnClickListener;
 
 
-    public LiveryAdapter(Context context, MyMissionLiveryActivity liveryAdapter) {
+    public LiveryAdapter(Context context, MyMissionDeliveryActivity liveryAdapter) {
         this.context = context;
         this.liveryAppOnClickListener = liveryAppOnClickListener;
     }

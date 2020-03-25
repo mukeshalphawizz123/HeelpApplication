@@ -172,12 +172,13 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivdummyimgid"
+                            android:id="@+id/ivUserInprogMissionId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
                             android:src="@drawable/dummyuserimg" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUserNameInProgMissionId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ivdummyimgid"
@@ -208,6 +209,7 @@
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCommentInProgMissionId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvtextidd"
@@ -265,6 +267,7 @@
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etMsgBoxInprogressId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/rlbottonbtnid"
@@ -291,7 +294,7 @@
 
 
                         <RelativeLayout
-                            android:id="@+id/rlPieceJointId"
+                            android:id="@+id/rlmyMissProgressFileId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -319,13 +322,13 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/rlPieceId"
+                            android:id="@+id/rlmyMissProgressImagId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10sp"
                             android:layout_marginEnd="10sp"
-                            android:layout_toEndOf="@+id/rlPieceJointId">
+                            android:layout_toEndOf="@+id/rlmyMissProgressFileId">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivaddimageid"
@@ -354,7 +357,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/RlmymissionongoingSendbrtnId"
+                    android:id="@+id/rlmymissionongoingSendbrtnId"
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_below="@+id/rlcommentboxid"
@@ -379,7 +382,7 @@
                     android:id="@+id/rlproblemid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/RlmymissionongoingSendbrtnId"
+                    android:layout_below="@+id/rlmymissionongoingSendbrtnId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30sp"
                     android:layout_marginBottom="35dp">
@@ -401,6 +404,19 @@
 
         </ScrollView>
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pbMymissionProgressId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

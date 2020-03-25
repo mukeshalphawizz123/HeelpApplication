@@ -30,7 +30,7 @@
 
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivmymissionid"
+                        android:id="@+id/ivMymissionDelid"
                         android:layout_width="50sp"
                         android:layout_height="50sp"
                         android:layout_centerHorizontal="true"
@@ -42,7 +42,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="25sp"
-                        android:layout_below="@+id/ivmymissionid"
+                        android:layout_below="@+id/ivMymissionDelid"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/_6sdp"
                         android:layout_marginTop="3sp"
@@ -52,12 +52,12 @@
 
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvHomeDataId"
+                            android:id="@+id/tvMyMissionDelTitleId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:gravity="center"
-                            android:text="@string/chemistry"
+                            android:text="Chimie"
                             android:textColor="@color/Black"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -79,7 +79,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvofferid"
+                    android:id="@+id/tvofferDelid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/offers"
@@ -88,9 +88,10 @@
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvOfferValueDelId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tvofferid"
+                    android:layout_toEndOf="@+id/tvofferDelid"
                     android:text="100€"
                     android:textColor="#33D048"
                     android:textSize="12sp"
@@ -106,6 +107,7 @@
                 android:layout_toEndOf="@+id/rlmymisssionitemsid">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMyMissionDaysDelId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -116,6 +118,7 @@
                     android:textSize="@dimen/_8sdp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMyMissionDesDelId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
@@ -129,13 +132,13 @@
 
 
             <RelativeLayout
-                android:id="@+id/RlmissionproposeId"
-                android:layout_width="136dp"
-                android:layout_height="34dp"
+                android:id="@+id/rlMyMissionDiscusseDelId"
+                android:layout_width="140sp"
+                android:layout_height="42dp"
                 android:layout_below="@+id/rltextandtimneeidd"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20sp"
                 android:layout_marginBottom="5sp"
                 android:layout_toEndOf="@+id/rlofferid"
                 android:background="@drawable/discruterbtn">

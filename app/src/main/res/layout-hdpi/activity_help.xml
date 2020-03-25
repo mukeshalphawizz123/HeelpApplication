@@ -146,7 +146,7 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rlsupportboxid"
+                    android:id="@+id/rlsubmitbtnHelpid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rltextid"
@@ -173,7 +173,7 @@
                     android:id="@+id/rlsubmitbtnid"
                     android:layout_width="170dp"
                     android:layout_height="60sp"
-                    android:layout_below="@+id/rlsupportboxid"
+                    android:layout_below="@+id/rlsubmitbtnHelpid"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="15sp"
@@ -226,6 +226,18 @@
 
             </RelativeLayout>
         </ScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pbHelpId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

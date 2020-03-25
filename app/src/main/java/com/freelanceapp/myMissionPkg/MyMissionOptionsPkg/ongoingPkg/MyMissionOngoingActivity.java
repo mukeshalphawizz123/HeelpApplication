@@ -2,32 +2,80 @@ package com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.freelanceapp.ApiPkg.ApiServices;
+import com.freelanceapp.ApiPkg.RetrofitClient;
+import com.freelanceapp.CustomToast;
 import com.freelanceapp.HelpActivity;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
+import com.freelanceapp.homeTablayout.publishPkg.PostADemandActivity;
 import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.Adapter.OngoingAdapter;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.Datum;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.ImagePicker;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener, View.OnClickListener {
 
@@ -36,14 +84,43 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     private ImageView ivmissionongoingdashboardback, ivnotification;
     private RelativeLayout rlmissongoingviewdetails;
     private TextView tvviewprofile, tvmymissionongoingtext;
+    private ApiServices apiServices;
+    private ProgressBar pbMymissionProgress;
+    private RelativeLayout rlmymissionongoingSendbrtn, rlproblem, rlmyMissProgressFile, rlmyMissProgressImag;
+    private File fileForImage, fileForDocs;
+    private String filePath = null, profilImgPath, docPath;
+    private static final int SELECT_PICTURE = 101;
+    private static final int PERMISSION_READ_EXTERNAL_STORAGE = 100;
+    private static final int FILE_SELECT_CODE = 0;
+    private AppCompatEditText etMsgBoxInprogress;
+    private static Animation shakeAnimation;
+    private List<Datum> yourMissionList;
+    private AppCompatTextView tvUserNameInProgMission, tvCommentInProgMission;
+    private CircleImageView ivUserInprogMission;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            myMissionInProgress("12");
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         return view;
     }
 
     private void init(View view) {
+        ivUserInprogMission = view.findViewById(R.id.ivUserInprogMissionId);
+        tvUserNameInProgMission = view.findViewById(R.id.tvUserNameInProgMissionId);
+        tvCommentInProgMission = view.findViewById(R.id.tvCommentInProgMissionId);
+        etMsgBoxInprogress = view.findViewById(R.id.etMsgBoxInprogressId);
+        rlmyMissProgressImag = view.findViewById(R.id.rlmyMissProgressImagId);
+        rlmyMissProgressFile = view.findViewById(R.id.rlmyMissProgressFileId);
+        rlproblem = view.findViewById(R.id.rlproblemid);
+        rlmymissionongoingSendbrtn = view.findViewById(R.id.rlmymissionongoingSendbrtnId);
+        pbMymissionProgress = view.findViewById(R.id.pbMymissionProgressId);
         tvmymissionongoingtext = view.findViewById(R.id.tvmymissionongoingtextid);
         tvmymissionongoingtext.setOnClickListener(this);
         ivnotification = view.findViewById(R.id.ivnotificationId);
@@ -65,6 +142,12 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         content1.setSpan(new UnderlineSpan(), 0, content1.length(), 0);
         tvmymissionongoingtext.setText(content1);
 
+        rlmymissionongoingSendbrtn.setOnClickListener(this);
+        rlproblem.setOnClickListener(this);
+        rlmyMissProgressImag.setOnClickListener(this);
+        rlmyMissProgressFile.setOnClickListener(this);
+
+        shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
     }
 
 
@@ -72,6 +155,24 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.rlmyMissProgressImagId:
+                chooseFromGallery();
+                break;
+            case R.id.rlmyMissProgressFileId:
+                showFileChooser();
+                break;
+            case R.id.rlproblemid:
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    //  sendProjectDispute("12");
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            case R.id.rlmymissionongoingSendbrtnId:
+                validation(v);
+                break;
+
             case R.id.ivmissionongoingdashboardbackId:
                 removeThisFragment();
                 // backReplaceFragement(new MyMissionFragment());
@@ -111,4 +212,227 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         fragmentTransaction.replace(R.id.flHomeId, fragment);
         fragmentTransaction.commit();
     }
+
+    private void validation(View v) {
+        if (etMsgBoxInprogress.getText().toString().isEmpty()) {
+            new CustomToast().Show_Toast(getActivity(), v, "Can't Empty");
+            etMsgBoxInprogress.startAnimation(shakeAnimation);
+            etMsgBoxInprogress.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            if (CheckNetwork.isNetAvailable(getActivity())) {
+                sendProjectPorgress("12");
+            } else {
+                Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+
+    private void sendProjectPorgress(String myMissionId) {
+        pbMymissionProgress.setVisibility(View.VISIBLE);
+        MultipartBody.Part imgFileStation = null;
+        MultipartBody.Part imgFileStationDoc = null;
+        if (profilImgPath == null) {
+        } else {
+            fileForImage = new File(profilImgPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
+            imgFileStation = MultipartBody.Part.createFormData("project_image", fileForImage.getName(), requestFileOne);
+        }
+
+        if (docPath == null) {
+        } else {
+            fileForDocs = new File(docPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), docPath);
+            imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
+        }
+
+        MultipartBody.Part project_id_ = MultipartBody.Part.createFormData("project_id", String.valueOf("12"));
+        MultipartBody.Part user_id_ = MultipartBody.Part.createFormData("user_id", String.valueOf("12"));
+        MultipartBody.Part your_comments_ = MultipartBody.Part.createFormData("your_comments", etMsgBoxInprogress.getText().toString());
+        MultipartBody.Part project_status_ = MultipartBody.Part.createFormData("project_status", "1");
+
+        apiServices.sendProjectPorgress(project_id_, user_id_, your_comments_, project_status_, imgFileStationDoc, imgFileStation).enqueue(new Callback<SendProjectProgDetailModle>() {
+            @Override
+            public void onResponse(Call<SendProjectProgDetailModle> call, Response<SendProjectProgDetailModle> response) {
+                if (response.isSuccessful()) {
+                    pbMymissionProgress.setVisibility(View.GONE);
+                    SendProjectProgDetailModle sendProjectProgDetailModle = response.body();
+                    if (sendProjectProgDetailModle.getStatus() == true) {
+                        //   yourMissionList = sendProjectProgDetailModle.getYourMissions();
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbMymissionProgress.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SendProjectProgDetailModle> call, Throwable t) {
+                pbMymissionProgress.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+    private void chooseFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    chooseFromGallery();
+                } else {
+                    //Constants.customToast(getApplicationContext(), "Permission Denied");
+                    Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
+    }
+
+
+    private void showFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*file/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        try {
+            startActivityForResult(Intent.createChooser(intent, "Select a File to Copy"), FILE_SELECT_CODE);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "Please install a File Manager.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK) {
+            Uri content_describer = data.getData();
+            docPath = getRealPathFromURI(getActivity(), content_describer);
+            Log.v("images", docPath);
+            BufferedReader reader = null;
+            try {
+                // open the user-picked file for reading:
+                InputStream in = getActivity().getContentResolver().openInputStream(content_describer);
+                // now read the content:
+                reader = new BufferedReader(new InputStreamReader(in));
+                String line;
+                StringBuilder builder = new StringBuilder();
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                // Do something with the content in
+                //  some_view.setText(builder.toString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            Uri imageUri = data.getData();
+            try {
+                Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                profilImgPath = getRealPathFromURI(getActivity(), imageUri);
+                Log.v("iamges", profilImgPath.toString());
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+
+    private void myMissionInProgress(String myMissionId) {
+        pbMymissionProgress.setVisibility(View.VISIBLE);
+        apiServices.projectPorgress(myMissionId).enqueue(new Callback<MissionInProgressModle>() {
+            @Override
+            public void onResponse(Call<MissionInProgressModle> call, Response<MissionInProgressModle> response) {
+                if (response.isSuccessful()) {
+                    pbMymissionProgress.setVisibility(View.GONE);
+                    MissionInProgressModle myMissionProposedModle = response.body();
+                    if (myMissionProposedModle.getStatus() == true) {
+                        yourMissionList = myMissionProposedModle.getData();
+                        tvUserNameInProgMission.setText(yourMissionList.get(0).getFirstName());
+                        tvCommentInProgMission.setText(yourMissionList.get(0).getYourComments());
+                        Picasso.with(getActivity())
+                                .load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + yourMissionList
+                                        .get(0).getPictureUrl())
+                                .into(ivUserInprogMission);
+
+                    } else {
+
+                    }
+
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbMymissionProgress.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MissionInProgressModle> call, Throwable t) {
+                pbMymissionProgress.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+
 }

@@ -2,6 +2,8 @@ package com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -17,19 +19,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freelanceapp.ApiPkg.ApiServices;
+import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.chatPkg.Adapter.ChatAdapter;
 import com.freelanceapp.detailsPkg.DetailsActivity;
 import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyMissionCompleteActivity extends Fragment implements CompleteeFileUploadAdapter.CompleteeFileUploadAppOnClickListener, View.OnClickListener {
     private CompleteeFileUploadAdapter completeeFileUploadAdapter;
@@ -37,15 +55,28 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
     private ImageView ivmissioncompleterdashboardback, ivnotification;
     private RelativeLayout rlmisscompleteviewdetails, rldummyimgid;
     private TextView tvviewprofile;
+    private ApiServices apiServices;
+    private ProgressBar pbMymissionComplete;
+    private AppCompatTextView tvCommentValueMyMisssion, tvUserNameMyMisssion;
+    private CircleImageView ivUserImgMyMision;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_complete, container, false);
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            myCompleted("12");
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
     private void init(View view) {
-
+        pbMymissionComplete = view.findViewById(R.id.pbMymissionCompleteId);
+        tvCommentValueMyMisssion = view.findViewById(R.id.tvCommentValueMyMisssionId);
+        tvUserNameMyMisssion = view.findViewById(R.id.tvUserNameMyMisssionId);
+        ivUserImgMyMision = view.findViewById(R.id.ivUserImgMyMisionId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
 
@@ -110,6 +141,46 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
         final FragmentManager manager = getFragmentManager();
         manager.popBackStackImmediate();
 
-        // Toast.makeText(this, ""+manager, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void myCompleted(String myMissionId) {
+        pbMymissionComplete.setVisibility(View.VISIBLE);
+        apiServices.myMissionProjectComplete(myMissionId).enqueue(new Callback<MissionCompleteModle>() {
+            @Override
+            public void onResponse(Call<MissionCompleteModle> call, Response<MissionCompleteModle> response) {
+                if (response.isSuccessful()) {
+                    pbMymissionComplete.setVisibility(View.GONE);
+                    MissionCompleteModle missionCompleteModle = response.body();
+                    if (missionCompleteModle.getStatus() == true) {
+                        tvUserNameMyMisssion.setText(missionCompleteModle.getData().get(0).getFirstName());
+                        tvCommentValueMyMisssion.setText(missionCompleteModle.getData().get(0).getYourComments());
+                        Picasso.with(getActivity()).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + missionCompleteModle.getData().get(0).getPictureUrl()).into(ivUserImgMyMision);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbMymissionComplete.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MissionCompleteModle> call, Throwable t) {
+                pbMymissionComplete.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

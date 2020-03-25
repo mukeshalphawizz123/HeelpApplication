@@ -67,7 +67,7 @@
             android:name=".myRequestPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myRequestOngoingPkg.MyRequestOngoingActivity"
+            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity"
@@ -76,7 +76,7 @@
             android:name=".myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionLiveryActivity"
+            android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity"

@@ -1,7 +1,6 @@
 package com.freelanceapp.myMissionPkg.FragmentPkg;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import com.freelanceapp.R;
 import com.freelanceapp.databinding.ActivityMymissionsBinding;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.MyMissionInDisputeActivity;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionLiveryActivity;
+import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity;
 import com.freelanceapp.myMissionPkg.MymissionAdapter.MyMissionAdapter;
@@ -158,8 +157,8 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
                     /*replaceFragement(new MyMissionOngoingActivity());*/
                     addFragment(new MyMissionOngoingActivity(), true, Constants.MY_MISSION_ONGOING_ACTIVITY);
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
-                    addFragment(new MyMissionLiveryActivity(), true, Constants.MY_MISSION_LIVERY_ACTIVITY);
-                    // replaceFragement(new MyMissionLiveryActivity());
+                    addFragment(new MyMissionDeliveryActivity(), true, Constants.MY_MISSION_LIVERY_ACTIVITY);
+                    // replaceFragement(new MyMissionDeliveryActivity());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
                     addFragment(new MyMissionCompleteActivity(), true, Constants.MY_MISSION_COMPLETE_ACTIVITY);
                     //replaceFragement(new MyMissionCompleteActivity());

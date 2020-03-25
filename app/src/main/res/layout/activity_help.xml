@@ -157,6 +157,7 @@
                     android:background="@drawable/descriptionbox">
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etEnterDisputeId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -171,7 +172,7 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rlsubmitbtnid"
+                    android:id="@+id/rlsubmitbtnHelpid"
                     android:layout_width="170dp"
                     android:layout_height="60sp"
                     android:layout_below="@+id/rlsupportboxid"
@@ -196,7 +197,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rlsubmitbtnid"
+                    android:layout_below="@+id/rlsubmitbtnHelpid"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="15sp"
                     android:layout_marginBottom="25sp">
@@ -227,6 +228,20 @@
 
             </RelativeLayout>
         </ScrollView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pbHelpId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

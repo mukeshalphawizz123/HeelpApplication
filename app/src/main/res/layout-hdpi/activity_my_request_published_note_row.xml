@@ -6,14 +6,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginBottom="15sp">
+        android:layout_marginBottom="15sp"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="160sp"
-            android:layout_marginTop="20sp"
             android:layout_marginStart="15sp"
+            android:layout_marginTop="20sp"
             android:layout_marginEnd="15sp"
             android:background="@drawable/proposeebackg">
 
@@ -66,11 +66,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/offers"
-                    android:textStyle="bold"
                     android:textColor="@color/Black"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNoteBudgetsRowId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/tvofferid"
@@ -91,6 +92,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDaysNotesRowId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_2_days_ago"
@@ -136,18 +138,18 @@
                     android:layout_weight="1">
 
                     <RelativeLayout
-                        android:layout_marginStart="8sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="8sp"
                         android:background="@drawable/user_rounded_back">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="45sp"
                             android:text="@string/discuss"
-                            android:layout_centerHorizontal="true"
                             android:textColor="@color/bluee"
                             android:textSize="14sp"
                             android:textStyle="normal" />
@@ -172,9 +174,9 @@
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10sp"
+                        android:singleLine="true"
                         android:src="@drawable/circleimg"
                         android:text="@string/accept_offer"
-                        android:singleLine="true"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />

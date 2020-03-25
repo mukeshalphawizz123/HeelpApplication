@@ -23,15 +23,12 @@ import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.databinding.ActivityMyrequestBinding;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity;
-import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
-import com.freelanceapp.myMissionPkg.myMissionModlePkg.YourMission;
 import com.freelanceapp.myRequestPkg.MyRequestAdapter.MyRequestAdapter;
 import com.freelanceapp.myRequestPkg.MyRequestAdapter.MyRequestsecAdapter;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestOngoingPkg.MyRequestOngoingActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyRequestPublishedTablayoutFragment;
 import com.freelanceapp.myRequestPkg.Myrequestmodle.myrequestModle;
 import com.freelanceapp.myRequestPkg.myRequestModlePkg.Datum;
@@ -158,7 +155,7 @@ public class MyRequestFragment extends Fragment implements MyRequestsecAdapter.M
                 if (text.equals(getResources().getString(R.string.Publiée))) {
                     addFragment(new MyRequestPublishedTablayoutFragment(), true, Constants.MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
-                    addFragment(new MyRequestOngoingActivity(), true, Constants.MY_REQUEST_ONGOING_FRAGMENT);
+                    addFragment(new MyDemandsOngoingActivity(), true, Constants.MY_REQUEST_ONGOING_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
                     addFragment(new MyRequestLiveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Completée))) {

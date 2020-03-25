@@ -29,11 +29,11 @@ public class Constants {
     public static String MESSAGE_LIST_TAB_LAYOUT_FRAGMENT="MessageListTablayoutFragment";
     public static String MY_MISSION_PROPOSEE_ACTIVITY="MyMissionProposeeActivity";
     public static String MY_MISSION_ONGOING_ACTIVITY="MyMissionOngoingActivity";
-    public static String MY_MISSION_LIVERY_ACTIVITY="MyMissionLiveryActivity";
+    public static String MY_MISSION_LIVERY_ACTIVITY="MyMissionDeliveryActivity";
     public static String MY_MISSION_COMPLETE_ACTIVITY="MyMissionCompleteActivity";
     public static String MY_MISSION_DISPUTE_ACTIVITY="MyMissionInDisputeActivity";
     public static String MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT="MyRequestPublishedTablayoutFragment";
-    public static String MY_REQUEST_ONGOING_FRAGMENT="MyRequestOngoingActivity";
+    public static String MY_REQUEST_ONGOING_FRAGMENT="MyDemandsOngoingActivity";
     public static String MY_REQUEST_LIVERY_FRAGMENT="MyRequestLiveryActivity";
     public static String MY_REQUEST_COMPLETE_FRAGMENT="MyRequestCompleteeActivity";
     public static String MY_REQUEST_OPENLITIGATION_FRAGMENT="MyRequestOpenlitigationActivity";

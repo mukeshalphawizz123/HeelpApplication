@@ -171,20 +171,23 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivdummyimgid"
+                            android:id="@+id/ivUserProgDemainId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
                             android:src="@drawable/dummyuserimg" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUserNameDemandProgId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivdummyimgid"
+                            android:layout_below="@+id/ivUserProgDemainId"
                             android:layout_centerHorizontal="true"
                             android:text="@string/zeeshan"
                             android:textColor="@color/bluee"
                             android:textSize="@dimen/_9sdp"
                             android:textStyle="bold" />
+                        <!--ivUserProgDemainId,tvUserNameDemandProgId,
+     tvCommentDemandProgId-->
 
                     </RelativeLayout>
 
@@ -207,6 +210,7 @@
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCommentDemandProgId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvtextidd"
@@ -285,6 +289,19 @@
 
         </ScrollView>
 
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ProgressBar
+                android:id="@+id/pbDemandProgressId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
