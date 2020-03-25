@@ -22,7 +22,7 @@ import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.SetLangPkg.SetLangmodel;
 import com.freelanceapp.chatPkg.Adapter.ChatAdapter;
-import com.freelanceapp.chatPkg.ChatActivity;
+
 import com.freelanceapp.userProfileRatingPkg.AdapterPkg.ProfileRatingAdapter;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.Review;

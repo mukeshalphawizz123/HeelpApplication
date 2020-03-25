@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.ChatActivity;
+import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
+
 import com.freelanceapp.databinding.FragmentMyRequestPublishedNoteBinding;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
 import com.freelanceapp.paymentPkg.CreditCardPayment;
@@ -55,7 +56,7 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                 break;
 
             case R.id.rldiscuteridd:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivity.class);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
                // Intent intent1 = new Intent(getActivity(), ChatActivity.class);
               //  startActivity(intent1);
               //  getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);

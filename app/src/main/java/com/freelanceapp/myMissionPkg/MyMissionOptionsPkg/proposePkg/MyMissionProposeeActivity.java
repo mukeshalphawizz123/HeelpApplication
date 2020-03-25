@@ -23,7 +23,8 @@ import android.widget.Toast;
 
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.ChatActivity;
+import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
+
 import com.freelanceapp.detailsPkg.DetailsActivity;
 import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
@@ -110,7 +111,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     public void mymissionpropose(View view, int position) {
         switch (view.getId()) {
             case R.id.RlmissionproposeId:
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                Intent intent = new Intent(getActivity(), ChatActivityMain.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;

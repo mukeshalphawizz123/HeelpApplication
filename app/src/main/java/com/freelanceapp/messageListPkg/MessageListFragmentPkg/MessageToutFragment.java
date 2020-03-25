@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.ChatActivity;
+import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
+
 import com.freelanceapp.messageListPkg.MessageListAdapterPkg.MessageToutAdapter;
 import com.freelanceapp.utility.CheckNetwork;
 
@@ -49,7 +50,7 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(),ChatActivity.class);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
                 break;
         }
     }

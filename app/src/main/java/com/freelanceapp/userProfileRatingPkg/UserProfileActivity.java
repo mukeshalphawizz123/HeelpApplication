@@ -10,7 +10,8 @@ import android.widget.RelativeLayout;
 
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.ChatActivity;
+import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
+
 import com.freelanceapp.utility.CheckNetwork;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
@@ -64,7 +65,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intent);
                 break;
             case R.id.rldiscussid:
-                CheckNetwork.nextScreenWithoutFinish(UserProfileActivity.this, ChatActivity.class);
+                CheckNetwork.nextScreenWithoutFinish(UserProfileActivity.this, ChatActivityMain.class);
                 break;
             case R.id.ivbackproffilemsgId:
                 CheckNetwork.backScreenWithouFinish(UserProfileActivity.this);

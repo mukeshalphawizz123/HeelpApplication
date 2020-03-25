@@ -212,6 +212,8 @@ three main needs of the student.</string>
     <string name="status_of_deliverables">Status of deliverables</string>
     <string name="In">In</string>
     <string name="Out">Out</string>
+    <string name="slide_to_cancel">"Slide to cancel"</string>
+    <bool name="is_right_to_left">false</bool>
 
     <string name="Proposée">Proposed</string>
     <string name="Encours">In progress</string>

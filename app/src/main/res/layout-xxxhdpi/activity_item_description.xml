@@ -154,22 +154,22 @@
                             android:layout_toEndOf="@+id/IvTitleImageid"
                             android:text="@string/title"
                             android:textColor="@color/Black"
-                            android:textSize="16sp"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/EtItemdesTitleTextid"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
+                            android:layout_marginStart="6dp"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="5sp"
                             android:layout_toEndOf="@+id/tvtitletextid"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/raleway_medium"
+                            android:singleLine="true"
                             android:hint="@string/eg_j_ai_besoin_d_aide_pour_mon_projet"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
-                            android:singleLine="true"
                             android:textStyle="normal" />
 
                     </RelativeLayout>
@@ -304,12 +304,37 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvimageviewcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_marginStart="30sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="30sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvselectimageId"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="match_parent" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvbudgetcardid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_below="@+id/cvimageviewcardid"
                     android:layout_marginStart="30sp"
                     android:layout_marginTop="15sp"
                     android:layout_marginEnd="30sp"
@@ -350,18 +375,20 @@
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="15sp">
 
-                            <androidx.appcompat.widget.AppCompatEditText
+                            <EditText
                                 android:id="@+id/EtItemdesBudgetId"
-                                android:layout_width="wrap_content"
+                                android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="5sp"
                                 android:background="@android:color/transparent"
+                                android:focusableInTouchMode="true"
                                 android:inputType="number"
                                 android:maxLength="8"
                                 android:text="500"
                                 android:textColor="@color/blue"
+                                android:textIsSelectable="true"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 

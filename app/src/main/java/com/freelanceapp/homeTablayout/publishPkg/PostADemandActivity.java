@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -26,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asksira.bsimagepicker.BSImagePicker;
+import com.bumptech.glide.Glide;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomToast;
@@ -44,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -52,7 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostADemandActivity extends AppCompatActivity implements View.OnClickListener {
+public class PostADemandActivity extends AppCompatActivity implements View.OnClickListener,BSImagePicker.OnMultiImageSelectedListener, BSImagePicker.ImageLoaderDelegate,SelectImageAdapter. SelectImageOnClickListener{
     private RelativeLayout rlpublishapplication, RlItemdestitle, rlPieceJoint, rlPiece;
     private ImageView ivdetailback, ivnotification, IvItemdesImage;
     private TextView tvHomeData;
@@ -68,7 +73,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private File sourceFile;
     private static final int FILE_SELECT_CODE = 0;
     private static Animation shakeAnimation;
-
+    private RecyclerView rvselectimageId;
+    private SelectImageAdapter selectImageAdapter;
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
@@ -133,6 +139,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         } else {
             Picasso.with(getApplicationContext()).load(RetrofitClient.IMAGE_URL + imageUrl).into(IvItemdesImage);
         }
+        rvselectimageId = findViewById(R.id.rvselectimageId);
     }
 
     private void postDemands() {
@@ -159,11 +166,9 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
-
        // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
         // MultipartBody.Part project_file = MultipartBody.Part.createFormData("project_file", String.valueOf(file));
         // MultipartBody.Part imgFileStationDoc = MultipartBody.Part.createFormData("project_image", String.valueOf(image));
-
         apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, imgFileStation)
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
@@ -252,7 +257,13 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.rlPieceId:
-                chooseFromGallery();
+                BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+                        .setMaximumDisplayingImages(Integer.MAX_VALUE)
+                        .isMultiSelect()
+                        .setMinimumMultiSelectCount(1)
+                        .setMaximumMultiSelectCount(6)
+                        .build();
+                pickerDialog.show(getSupportFragmentManager(), "picker");
                 break;
             case R.id.rlPieceJointId:
                 showFileChooser();
@@ -335,5 +346,25 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
+    }
+
+    @Override
+    public void loadImage(Uri imageUri, ImageView ivImage) {
+        Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
+
+    }
+
+    @Override
+    public void onMultiImageSelected(List<Uri> uriList, String tag) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(PostADemandActivity.this, RecyclerView.HORIZONTAL, false);
+        rvselectimageId.setLayoutManager(layoutManager);
+        selectImageAdapter = new SelectImageAdapter(this, this);
+        rvselectimageId.setAdapter(selectImageAdapter);
+        selectImageAdapter.scheduleappoinList(uriList);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
     }
 }

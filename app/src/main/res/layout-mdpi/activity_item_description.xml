@@ -55,8 +55,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:layout_below="@+id/rlHomeToolbarId">
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:scrollbars="none">
 
 
             <RelativeLayout
@@ -154,22 +154,22 @@
                             android:layout_toEndOf="@+id/IvTitleImageid"
                             android:text="@string/title"
                             android:textColor="@color/Black"
-                            android:textSize="16sp"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/EtItemdesTitleTextid"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
+                            android:layout_marginStart="6dp"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="5sp"
-                            android:fontFamily="@font/raleway_medium"
                             android:layout_toEndOf="@+id/tvtitletextid"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/gray"
-                            android:textSize="12sp"
+                            android:fontFamily="@font/raleway_medium"
                             android:singleLine="true"
                             android:hint="@string/eg_j_ai_besoin_d_aide_pour_mon_projet"
+                            android:textColor="@color/gray"
+                            android:textSize="12sp"
                             android:textStyle="normal" />
 
                     </RelativeLayout>
@@ -211,7 +211,7 @@
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/description"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -219,13 +219,13 @@
                             android:id="@+id/EtItemdesId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
                             android:layout_below="@+id/ivdescriptionimageid"
                             android:layout_marginBottom="100dp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/lessBlack"
                             android:fontFamily="@font/raleway_medium"
+                            android:padding="5dp"
+                            android:textColor="@color/lessBlack"
                             android:textSize="12sp"
                             android:textStyle="normal" />
 
@@ -272,9 +272,9 @@
                                 android:id="@+id/rlPieceId"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="10sp"
-                                android:layout_centerHorizontal="true"
                                 android:layout_marginEnd="10sp"
                                 android:layout_toEndOf="@+id/rlPieceJointId">
 
@@ -282,7 +282,7 @@
                                     android:id="@+id/ivaddimageid"
                                     android:layout_width="13sp"
                                     android:layout_height="17dp"
-                                   android:layout_centerHorizontal="true"
+                                    android:layout_centerHorizontal="true"
                                     android:scaleType="fitXY"
                                     android:src="@drawable/addimage" />
 
@@ -304,12 +304,37 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvimageviewcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_marginStart="30sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="30sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvselectimageId"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="match_parent" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvbudgetcardid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_below="@+id/cvimageviewcardid"
                     android:layout_marginStart="30sp"
                     android:layout_marginTop="15sp"
                     android:layout_marginEnd="30sp"
@@ -350,20 +375,22 @@
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="15sp">
 
-                            <androidx.appcompat.widget.AppCompatEditText
+                            <EditText
                                 android:id="@+id/EtItemdesBudgetId"
-                                android:layout_width="wrap_content"
+                                android:layout_width="60dp"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="5sp"
                                 android:background="@android:color/transparent"
+                                android:focusableInTouchMode="true"
                                 android:inputType="number"
                                 android:maxLength="8"
                                 android:text="500"
-                                android:textStyle="bold"
                                 android:textColor="@color/blue"
-                                android:textSize="20sp" />
+                                android:textIsSelectable="true"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="28dp"
@@ -393,13 +420,13 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/post_your_demand"
-                        android:layout_marginBottom="@dimen/_9sdp"
                         android:layout_centerVertical="true"
-                        android:textStyle="normal"
                         android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_9sdp"
+                        android:text="@string/post_your_demand"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_12sdp"/>
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
 
 
                 </RelativeLayout>
@@ -421,7 +448,6 @@
                 android:visibility="gone" />
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>

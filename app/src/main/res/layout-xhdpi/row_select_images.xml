@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlProfilId"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivselectimageId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivdeletCloseId"
+            android:layout_width="20sp"
+            android:padding="@dimen/_5sdp"
+            android:layout_alignParentRight="true"
+            android:layout_height="20sp"
+            android:src="@drawable/close" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -31,6 +31,9 @@
             android:name=".paymentPkg.ComfirmationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".chatPkg.Adapter.ChatActivityMain"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".paymentPkg.PaymentConfirmationPage"
             android:screenOrientation="portrait" />
         <activity

@@ -53,8 +53,8 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
         rvmsglist = findViewById(R.id.rvChatId);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         rvmsglist.setLayoutManager(layoutManager);
-        ChatAdapter chatAdapter = new ChatAdapter(getApplicationContext(), this);
-        rvmsglist.setAdapter(chatAdapter);
+       // ChatAdapter chatAdapter = new ChatAdapter(getApplicationContext(), this);
+       // rvmsglist.setAdapter(chatAdapter);
     }
 
     @Override

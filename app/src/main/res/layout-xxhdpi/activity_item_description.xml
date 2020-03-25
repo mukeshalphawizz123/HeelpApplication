@@ -304,12 +304,37 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvimageviewcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_marginStart="30sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="30sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvselectimageId"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="match_parent" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvbudgetcardid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_below="@+id/cvimageviewcardid"
                     android:layout_marginStart="30sp"
                     android:layout_marginTop="15sp"
                     android:layout_marginEnd="30sp"

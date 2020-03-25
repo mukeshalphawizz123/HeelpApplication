@@ -128,6 +128,9 @@ trois principaux besoins de l’étudiant.</string>
     <string name="do_you_want_to_edit">Do You Want To Edit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="slide_to_cancel">"Slide to cancel"</string>
+    <bool name="is_right_to_left">false</bool>
+
 
     <string name="si_non_pour_toute_autre_demande_merci_de_nous_ecrire_via">Si non,pour toute autre demande merci de nous ecrire via</string>
     <string name="la_page_de_contact_en_cliquant_ici">la page de contact en cliquant ici:</string>
