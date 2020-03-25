@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/rlmymissionid"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_margin="15sp"
+        android:background="@drawable/mymission_box">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/TvMymissionproposeDesid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="135dp"
+            android:layout_marginTop="30sp"
+            android:text="@string/he_need_help"
+            android:textColor="@color/Black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/TvMyMissionproposeTimeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:fontFamily="@font/raleway_medium"
+            android:text="@string/mon_01_nov_2019"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/TvById"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="150sp"
+            android:layout_marginBottom="3dp"
+            android:text="@string/by_zeeshan_akhter"
+            android:textColor="@color/Black"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMyMissionRowFilterStatusId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10sp"
+            android:layout_marginBottom="15sp"
+            android:text="@string/proposed"
+            android:textColor="#57D367"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlmymissionitemsid"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="7dp"
+        android:background="@drawable/homebox"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:id="@+id/rlmymissiId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivmymissionimageid"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10sp"
+                android:scaleType="fitXY"
+                android:src="@drawable/chemistry" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlmymissiId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/hometextbox">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMyMissionTitleId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/chemistry"
+                android:textColor="@color/Black"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvinboxid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="@string/inbox"
+                android:textColor="@color/lessBlack"
+                android:textSize="30sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_below="@+id/tvinboxid">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivSerachmsgId"
+                    android:layout_width="30sp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:padding="6dp"
+                    android:src="@drawable/search" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etserachmsglistid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/ivSerachmsgId"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/looking_for_a_person_or_message"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationmsgId"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:layout_marginStart="10sp"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/ic_tab_indicator"
+            app:tabIndicatorColor="@color/Black"
+            app:tabIndicatorHeight="5dp"
+            app:tabMode="fixed"
+            android:minHeight="?attr/actionBarSize"
+            app:tabRippleColor="@color/white"
+            app:tabSelectedTextColor="@color/tabselected"
+            app:tabTextAppearance="@style/tab_textsize"
+            app:tabTextColor="@color/lessBlack" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayoutId" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

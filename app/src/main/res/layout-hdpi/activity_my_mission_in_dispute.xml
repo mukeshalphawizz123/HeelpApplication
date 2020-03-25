@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:id="@+id/rlHomeToolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="160sp"
+        android:background="@drawable/relativeredius">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivmissionfeedbackdashboardbackId"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10sp"
+            android:padding="6sp"
+            android:src="@drawable/back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivnotificationId"
+            android:layout_width="28sp"
+            android:layout_height="30sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15sp"
+            android:src="@drawable/ring" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivnotificationId"
+            android:layout_marginLeft="60sp">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivmissionid"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/linechartred" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="15sp"
+                android:layout_toEndOf="@+id/ivmissionid"
+                android:letterSpacing="0.1"
+                android:text="@string/mission_title"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:fontFamily="@font/raleway_medium" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlmissproposeviewdetailsid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="5sp"
+            android:layout_marginBottom="0dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvviewprofileid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:fontFamily="@font/raleway_medium"
+                android:text="@string/view_details"
+                android:textColor="@color/viewDetailColor"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="13sp"
+                android:layout_height="11dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/tvviewprofileid"
+                android:src="@drawable/view_detail_arrow" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlHomeToolbarId"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/rlproposeebtnid"
+                android:layout_width="@dimen/_135sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/litige_box">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:fontFamily="@font/raleway_bold"
+                    android:paddingBottom="3sp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:singleLine="true"
+                    android:text="@string/open_litigation"
+                    android:textColor="@color/lightRed"
+                    android:textSize="@dimen/_13sdp"
+                    app:fontFamily="@font/raleway_bold" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlsupportmsgboxid"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_below="@+id/rlproposeebtnid"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="50sp"
+                android:background="@drawable/textbackground"
+                android:paddingBottom="30sp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="10sp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/support_message"
+                    android:textColorHint="@color/Black"
+                    android:textSize="13sp" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rltimeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlsupportmsgboxid"
+                android:layout_marginTop="25dp">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvtimeId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20sp"
+                    android:text="@string/today_4_12pm"
+                    android:textSize="12sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/rltimeid"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="100sp"
+                android:background="@drawable/bluetextbox">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5sp"
+                    android:text="@string/let_me_know_when_you_complete"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

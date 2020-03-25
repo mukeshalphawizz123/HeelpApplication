@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivpublisheddashboardbackId"
+                android:layout_width="30sp"
+                android:layout_height="33dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationId"
+                android:layout_width="28dp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivnotificationId"
+                android:layout_centerHorizontal="true">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivmissionid"
+                    android:layout_width="43dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginEnd="15sp"
+                    android:src="@drawable/myrequestblue" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="15sp"
+                    android:layout_toEndOf="@+id/ivmissionid"
+                    android:fontFamily="@font/raleway_medium"
+                    android:letterSpacing="0.1"
+                    android:text="@string/title_request"
+                    android:textColor="@color/bluee"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlreqpublishviewdetailsid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvviewprofileid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:fontFamily="@font/raleway_medium"
+                    android:text="@string/view_details"
+                    android:textColor="@color/viewDetailColor"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="13sp"
+                    android:layout_height="11dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/tvviewprofileid"
+                    android:src="@drawable/view_detail_arrow" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlpubliedbtnid"
+            android:layout_width="@dimen/_105sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5sp"
+            android:background="@drawable/purposesbtn">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5sp"
+                android:paddingBottom="@dimen/_3sdp"
+                android:text="@string/published"
+                android:textColor="@color/purpleColor"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlpropostionsid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlpubliedbtnid"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10sp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_proposals"
+                android:textColor="@color/lessBlack"
+                android:textSize="10sp"
+                android:fontFamily="@font/raleway_medium"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlpropostionsid"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/ic_tab_indicator"
+            app:tabIndicatorColor="@color/Black"
+            app:tabIndicatorHeight="5dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/white"
+            app:tabSelectedTextColor="@color/Black"
+            app:tabTextAppearance="@style/tab_text"
+            app:tabTextColor="@color/gray" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayoutId"
+            android:layout_marginTop="-13dp"
+            android:layout_marginBottom="7dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

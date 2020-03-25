@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivlogoid"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:src="@drawable/logo" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSerachHomeId"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_below="@+id/ivlogoid"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/search" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationHomeId"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:src="@drawable/ring" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivSerachHomeId"
+                android:layout_marginStart="1sp"
+                app:tabGravity="fill"
+                app:tabIndicator="@drawable/ic_tab_indicator"
+                app:tabIndicatorColor="@color/Black"
+                app:tabIndicatorHeight="5dp"
+                app:tabMode="fixed"
+                android:minHeight="?attr/actionBarSize"
+                app:tabRippleColor="@color/white"
+                app:tabSelectedTextColor="@color/Black"
+                app:tabTextAppearance="@style/tab_text"
+                app:tabTextColor="@color/gray" />
+        </RelativeLayout>
+
+
+
+
+
+
+        <!--
+            app:tabGravity="center"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorColor="@color/Black"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="5dp"-->
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:layout_marginBottom="@dimen/_7sdp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

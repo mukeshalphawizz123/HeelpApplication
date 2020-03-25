@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AcceptConditionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15sp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvtextoneid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/greenbox"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_2sdp"
+                        android:text="@string/ok_j_accepte"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvtexttwoid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvtextoneid"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20sp"
+                        android:text=" Conditions générales d’utilisation :"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/rltextidd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvtexttwoid">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextthreeid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginTop="15sp"
+                            android:text="Vos engagements :"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlhelpcenterid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/rltextidd"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginTop="20sp"
+                        android:layout_marginRight="20sp"
+                        android:background="@color/white">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvhelpcentertextoneid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="0.3dp"
+                            android:text="@string/helpcenter"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="normal" />
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvhelpcentertexttwoid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvhelpcentertextoneid"
+                            android:layout_marginTop="10sp"
+                            android:lineSpacingExtra="0.3dp"
+                            android:text="@string/heelp_permet_aux_tudiants_de"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvhelpcentertextthreeid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvhelpcentertexttwoid"
+                            android:layout_marginTop="10sp"
+                            android:lineSpacingExtra="0.3dp"
+                            android:text="@string/helpone"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvhelpcentertextfourid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvhelpcentertextthreeid"
+                            android:layout_marginTop="10sp"
+                            android:lineSpacingExtra="0.3dp"
+                            android:text="@string/helptwo"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvhelpcentertextfiveid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvhelpcentertextfourid"
+                            android:layout_marginTop="10sp"
+                            android:lineSpacingExtra="0.3dp"
+                            android:text="@string/helpthree"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextthreeeeid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvhelpcentertextfiveid"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/donn_es_personnelles"
+                            android:textColor="@color/Black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextfourid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextthreeeeid"
+                            android:layout_marginTop="15sp"
+                            android:text="@string/heelp_utilise_des_technologies_de_traitement_des_donn_es_s_curis_es_afin_de_prot_ger_au_maximum_vos_donn_es_personnelles_vos_donn_es_personnelles_ne_seront_jamais_utilis_es_ou_transmises_des_tiers_sans_votre_autorisation_heelp_s_engage_vous_permettre_d_acc_der_vos_informations_personnelles_et_de_les_modifier_conform_ment_la_loi_informatique_et_libert_s_et_au_rgpd"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="normal" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextfiveid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextfourid"
+                            android:layout_marginTop="10dp"
+                            android:text="Terminologie :"
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextsixid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextfiveid"
+                            android:layout_marginTop="10dp"
+                            android:text="-Un heelper : est toute personne utilisant l’application Heelp
+  (web et mobile) que ce soit dans le but d’apporter de l’aide ou
+  pour demander de l’aide.
+-Un livrable : est le résultat attendu d’une tâche donnée. Le livrable
+  peut être sous différentes formes : une image, un document,
+  un programme, un CV, etc...
+-Une demande : est la demande d’aide que publie un heelper
+-Une mission : est la demande pour laquelle un heelper doit effectuer
+ une action : faire une offre, réaliser une tâche, transmettre un livrable"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextsevenid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextsixid"
+                            android:layout_marginTop="10dp"
+                            android:text="Statuts des missions et demandes : "
+                            android:textColor="@color/Black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtexteightid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextsevenid"
+                            android:layout_marginTop="10dp"
+                            android:text="
+-Publiée : c’est le premier statut d’une demande une fois qu’elle a
+  été créé.
+-Proposée : c’est le premier statut d’une mission une fois qu’un
+  heelper a proposé une offre d’aide répondant à la demande publiée.
+-En cours : c’est le statut que prend une mission ou une demande
+  une fois qu’une offre d’aide a été acceptée. Cela veut dire qu’un
+  Heelper s’est chargé pour répondre à la demande et que le livrable
+  est en attente de livraison.
+-Livrée : c’est le statut que prend une mission ou une demande une
+ fois que le livrable est disponible et a été livrée. Le heelper qui a
+ posté la demande a la possibilité de demander une modification
+ et la demande reprendra le statut de En cours.
+-Complétée : est le statut d’une mission ou une demande terminée
+  qui  a été livrée et payée.
+-En litige : est le statut d’une demande ou une mission une fois
+  qu’un heelper a signalé un problème associé.
+Les problèmes les plus courants donnants droit à l’ouverture d’un
+  litige sont généralement liés à la qualité du livrable ou le délai
+  de sa livraison.   "
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextnineid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtexteightid"
+                            android:layout_marginTop="10dp"
+                            android:text="Parrainage:"
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtexttenid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextnineid"
+                            android:layout_marginTop="10dp"
+                            android:text="Les offres de parrainage changent en permanence, nous vous
+ invitons à nous contacter si vous avez des quuestions concernnant
+ l'offre de paranage en cours"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtexteleid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtexttenid"
+                            android:layout_marginTop="10dp"
+                            android:text="Paiement :"
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextthweid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtexteleid"
+                            android:layout_marginTop="10dp"
+                            android:text="Heelp utilise des technologies de pointe très sécurisées via nos
+partenaires de traitement des paiements que nous avons choisi avec
+responsabilité notamment notre partenaire Stripe qui est un standard
+mondial au niveau des traitements des paiements et données
+ bancaires.
+La sécurité de vos données bancaires est une priorité pour nous.
+Toutefois nous vous demandons de ne jamais communiquer vos
+coordonnées bancaires à un Heelper ou toute autre personne
+via Heelp.
+"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextthirdid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextthweid"
+                            android:layout_marginTop="10dp"
+                            android:text="Litige :"
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextfourtinid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextthirdid"
+                            android:layout_marginTop="10dp"
+                            android:text="Les problèmes les plus courants donnants droit à l’ouverture d’un
+ litige sont généralement liés à la qualité du livrable ou le délai de
+sa livraison.
+L’ouverture d’un litige donne droit à l’équipe support heelp de jouer
+ le rôle d’intermédiaire pour résoudre le problème.
+Heelp se réserve le droit de prendre une de décision à l’égard du
+problème.
+En ouvant un litige vous autorisez l’équipe support à traiter vos
+données, messages échangés dans Heelp, documents , livrables
+et toute information jugée nécessaire pour traiter le litige.
+Le délai de traitement des litiges est en moyenne 14 jours ouvrés.
+"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextfifthinid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextfourtinid"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold"
+                            android:text="Frais de service :"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextsixthinid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextfifthinid"
+                            android:layout_marginTop="10dp"
+                            android:text="La transparence est notre principe : Pas de frais cachés  !!
+
+Les frais de services permet de vous assurer plusieurs
+ fonctionnalités et services tels que : le stockage sécurisé de vos
+ données, le traitement des litiges, le support client, les transactions
+ bancaires sécurisées…
+"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextseventhinid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextsixthinid"
+                            android:layout_marginTop="10dp"
+                            android:text="Listes des frais :"
+                            android:textColor="@color/Black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtextegihthinid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvtextseventhinid"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/la_transparence_est_notre_principe_pas_de_frais_cach_s_les_frais_de_services_permet_de_vous_assurer_plusieurs_fonctionnalit_s_et_services_tels_que_le_stockage_s_curis_de_vos_donn_es_le_traitement_des_litiges_le_support_client_les_transactions_bancaires_s_curis_es_publier_une_demande_la_publication_d_une_demande_est_gratuite_accepter_une_offre_propos_e_pour_votre_demande_12_du_montant_de_l_offre_0_25_euros_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_montant_de_10_vous_payerez_11_45_soit_1_45_de_frais_proposer_une_offre_la_proposition_d_offre_est_gratuite_retirer_l_argent_que_vous_avez_gagn_d_une_mission_que_vous_avez_r_alis_9_du_montant_retirer_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_retrait_de_10_vous_recevrez_un_virement_de_9_1_soit_0_90_de_frais_nb_les_frais_de_services_peuvent_changer_sans_pr_avis"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/_9sdp" />
+
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

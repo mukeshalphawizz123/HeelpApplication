@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/rlHomeToolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="150sp"
+        android:background="@drawable/relativeredius">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivdashboardbackId"
+            android:layout_width="30sp"
+            android:layout_height="33dp"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10sp"
+            android:padding="5sp"
+            android:src="@drawable/back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivnotificationId"
+            android:layout_width="28dp"
+            android:layout_height="30sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15sp"
+            android:src="@drawable/ring" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivnotificationId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40sp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivmissionid"
+                android:text="@string/payment_confirmation"
+                android:textColor="@color/Black"
+                android:textSize="22dp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlHomeToolbarId">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivpaymentimgId"
+            android:layout_width="wrap_content"
+            android:layout_height="330dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/paymentimg" />
+
+        <RelativeLayout
+            android:id="@+id/rlpaymentdoneid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivpaymentimgId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvpaymentid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ivmissionid"
+                android:text="@string/payment"
+                android:textColor="@color/Black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvpaymentsecid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:layout_toEndOf="@+id/tvpaymentid"
+                android:text="@string/successfully"
+                android:textColor="@color/green"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="60sp"
+            android:layout_below="@+id/rlpaymentdoneid"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60sp"
+            android:layout_marginBottom="60sp"
+            android:background="@drawable/blankbtn">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:text="@string/back_to_home"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

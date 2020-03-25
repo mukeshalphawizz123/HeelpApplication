@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_40sdp">
+
+        <FrameLayout
+            android:id="@+id/flHomeId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llHomeBottoNavId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:weightSum="5">
+
+        <RelativeLayout
+            android:id="@+id/rlHomeId"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivHomeDdId"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_centerHorizontal="true"
+                android:padding="3sp"
+                android:src="@drawable/blackhome" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvaccounthomeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivHomeDdId"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/home"
+                android:textColor="@color/Black"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomemymissionId"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivmymissionHomeId"
+                android:layout_width="33sp"
+                android:layout_height="30sp"
+                android:layout_centerHorizontal="true"
+                android:padding="3sp"
+                android:src="@drawable/linechart" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvmymissionhomeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivmymissionHomeId"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/my_missions"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlHomemyrequestId"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMyrequestHomeId"
+                android:layout_width="33sp"
+                android:layout_height="30sp"
+                android:layout_centerHorizontal="true"
+                android:padding="3sp"
+                android:src="@drawable/myrequest" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvmyrequesthomeid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivMyrequestHomeId"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/my_demands"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomechatId"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivchatHomeId"
+                android:layout_width="33sp"
+                android:layout_height="30sp"
+                android:layout_centerHorizontal="true"
+                android:padding="3sp"
+                android:src="@drawable/chat" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvchathomeid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivchatHomeId"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/inbox"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomemenuId"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1sp"
+            android:layout_marginRight="1sp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_effect"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivhomemenuId"
+                android:layout_width="33sp"
+                android:layout_height="30sp"
+                android:layout_centerHorizontal="true"
+                android:padding="3sp"
+                android:src="@drawable/menu" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvhomeplusid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivhomemenuId"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/more"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

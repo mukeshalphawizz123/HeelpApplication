@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginRight="5sp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlChatuUserLeftId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="100sp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivchatprofileId"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="3dp"
+            android:src="@drawable/dummyuserimg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvtimeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:layout_toEndOf="@+id/ivchatprofileId"
+            android:text="@string/today_4_12pm"
+            android:textColor="@color/lessBlack"
+            android:textSize="12sp" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/ivchatprofileId"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/whiteblankbackg">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUserNameChatId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:lineSpacingExtra="10sp"
+                android:padding="10sp"
+                android:text="@string/hey_there_nplease_provide_the_necessary_data_so_that_i_will_start_designing_i_would_hardly_take_1_2_weeks_to_complete"
+                android:textColor="@color/Black"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="20sp">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvusertimeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/today_4_12pm"
+            android:textColor="@color/lessBlack"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/tvusertimeId"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/bluetextbox">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5sp"
+                android:text="@string/let_me_know_when_you_complete"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

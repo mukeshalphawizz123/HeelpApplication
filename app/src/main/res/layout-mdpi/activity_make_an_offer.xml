@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivofferbackId"
+                android:layout_width="30sp"
+                android:layout_height="33sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationId"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivnotificationId"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:text="@string/make_an_offer"
+                android:textColor="@color/lessBlack"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:layout_below="@+id/rlHomeToolbarId">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvtitlecardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlhomeitemsid"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivtitleimageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/title" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtitletextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12sp"
+                            android:layout_toEndOf="@+id/ivtitleimageid"
+                            android:text="@string/title"
+                            android:textColor="@color/Black"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/ettitletextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5sp"
+                            android:fontFamily="@font/raleway_medium"
+                            android:layout_toEndOf="@+id/tvtitletextid"
+                            android:background="@android:color/transparent"
+                            android:hint="eg j'ai besoin d'aide pour mon projet.."
+                            android:textColor="@color/gray"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvdescriptionid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvtitlecardid"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="25dp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivdescriptionimageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/description" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvdescriptiontextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
+                            android:text="@string/description"
+                            android:textColor="@color/Black"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/etdemandeidd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ivdescriptionimageid"
+                            android:layout_marginBottom="60sp"
+                            android:padding="3sp"
+                            android:fontFamily="@font/raleway_medium"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
+                            android:background="@android:color/transparent"
+                            android:hint="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
+                            android:textColor="@color/lessBlack"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/etdemandeidd"
+                            android:layout_height="wrap_content">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvfileuploadofferId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+
+
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvbudgetcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_marginStart="30sp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_100sdp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivbudgetimageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/budget" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvbugettextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5sp"
+                            android:layout_toEndOf="@+id/ivbudgetimageid"
+                            android:text="@string/budget"
+                            android:textColor="@color/Black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15sp">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/etbudgetid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5sp"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:maxLength="8"
+                                android:text="@string/_200"
+                                android:textColor="@color/blue"
+                                android:textSize="18sp" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="25sp"
+                                android:layout_height="25sp"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/etbudgetid"
+                                android:src="@drawable/euro" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/rlcheckboxid"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/cvbudgetcardid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/radioid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15sp"
+                        android:layout_marginTop="15sp"
+                        android:button="@drawable/custom_graycheckbox"
+                        android:text="@string/accept_budget"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlcheckboxgrnid"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/rlcheckboxid"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/radiogreenid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:button="@drawable/custom_greencheckbox"
+                        android:text="@string/make_an_offer"
+                        android:textColor="@color/Black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_reguiar"
+                        android:layout_toEndOf="@+id/radiogreenid"
+                        android:text="100 €"
+                        android:layout_marginTop="5sp"
+                        android:textSize="14sp"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlmakeanofferId"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_below="@+id/rlcheckboxgrnid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginEnd="20sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@drawable/completebackg">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvtextidd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/write_your_message"
+                        android:textColor="@color/Black"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginStart="10sp"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvtextidd"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/ex_je_peux_le_faire_pour_vous"
+                        android:textColor="@color/Black"
+                        android:layout_marginStart="10sp"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="normal" />
+
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlpublishapplicationnsid"
+                    android:layout_width="200sp"
+                    android:layout_height="50sp"
+                    android:layout_below="@+id/rlmakeanofferId"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/blankbtn"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/_14sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/white"
+                        android:text="@string/send_offer"/>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/pbMakeAnOfferId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

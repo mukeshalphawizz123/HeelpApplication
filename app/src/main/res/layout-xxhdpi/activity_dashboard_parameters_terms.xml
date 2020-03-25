@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rltermsToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivdashboardtermsbackId"
+                android:layout_width="35dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationtermsId"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivnotificationtermsId"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:letterSpacing="0.1"
+                android:text="@string/conditions_and_terms"
+                android:textColor="@color/lessBlack"
+                android:textSize="30sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rltermsToolbarId"
+            android:layout_margin="10sp">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtermsandcondid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15sp"
+                android:text="Conditions générales d’utilisation :"
+                android:textColor="@color/Black"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtermsandcondid"
+                android:layout_marginTop="15sp"
+                android:text="Vos engagements :" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvsectectid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextid"
+                android:layout_marginTop="15sp"
+                android:text="@string/les_conditions_g_n_rales_d_utilisation_sont_susceptibles_de_changer_en_permanence_sans_pr_avis_en_utilisant_heelp_vous_vous_engagez_les_lire_et_en_prendre_connaissance_autant_que_n_cessaire_l_acceptation_des_conditions_d_utilisation_est_une_tape_indispensable_pour_l_utilisation_de_heelp_et_de_ses_services_l_utilisation_de_heelp_implique_automatiquement_votre_acceptation_des_conditions_d_utilisation"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextthreeid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvsectectid"
+                android:layout_marginTop="15sp"
+                android:text="@string/donn_es_personnelles" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextfourid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextthreeid"
+                android:text="@string/heelp_utilise_des_technologies_de_traitement_des_donn_es_s_curis_es_afin_de_prot_ger_au_maximum_vos_donn_es_personnelles_vos_donn_es_personnelles_ne_seront_jamais_utilis_es_ou_transmises_des_tiers_sans_votre_autorisation_heelp_s_engage_vous_permettre_d_acc_der_vos_informations_personnelles_et_de_les_modifier_conform_ment_la_loi_informatique_et_libert_s_et_au_rgpd"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextfiveid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextfourid"
+                android:layout_marginTop="15sp"
+                android:text="@string/terminologie" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextsixid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextfiveid"
+                android:text="@string/un_heelper_est_toute_personne_utilisant_l_application_heelp_web_et_mobile_que_ce_soit_dans_le_but_d_apporter_de_l_aide_ou_pour_demander_de_l_aide_un_livrable_est_le_r_sultat_attendu_d_une_t_che_donn_e_le_livrable_peut_tre_sous_diff_rentes_formes_une_image_un_document_un_programme_un_cv_etc_une_demande_est_la_demande_d_aide_que_publie_un_heelper_une_mission_est_la_demande_pour_laquelle_un_heelper_doit_effectuer_une_action_faire_une_offre_r_aliser_une_t_che_transmettre_un_livrable"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextsevenid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextsixid"
+                android:layout_marginTop="15sp"
+                android:text="Statuts des missions et demandes :" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextseventwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextsevenid"
+                android:text="@string/publi_e_c_est_le_premier_statut_d_une_demande_une_fois_qu_elle_a_t_cr_n_propos_e_c_est_le_premier_statut_d_une_mission_une_fois_qu_un_heelper_a_propos_une_offre_d_aide_r_pondant_la_demande_publi_e_n_en_cours_c_est_le_statut_que_prend_une_mission_ou_une_demande_une_fois_qu_une_offre_d_aide_a_t_accept_e_cela_veut_dire_qu_un_heelper_s_est_charg_pour_r_pondre_la_demande_et_que_le_livrable_est_en_attente_de_livraison_n_livr_e_c_est_le_statut_que_prend_une_mission_ou_une_demande_une_fois_que_le_livrable_est_disponible_et_a_t_livr_e_le_heelper_qui_a_post_la_demande_a_la_possibilit_de_demander_une_modification_et_la_demande_reprendra_le_statut_de_en_cours_n_compl_t_e_est_le_statut_d_une_mission_ou_une_demande_termin_e_qui_a_t_livr_e_et_pay_e_n_en_litige_est_le_statut_d_une_demande_ou_une_mission_une_fois_qu_un_heelper_a_signal_un_probl_me_associ_n_les_probl_mes_les_plus_courants_donnants_droit_l_ouverture_d_un_litige_sont_g_n_ralement_li_s_la_qualit_du_livrable_ou_le_d_lai_de_sa_livraison"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexteghitid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextseventwid"
+                android:layout_marginTop="15sp"
+                android:text="Parrainage:" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexteighttwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexteghitid"
+                android:text="@string/les_offres_de_parrainage_changent_en_permanence_nous_vous_invitons_nous_contacter_si_vous_avez_des_questions_concernant_l_offre_de_parrainage_en_cours"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextnineid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexteighttwid"
+                android:layout_marginTop="15sp"
+                android:text="Parrainage:" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextninetwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextnineid"
+                android:text="@string/heelp_utilise_des_technologies_de_pointe_tr_s_s_curis_es_via_nos_partenaires_de_traitement_des_paiements_que_nous_avons_choisi_avec_responsabilit_notamment_notre_partenaire_stripe_qui_est_un_standard_mondial_au_niveau_des_traitements_des_paiements_et_donn_es_bancaires_la_s_curit_de_vos_donn_es_bancaires_est_une_priorit_pour_nous_toutefois_nous_vous_demandons_de_ne_jamais_communiquer_vos_coordonn_es_bancaires_un_heelper_ou_toute_autre_personne_via_heelp"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexttenid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextninetwid"
+                android:layout_marginTop="15sp"
+                android:text="Litige :" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexttentwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexttenid"
+                android:text="@string/les_probl_mes_les_plus_courants_donnants_droit_l_ouverture_d_un_litige_sont_g_n_ralement_li_s_la_qualit_du_livrable_ou_le_d_lai_de_sa_livraison_l_ouverture_d_un_litige_donne_droit_l_quipe_support_heelp_de_jouer_le_r_le_d_interm_diaire_pour_r_soudre_le_probl_me_heelp_se_r_serve_le_droit_de_prendre_une_de_d_cision_l_gard_du_probl_me_en_ouvant_un_litige_vous_autorisez_l_quipe_support_traiter_vos_donn_es_messages_chang_s_dans_heelp_documents_livrables_et_toute_information_jug_e_n_cessaire_pour_traiter_le_litige_le_d_lai_de_traitement_des_litiges_est_en_moyenne_14_jours_ouvr_s"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexteleid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexttentwid"
+                android:layout_marginTop="15sp"
+                android:text="Litige :" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexteletwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexteleid"
+                android:text="@string/les_probl_mes_les_plus_courants_donnants_droit_l_ouverture_d_un_litige_sont_g_n_ralement_li_s_la_qualit_du_livrable_ou_le_d_lai_de_sa_livraison_l_ouverture_d_un_litige_donne_droit_l_quipe_support_heelp_de_jouer_le_r_le_d_interm_diaire_pour_r_soudre_le_probl_me_heelp_se_r_serve_le_droit_de_prendre_une_de_d_cision_l_gard_du_probl_me_en_ouvant_un_litige_vous_autorisez_l_quipe_support_traiter_vos_donn_es_messages_chang_s_dans_heelp_documents_livrables_et_toute_information_jug_e_n_cessaire_pour_traiter_le_litige_le_d_lai_de_traitement_des_litiges_est_en_moyenne_14_jours_ouvr_s"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexttheveid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexteletwid"
+                android:layout_marginTop="15sp"
+                android:text="Frais de service :" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextthewtwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtexttheveid"
+                android:text="@string/la_transparence_est_notre_principe_pas_de_frais_cach_s_les_frais_de_services_permet_de_vous_assurer_plusieurs_fonctionnalit_s_et_services_tels_que_le_stockage_s_curis_de_vos_donn_es_le_traitement_des_litiges_le_support_client_les_transactions_bancaires_s_curis_es"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextththirdid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextthewtwid"
+                android:layout_marginTop="15sp"
+                android:text="
+Listes des frais :
+" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextthirdtwid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvtextththirdid"
+                android:text="@string/publier_une_demande_la_publication_d_une_demande_est_gratuite_accepter_une_offre_propos_e_pour_votre_demande_12_du_montant_de_l_offre_0_25_euros_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_montant_de_10_vous_payerez_11_45_soit_1_45_de_frais_proposer_une_offre_la_proposition_d_offre_est_gratuite_retirer_l_argent_que_vous_avez_gagn_d_une_mission_que_vous_avez_r_alis_9_du_montant_retirer_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_retrait_de_10_vous_recevrez_un_virement_de_9_1_soit_0_90_de_frais_nb_les_frais_de_services_peuvent_changer_sans_pr_avis"
+                android:layout_marginTop="15sp"
+                android:textColor="@color/Black"
+                android:textSize="14sp"
+                android:textStyle="normal"/>
+
+
+        </RelativeLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rlprizepoolToolbarId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:background="@drawable/relativeredius">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivdashboardprizepooloptionbackId"
+                    android:layout_width="30sp"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10sp"
+                    android:padding="5sp"
+                    android:src="@drawable/back" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivnotificationprizepoolId"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="15sp"
+                    android:src="@drawable/ring" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivnotificationprizepoolId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/wallet"
+                    android:textColor="@color/lessBlack"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="normal" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlprizepoolToolbarId"
+                android:background="@color/white">
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:id="@+id/as"
+                    android:layout_centerHorizontal="true"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="@dimen/_2sdp">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/prizepool" />
+
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/rlpriceeepoolid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/as"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_centerHorizontal="true">
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvpriceid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/my_credit"
+                            android:textColor="@color/Black"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlamountid"
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_below="@+id/tvpriceid"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/whitebtn">
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvpriceamtid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/_50"
+                                android:layout_marginTop="@dimen/_25sdp"
+                                android:textColor="@color/Black"
+                                android:textSize="19sp"
+                                android:textStyle="bold" />
+
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlsubmitbtnid"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@+id/rlpriceeepoolid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:background="@drawable/blankbtn">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="@dimen/_13sdp"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/withdraw_money"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlsubmitbtnid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="15sp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/des_frais_de_9_seront_d_duits_n_ex_pour_un_retrait_de_10_vous_recevrez_9_1_soit_0_9_euros_de_frais"
+                        android:textAlignment="center"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

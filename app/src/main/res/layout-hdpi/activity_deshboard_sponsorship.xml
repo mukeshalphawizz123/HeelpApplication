@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rlHomeToolbarId"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110sdp"
+        android:background="@drawable/relativeredius">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivsponsorshipdashboardbackId"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10sp"
+            android:padding="6sp"
+            android:src="@drawable/back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivnotificationId"
+            android:layout_width="28dp"
+            android:layout_height="30sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="15sp"
+            android:src="@drawable/ring" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivnotificationId"
+            android:layout_centerHorizontal="true"
+            android:letterSpacing="0.1"
+            android:text="@string/promotion_offer"
+            android:textColor="@color/lessBlack"
+            android:textSize="28dp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlHomeToolbarId"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:gravity="center_horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivgiftimageId"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_below="@+id/rbhelperprofileId"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:src="@drawable/gift" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvgifttextid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivgiftimageId"
+            android:layout_margin="@dimen/_5sdp"
+            android:lineSpacingExtra="0.1sp"
+            android:paddingTop="@dimen/_15sdp"
+            android:text="@string/keep_a_review_share_the_app_with_your_friends_and_earn_money_for_each_new_registration"
+            android:textAlignment="center"
+            android:textColor="#EE1573"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+        <!--
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iveuroId"
+                            android:layout_width="20sp"
+                            android:layout_height="20sp"
+                            android:layout_toEndOf="@+id/tvgifttextid"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginEnd="15sp"
+                            android:src="@drawable/yelloweuro" />-->
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivgiftsmileId"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_below="@+id/tvgifttextid"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="15sp"
+            android:src="@drawable/dashboardsmile" />
+
+
+        <RelativeLayout
+            android:id="@+id/RlsponsorahipId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/ivgiftsmileId"
+            android:layout_margin="20sp"
+            android:background="@drawable/dashboardbox">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginRight="5sp"
+                android:text="@string/share_the_app_and_earn_money"
+                android:textAlignment="gravity"
+                android:textColor="#445AEA"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivdashboardsettId"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_below="@+id/tvtextid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/sett" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+            android:layout_below="@+id/RlsponsorahipId">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtextboxid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="15sp"
+                android:text="@string/already_done_ask_for_your_cash_here"
+                android:textAlignment="gravity"
+                android:textColor="#445AEA"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtexticiid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15sp"
+                android:layout_toEndOf="@+id/tvtextboxid"
+                android:text="@string/ici"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textAlignment="gravity"
+                android:textColor="#EE1573"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

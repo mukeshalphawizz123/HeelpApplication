@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12sp"
+    app:cardElevation="2sp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivlogoutCloseId"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/close" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivlogoutImgId"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_below="@+id/ivlogoutCloseId"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/translator" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLogoutTagId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivlogoutImgId"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/language"
+            android:textColor="@color/Black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/Liid"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/tvLogoutTagId"
+
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cbEnglishid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:lineSpacingExtra="5sp"
+                android:text="  English"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cbfrenchiId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cbEnglishid"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:lineSpacingExtra="5sp"
+                android:text="  French "
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlOkId"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Liid"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginRight="20sp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_shape"
+            android:padding="5dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Ok"
+                android:fontFamily="@font/poppins_reguiar"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

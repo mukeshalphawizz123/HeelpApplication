@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rlmsguserid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8sp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUserMsgId"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5sp"
+            android:layout_marginTop="5dp"
+            android:padding="3dp"
+            android:src="@drawable/dummyuserimg" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5sp"
+            android:layout_toRightOf="@+id/ivUserMsgId">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUserNameMsgId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jonathan_do"
+                android:textColor="@color/tabselected"
+                android:textSize="17dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUserProffesionId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tabselected"
+                android:layout_below="@+id/tvUserNameMsgId"
+                android:text="@string/please_let_me_know"
+                android:textSize="12sp" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtimeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10sp"
+                android:textColor="@color/tabselected"
+                android:text="@string/today_4_12pm"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

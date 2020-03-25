@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivdetailbackId"
+                android:layout_width="28sp"
+                android:layout_height="33sp"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationId"
+                android:layout_width="28sp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivnotificationId"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:text="@string/post_a_demand"
+                android:textColor="@color/lessBlack"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:scrollbars="none">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <RelativeLayout
+                    android:id="@+id/rlhomeitemsid"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15sp"
+                    android:background="@drawable/homebox">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/IvItemdesImageId"
+                            android:layout_width="50sp"
+                            android:layout_height="50sp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10sp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/physique" />
+
+                        <RelativeLayout
+                            android:id="@+id/RlItemdestitleId"
+                            android:layout_width="100sp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/IvItemdesImageId"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginEnd="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@drawable/hometextbox">
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvHomeDataId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="@string/physique"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvtitlecardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlhomeitemsid"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/IvTitleImageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/title" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvtitletextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="13sp"
+                            android:layout_toEndOf="@+id/IvTitleImageid"
+                            android:text="@string/title"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/EtItemdesTitleTextid"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5sp"
+                            android:hint="@string/eg_j_ai_besoin_d_aide_pour_mon_projet"
+                            android:layout_toEndOf="@+id/tvtitletextid"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/raleway_medium"
+                            android:textColor="@color/gray"
+                            android:textSize="12sp"
+                            android:singleLine="true"
+                            android:textStyle="normal" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvdescriptionid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvtitlecardid"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginBottom="25dp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivdescriptionimageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/description" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvdescriptiontextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
+                            android:text="@string/description"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/EtItemdesId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/ivdescriptionimageid"
+                            android:layout_marginBottom="100dp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/raleway_medium"
+                            android:padding="5dp"
+                            android:textColor="@color/lessBlack"
+                            android:textSize="12sp"
+                            android:textStyle="normal" />
+
+
+                        <RelativeLayout
+                            android:id="@+id/rlbottonbtnid"
+                            android:layout_width="125sp"
+                            android:layout_height="35sp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/cardimage"
+                            android:gravity="center"
+                            android:padding="0sp">
+
+
+                            <RelativeLayout
+                                android:id="@+id/rlPieceJointId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10sp"
+                                android:layout_marginEnd="15sp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivImageid"
+                                    android:layout_width="13dp"
+                                    android:layout_height="17sp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/addfile" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ivImageid"
+                                    android:singleLine="true"
+                                    android:text="@string/piece_jointe"
+                                    android:textColor="@color/white"
+                                    android:textSize="9sp" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rlPieceId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10sp"
+                                android:layout_marginEnd="10sp"
+                                android:layout_toEndOf="@+id/rlPieceJointId">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/ivaddimageid"
+                                    android:layout_width="13sp"
+                                    android:layout_height="17dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/addimage" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ivaddimageid"
+                                    android:singleLine="true"
+                                    android:text="@string/image"
+                                    android:textColor="@color/white"
+                                    android:textSize="9sp" />
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvbudgetcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvdescriptionid"
+                    android:layout_marginStart="30sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="30sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="20sp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivbudgetimageid"
+                            android:layout_width="40sp"
+                            android:layout_height="40sp"
+                            android:layout_marginStart="5sp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginBottom="5sp"
+                            android:src="@drawable/budget" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvbugettextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5sp"
+                            android:layout_toEndOf="@+id/ivbudgetimageid"
+                            android:text="Ton Budget:"
+                            android:textColor="@color/Black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15sp">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/EtItemdesBudgetId"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5sp"
+                                android:background="@android:color/transparent"
+                                android:inputType="number"
+                                android:maxLength="8"
+                                android:text="500"
+                                android:textColor="@color/blue"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/EtItemdesBudgetId"
+                                android:src="@drawable/euro" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlpublishapplicationid"
+                    android:layout_width="210dp"
+                    android:layout_height="55sp"
+                    android:layout_below="@+id/cvbudgetcardid"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/blankbtn"
+                    android:gravity="center">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_9sdp"
+                        android:text="@string/post_your_demand"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ProgressBar
+                android:id="@+id/PbitemdescriptionId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

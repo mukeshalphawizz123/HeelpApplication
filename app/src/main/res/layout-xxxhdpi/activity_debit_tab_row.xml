@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:background="@color/white"
+       android:layout_height="wrap_content">
+
+
+       <androidx.cardview.widget.CardView
+           android:id="@+id/cvdebitcardprojectid"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/rldebittabid"
+           android:layout_marginStart="@dimen/_25sdp"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_marginEnd="@dimen/_25sdp"
+           android:layout_marginBottom="@dimen/_10sdp"
+           app:cardBackgroundColor="@color/lessgray"
+           app:cardCornerRadius="@dimen/_17sdp"
+           app:cardElevation="@dimen/_8sdp">
+
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/_2sdp"
+               android:layout_marginBottom="@dimen/_2sdp">
+
+               <androidx.appcompat.widget.AppCompatTextView
+                   android:id="@+id/tvdebitdatetimeid"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/_2_sept_2019"
+                   android:textColor="@color/gray"
+                   android:textSize="@dimen/_12sdp"
+                   android:textStyle="normal" />
+
+
+               <androidx.appcompat.widget.AppCompatTextView
+                   android:id="@+id/tvdebitprojecttitleid"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tvdebitdatetimeid"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/project_title"
+                   android:textColor="@color/tabselected"
+                   android:textSize="@dimen/_12sdp"
+                   android:textStyle="normal" />
+
+
+               <androidx.appcompat.widget.AppCompatTextView
+                   android:id="@+id/tvdebitprojetcostid"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tvdebitprojecttitleid"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="15sp"
+                   android:text="@string/_100"
+                   android:textColor="#E56D6D"
+                   android:textSize="@dimen/_17sdp"
+                   android:textStyle="bold" />
+
+
+               <androidx.appcompat.widget.AppCompatTextView
+                   android:id="@+id/tvdebitprojectdescriptionid"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/tvdebitprojetcostid"
+                   android:layout_centerHorizontal="true"
+                   android:text="@string/project_of_user_name_of_byer_seller"
+                   android:textColor="@color/tabselected"
+                   android:textSize="@dimen/_12sdp"
+                   android:textStyle="normal" />
+
+
+           </RelativeLayout>
+
+       </androidx.cardview.widget.CardView>
+
+   </RelativeLayout>
+
+</layout>

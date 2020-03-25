@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:background="@drawable/relativeredius">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivdashboardbackId"
+                android:layout_width="30sp"
+                android:layout_height="33dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationId"
+                android:layout_width="28dp"
+                android:layout_height="30sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivnotificationId"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25sp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ivmissionid"
+                    android:text="@string/open_a_dispute"
+                    android:textColor="@color/Black"
+                    android:textSize="22dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_below="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/rltextid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginEnd="10sp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvhelptextid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/do_you_want_to_open_a_dispute"
+                        android:textColor="@color/Black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvhelptexttwoid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvhelptextid"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/si_oui_erci_de_preciser_la_nature_du_probleme"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvhelptextthreeid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvhelptexttwoid"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:singleLine="true"
+                        android:text="@string/si_non_pour_toute_autre_demande_merci_de_nous_ecrire_via"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvhelptextfourid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvhelptextthreeid"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/la_page_de_contact_en_cliquant_ici"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlcontactId"
+                        android:layout_width="100sp"
+                        android:layout_height="40sp"
+                        android:layout_below="@+id/tvhelptextthreeid"
+                        android:layout_toEndOf="@+id/tvhelptextfourid"
+                        android:background="@drawable/graybox">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="@string/contact_here"
+                            android:textColor="@color/lessBlack"
+                            android:textSize="11sp"
+                            android:textStyle="normal" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlsupportboxid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rltextid"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10sp"
+                    android:background="@drawable/descriptionbox">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/description_of_the_dispute"
+                        android:padding="5sp"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlsubmitbtnid"
+                    android:layout_width="170dp"
+                    android:layout_height="60sp"
+                    android:layout_below="@+id/rlsupportboxid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="15sp"
+                    android:background="@drawable/blankbtn">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"
+                        android:text="@string/open"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_9sdp"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlsubmitbtnid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="15sp"
+                    android:layout_marginBottom="25sp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvheelpid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contact_heelp_team"
+                        android:textColor="@color/Black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvmailidid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvheelpid"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/contact_heelp_com"
+                        android:textColor="@color/Black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

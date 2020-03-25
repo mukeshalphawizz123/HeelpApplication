@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15sp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="155sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/proposeebackg">
+
+
+            <RelativeLayout
+                android:id="@+id/rlmymisssionitemsid"
+                android:layout_width="90sp"
+                android:layout_height="90sp"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/homebox">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivmymissionid"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10sp"
+                        android:padding="@dimen/_6sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/chemistry" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="25sp"
+                        android:layout_below="@+id/ivmymissionid"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/_6sdp"
+                        android:layout_marginTop="3sp"
+                        android:layout_marginRight="@dimen/_6sdp"
+                        android:layout_marginBottom="7sp"
+                        android:background="@drawable/hometextbox">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvHomeDataId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:text="@string/chemistry"
+                            android:textColor="@color/Black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlofferid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlmymisssionitemsid"
+                android:layout_marginStart="12sp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="15sp">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvofferid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/offers"
+                    android:textColor="@color/Black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tvofferid"
+                    android:text="100€"
+                    android:textColor="#33D048"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rltextandtimneeidd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/rlmymisssionitemsid">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="15dp"
+                    android:text="2 days ago"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_8sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="40sp"
+                    android:text="@string/i_can_do_the_job_for_you"
+                    android:textColor="@color/viewDetailColor"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RlmissionproposeId"
+                android:layout_width="136dp"
+                android:layout_height="34dp"
+                android:layout_below="@+id/rltextandtimneeidd"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="5sp"
+                android:layout_toEndOf="@+id/rlofferid"
+                android:background="@drawable/discruterbtn">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/discuss"
+                    android:textColor="@color/bluee"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</layout>

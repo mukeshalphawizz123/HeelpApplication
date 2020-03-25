@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivlogoid"
+                android:layout_width="180dp"
+                android:layout_height="100sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/logo" />
+
+            <RelativeLayout
+                android:id="@+id/ivnextpasserid"
+                android:layout_width="100sp"
+                android:layout_height="55dp"
+                android:layout_marginTop="@dimen/_70sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="15sp"
+                android:background="@drawable/btnone"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="2dp">
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/skip"
+                    android:textColor="@color/lessBlack"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlviewpagerid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomrel"
+                android:layout_below="@+id/ivlogoid">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vpFirstBannerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginRight="5sp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tlFirstBannerId"
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp"
+                    android:layout_below="@+id/vpFirstBannerId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="100sp"
+                    android:layout_marginTop="20sp"
+                    android:layout_marginRight="100sp"
+                    android:layout_marginBottom="1sp"
+                    android:visibility="visible"
+                    app:tabBackground="@drawable/tab_big_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabTextColor="@android:color/transparent" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bottomrel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="25sp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvsplashtextid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sweep_to_next_page"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivbackarrowid"
+                    android:layout_width="22dp"
+                    android:layout_height="21dp"
+                    android:layout_below="@+id/tvsplashtextid"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="9dp"
+                    android:src="@drawable/backarrow" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlCestPartiId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivbackarrowid"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/splashbtn"
+                    android:visibility="gone">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:text="@string/go"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

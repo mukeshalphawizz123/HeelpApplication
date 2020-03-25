@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rlHomeToolbarId"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:background="@drawable/relativeredius">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivdashboardcreditcardbackId"
+                android:layout_width="30sp"
+                android:layout_height="33dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationcreditcardId"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="15sp"
+                android:src="@drawable/ring" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:text="@string/transactions"
+                android:textColor="@color/tabselected"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rltoolbarid"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_75sdp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rltoolbarid"
+            android:layout_marginStart="10sp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/ic_tab_indicator"
+            app:tabIndicatorColor="@color/Black"
+            app:tabIndicatorHeight="6dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/white"
+            app:tabSelectedTextColor="@color/Black"
+            app:tabTextAppearance="@style/tab_text"
+            app:tabTextColor="@color/gray" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabLayoutId"
+            android:layout_marginTop="-8dp"
+            android:layout_marginBottom="7dp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/as">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rllogoid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivlogoid"
+                    android:layout_width="180dp"
+                    android:layout_height="100sp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/logo" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rllogoid"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvloginid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:text="Register"
+                    android:textColor="@color/Black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+                <!--  <RelativeLayout
+                      android:id="@+id/rlsignupbackgroundid"
+                      android:layout_width="match_parent"
+                      android:layout_marginLeft="15sp"
+                      android:layout_marginRight="15sp"
+                      android:background="@drawable/asd"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@+id/tvloginid" >-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvloginid"
+                    android:layout_marginBottom="@dimen/_15sdp">
+
+                    <LinearLayout
+                        android:id="@+id/cvloginid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:layout_marginEnd="@dimen/_18sdp"
+                        android:background="@drawable/rounded_rectangle"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_25sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivemailId"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/email" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etemailsignupid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ivemailId"
+                                android:background="@android:color/transparent"
+                                android:gravity="left"
+                                android:textSize="16dp"
+                                android:textStyle="normal">
+
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiewEmailsignupId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10sp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="@string/email"
+                                    android:inputType="text"
+                                    android:padding="4dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/Black"
+                                    android:textColorHint="@color/blue"
+                                    android:textSize="16dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/ViewIdemailRe"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivemailId"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginEnd="25dp"
+                            android:background="@color/colorAccent" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="25dp">
+
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivEmailSignId"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/user" />
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etemailid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@+id/ivEmailSignId"
+                                android:background="@android:color/transparent"
+                                android:gravity="left"
+                                android:textSize="16dp"
+                                android:textStyle="normal">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiewUsernameId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10sp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="@string/user_name"
+                                    android:inputType="text"
+                                    android:padding="4dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/Black"
+                                    android:textColorHint="@color/blue"
+                                    android:textSize="16dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/viewUserId"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivEmailSignId"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:background="@color/colorAccent" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_25sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivpasswordid"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/key" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etpasswordid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ivpasswordid"
+                                android:background="@android:color/transparent"
+                                android:gravity="left"
+                                android:textSize="16dp"
+                                android:textStyle="normal">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiewPasswordId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="@string/password"
+                                    android:inputType="textPassword"
+                                    android:padding="4dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/Black"
+                                    android:textColorHint="@color/blue"
+                                    android:textSize="16dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/viewPasswordId"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivpasswordid"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:background="@color/colorAccent" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_25sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivcomfirmpasswordid"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/key" />
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etcomfirmpasswordid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ivcomfirmpasswordid"
+                                android:background="@android:color/transparent"
+                                android:gravity="left"
+                                android:textSize="16dp"
+                                android:textStyle="normal">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiewcomfirmPasswordId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="@string/comfirm_password"
+                                    android:inputType="textPassword"
+                                    android:padding="4dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/Black"
+                                    android:textColorHint="@color/blue"
+                                    android:textSize="16dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/viewIdpasswordconfirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivpasswordid"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:background="@color/colorAccent" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/cvloginid"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <RelativeLayout
+                            android:id="@+id/rlradioid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp">
+
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/radioid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15sp"
+                                android:layout_marginTop="15sp"
+                                android:button="@drawable/custom_checkbox"
+                                android:text="@string/remember_me"
+                                android:textColor="@color/Black"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <RelativeLayout
+                                android:id="@+id/rlnextpageid"
+                                android:layout_width="@dimen/_100sdp"
+                                android:layout_height="@dimen/_60sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="-1dp"
+                                android:background="@drawable/half_blue_box"
+                                android:gravity="left|center_vertical"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:paddingBottom="@dimen/_5sdp"
+                                    android:text="@string/register"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/checkboxloginid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/rlnextpageid"
+                                android:layout_marginStart="17dp"
+                                android:layout_marginTop="15sp"
+                                android:layout_marginEnd="10sp"
+                                android:buttonTint="#4ADF4D"
+                                android:checked="true"
+                                android:singleLine="true"
+                                android:text="@string/i_accept_terms"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:layout_editor_absoluteX="386dp" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvtermsandconditionid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/checkboxloginid"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/see_more"
+                                android:textColor="@color/Black"
+                                android:textSize="13dp"
+                                android:textStyle="normal" />
+
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/rlradioid"
+                            android:layout_marginTop="15sp"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:id="@+id/rlFacbookLoginId"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="45dp"
+                                android:layout_marginTop="15sp"
+                                android:layout_marginRight="45dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/fbbtn"
+                                android:gravity="center"
+                                android:padding="2dp">
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/rlgoogleLoginId"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="45dp"
+                                android:layout_marginTop="5sp"
+                                android:layout_marginRight="45dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/googlebtn"
+                                android:gravity="center"
+                                android:padding="2dp">
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="25dp">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvdonthaveaccountid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@string/you_already_have_an_account"
+                                    android:textColor="@color/gray"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvsignuptologinid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvdonthaveaccountid"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@string/log_in"
+                                    android:textColor="#15A8DB"
+                                    android:textSize="16dp"
+                                    android:textStyle="normal" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+                <!--   </RelativeLayout>-->
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/pbLoginId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

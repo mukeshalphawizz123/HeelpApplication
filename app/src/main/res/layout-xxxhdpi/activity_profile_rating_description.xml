@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rlprofileid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivbackmsgfeedbackId"
+                    android:layout_width="30sp"
+                    android:layout_height="35sp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10sp"
+                    android:padding="6dp"
+                    android:src="@drawable/back" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvhelperprofileid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/reviews"
+                    android:textColor="@color/Black"
+                    android:textSize="30sp"
+                    android:textStyle="normal" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivnotificationuserprofileId"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="15sp"
+                    android:src="@drawable/ring" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivuserprofileimageId"
+                    android:layout_width="130sp"
+                    android:layout_height="130sp"
+                    android:layout_below="@+id/rbhelperprofileId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginEnd="15sp"
+                    android:src="@drawable/userprofileimage" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvnameid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivuserprofileimageId"
+                    android:layout_centerHorizontal="true"
+                    android:text="Mr. Smith"
+                    android:textColor="@color/lessBlack"
+                    android:textSize="18sp"
+                    android:textStyle="normal" />
+
+                <RatingBar
+                    android:id="@+id/rbhelperprofileId"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvhelperprofileid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6sp"
+                    android:progressTint="#D8FF7F00"
+                    android:rating="3.5"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:transformPivotX="0dp"
+                    android:transformPivotY="0dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvnameid"
+                    android:layout_marginTop="15sp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvratinglistid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <ProgressBar
+                        android:id="@+id/PbgetuserreviewsId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"/>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</layout>

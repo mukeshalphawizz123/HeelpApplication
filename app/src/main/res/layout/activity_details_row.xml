@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvfilenameid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/file_name"
+                android:textAlignment="center"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/_6sdp"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@+id/tvfilenameid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:src="@drawable/fileupload" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</layout>

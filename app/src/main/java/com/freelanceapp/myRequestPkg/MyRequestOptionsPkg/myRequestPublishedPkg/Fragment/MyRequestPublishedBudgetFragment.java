@@ -1,0 +1,11 @@
+package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment;
+
+import androidx.fragment.app.Fragment;
+
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedBudgetAdapter;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedDateAdapter;
+
+public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequestPublishedBudgetAdapter.MyRequestPublishedBudgetAppOnClickListener {
+
+
+}

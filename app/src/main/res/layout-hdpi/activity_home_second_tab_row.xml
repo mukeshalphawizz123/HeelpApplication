@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="15sp"
+    android:layout_marginTop="20sp"
+    android:layout_marginEnd="15sp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="160sp"
+        android:background="@drawable/proposeebackg">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivMissionImageid"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitXY" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/TvdurationId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15sp"
+            android:text="@string/_2_days_ago"
+            android:textColor="@color/gray"
+            android:textSize="13dp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescriptionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="30sp"
+            android:layout_marginEnd="5sp"
+            android:layout_toEndOf="@+id/ivMissionImageid"
+            android:text="@string/i_need_help_for_something_that_i_have_posted_a_task"
+            android:textColor="@color/Black"
+            android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivMissionImageid"
+            android:gravity="center_vertical"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:id="@+id/rlbudgetId"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvbudgettextId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginTop="5sp"
+                    android:text="@string/budget"
+                    android:textColor="@color/Black"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/TvBudgetId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7sp"
+                    android:layout_toEndOf="@+id/tvbudgettextId"
+                    android:text="@string/_100"
+                    android:textColor="@color/green"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rldiscuterid"
+                android:layout_width="0sp"
+                android:layout_height="44sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10sp"
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/RlDiscussId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3sp"
+                    android:background="@drawable/user_rounded_back">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="45sp"
+                        android:src="@drawable/circleimg"
+                        android:text="@string/discuss"
+                        android:textColor="@color/blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivUserImageId"
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/circleimg" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RlacceptofferId"
+                android:layout_width="0sp"
+                android:layout_height="44sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10sp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_rounded">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10sp"
+                    android:src="@drawable/circleimg"
+                    android:text="@string/make_an_offer"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
