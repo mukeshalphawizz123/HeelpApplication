@@ -350,7 +350,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void loadImage(Uri imageUri, ImageView ivImage) {
-        Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
+          Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
+         // Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
 
     }
 
