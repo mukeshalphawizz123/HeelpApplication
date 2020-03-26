@@ -21,6 +21,7 @@ import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.dema
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.freelanceapp.myRequestPkg.myRequestModlePkg.MyDemandeModel;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
+import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.freelanceapp.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
@@ -126,20 +127,20 @@ public interface ApiServices {
 
     @Multipart
     @POST("Authentication/editProfile")
-    Call<SendProjectProgDetailModle> updateProfile(@Part MultipartBody.Part profile_id,
-                                                   @Part MultipartBody.Part name,
-                                                   @Part MultipartBody.Part email,
-                                                   @Part MultipartBody.Part username,
-                                                   @Part MultipartBody.Part password,
-                                                   @Part MultipartBody.Part dob,
-                                                   @Part MultipartBody.Part country,
-                                                   @Part MultipartBody.Part picture_url,
-                                                   @Part MultipartBody.Part presentation,
-                                                   @Part MultipartBody.Part level_of_study,
-                                                   @Part MultipartBody.Part school_college,
-                                                   @Part MultipartBody.Part skill,
-                                                   @Part MultipartBody.Part field_of_study,
-                                                   @Part MultipartBody.Part categroy_of_interest);
+    Call<UpdateProfileModle> updateProfile(@Part MultipartBody.Part profile_id,
+                                           @Part MultipartBody.Part name,
+                                           @Part MultipartBody.Part email,
+                                           @Part MultipartBody.Part username,
+                                           @Part MultipartBody.Part password,
+                                           @Part MultipartBody.Part dob,
+                                           @Part MultipartBody.Part country,
+                                           @Part MultipartBody.Part picture_url,
+                                           @Part MultipartBody.Part presentation,
+                                           @Part MultipartBody.Part level_of_study,
+                                           @Part MultipartBody.Part school_college,
+                                           @Part MultipartBody.Part skill,
+                                           @Part MultipartBody.Part field_of_study,
+                                           @Part MultipartBody.Part categroy_of_interest);
 
 
     @FormUrlEncoded

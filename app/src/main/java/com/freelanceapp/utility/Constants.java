@@ -4,6 +4,9 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +41,19 @@ public class Constants {
     public static String MY_REQUEST_COMPLETE_FRAGMENT="MyDemandsCompleteeActivity";
     public static String MY_REQUEST_OPENLITIGATION_FRAGMENT="MyRequestOpenlitigationActivity";
     public static String DETAILS_ACTIVITY="DetailsActivity";
+    public static String USERID="user_id";
+    public static String USERNAME="user_name";
+    public static String ROLE="user_role";
+    public static String NAME="name";
+    public static String FIRST_NAME="first_name";
+    public static String LAST_NAME="last_name";
+    public static String EMAIL="email";
+    public static String MOBILE_NO="mobile_no";
+    public static String PROFILE_URL="profile_url";
+    public static String PICTURE_URL="picture_url";
+
+
+
 
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();

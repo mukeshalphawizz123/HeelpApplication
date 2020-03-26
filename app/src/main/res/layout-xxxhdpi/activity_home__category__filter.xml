@@ -28,7 +28,7 @@
 
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/tvPapularId"
+                android:id="@+id/EtsearchId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5sp"
@@ -45,7 +45,7 @@
                 android:id="@+id/vPapularId"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/tvPapularId"
+                android:layout_below="@+id/EtsearchId"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
                 android:background="@color/gray" />

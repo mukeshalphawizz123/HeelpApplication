@@ -3,6 +3,7 @@ package com.freelanceapp.plusMorePkg;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,10 +24,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.freelanceapp.ApiPkg.ApiServices;
+import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.EditProfileConfirmation;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
@@ -35,6 +39,8 @@ import com.freelanceapp.databinding.ActivityPlusMoreBinding;
 import com.freelanceapp.homePkg.HomeActivity;
 import com.freelanceapp.paymentPkg.DashboardPaymentActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActivity;
+import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
+import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.YourMission;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
@@ -43,10 +49,20 @@ import com.freelanceapp.userProfileRatingPkg.ProfileRatingDescriptionActivity;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.PrefData;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMoreAppOnClickListener, View.OnClickListener {
     private RelativeLayout rlsponsorship, rlpayment, rlparameters, rlsupport,
@@ -56,6 +72,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private RadioButton radiofrench, radioenglish;
     private boolean flagmale = false;
     private boolean flagfemale = false;
+    private ApiServices apiServices;
 
     private CircularProgressIndicator donutprogress;
     // private ImageView IvUserProfileNotifi;
@@ -64,18 +81,33 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     Context con;
     PrefData prefData;
     private String language;
+    private ProgressBar pbUserEditProfile;
+    private List<YourMission> yourMissionList;
+    private CircleImageView ivuserprofileimage;
+    private AppCompatTextView tvname, tvdesination;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityPlusMoreBinding = DataBindingUtil.inflate(inflater, R.layout.activity_plus_more, container, false);
         View view = activityPlusMoreBinding.getRoot();
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
         prefData = new PrefData(getActivity());
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            getProfileApi("1");
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
 
     private void init(View view) {
+        pbUserEditProfile = view.findViewById(R.id.pbUserEditProfileId);
         IvUserProfilesettings = view.findViewById(R.id.IvUserProfilesettingsId);
+        tvdesination = view.findViewById(R.id.tvdesinationid);
+        tvname = view.findViewById(R.id.tvnameid);
+        ivuserprofileimage = view.findViewById(R.id.ivuserprofileimageId);
         IvUserProfilesettings.setOnClickListener(this);
 
         IvUserProfileNotifi = view.findViewById(R.id.IvUserProfileNotifiId);
@@ -297,4 +329,50 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         dialog.show();
 
     }
+
+    private void getProfileApi(String user_id) {
+        pbUserEditProfile.setVisibility(View.VISIBLE);
+        apiServices.getMyProfile(user_id).enqueue(new Callback<GetProfileModle>() {
+            @Override
+            public void onResponse(Call<GetProfileModle> call, Response<GetProfileModle> response) {
+                if (response.isSuccessful()) {
+                    pbUserEditProfile.setVisibility(View.GONE);
+                    GetProfileModle missionlist = response.body();
+                    if (missionlist.getStatus() == true) {
+                        yourMissionList = missionlist.getYourMissions();
+                        tvname.setText(yourMissionList.get(0).getFirstName() + " " + yourMissionList.get(0).getUsername());
+                        tvdesination.setText(yourMissionList.get(0).getSkills());
+                        Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                .get(0).getPictureUrl()).into(ivuserprofileimage);
+
+
+                    }
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbUserEditProfile.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProfileModle> call, Throwable t) {
+                pbUserEditProfile.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
 }

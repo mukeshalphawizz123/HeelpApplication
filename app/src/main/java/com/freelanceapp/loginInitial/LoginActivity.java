@@ -26,6 +26,7 @@ import com.freelanceapp.OptionActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.signUpInitial.SignupActivity;
 import com.freelanceapp.homePkg.HomeActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.StatusBarManagment;
@@ -90,8 +91,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlnextpagerid:
-                 CheckNetwork.nextScreen(LoginActivity.this, HomeActivity.class);
-               // validation(v);
+                CheckNetwork.nextScreen(LoginActivity.this, HomeActivity.class);
+                // validation(v);
                 break;
             case R.id.tvsignuppageid:
                 CheckNetwork.nextScreen(LoginActivity.this, SignupActivity.class);
@@ -143,10 +144,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Loginmodel getLoginModle = response.body();
                     if (getLoginModle.getStatus() == true) {
 
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().getId());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().getUsername());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.EMAIL, getLoginModle.getData().getEmail());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.PICTURE_URL, getLoginModle.getData().getProfileUrl());
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        // CheckNetwork.nextScreen(LoginActivity.this, HomeActivity.class);
                     }
                 } else {
                     if (response.code() == 400) {

@@ -57,7 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostADemandActivity extends AppCompatActivity implements View.OnClickListener,BSImagePicker.OnMultiImageSelectedListener, BSImagePicker.ImageLoaderDelegate,SelectImageAdapter. SelectImageOnClickListener{
+public class PostADemandActivity extends AppCompatActivity implements View.OnClickListener, BSImagePicker.OnMultiImageSelectedListener, BSImagePicker.ImageLoaderDelegate, SelectImageAdapter.SelectImageOnClickListener {
     private RelativeLayout rlpublishapplication, RlItemdestitle, rlPieceJoint, rlPiece;
     private ImageView ivdetailback, ivnotification, IvItemdesImage;
     private TextView tvHomeData;
@@ -75,6 +75,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private static Animation shakeAnimation;
     private RecyclerView rvselectimageId;
     private SelectImageAdapter selectImageAdapter;
+
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
@@ -166,7 +167,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
-       // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
+        // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
         // MultipartBody.Part project_file = MultipartBody.Part.createFormData("project_file", String.valueOf(file));
         // MultipartBody.Part imgFileStationDoc = MultipartBody.Part.createFormData("project_image", String.valueOf(image));
         apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, imgFileStation)
@@ -275,7 +276,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
     private void validation(View v) {
         if (EtItemdesTitleText.getText().toString().isEmpty()) {
-            new CustomToast().Show_Toast(this, v, "Can't Empty");
+            new CustomToast().Show_Toast(this, v, "Title Can't Empty");
             EtItemdesTitleText.startAnimation(shakeAnimation);
             EtItemdesTitleText.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         } else {
@@ -350,8 +351,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void loadImage(Uri imageUri, ImageView ivImage) {
-          Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
-         // Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
+        Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
+        // Glide.with(PostADemandActivity.this).load(imageUri).into(ivImage);
 
     }
 
