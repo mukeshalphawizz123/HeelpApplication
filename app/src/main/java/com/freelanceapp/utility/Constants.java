@@ -34,8 +34,8 @@ public class Constants {
     public static String MY_MISSION_DISPUTE_ACTIVITY="MyMissionInDisputeActivity";
     public static String MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT="MyRequestPublishedTablayoutFragment";
     public static String MY_REQUEST_ONGOING_FRAGMENT="MyDemandsOngoingActivity";
-    public static String MY_REQUEST_LIVERY_FRAGMENT="MyRequestLiveryActivity";
-    public static String MY_REQUEST_COMPLETE_FRAGMENT="MyRequestCompleteeActivity";
+    public static String MY_REQUEST_LIVERY_FRAGMENT="MyDemandsDeliveryActivity";
+    public static String MY_REQUEST_COMPLETE_FRAGMENT="MyDemandsCompleteeActivity";
     public static String MY_REQUEST_OPENLITIGATION_FRAGMENT="MyRequestOpenlitigationActivity";
     public static String DETAILS_ACTIVITY="DetailsActivity";
 

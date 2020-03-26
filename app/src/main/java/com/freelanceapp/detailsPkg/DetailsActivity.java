@@ -122,13 +122,13 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
                 } else if (onGoing.equalsIgnoreCase("MyReqLivree")) {
                     removeThisFragment();
-                    //replaceFragement(new MyRequestLiveryActivity());
-                    // addFragment(new MyRequestLiveryActivity(), false, Constants.MY_REQUEST_LIVERY_FRAGMENT);
+                    //replaceFragement(new MyDemandsDeliveryActivity());
+                    // addFragment(new MyDemandsDeliveryActivity(), false, Constants.MY_REQUEST_LIVERY_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqCompletee")) {
                     removeThisFragment();
-                    // replaceFragement(new MyRequestCompleteeActivity());
-                    // addFragment(new MyRequestCompleteeActivity(), false, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
+                    // replaceFragement(new MyDemandsCompleteeActivity());
+                    // addFragment(new MyDemandsCompleteeActivity(), false, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqEnlitige")) {
                     removeThisFragment();

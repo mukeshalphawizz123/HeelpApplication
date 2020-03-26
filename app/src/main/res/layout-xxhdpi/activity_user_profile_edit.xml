@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".UserProfileEditActivity">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                     android:id="@+id/ivnotificationeditprofileId"
                     android:layout_width="28sp"
                     android:layout_height="28sp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="15sp"
@@ -160,10 +159,10 @@
                         android:layout_marginEnd="15sp"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
-                        android:maxLength="20"
                         android:textStyle="normal" />
 
 
@@ -205,10 +204,10 @@
                         android:layout_marginEnd="15sp"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
-                        android:maxLength="20"
                         android:textStyle="normal" />
 
 
@@ -237,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:text="Statut"
+                        android:text="@string/status"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -322,8 +321,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/password"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
@@ -339,10 +338,10 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
                         android:inputType="textPassword"
+                        android:maxLength="10"
                         android:singleLine="true"
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
-                        android:maxLength="10"
                         android:textStyle="normal" />
 
 
@@ -394,7 +393,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50sp"
                         android:layout_marginStart="95dp"
-                        android:layout_marginLeft="5sp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:fontFamily="@font/poppins_reguiar"
                         android:maxLines="1"
@@ -425,8 +423,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/country"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
@@ -442,23 +440,22 @@
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
                         android:inputType="text"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
-                        android:maxLength="20"
                         android:textStyle="normal" />
 
 
                 </RelativeLayout>
 
 
-
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rlcountryid"
                     android:layout_margin="15sp"
-                    android:id="@+id/card"
                     android:layout_marginBottom="40sp"
                     app:cardBackgroundColor="@color/lessgray"
                     app:cardCornerRadius="15sp"
@@ -486,7 +483,7 @@
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/presentation"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -494,13 +491,12 @@
                             android:id="@+id/tvpresentationidd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
                             android:layout_below="@+id/tvdescriptiontextid"
                             android:layout_marginTop="5sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
+                            android:background="@android:color/transparent"
                             android:textColor="@color/gray"
-                            android:textSize="13dp"
+                            android:textSize="13sp"
                             android:textStyle="normal" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -510,7 +506,7 @@
                             android:layout_below="@+id/tvpresentationidd"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="Niveau d'etudes:"
+                            android:text="@string/level_of_studies"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -521,14 +517,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvpresentationidd"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginStart="10sp"
                             android:layout_marginTop="13dp"
-                            android:background="@android:color/transparent"
                             android:layout_toEndOf="@+id/tvlevelofstudyid"
-                            android:text="@string/ex_bac_4"
+                            android:background="@android:color/transparent"
+
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
+
 
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -538,25 +535,26 @@
                             android:layout_below="@+id/tvlevelofstudyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="Domaine d'etudes:"
+                            android:text="@string/field_of_studies"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvfiledofstudyyid"
                             android:layout_width="wrap_content"
-                            android:background="@android:color/transparent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvlevelofstudyyid"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginStart="10sp"
                             android:layout_marginTop="13dp"
                             android:layout_toEndOf="@+id/tvfiledofstudyid"
-                            android:text="@string/ex_ingerierie_medecine"
+                            android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
+
+
 
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -566,9 +564,9 @@
                             android:layout_below="@+id/tvfiledofstudyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="@string/universite_ecole"
+                            android:text="@string/university_school"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -577,14 +575,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvfiledofstudyid"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginStart="10sp"
                             android:layout_marginTop="13dp"
                             android:layout_toEndOf="@+id/tvunivercityid"
-                            android:text="@string/ex_universite_de_paris"
+                            android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
-                            android:background="@android:color/transparent"
                             android:textStyle="normal" />
+
+
 
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -594,9 +593,9 @@
                             android:layout_below="@+id/tvunivercityid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="Categories d'interest sur heelp:"
+                            android:text="@string/categories_of_interest_on_heelp"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -605,11 +604,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvcategoriesid"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginStart="10sp"
                             android:layout_marginTop="5sp"
-                            android:background="@android:color/transparent"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="@string/mecanique_langues"
+                            android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
@@ -622,9 +620,9 @@
                             android:layout_below="@+id/tvcategoriessid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="@string/competences"
+                            android:text="@string/skills"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -633,13 +631,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvcategoriessid"
-                            android:layout_marginLeft="10sp"
+                            android:layout_marginStart="10sp"
                             android:layout_marginTop="13dp"
                             android:layout_toEndOf="@+id/tvcompetencesid"
-                            android:text="@string/mecanique_infomatique"
+                            android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
-                            android:background="@android:color/transparent"
                             android:textStyle="normal" />
 
 
@@ -649,7 +646,6 @@
                 </androidx.cardview.widget.CardView>
 
 
-
                 <RelativeLayout
                     android:id="@+id/rlnextpagerid"
                     android:layout_width="@dimen/_130sdp"
@@ -657,19 +653,19 @@
                     android:layout_below="@+id/card"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="20sp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="20sp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/button_shape"
                     android:padding="2dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:gravity="center"
                         android:paddingBottom="@dimen/_5sdp"
                         android:text="@string/save"
-                        android:gravity="center"
-                        android:layout_centerInParent="true"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -684,4 +680,10 @@
 
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/pbUserEditProfileId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 </RelativeLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="level_of_studies">Level of studies:</string>
+    <string name="field_of_studies">Field of studies:</string>
+    <string name="university_school">University / School:</string>
+    <string name="categories_of_interest_on_heelp">Categories of interest on heelp:</string>
+    <string name="skills">Skills</string>
+</resources>

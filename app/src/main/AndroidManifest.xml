@@ -70,10 +70,10 @@
             android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity"
+            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity"
+            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"

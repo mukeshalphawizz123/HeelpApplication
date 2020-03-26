@@ -152,15 +152,16 @@
 
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivdummyimgid"
+                            android:id="@+id/ivUserDemandCompId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
                             android:src="@drawable/dummyuserimg" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvUserDemandCompId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivdummyimgid"
+                            android:layout_below="@+id/ivUserDemandCompId"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="10sp"
                             android:text="@string/zeeshan"
@@ -189,6 +190,7 @@
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCommentDemandComplId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvtextidd"
@@ -225,7 +227,20 @@
 
 
         </ScrollView>
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/pbDemandCompleteId"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

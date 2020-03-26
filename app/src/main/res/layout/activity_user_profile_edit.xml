@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".UserProfileEditActivity">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -85,6 +84,8 @@
                     android:textColor="@color/lessBlack"
                     android:textSize="19sp"
                     android:textStyle="normal" />
+
+
 
 
                 <RelativeLayout
@@ -167,6 +168,7 @@
                         android:textStyle="normal" />
 
 
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -237,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:text="Statut"
+                        android:text="@string/status"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -255,6 +257,8 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
                         android:textStyle="normal" />
+
+
 
 
                 </RelativeLayout>
@@ -299,6 +303,9 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="16sp"
                         android:textStyle="normal" />
+
+
+
 
 
                 </RelativeLayout>
@@ -402,6 +409,8 @@
                         android:textAlignment="textStart"
                         android:textColor="@color/Black"
                         android:textSize="14sp" />
+
+
 
                 </RelativeLayout>
 
@@ -508,7 +517,7 @@
                             android:layout_below="@+id/tvpresentationidd"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="niveau d'etudes:"
+                            android:text="@string/level_of_studies"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -536,7 +545,7 @@
                             android:layout_below="@+id/tvlevelofstudyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="domaine d'etudes:"
+                            android:text="@string/field_of_studies"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -564,7 +573,7 @@
                             android:layout_below="@+id/tvfiledofstudyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="@string/universite_ecole"
+                            android:text="@string/university_school"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -592,7 +601,7 @@
                             android:layout_below="@+id/tvunivercityid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="Categories d'interest sur heelp:"
+                            android:text="@string/categories_of_interest_on_heelp"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -620,7 +629,7 @@
                             android:layout_below="@+id/tvcategoriessid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
-                            android:text="@string/competences"
+                            android:text="@string/skills"
                             android:textColor="@color/Black"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -679,5 +688,13 @@
 
 
     </ScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/pbUserEditProfileId"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

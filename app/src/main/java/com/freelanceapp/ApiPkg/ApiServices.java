@@ -16,8 +16,11 @@ import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressMo
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.freelanceapp.myRequestPkg.myRequestModlePkg.MyDemandeModel;
+import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.freelanceapp.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
@@ -62,6 +65,11 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
+    @POST("Authentication/myprofilebyid")
+    Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
     @POST("Client/myDemandbidbyid")
     Call<DemandInProgressModle> myDemandbidbyid(@Field("demand_id") String status);
 
@@ -81,12 +89,19 @@ public interface ApiServices {
     Call<MissionCompleteModle> myMissionProjectComplete(@Field("project_id") String project_id);
 
 
-
-
     @FormUrlEncoded
     @POST("Client/projectDelivered")
     Call<MissionCompleteModle> myMissionProjectDeliery(@Field("project_id") String project_id);
 
+
+    @FormUrlEncoded
+    @POST("Client/demandomplete")
+    Call<DemandCompleteModle> demandomplete(@Field("project_id") String project_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/demandDelivered")
+    Call<DemandDeliveredModle> demandDelivered(@Field("project_id") String project_id);
 
 
     @FormUrlEncoded
@@ -99,18 +114,32 @@ public interface ApiServices {
     Call<MissionViewDetailModle> myMisionViewDetail(@Field("mission_id") String mission_id);
 
 
-
     @Multipart
     @POST("Client/sendProjectPorgress")
     Call<SendProjectProgDetailModle> sendProjectPorgress(@Part MultipartBody.Part project_id,
-                                        @Part MultipartBody.Part user_id,
-                                        @Part MultipartBody.Part your_comments,
-                                        @Part MultipartBody.Part project_status,
-                                        @Part MultipartBody.Part project_files,
-                                        @Part MultipartBody.Part project_image);
+                                                         @Part MultipartBody.Part user_id,
+                                                         @Part MultipartBody.Part your_comments,
+                                                         @Part MultipartBody.Part project_status,
+                                                         @Part MultipartBody.Part project_files,
+                                                         @Part MultipartBody.Part project_image);
 
 
-
+    @Multipart
+    @POST("Authentication/editProfile")
+    Call<SendProjectProgDetailModle> updateProfile(@Part MultipartBody.Part profile_id,
+                                                   @Part MultipartBody.Part name,
+                                                   @Part MultipartBody.Part email,
+                                                   @Part MultipartBody.Part username,
+                                                   @Part MultipartBody.Part password,
+                                                   @Part MultipartBody.Part dob,
+                                                   @Part MultipartBody.Part country,
+                                                   @Part MultipartBody.Part picture_url,
+                                                   @Part MultipartBody.Part presentation,
+                                                   @Part MultipartBody.Part level_of_study,
+                                                   @Part MultipartBody.Part school_college,
+                                                   @Part MultipartBody.Part skill,
+                                                   @Part MultipartBody.Part field_of_study,
+                                                   @Part MultipartBody.Part categroy_of_interest);
 
 
     @FormUrlEncoded
@@ -120,8 +149,6 @@ public interface ApiServices {
             @Field("message") String message,
             @Field("date_created") String date_created
     );
-
-
 
 
     @Multipart

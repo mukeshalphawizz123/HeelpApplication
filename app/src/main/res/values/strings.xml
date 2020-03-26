@@ -234,6 +234,12 @@ three main needs of the student.</string>
     <string name="la_transparence_est_notre_principe_pas_de_frais_cach_s_les_frais_de_services_permet_de_vous_assurer_plusieurs_fonctionnalit_s_et_services_tels_que_le_stockage_s_curis_de_vos_donn_es_le_traitement_des_litiges_le_support_client_les_transactions_bancaires_s_curis_es">Transparency is our principle: No hidden costs  !! The service fee allows you to provide several features and services such as: secure storage of your data, processing of disputes, customer support, secure banking transactions, etc.</string>
     <string name="publier_une_demande_la_publication_d_une_demande_est_gratuite_accepter_une_offre_propos_e_pour_votre_demande_12_du_montant_de_l_offre_0_25_euros_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_montant_de_10_vous_payerez_11_45_soit_1_45_de_frais_proposer_une_offre_la_proposition_d_offre_est_gratuite_retirer_l_argent_que_vous_avez_gagn_d_une_mission_que_vous_avez_r_alis_9_du_montant_retirer_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_retrait_de_10_vous_recevrez_un_virement_de_9_1_soit_0_90_de_frais_nb_les_frais_de_services_peuvent_changer_sans_pr_avis">-Publish a request: The publication of a request is free -Accept an offer proposed for your request: 12% of the amount of the offer + 0.25 euros (including bank processing fees) Example: for an amount of 10 € you will pay 11.45 € (or 1.45 € of fees) -Propose an offer: The offer proposal is free. -Remove the money you have earned from a mission you have carried out: 9% of the amount to be withdrawn (including bank processing fees). Example: for a withdrawal of 10 € you will receive a transfer of 9.1 € (or 0.90 € of fees) NB: The service fees may change without notice.Open in Google Translate
 </string>
+    <string name="level_of_studies">Level of studies:</string>
+    <string name="field_of_studies">Field of studies:</string>
+    <string name="university_school">Universite/Ecole:</string>
+    <string name="categories_of_interest_on_heelp">Categories of interest on heelp:</string>
+    <string name="skills">Skills</string>
+    <string name="status">Status</string>
 
 
 </resources>

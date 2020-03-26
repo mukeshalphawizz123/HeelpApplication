@@ -1,4 +1,4 @@
-package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.Adapter;
+package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,23 +9,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity;
 
 
-public class MyRequestLiveryAdapter extends RecyclerView.Adapter<MyRequestLiveryAdapter.ViewHolder> {
+public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLiveryAdapter.ViewHolder> {
 
     private Context context;
-    private MyRequestLiveryAdapter.MyRequestLiveryAppOnClickListener myRequestLiveryAppOnClickListener;
+    private MyDemandsLiveryAdapter.MyRequestLiveryAppOnClickListener myRequestLiveryAppOnClickListener;
 
 
-    public MyRequestLiveryAdapter(Context context, MyRequestLiveryActivity myRequestLiveryAdapter) {
+    public MyDemandsLiveryAdapter(Context context, MyDemandsDeliveryActivity myRequestLiveryAdapter) {
         this.context = context;
         this.myRequestLiveryAppOnClickListener = myRequestLiveryAppOnClickListener;
     }
 
     @NonNull
     @Override
-    public MyRequestLiveryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyDemandsLiveryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.activity_my_request_livery_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -33,7 +33,7 @@ public class MyRequestLiveryAdapter extends RecyclerView.Adapter<MyRequestLivery
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRequestLiveryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyDemandsLiveryAdapter.ViewHolder holder, int position) {
 
     }
 

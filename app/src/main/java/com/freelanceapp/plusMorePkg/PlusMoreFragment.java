@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -32,7 +31,6 @@ import com.freelanceapp.EditProfileConfirmation;
 import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.SelectLanguageDailoge;
-import com.freelanceapp.UserProfileEditActivity;
 import com.freelanceapp.databinding.ActivityPlusMoreBinding;
 import com.freelanceapp.homePkg.HomeActivity;
 import com.freelanceapp.paymentPkg.DashboardPaymentActivity;
@@ -40,6 +38,7 @@ import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActi
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
+import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.UserProfileEditActivity;
 import com.freelanceapp.userProfileRatingPkg.ProfileRatingDescriptionActivity;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
@@ -48,8 +47,6 @@ import com.freelanceapp.utility.PrefData;
 import java.util.Locale;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMoreAppOnClickListener, View.OnClickListener {
     private RelativeLayout rlsponsorship, rlpayment, rlparameters, rlsupport,

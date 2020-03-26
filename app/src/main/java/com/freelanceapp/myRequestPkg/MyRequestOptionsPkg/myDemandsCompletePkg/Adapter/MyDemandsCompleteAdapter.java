@@ -1,4 +1,4 @@
-package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.Adapter;
+package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,25 +9,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.Adapter.MyRequestLiveryAdapter;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity;
 
 
-public class MyRequestCompleteAdapter extends RecyclerView.Adapter<MyRequestCompleteAdapter.ViewHolder>  {
+public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsCompleteAdapter.ViewHolder>  {
 
     private Context context;
-    private MyRequestCompleteAdapter.MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
+    private MyDemandsCompleteAdapter.MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
 
 
-    public MyRequestCompleteAdapter(Context context, MyRequestCompleteeActivity myRequestCompleteAdapter) {
+    public MyDemandsCompleteAdapter(Context context, MyDemandsCompleteeActivity myRequestCompleteAdapter) {
         this.context = context;
         this.myRequestCompleteAppOnClickListener = myRequestCompleteAppOnClickListener;
     }
 
     @NonNull
     @Override
-    public MyRequestCompleteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyDemandsCompleteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.activity_my_request_complete_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -35,7 +33,7 @@ public class MyRequestCompleteAdapter extends RecyclerView.Adapter<MyRequestComp
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRequestCompleteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyDemandsCompleteAdapter.ViewHolder holder, int position) {
 
     }
 

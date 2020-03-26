@@ -26,8 +26,8 @@ import com.freelanceapp.databinding.ActivityMyrequestBinding;
 import com.freelanceapp.myRequestPkg.MyRequestAdapter.MyRequestAdapter;
 import com.freelanceapp.myRequestPkg.MyRequestAdapter.MyRequestsecAdapter;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestCompletePkg.MyRequestCompleteeActivity;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestLiveryPkg.MyRequestLiveryActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyRequestPublishedTablayoutFragment;
 import com.freelanceapp.myRequestPkg.Myrequestmodle.myrequestModle;
@@ -157,9 +157,9 @@ public class MyRequestFragment extends Fragment implements MyRequestsecAdapter.M
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
                     addFragment(new MyDemandsOngoingActivity(), true, Constants.MY_REQUEST_ONGOING_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
-                    addFragment(new MyRequestLiveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT);
+                    addFragment(new MyDemandsDeliveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
-                    addFragment(new MyRequestCompleteeActivity(), true, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
+                    addFragment(new MyDemandsCompleteeActivity(), true, Constants.MY_REQUEST_COMPLETE_FRAGMENT);
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyRequestOpenlitigationActivity(), true, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT);
                 }
