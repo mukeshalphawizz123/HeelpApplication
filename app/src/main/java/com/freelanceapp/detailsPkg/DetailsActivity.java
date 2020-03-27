@@ -18,12 +18,12 @@ import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.Adapter.DetailsAdapter;
 import com.freelanceapp.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.freelanceapp.detailsPkg.detailModlePkg.YourMission;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyRequestPublishedTablayoutFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;

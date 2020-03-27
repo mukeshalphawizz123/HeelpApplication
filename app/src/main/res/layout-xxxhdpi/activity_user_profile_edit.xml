@@ -141,10 +141,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -186,10 +186,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/username"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -232,10 +232,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/status"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -276,10 +276,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/email"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -319,10 +319,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/password"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
@@ -363,10 +363,10 @@
                         android:src="@drawable/editbluebtn" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/birth"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -422,10 +422,10 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
                         android:text="@string/country"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
@@ -490,7 +490,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvpresentationidd"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvdescriptiontextid"
                             android:layout_marginTop="5sp"
@@ -515,7 +515,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvlevelofstudyyid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvpresentationidd"
                             android:layout_marginStart="10sp"
@@ -542,14 +542,13 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvfiledofstudyyid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvlevelofstudyyid"
                             android:layout_marginStart="10sp"
                             android:layout_marginTop="13dp"
                             android:layout_toEndOf="@+id/tvfiledofstudyid"
                             android:background="@android:color/transparent"
-
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
@@ -570,7 +569,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvunivercityyid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvfiledofstudyid"
                             android:layout_marginStart="10sp"
@@ -597,7 +596,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvcategoriessid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvcategoriesid"
                             android:layout_marginStart="10sp"
@@ -624,7 +623,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/tvcompetencesssid"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvcategoriessid"
                             android:layout_marginStart="10sp"
@@ -674,5 +673,11 @@
 
 
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/pbUserEditProfileId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>

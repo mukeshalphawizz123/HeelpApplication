@@ -9,11 +9,13 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.R;
 import com.freelanceapp.myMissionPkg.Mymissionmodle.mymissionModle;
+import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.MyRequestPublishedDateFragment;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.MyRequestPublishedNoteFragment;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
@@ -30,10 +32,11 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
     private MyRequestPublishedNoteAppOnClickListener myRequestPublishedNoteAppOnClickListener;
     private List<YourMission> mymissionModelArrayList;
 
-    public MyRequestPublishedNoteAdapter(Context context, MyRequestPublishedNoteFragment myRequestPublishedNoteAppOnClickListener) {
+    public MyRequestPublishedNoteAdapter(Context context, MyRequestPublishedNoteAppOnClickListener myRequestPublishedNoteAppOnClickListener) {
         this.context = context;
         this.myRequestPublishedNoteAppOnClickListener = myRequestPublishedNoteAppOnClickListener;
     }
+
 
     @NonNull
     @Override

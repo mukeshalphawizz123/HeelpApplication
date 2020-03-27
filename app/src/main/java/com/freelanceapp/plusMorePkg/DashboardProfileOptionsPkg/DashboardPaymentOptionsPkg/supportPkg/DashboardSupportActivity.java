@@ -1,15 +1,18 @@
 package com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,12 +21,11 @@ import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
+import com.freelanceapp.CustomToast;
 import com.freelanceapp.R;
-import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
-import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
-import com.freelanceapp.plusMorePkg.PlusMoreFragment;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 
@@ -36,31 +38,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class DashboardSupportActivity extends Fragment implements View.OnClickListener {
     private ImageView ivdashboardsupportback, ivnotificationsupport;
     private RelativeLayout rlsubmitbtn;
-    private EditText EtcontactDescription, Etcontacttitle;
+    private EditText etDescSupport, etTitleSupport;
     private ProgressBar PbContact;
     private ApiServices apiServices;
+    private static Animation shakeAnimation;
+    private String userId;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_dashboard_support, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
-        if (CheckNetwork.isNetAvailable(getActivity())) {
-        } else {
-            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
-        }
         return view;
     }
 
 
     private void init(View view) {
-        EtcontactDescription = view.findViewById(R.id.EtcontactDescriptionId);
-        Etcontacttitle = view.findViewById(R.id.EtcontacttitleId);
+        etDescSupport = view.findViewById(R.id.etDescSupportId);
+        etTitleSupport = view.findViewById(R.id.etTitleSupportId);
         PbContact = view.findViewById(R.id.PbContactId);
         rlsubmitbtn = view.findViewById(R.id.rlsubmitbtnid);
         rlsubmitbtn.setOnClickListener(this);
@@ -68,23 +67,22 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
         ivnotificationsupport.setOnClickListener(this);
         ivdashboardsupportback = view.findViewById(R.id.ivdashboardsupportbackId);
         ivdashboardsupportback.setOnClickListener(this);
+        shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
     }
 
-    private void dashboardsupport(String title,String description) {
+    private void dashboardsupport(String title, String description) {
+        userId = "1";
         PbContact.setVisibility(View.VISIBLE);
-        apiServices.enquiry(title,description).enqueue(new Callback<Dashboardsupportmodel>() {
+        apiServices.enquiry(title, userId, description).enqueue(new Callback<Dashboardsupportmodel>() {
             @Override
             public void onResponse(Call<Dashboardsupportmodel> call, Response<Dashboardsupportmodel> response) {
                 if (response.isSuccessful()) {
                     PbContact.setVisibility(View.GONE);
                     Dashboardsupportmodel getDashboardsupportmodel = response.body();
                     if (getDashboardsupportmodel.getStatus() == true) {
-
-                        Toast.makeText(getActivity(), "Your Email has successfully been sent..", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getDashboardsupportmodel.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-
-                else {
+                } else {
                     if (response.code() == 400) {
                         if (!response.isSuccessful()) {
                             JSONObject jsonObject = null;
@@ -102,6 +100,7 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<Dashboardsupportmodel> call, Throwable t) {
                 PbContact.setVisibility(View.GONE);
@@ -115,7 +114,7 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.ivdashboardsupportbackId:
                 // CheckNetwork.goTobackScreen(getActivity(), PlusMoreFragment.class);
-               // replaceFragement(new PlusMoreFragment());
+                // replaceFragement(new PlusMoreFragment());
                /* FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.flHomeId, new DeshboardSponsorshipActivity());
                 fragmentTransaction.commit();*/
@@ -128,11 +127,16 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
                 CheckNetwork.goTobackScreen(getActivity(), NotificationActivity.class);
                 break;
             case R.id.rlsubmitbtnid:
-                if (CheckNetwork.isNetAvailable(getActivity())) {
-                    Toast.makeText(getActivity(), "under Development...", Toast.LENGTH_SHORT).show();
-                   // dashboardsupport(Etcontacttitle.getText().toString().trim(), EtcontactDescription.getText().toString().trim());
+                if (etTitleSupport.getText().toString().isEmpty()) {
+                    new CustomToast().Show_Toast(getActivity(), v, "Title Can't Empty");
+                    etTitleSupport.startAnimation(shakeAnimation);
+                    etTitleSupport.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                 } else {
-                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                    if (CheckNetwork.isNetAvailable(getActivity())) {
+                        dashboardsupport(etTitleSupport.getText().toString().trim(), etDescSupport.getText().toString().trim());
+                    } else {
+                        Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                    }
                 }
         }
     }
@@ -147,11 +151,11 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
                             String tag) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right);
+        ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
         ft.addToBackStack(null);
         if (addToBackStack) {
             ft.addToBackStack(tag);
-        }else {
+        } else {
 
         }
         ft.replace(R.id.flHomeId, fragment, tag);
@@ -162,7 +166,7 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
                                   boolean addToBackStack, String tag) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right);
+        ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
         manager.popBackStackImmediate(null,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (addToBackStack) {

@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.freelanceapp.BuildConfig;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
 import com.freelanceapp.utility.CheckNetwork;

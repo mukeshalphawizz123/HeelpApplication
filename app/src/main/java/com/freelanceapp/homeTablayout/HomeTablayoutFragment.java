@@ -13,9 +13,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.freelanceapp.homeTablayout.fragment.HomeCategoryFrament;
 import com.freelanceapp.homeTablayout.fragment.HomeMissionFragment;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 import com.google.android.material.tabs.TabLayout;
 

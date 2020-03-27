@@ -164,7 +164,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="des frais de 9% seront déduits \n Ex pour un retrait de 10€ vous recevrez 9,1€ soit 0,9 euros de frais"
+                        android:text="@string/des_frais_de_9_seront_d_duits_n_ex_pour_un_retrait_de_10_vous_recevrez_9_1_soit_0_9_euros_de_frais"
                         android:textAlignment="center"
                         android:textColor="@color/lessBlack"
                         android:textSize="14sp"

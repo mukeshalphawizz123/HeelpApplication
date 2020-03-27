@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.OptionActivity;
 import com.freelanceapp.R;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;

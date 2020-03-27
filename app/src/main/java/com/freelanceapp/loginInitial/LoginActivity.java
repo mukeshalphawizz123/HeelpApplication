@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomProgressbar;
 import com.freelanceapp.CustomToast;
+import com.freelanceapp.forgetpasswordPkg.ForgetPasswordActivity;
 import com.freelanceapp.loginInitial.LoginPkgModel.Loginmodel;
 import com.freelanceapp.OptionActivity;
 import com.freelanceapp.R;
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private View viewIdemail, viewIdpassword;
     private static Animation shakeAnimation;
     private ApiServices apiServices;
+    private CheckBox rememberradio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Window window = getWindow();
         StatusBarManagment.hideShowStatusBar(getApplicationContext(), window);
         init();
+
+        rememberradio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            }
+        });
     }
 
     private void init() {
+        rememberradio = findViewById(R.id.radioid);
         rlFacbookLogin = findViewById(R.id.rlFacbookLoginId);
         rlgoogleLogin = findViewById(R.id.rlgoogleLoginId);
         tiewEmailsignupId = findViewById(R.id.tiewEmailsignupId);
@@ -85,23 +97,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SpannableString content2 = new SpannableString(getResources().getString(R.string.forgot_password));
         content2.setSpan(new UnderlineSpan(), 0, content2.length(), 0);
         tvtextunderline.setText(content2);
+        tvtextunderline.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tvtextunderlineid:
+                CheckNetwork.nextScreenWithoutFinish(LoginActivity.this, ForgetPasswordActivity.class);
+                break;
             case R.id.rlnextpagerid:
                 CheckNetwork.nextScreen(LoginActivity.this, HomeActivity.class);
-                // validation(v);
+                //validation(v);
                 break;
             case R.id.tvsignuppageid:
                 CheckNetwork.nextScreen(LoginActivity.this, SignupActivity.class);
                 break;
             case R.id.rlFacbookLoginId:
-                Toast.makeText(this, "Working....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rlgoogleLoginId:
-                Toast.makeText(this, "Working....", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tvtermsandconditionid:
                 CheckNetwork.nextScreenWithoutFinish(LoginActivity.this, AcceptConditionActivity.class);
@@ -128,8 +144,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //   Toast.makeText(this, "ada", Toast.LENGTH_SHORT).show();
 
         } else {
-            new CustomToast().Show_Toast(this, v,
-                    "Check Network Connection");
+            new CustomToast().Show_Toast(this, v, "Check Network Connection");
         }
 
     }
@@ -143,7 +158,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     CustomProgressbar.hideProgressBar();
                     Loginmodel getLoginModle = response.body();
                     if (getLoginModle.getStatus() == true) {
-
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().getUsername());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.EMAIL, getLoginModle.getData().getEmail());

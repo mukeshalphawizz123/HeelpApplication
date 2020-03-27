@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.databinding.ActivityMyrequestBinding;
 import com.freelanceapp.myRequestPkg.MyRequestAdapter.MyRequestAdapter;
@@ -33,6 +32,7 @@ import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.M
 import com.freelanceapp.myRequestPkg.Myrequestmodle.myrequestModle;
 import com.freelanceapp.myRequestPkg.myRequestModlePkg.Datum;
 import com.freelanceapp.myRequestPkg.myRequestModlePkg.MyDemandeModel;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 

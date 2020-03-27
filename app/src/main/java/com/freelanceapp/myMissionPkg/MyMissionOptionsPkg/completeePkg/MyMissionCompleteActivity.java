@@ -1,15 +1,11 @@
 package com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -26,15 +22,11 @@ import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.Adapter.ChatAdapter;
 import com.freelanceapp.detailsPkg.DetailsActivity;
-import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
-import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.squareup.picasso.Picasso;

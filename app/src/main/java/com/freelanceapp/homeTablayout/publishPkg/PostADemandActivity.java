@@ -33,12 +33,11 @@ import com.bumptech.glide.Glide;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomToast;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.paymentPkg.ComfirmationActivity;
 import com.freelanceapp.utility.CheckNetwork;
-import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
 
@@ -91,12 +90,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         budget = intent.getStringExtra("budget");
         imageUrl = intent.getStringExtra("imageUrl");
         projectId = intent.getStringExtra("projectId");
-        // Toast.makeText(getApplicationContext(), "" + projectId + "," + description + "," + budget + "," + imageUrl, Toast.LENGTH_LONG).show();
-        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-//            publishdemande();
-        } else {
-            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
-        }
+
         init();
         return;
     }
@@ -168,8 +162,6 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
         // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
-        // MultipartBody.Part project_file = MultipartBody.Part.createFormData("project_file", String.valueOf(file));
-        // MultipartBody.Part imgFileStationDoc = MultipartBody.Part.createFormData("project_image", String.valueOf(image));
         apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, imgFileStation)
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
@@ -258,13 +250,14 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.rlPieceId:
-                BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+                askStoragePermission();
+               /* BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()
                         .setMinimumMultiSelectCount(1)
                         .setMaximumMultiSelectCount(6)
                         .build();
-                pickerDialog.show(getSupportFragmentManager(), "picker");
+                pickerDialog.show(getSupportFragmentManager(), "picker");*/
                 break;
             case R.id.rlPieceJointId:
                 showFileChooser();

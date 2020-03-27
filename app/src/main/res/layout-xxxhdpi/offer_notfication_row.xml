@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    app:cardElevation="@dimen/_2sdp"
+    android:layout_marginRight="5sp">
+
+
+    <LinearLayout
+        android:padding="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvtimeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginEnd="10sp"
+            android:text="@string/today_4_12pm"
+            android:textColor="@color/lessBlack"
+            android:textSize="12sp" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserNameChatId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:lineSpacingExtra="5sp"
+            android:padding="10sp"
+            android:text="@string/hey_there_nplease_provide_the_necessary_data_so_that_i_will_start_designing_i_would_hardly_take_1_2_weeks_to_complete"
+            android:textColor="@color/Black"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

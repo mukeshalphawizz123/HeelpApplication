@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 
 public class CreditCardActivity extends AppCompatActivity implements View.OnClickListener {

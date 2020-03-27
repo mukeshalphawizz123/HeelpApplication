@@ -1,7 +1,6 @@
 package com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
@@ -38,18 +37,14 @@ import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomToast;
 import com.freelanceapp.HelpActivity;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
-import com.freelanceapp.homeTablayout.publishPkg.PostADemandActivity;
-import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.Adapter.OngoingAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.Datum;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
-import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.ImagePicker;
@@ -75,7 +70,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener, View.OnClickListener {
 

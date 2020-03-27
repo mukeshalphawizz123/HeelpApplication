@@ -3,7 +3,6 @@ package com.freelanceapp.makeAnOfferPkg;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -17,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.homeTablayout.homeModel.RepondreUneDemandeModelPkg.RepondreunedemandeModel;
 import com.freelanceapp.makeAnOfferPkg.Adapter.MakeanOfferAdapter;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.Datum;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 
 import java.util.List;

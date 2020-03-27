@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.freelanceapp.forgetpasswordPkg.ForgetPasswordActivity;
 import com.freelanceapp.loginInitial.LoginActivity;
 import com.freelanceapp.signUpInitial.SignupActivity;
 import com.freelanceapp.utility.CheckNetwork;
@@ -23,6 +24,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
     private AppCompatTextView tvUnderLine;
     private GoogleSignInClient googleSignInClient;
     private CallbackManager callbackManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,17 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         tvUnderLine.setText(content);
 
+        tvUnderLine.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tvUnderLineId:
+                CheckNetwork.nextScreenWithoutFinish(OptionActivity.this, ForgetPasswordActivity.class);
+                break;
             case R.id.rlLoginId:
                 CheckNetwork.nextScreen(OptionActivity.this, LoginActivity.class);
                 break;

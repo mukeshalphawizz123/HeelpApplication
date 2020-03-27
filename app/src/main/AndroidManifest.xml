@@ -23,7 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SelectLanguageDailoge"></activity>
+        <activity android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"></activity>
+        <activity android:name=".notificationPkg.notificationReviewPkg.NotificationReviewActivity" />
+        <activity android:name=".notificationPkg.notificationMessagePkg.NotificationMessageActivity" />
+        <activity android:name=".notificationPkg.notificationOffersPkg.NotificationOfferActivity" />
+        <activity android:name=".notificationPkg.NotificationActivity" />
+        <activity android:name=".forgetpasswordPkg.ForgetPasswordActivity" />
+        <activity android:name=".SelectLanguageDailoge" />
         <activity android:name=".homefilterPkg.HomeCategoryFilterActivity" />
         <activity android:name=".EditProfileConfirmation" />
         <activity android:name=".CreditCardPayerActivity" />
@@ -49,10 +55,7 @@
             android:name=".paymentPkg.DashboardPaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserProfileEditActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NotificationActivity"
+            android:name=".userProfileRatingPkg.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AcceptConditionActivity"

@@ -1,11 +1,9 @@
 package com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,20 +22,14 @@ import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
 
 import com.freelanceapp.detailsPkg.DetailsActivity;
-import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.Adapter.ProposeAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.YourMission;
-import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
-import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
-import com.freelanceapp.paymentPkg.CreditCardPayment;
-import com.freelanceapp.plusMorePkg.PlusMoreFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;

@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.messageListPkg.MessageListFragmentPkg.MessageNonLusFragment;
 import com.freelanceapp.messageListPkg.MessageListFragmentPkg.MessageToutFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 import com.google.android.material.tabs.TabLayout;
 

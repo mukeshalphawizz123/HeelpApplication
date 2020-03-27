@@ -260,14 +260,14 @@
                                 android:layout_toEndOf="@+id/ivcomfirmpasswordid"
                                 android:background="@android:color/transparent"
                                 android:gravity="left"
-                                android:textSize="16dp"
+                                android:textSize="16sp"
                                 android:textStyle="normal">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/tiewcomfirmPasswordId"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginStart="@dimen/_10sdp"
                                     android:background="@android:color/transparent"
                                     android:hint="@string/comfirm_password"
                                     android:inputType="textPassword"

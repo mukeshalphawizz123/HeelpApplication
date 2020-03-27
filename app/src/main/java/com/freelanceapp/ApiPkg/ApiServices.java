@@ -4,6 +4,7 @@ package com.freelanceapp.ApiPkg;
 import com.freelanceapp.SetLangPkg.SetLangmodel;
 import com.freelanceapp.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.freelanceapp.externalModlePkg.ProjectSendDisputeModle;
+import com.freelanceapp.forgetpasswordPkg.ForgetPasswordModle;
 import com.freelanceapp.homeTablayout.homeModel.ListOfProjectModel;
 import com.freelanceapp.homeTablayout.homeModel.RepondreUneDemandeModelPkg.RepondreunedemandeModel;
 import com.freelanceapp.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
@@ -45,6 +46,11 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
+    @POST("Authentication/forgot_pass")
+    Call<ForgetPasswordModle> forgot_pass(@Field("email") String email);
+
+
+    @FormUrlEncoded
     @POST("Authentication/NewUser")
     Call<RegistrationModel> signup(@Field("email") String email,
                                    @Field("username") String username,
@@ -73,6 +79,16 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Client/myDemandbidbyid")
     Call<DemandInProgressModle> myDemandbidbyid(@Field("demand_id") String status);
+
+
+    @FormUrlEncoded
+    @POST("Client/myDemandbidbydate")
+    Call<DemandInProgressModle> myDemandbidbydate(@Field("demand_id") String status);
+
+
+    @FormUrlEncoded
+    @POST("Client/myDemandbidbybudget")
+    Call<DemandInProgressModle> myDemandbidbybudget(@Field("demand_id") String status);
 
 
     @FormUrlEncoded
@@ -178,7 +194,9 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Contact/Enquiry")
     Call<Dashboardsupportmodel> enquiry(@Field("title") String title,
-                                        @Field("description") String description);
+                                        @Field("user_id") String user_id,
+                                        @Field("description") String description
+    );
 
     @FormUrlEncoded
     @POST("Language/setLanguage")

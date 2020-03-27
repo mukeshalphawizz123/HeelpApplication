@@ -1,7 +1,6 @@
 package com.freelanceapp.myRequestPkg.MyRequestOptionsPkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,11 +15,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
-import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
-import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 

@@ -1,7 +1,6 @@
 package com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;

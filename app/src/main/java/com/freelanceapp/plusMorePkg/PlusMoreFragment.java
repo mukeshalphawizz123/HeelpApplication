@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,11 +33,11 @@ import android.widget.Toast;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.EditProfileConfirmation;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.SelectLanguageDailoge;
 import com.freelanceapp.databinding.ActivityPlusMoreBinding;
 import com.freelanceapp.homePkg.HomeActivity;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.paymentPkg.DashboardPaymentActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
@@ -85,6 +86,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private List<YourMission> yourMissionList;
     private CircleImageView ivuserprofileimage;
     private AppCompatTextView tvname, tvdesination;
+    private String userImg, userName;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityPlusMoreBinding = DataBindingUtil.inflate(inflater, R.layout.activity_plus_more, container, false);
@@ -196,7 +198,12 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                 selectLanguageDailoge();
                 break;
             case R.id.rlratingnameid:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ProfileRatingDescriptionActivity.class);
+                Intent intent = new Intent(getActivity(), ProfileRatingDescriptionActivity.class);
+                intent.putExtra("userImg", userImg);
+                intent.putExtra("userName", userName);
+                getActivity().startActivity(intent);
+                ((Activity) (getActivity())).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                ///CheckNetwork.nextScreenWithoutFinish(getActivity(), ProfileRatingDescriptionActivity.class);
                 break;
 
 
@@ -345,6 +352,8 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                         Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
                                 .get(0).getPictureUrl()).into(ivuserprofileimage);
 
+                        userImg = yourMissionList.get(0).getPictureUrl();
+                        userName = yourMissionList.get(0).getFirstName();
 
                     }
 

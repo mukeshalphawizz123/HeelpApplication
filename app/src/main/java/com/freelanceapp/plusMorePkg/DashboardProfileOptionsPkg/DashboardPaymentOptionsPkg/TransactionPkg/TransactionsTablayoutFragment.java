@@ -12,14 +12,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.freelanceapp.homeTablayout.ViewPagerAdapter;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.paymentPkg.DashboardPaymentActivity;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.TransactionCreditFragment;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.TransactionDebitFragment;
-import com.freelanceapp.plusMorePkg.PlusMoreFragment;
 import com.freelanceapp.utility.CheckNetwork;
-import com.freelanceapp.utility.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 

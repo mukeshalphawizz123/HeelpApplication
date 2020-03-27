@@ -141,11 +141,11 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/name"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -186,11 +186,11 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/username"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -232,13 +232,13 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/status"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
+                        android:gravity="center"
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -276,11 +276,11 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/email"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -319,11 +319,11 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/password"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="normal" />
@@ -362,9 +362,9 @@
                         android:src="@drawable/editbluebtn" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/birth"
                         android:textColor="@color/white"
@@ -421,11 +421,11 @@
 
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:text="@string/country"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="normal" />

@@ -52,13 +52,16 @@
                     android:src="@drawable/ring" />
 
 
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivuserprofileimageId"
                     android:layout_width="130sp"
-                    android:layout_height="130sp"
+                    android:layout_height="120sp"
+                    android:background="@drawable/reviewuser_back"
                     android:layout_below="@+id/rbhelperprofileId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5sp"
+                    android:padding="@dimen/_2sdp"
                     android:layout_marginEnd="15sp"
                     android:src="@drawable/userprofileimage" />
 

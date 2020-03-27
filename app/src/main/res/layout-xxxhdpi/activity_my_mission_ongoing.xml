@@ -293,8 +293,10 @@
                         android:padding="5sp">
 
 
+
+
                         <RelativeLayout
-                            android:id="@+id/rlPieceJointId"
+                            android:id="@+id/rlmyMissProgressFileId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -322,13 +324,13 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/rlPieceId"
+                            android:id="@+id/rlmyMissProgressImagId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10sp"
                             android:layout_marginEnd="10sp"
-                            android:layout_toEndOf="@+id/rlPieceJointId">
+                            android:layout_toEndOf="@+id/rlmyMissProgressFileId">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivaddimageid"

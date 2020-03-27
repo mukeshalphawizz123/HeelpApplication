@@ -111,7 +111,8 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/etTitleSupportId"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
                 android:layout_toEndOf="@+id/tvtitleidd"
@@ -144,7 +145,8 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="wrap_content"
+                android:id="@+id/etDescSupportId"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15sp"
                 android:layout_toEndOf="@+id/tvdescriptionidd"
@@ -216,7 +218,19 @@
         </RelativeLayout>
 
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true">
 
+        <ProgressBar
+            android:id="@+id/PbContactId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

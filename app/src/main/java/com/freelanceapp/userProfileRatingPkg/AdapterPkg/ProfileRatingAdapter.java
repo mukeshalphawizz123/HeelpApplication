@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,6 @@ public class ProfileRatingAdapter extends RecyclerView.Adapter<ProfileRatingAdap
         this.profileRatingAppOnClickListener = profileRatingAppOnClickListener;
     }
 
-
     @NonNull
     @Override
     public ProfileRatingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,15 +41,20 @@ public class ProfileRatingAdapter extends RecyclerView.Adapter<ProfileRatingAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvratingname.setText(getuserreview.get(position).getReviewBy());
-        holder.tvdate.setText(getuserreview.get(position).getDate());
         try {
-            holder.TvReviews.setText(getuserreview.get(position).getComment());
-            holder.tvratingpersentage.setText(getuserreview.get(position).getRating());
-        }catch (Exception e){
+            holder.tvratingname.setText(getuserreview.get(position).getReviewBy());
+            holder.tvdate.setText(getuserreview.get(position).getDate());
+            try {
+                holder.TvReviews.setText(getuserreview.get(position).getComment());
+                holder.tvratingpersentage.setText(getuserreview.get(position).getRating());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            holder.rbhelperprofile.setNumStars(Integer.parseInt(getuserreview.get(position).getRating()));
+        } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -62,7 +67,7 @@ public class ProfileRatingAdapter extends RecyclerView.Adapter<ProfileRatingAdap
 
     @Override
     public int getItemCount() {
-       // return 5;
+        // return 5;
         return getuserreview == null ? 0 : getuserreview.size();
 
     }
@@ -72,13 +77,15 @@ public class ProfileRatingAdapter extends RecyclerView.Adapter<ProfileRatingAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvratingname, tvdate, TvReviews, tvratingpersentage;
+        private RatingBar rbhelperprofile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvratingname = itemView.findViewById(R.id.tvratingnameid);
             tvdate = itemView.findViewById(R.id.tvdateid);
-            TvReviews = itemView.findViewById(R.id.TvReviewsId);
+            TvReviews = itemView.findViewById(R.id.tvProfileCommentId);
             tvratingpersentage = itemView.findViewById(R.id.tvratingpersentageid);
+            rbhelperprofile = itemView.findViewById(R.id.rbhelperprofileId);
         }
 
         @Override

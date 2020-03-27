@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.paymentPkg.PaymentConfirmationPage;
 import com.freelanceapp.utility.CheckNetwork;
 

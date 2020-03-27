@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,14 +33,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomToast;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.YourMission;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
@@ -53,12 +50,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -352,10 +345,10 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         MultipartBody.Part country = MultipartBody.Part.createFormData("country", Etcountry.getText().toString());
         MultipartBody.Part presentation = MultipartBody.Part.createFormData("presentation", tvpresentation.getText().toString());
         MultipartBody.Part level_of_study = MultipartBody.Part.createFormData("level_of_study", tvlevelofstudyy.getText().toString());
-        MultipartBody.Part school_college = MultipartBody.Part.createFormData("school_college", tvunivercityy.getText().toString());
-        MultipartBody.Part skill = MultipartBody.Part.createFormData("skill", tvcompetencesss.getText().toString());
-        MultipartBody.Part field_of_study = MultipartBody.Part.createFormData("field_of_study", tvfiledofstudyy.getText().toString());
-        MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("categroy_of_interest", tvcategoriess.getText().toString());
+        MultipartBody.Part school_college = MultipartBody.Part.createFormData("school_address", tvunivercityy.getText().toString());
+        MultipartBody.Part skill = MultipartBody.Part.createFormData("skills", tvcompetencesss.getText().toString());
+        MultipartBody.Part field_of_study = MultipartBody.Part.createFormData("Field_of_study", tvfiledofstudyy.getText().toString());
+        MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
 
 
         apiServices.updateProfile(profile_id_, name_, email_, username_, password_, dob_,

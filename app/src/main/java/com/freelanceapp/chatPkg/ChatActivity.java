@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.freelanceapp.ApiPkg.ApiServices;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.chatPkg.Adapter.ChatAdapter;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.userProfileRatingPkg.UserProfileActivity;
 import com.freelanceapp.utility.CheckNetwork;
 

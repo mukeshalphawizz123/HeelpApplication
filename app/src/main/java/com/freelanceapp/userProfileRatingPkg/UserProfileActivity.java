@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.chatPkg.Adapter.ChatActivityMain;
 
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;

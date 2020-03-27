@@ -183,7 +183,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ivUserInprogMissionId"
                             android:layout_centerHorizontal="true"
-                            android:text="@string/zeeshan"
                             android:textColor="@color/bluee"
                             android:textSize="@dimen/_9sdp"
                             android:textStyle="bold" />
@@ -213,7 +212,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvtextidd"
-                            android:text="I finished it"
                             android:textColor="@color/Black"
                             android:textSize="@dimen/_11sdp"
                             android:textStyle="normal" />
@@ -294,7 +292,7 @@
 
 
                         <RelativeLayout
-                            android:id="@+id/rlPieceJointId"
+                            android:id="@+id/rlmyMissProgressFileId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -319,16 +317,17 @@
                                 android:textColor="@color/white"
                                 android:textSize="9sp" />
 
+
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/rlPieceId"
+                            android:id="@+id/rlmyMissProgressImagId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10sp"
                             android:layout_marginEnd="10sp"
-                            android:layout_toEndOf="@+id/rlPieceJointId">
+                            android:layout_toEndOf="@+id/rlmyMissProgressFileId">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivaddimageid"

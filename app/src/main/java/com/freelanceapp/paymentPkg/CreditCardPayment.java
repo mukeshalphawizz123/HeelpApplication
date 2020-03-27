@@ -8,10 +8,8 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.freelanceapp.CreditCardPayerActivity;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.CreditCardActivity;
-import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.PrizePoolActivity;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.CheckNetwork;
 
 public class CreditCardPayment extends AppCompatActivity implements View.OnClickListener {

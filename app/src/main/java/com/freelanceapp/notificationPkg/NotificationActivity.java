@@ -1,14 +1,17 @@
-package com.freelanceapp;
+package com.freelanceapp.notificationPkg;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.freelanceapp.homePkg.HomeActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.freelanceapp.R;
+import com.freelanceapp.notificationPkg.notificationMessagePkg.NotificationMessageActivity;
+import com.freelanceapp.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity;
+import com.freelanceapp.notificationPkg.notificationOffersPkg.NotificationOfferActivity;
+import com.freelanceapp.notificationPkg.notificationReviewPkg.NotificationReviewActivity;
 import com.freelanceapp.paymentPkg.CreditCardPayment;
 import com.freelanceapp.utility.CheckNetwork;
 
@@ -47,17 +50,20 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rlOffersNotificationId:
+                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, NotificationOfferActivity.class);
+                break;
             case R.id.rlAvisNotificationId:
-                CheckNetwork.callToast(NotificationActivity.this);
+                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, NotificationReviewActivity.class);
                 break;
             case R.id.rlMsgNotificationId:
-                CheckNetwork.callToast(NotificationActivity.this);
+                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, NotificationMessageActivity.class);
                 break;
             case R.id.rlStatusNotificationId:
-                CheckNetwork.callToast(NotificationActivity.this);
+                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, NotificationMissionDemandActivity.class);
                 break;
             case R.id.rlnotificationId:
-                CheckNetwork.callToast(NotificationActivity.this);
+              //  CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, );
                 break;
             case R.id.ivnotificationbackId:
                 onBackPressed();
@@ -73,8 +79,9 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     public void onBackPressed() {
         super.onBackPressed();
         /*Intent intent = new Intent(NotificationActivity.this, HomeActivity.class);
-        startActivity(intent)*/;
-        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
+        startActivity(intent)*/
+        ;
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
     }
 }

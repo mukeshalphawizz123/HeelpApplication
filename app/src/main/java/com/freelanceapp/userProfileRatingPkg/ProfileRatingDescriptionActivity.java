@@ -1,36 +1,31 @@
 package com.freelanceapp.userProfileRatingPkg;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.SetLangPkg.SetLangmodel;
-import com.freelanceapp.chatPkg.Adapter.ChatAdapter;
 
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.userProfileRatingPkg.AdapterPkg.ProfileRatingAdapter;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.Review;
 import com.freelanceapp.utility.CheckNetwork;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Comment;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,6 +41,10 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     private ProgressBar Pbgetuserreviews;
     private ApiServices apiServices;
     private List<Review> getuserreview;
+    private String userImg, userName;
+    private AppCompatTextView tvname;
+    private AppCompatImageView ivuserprofileimage;
+    private RatingBar rbhelperprofile;
 
 
     @Override
@@ -53,9 +52,11 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_rating_description);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userImg = getIntent().getStringExtra("userImg");
+        userName = getIntent().getStringExtra("userName");
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            getReviews("16");
+            getReviews("12");
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -71,6 +72,11 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                 if (response.isSuccessful()) {
                     Pbgetuserreviews.setVisibility(View.GONE);
                     GetUserReviewsModel getUserReviewsModel = response.body();
+                    tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
+                    rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
+                    Picasso.with(getApplicationContext())
+                            .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
+                            .into(ivuserprofileimage);
                     getuserreview = getUserReviewsModel.getReviews();
                     profileRatingAdapter.getuserreview(getuserreview);
                 } else {
@@ -101,6 +107,9 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     }
 
     private void init() {
+        rbhelperprofile = findViewById(R.id.rbhelperprofileId);
+        tvname = findViewById(R.id.tvnameid);
+        ivuserprofileimage = findViewById(R.id.ivuserprofileimageId);
         Pbgetuserreviews = findViewById(R.id.PbgetuserreviewsId);
         ivnotificationuserprofile = findViewById(R.id.ivnotificationuserprofileId);
         ivnotificationuserprofile.setOnClickListener(this);
@@ -111,6 +120,14 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         rvratinglist.setLayoutManager(layoutManager);
         profileRatingAdapter = new ProfileRatingAdapter(getApplicationContext(), this);
         rvratinglist.setAdapter(profileRatingAdapter);
+
+        tvname.setText(userName);
+        Picasso.with(getApplicationContext())
+                .load(RetrofitClient.MISSION_USER_IMAGE_URL + userImg)
+                .into(ivuserprofileimage);
+
+
+        //   userImg
     }
 
 

@@ -110,10 +110,11 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/EtcontacttitleId"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/etTitleSupportId"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15sp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_toEndOf="@+id/tvtitleidd"
                         android:background="@android:color/transparent"
                         android:singleLine="true"
@@ -140,18 +141,19 @@
                         android:layout_margin="15sp"
                         android:text="@string/description"
                         android:textColor="@color/Black"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/EtcontactDescriptionId"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/etDescSupportId"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15sp"
                         android:layout_toEndOf="@+id/tvdescriptionidd"
                         android:background="@android:color/transparent"
                         android:textColor="@color/lessBlack"
                         android:textSize="14sp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:textStyle="normal" />
 
                 </RelativeLayout>
@@ -214,24 +216,24 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true">
 
-                <ProgressBar
-                    android:id="@+id/PbContactId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true">
 
+        <ProgressBar
+            android:id="@+id/PbContactId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

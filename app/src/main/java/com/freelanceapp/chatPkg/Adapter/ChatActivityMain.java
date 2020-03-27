@@ -18,13 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
 import com.freelanceapp.ApiPkg.ApiServices;
-import com.freelanceapp.NotificationActivity;
 import com.freelanceapp.R;
-import com.freelanceapp.chatPkg.Adapter.Message;
-import com.freelanceapp.chatPkg.Adapter.MessageAdapter;
 import com.freelanceapp.chatPkg.Adapter.chatbox.AttachmentOption;
 import com.freelanceapp.chatPkg.Adapter.chatbox.AttachmentOptionsListener;
 import com.freelanceapp.chatPkg.Adapter.chatbox.AudioRecordView;
+import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.userProfileRatingPkg.UserProfileActivity;
 import com.freelanceapp.utility.CheckNetwork;
 

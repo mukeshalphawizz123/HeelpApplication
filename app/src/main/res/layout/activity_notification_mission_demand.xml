@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rlbackgroundid"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@drawable/notificationbackimg">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:text="@string/missions_amp_demands_status"
+                    android:textColor="@color/lessBlack"
+                    android:textSize="@dimen/_20sdp" />
+
+
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivnotificationbackId"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginEnd="10sp"
+                android:padding="5sp"
+                android:src="@drawable/back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivlogoid"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:src="@drawable/logo" />
+
+
+        </RelativeLayout>
+
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/sflNotMissAndDemandId"
+            android:layout_below="@+id/rlbackgroundid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNotificationMissionAndDemandsid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+        <ProgressBar
+            android:id="@+id/pbNotMissionDemandsId"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
