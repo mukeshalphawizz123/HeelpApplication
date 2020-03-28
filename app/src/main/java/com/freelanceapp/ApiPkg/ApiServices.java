@@ -9,18 +9,21 @@ import com.freelanceapp.homeTablayout.homeModel.ListOfProjectModel;
 import com.freelanceapp.homeTablayout.homeModel.RepondreUneDemandeModelPkg.RepondreunedemandeModel;
 import com.freelanceapp.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
 import com.freelanceapp.loginInitial.LoginPkgModel.Loginmodel;
+import com.freelanceapp.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
-import com.freelanceapp.myRequestPkg.myRequestModlePkg.MyDemandeModel;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
+import com.freelanceapp.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
@@ -80,6 +83,22 @@ public interface ApiServices {
     @POST("Client/myDemandbidbyid")
     Call<DemandInProgressModle> myDemandbidbyid(@Field("demand_id") String status);
 
+    @FormUrlEncoded
+    @POST("Authentication/SocialLogin")
+    Call<SocialLoginModel> sociallogin(@Field("username") String username,
+                                       @Field("email") String email,
+                                       @Field("status") String status,
+                                       @Field("auth_token") String auth_token);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/acceptOffer")
+    Call<AcceptOfferModle> acceptOffer(
+            @Field("offer_id") String offer_id,
+            @Field("user_id") String user_id,
+            @Field("mission_id") String mission_id,
+            @Field("accept_status") String accept_status);
 
     @FormUrlEncoded
     @POST("Client/myDemandbidbydate")
@@ -122,6 +141,15 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
+    @POST("Client/addReviewToUser")
+    Call<SubmitReviewModle> addReviewToUser(
+            @Field("client_user_id") String client_user_id,
+            @Field("rating") String rating,
+            @Field("reveiw_msg") String reveiw_msg,
+            @Field("my_user_id") String my_user_id);
+
+
+    @FormUrlEncoded
     @POST("Client/projectPorgress")
     Call<MissionInProgressModle> projectPorgress(@Field("project_id") String project_id);
 
@@ -139,7 +167,6 @@ public interface ApiServices {
                                                          @Part MultipartBody.Part project_status,
                                                          @Part MultipartBody.Part project_files,
                                                          @Part MultipartBody.Part project_image);
-
 
     @Multipart
     @POST("Authentication/editProfile")

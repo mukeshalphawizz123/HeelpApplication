@@ -35,7 +35,7 @@ public class Constants {
     public static String MY_MISSION_LIVERY_ACTIVITY="MyMissionDeliveryActivity";
     public static String MY_MISSION_COMPLETE_ACTIVITY="MyMissionCompleteActivity";
     public static String MY_MISSION_DISPUTE_ACTIVITY="MyMissionInDisputeActivity";
-    public static String MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT="MyRequestPublishedTablayoutFragment";
+    public static String MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT="MyDemandsPublishedTablayoutFragment";
     public static String MY_REQUEST_ONGOING_FRAGMENT="MyDemandsOngoingActivity";
     public static String MY_REQUEST_LIVERY_FRAGMENT="MyDemandsDeliveryActivity";
     public static String MY_REQUEST_COMPLETE_FRAGMENT="MyDemandsCompleteeActivity";

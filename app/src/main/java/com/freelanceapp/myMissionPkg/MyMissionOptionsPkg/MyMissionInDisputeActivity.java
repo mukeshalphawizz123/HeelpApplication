@@ -28,6 +28,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_in_dispute, container, false);
+        String missionId = this.getArguments().getString("missionId");
         init(view);
         return view;
     }

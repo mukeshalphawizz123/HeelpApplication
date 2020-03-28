@@ -22,7 +22,7 @@ import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.Adapter.DetailsAdapter;
 import com.freelanceapp.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.freelanceapp.detailsPkg.detailModlePkg.YourMission;
-import com.freelanceapp.myRequestPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyRequestPublishedTablayoutFragment;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyDemandsPublishedTablayoutFragment;
 import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
@@ -42,7 +42,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
     private DetailsAdapter detailsAdapter;
     private RecyclerView rvdetails;
     private ImageView ivdetailsback, ivnotification;
-    private String onGoing;
+    private String onGoing, missionId;
     private ProgressBar pbMymissionDetail;
     private ApiServices apiServices;
     private List<YourMission> yourMissionList;
@@ -51,10 +51,15 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_details, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        try {
+            missionId = this.getArguments().getString("missionId");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         init(view);
         getPreference();
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myMissionViewDetail("12");
+            myMissionViewDetail(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -112,8 +117,8 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
                 } else if (onGoing.equalsIgnoreCase("MyReqPubliee")) {
                     removeThisFragment();
-                    // replaceFragement(new MyRequestPublishedTablayoutFragment());
-                    addFragment(new MyRequestPublishedTablayoutFragment(), false, Constants.MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT);
+                    // replaceFragement(new MyDemandsPublishedTablayoutFragment());
+                    addFragment(new MyDemandsPublishedTablayoutFragment(), false, Constants.MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT);
 
                 } else if (onGoing.equalsIgnoreCase("MyReqEncours")) {
                     removeThisFragment();

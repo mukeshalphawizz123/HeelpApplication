@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 
 import com.freelanceapp.OptionActivity;
 import com.freelanceapp.R;
+import com.freelanceapp.loginInitial.LoginActivity;
 import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 
@@ -52,19 +54,16 @@ public class DashboardParametersActivity extends Fragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rltermsandconditionid:
-                //CheckNetwork.goTobackScreen(DashboardParametersActivity.this, HomeActivity.class);
-               // replaceFragement(new DashboardParametersTermsActivity());
-                addFragmentnext(new DashboardParametersTermsActivity(),true, Constants.DASHBOARD_PARAMETERS_TERMS_ACTIVITY);
+                addFragmentnext(new DashboardParametersTermsActivity(), true, Constants.DASHBOARD_PARAMETERS_TERMS_ACTIVITY);
                 break;
             case R.id.rlpowerbtnid:
+                AppSession.clearAllSharedPreferences(getActivity());
                 CheckNetwork.goTobackScreen(getActivity(), OptionActivity.class);
                 break;
             case R.id.ivdashboardparametersbackId:
-                // CheckNetwork.goTobackScreen(getActivity(), PlusMoreFragment.class);
-                removeAllFragment(new PlusMoreFragment(),false, Constants.PLUS_MORE_FRAGMENT);
+                removeAllFragment(new PlusMoreFragment(), false, Constants.PLUS_MORE_FRAGMENT);
                 break;
             case R.id.ivnotificationparametersId:
-                // replaceFragement(new NotificationActivity());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
 
@@ -84,22 +83,23 @@ public class DashboardParametersActivity extends Fragment implements View.OnClic
                                 String tag) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_left,R.anim.slide_in_right,R.anim.slide_out_right);
+        ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
         ft.addToBackStack(null);
         if (addToBackStack) {
             ft.addToBackStack(tag);
-        }else {
-            manager =  getActivity().getSupportFragmentManager();
+        } else {
+            manager = getActivity().getSupportFragmentManager();
             manager.popBackStackImmediate();
         }
         ft.replace(R.id.flHomeId, fragment, tag);
         ft.commitAllowingStateLoss();
     }
+
     public void removeAllFragment(Fragment replaceFragment,
                                   boolean addToBackStack, String tag) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right);
+        ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_right);
         manager.popBackStackImmediate(null,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (addToBackStack) {

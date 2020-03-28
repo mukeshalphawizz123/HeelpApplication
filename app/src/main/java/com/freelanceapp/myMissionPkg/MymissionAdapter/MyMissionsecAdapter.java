@@ -28,7 +28,7 @@ public class MyMissionsecAdapter extends RecyclerView.Adapter<MyMissionsecAdapte
 
 
     public interface MyMissionAppOnClickListener {
-        void myMissionOnClick(View view, int position, String text);
+        void myMissionOnClick(View view, int position, String text,YourMission yourMission);
 
     }
 
@@ -112,7 +112,7 @@ public class MyMissionsecAdapter extends RecyclerView.Adapter<MyMissionsecAdapte
 
         @Override
         public void onClick(View v) {
-            myMissionAppOnClickListener.myMissionOnClick(v, getAdapterPosition(), tvMyMissionRowFilterStatus.getText().toString());
+            myMissionAppOnClickListener.myMissionOnClick(v, getAdapterPosition(), tvMyMissionRowFilterStatus.getText().toString(),mymissionlist.get(getAdapterPosition()));
         }
     }
 }

@@ -61,7 +61,7 @@ trois principaux besoins de l’étudiant.</string>
     <string name="country">Country</string>
     <string name="save">Save</string>
     <string name="details">Details</string>
-    <string name="papular_searches">Papular Searches</string>
+    <string name="papular_searches">Popular Searches</string>
     <string name="discuss">Discuss</string>
     <string name="make_an_offer">Make an offer</string>
     <string name="accept_budget">Accept budget</string>
@@ -220,11 +220,11 @@ trois principaux besoins de l’étudiant.</string>
     <string name="Out">Out</string>
 
     <string name="Proposée">Proposed</string>
-    <string name="Encours">In progress</string>
-    <string name="Livrée">Delivered</string>
-    <string name="Completée">Complete</string>
-    <string name="Enlitige">In dispute</string>
-    <string name="Publiée">Posted</string>
+    <string name="Encours">Encours</string>
+    <string name="Livrée">Livrée</string>
+    <string name="Completée">Completée</string>
+    <string name="Enlitige">Enlitige</string>
+    <string name="Publiée">Publiée</string>
     <string name="don_t_realease_until_you_are_satisfied">Don\'t realease until you are satisfied !</string>
     <string name="need_a_modification">Need a modification</string>
     <string name="ask_to_modify">Ask to modify</string>
@@ -244,6 +244,13 @@ trois principaux besoins de l’étudiant.</string>
     <string name="categories_of_interest_on_heelp">Categories d\'interest sur heelp:</string>
     <string name="skills">Competences</string>
     <string name="status">Statut</string>
+    <string name="submit">Submit</string>
+    <string name="enter_your_review_here">Enter your review here</string>
+    <string name="my_wallet">My Wallet</string>
+
+    <string name="facebook_app_id">843307129428324</string>
+    <string name="fb_login_protocol_scheme">fb843307129428324</string>
+    <string name="notification_channel_id">my_channel_01</string>
 
 
 </resources>

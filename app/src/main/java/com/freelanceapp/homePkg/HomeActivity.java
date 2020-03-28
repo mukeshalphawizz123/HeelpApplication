@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,14 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.facebook.appevents.ml.Utils;
 import com.freelanceapp.homeTablayout.HomeTablayoutFragment;
 import com.freelanceapp.R;
 import com.freelanceapp.messageListPkg.MessageTablayout.MessageListTablayoutFragment;
 import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
-import com.freelanceapp.myRequestPkg.FragmentPkg.MyRequestFragment;
+import com.freelanceapp.myDemandsPkg.FragmentPkg.MyRequestFragment;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
-import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.Constants;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {

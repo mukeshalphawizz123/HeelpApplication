@@ -47,6 +47,7 @@ import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentO
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.UserProfileEditActivity;
 import com.freelanceapp.userProfileRatingPkg.ProfileRatingDescriptionActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.PrefData;
@@ -86,17 +87,18 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private List<YourMission> yourMissionList;
     private CircleImageView ivuserprofileimage;
     private AppCompatTextView tvname, tvdesination;
-    private String userImg, userName;
+    private String userImg, userName ,userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityPlusMoreBinding = DataBindingUtil.inflate(inflater, R.layout.activity_plus_more, container, false);
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId= AppSession.getStringPreferences(getActivity(),Constants.USERID);
         init(view);
         prefData = new PrefData(getActivity());
 
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            getProfileApi("1");
+            getProfileApi(userId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -160,11 +162,9 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlsponsorshipid:
-                // replaceFragement(new DeshboardSponsorshipActivity());
                 addFragment(new DeshboardSponsorshipActivity(), true, Constants.DESHBOARD_SPONSOR_SHIP);
                 break;
             case R.id.rlpaymentid:
-                //CheckNetwork.nextScreenWithoutFinish(getActivity(), DashboardPaymentActivity.class);
                 addFragment(new DashboardPaymentActivity(), true, Constants.DASHBOARD_PAYMENT_ACTIVITY);
                 break;
             case R.id.rlparametersid:
@@ -176,22 +176,12 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
             case R.id.rlhelpid:
                 addFragment(new DashboardHelpActivity(), true, Constants.DASHBOARD_HELP_ACTIVITY);
                 break;
-            /*case R.id.IvUserProfileNotifiId:
-                // replaceFragement(new NotificationActivity());
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
-                break;*/
             case R.id.rleditprofileId:
-                // replaceFragement(new UserProfileEditActivity());
                 editConfirmationDialoge();
-                // editProfileConfirmation.EditProfile(getActivity());
-                //CheckNetwork.goTobackScreen(getActivity(), EditProfileConfirmation.class);
                 break;
             case R.id.rlcircleprrogressbaroid:
-                //replaceFragement(new ProfileRatingDescriptionActivity());
-                //  CheckNetwork.nextScreenWithoutFinish(getActivity(), ProfileRatingDescriptionActivity.class);
                 break;
             case R.id.IvUserProfileNotifiId:
-                //replaceFragement(new ProfileRatingDescriptionActivity());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.IvUserProfilesettingsId:
@@ -203,7 +193,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                 intent.putExtra("userName", userName);
                 getActivity().startActivity(intent);
                 ((Activity) (getActivity())).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                ///CheckNetwork.nextScreenWithoutFinish(getActivity(), ProfileRatingDescriptionActivity.class);
+
                 break;
 
 

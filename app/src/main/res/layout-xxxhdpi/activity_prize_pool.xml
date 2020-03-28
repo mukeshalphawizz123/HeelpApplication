@@ -42,7 +42,7 @@
                     android:layout_below="@+id/ivnotificationprizepoolId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/wallet"
+                    android:text="@string/my_wallet"
                     android:textColor="@color/lessBlack"
                     android:textSize="@dimen/_18sdp"
                     android:textStyle="normal" />
@@ -117,7 +117,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/_25sdp"
-                                android:text="50 $"
+                                android:text="@string/_50"
                                 android:textColor="@color/Black"
                                 android:textSize="19sp"
                                 android:textStyle="bold" />

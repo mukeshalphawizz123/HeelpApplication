@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"></activity>
         <activity android:name=".notificationPkg.notificationReviewPkg.NotificationReviewActivity" />
         <activity android:name=".notificationPkg.notificationMessagePkg.NotificationMessageActivity" />
@@ -67,16 +68,16 @@
             android:name=".detailsPkg.DetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity"
+            android:name=".myDemandsPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
+            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
+            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myRequestPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity"
+            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"
@@ -111,11 +112,6 @@
         <activity
             android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersActivity"
             android:screenOrientation="portrait" />
-        <!--
-                <activity
-                    android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentActivity"
-                    android:screenOrientation="portrait"/>
-        -->
         <activity
             android:name=".plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity"
             android:screenOrientation="portrait" />

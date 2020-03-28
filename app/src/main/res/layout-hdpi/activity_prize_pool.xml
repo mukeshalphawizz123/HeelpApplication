@@ -40,9 +40,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivnotificationprizepoolId"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/wallet"
+                    android:text="@string/my_wallet"
                     android:textColor="@color/lessBlack"
                     android:textSize="@dimen/_18sdp"
                     android:textStyle="normal" />

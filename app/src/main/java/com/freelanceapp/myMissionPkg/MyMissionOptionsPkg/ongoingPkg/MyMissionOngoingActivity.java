@@ -47,6 +47,7 @@ import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressMo
 import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
 
@@ -82,7 +83,7 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     private ProgressBar pbMymissionProgress;
     private RelativeLayout rlmymissionongoingSendbrtn, rlproblem, rlmyMissProgressFile, rlmyMissProgressImag;
     private File fileForImage, fileForDocs;
-    private String filePath = null, profilImgPath, docPath;
+    private String filePath = null, profilImgPath, docPath, missionId, userId;
     private static final int SELECT_PICTURE = 101;
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 100;
     private static final int FILE_SELECT_CODE = 0;
@@ -95,9 +96,11 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        missionId = this.getArguments().getString("missionId");
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myMissionInProgress("12");
+            myMissionInProgress(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -192,6 +195,9 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     }
 
     private void replaceFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         AppSession.setStringPreferences(getActivity(), "OnGoing", "OnGoing");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -241,8 +247,8 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
             imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
         }
 
-        MultipartBody.Part project_id_ = MultipartBody.Part.createFormData("project_id", String.valueOf("12"));
-        MultipartBody.Part user_id_ = MultipartBody.Part.createFormData("user_id", String.valueOf("12"));
+        MultipartBody.Part project_id_ = MultipartBody.Part.createFormData("project_id", String.valueOf(missionId));
+        MultipartBody.Part user_id_ = MultipartBody.Part.createFormData("user_id", String.valueOf(userId));
         MultipartBody.Part your_comments_ = MultipartBody.Part.createFormData("your_comments", etMsgBoxInprogress.getText().toString());
         MultipartBody.Part project_status_ = MultipartBody.Part.createFormData("project_status", "1");
 

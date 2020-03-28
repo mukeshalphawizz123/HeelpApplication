@@ -40,6 +40,7 @@ import com.freelanceapp.homeTablayout.homeModel.RepondreUneDemandeModelPkg.Repon
 import com.freelanceapp.homeTablayout.homeModel.RepondreUneDemandeModelPkg.YourMission;
 import com.freelanceapp.homefilterPkg.HomeCategoryFilterActivity;
 import com.freelanceapp.makeAnOfferPkg.MakeAnOfferActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 
 import java.util.ArrayList;
@@ -120,10 +121,12 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
 
+
     @Override
-    public void findmissionTabClick(View view, int position) {
+    public void findmissionTabClick(View view, int position,YourMission yourMission) {
         switch (view.getId()) {
             case R.id.RlacceptofferId:
+                AppSession.setStringPreferences(getActivity(),"mission_Id",yourMission.getMissionId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), MakeAnOfferActivity.class);
                 break;
             case R.id.RlDiscussId:
@@ -140,7 +143,6 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
             case R.id.rlcategoriesId:
                 Homecategoryfilter();
                 break;
-
         }
     }
 
@@ -212,7 +214,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     @Override
-    public void publishOnClick(View view, int position) {
+    public void publishOnClick(View view, int position,Project project) {
 
     }
 

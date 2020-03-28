@@ -58,7 +58,7 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
     }
 
     public interface HomerespondtoarequestAppOnClickListener {
-        void findmissionTabClick(View view, int position);
+        void findmissionTabClick(View view, int position,YourMission yourMission);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -82,7 +82,7 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            homerespondtoarequesttAppOnClickListener.findmissionTabClick(v, getAdapterPosition());
+            homerespondtoarequesttAppOnClickListener.findmissionTabClick(v, getAdapterPosition(),findmission.get(getAdapterPosition()));
         }
     }
 }

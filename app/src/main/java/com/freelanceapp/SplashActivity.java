@@ -9,43 +9,34 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
-import com.freelanceapp.SetLangPkg.SetLangmodel;
-import com.freelanceapp.myRequestPkg.myRequestModlePkg.MyDemandeModel;
-import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
+import com.freelanceapp.homePkg.HomeActivity;
 import com.freelanceapp.splashBanner.BannerFragment;
-import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.PrefData;
 import com.freelanceapp.utility.StatusBarManagment;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class SplashActivity extends AppCompatActivity {
-    private  ApiServices apiServices;
+    private ApiServices apiServices;
     private ProgressBar Pbsetlang;
     private Context con;
-   private PrefData prefData;
+    private PrefData prefData;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+
+        flag = AppSession.getStringPreferences(SplashActivity.this, "status");
         init();
 
         Window window = getWindow();
@@ -53,12 +44,23 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent start = new Intent(SplashActivity.this, BannerFragment.class);
-                startActivity(start);
-                finish();
+                if (flag == null) {
+                    Intent start = new Intent(SplashActivity.this, BannerFragment.class);
+                    startActivity(start);
+                    finish();
+                } else if (flag.isEmpty()) {
+                    Intent start = new Intent(SplashActivity.this, BannerFragment.class);
+                    startActivity(start);
+                    finish();
+                } else {
+                    Intent start = new Intent(SplashActivity.this, HomeActivity.class);
+                    startActivity(start);
+                    finish();
+                }
+
             }
         }, 2000);
-        return ;
+        return;
     }
 
     private void init() {

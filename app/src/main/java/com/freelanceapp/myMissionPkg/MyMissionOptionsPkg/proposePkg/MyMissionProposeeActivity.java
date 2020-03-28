@@ -53,16 +53,18 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     private ProgressBar PbMymissionProposed;
     private ApiServices apiServices;
     private List<YourMission> yourMissionList;
+    String missionId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        missionId = this.getArguments().getString("missionId");
+        // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myMission("12");
-        }
-        else {
-            Toast.makeText(getActivity(),"Check Network Connection",Toast.LENGTH_LONG).show();
+            myMission(missionId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
         return view;
     }
@@ -153,8 +155,10 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         ft.commit();
     }
 
-    public void addFragment(Fragment fragment, boolean addToBackStack,
-                            String tag) {
+    public void addFragment(Fragment fragment, boolean addToBackStack, String tag) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -188,12 +192,11 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
                 if (response.isSuccessful()) {
                     PbMymissionProposed.setVisibility(View.GONE);
                     MyMissionProposedModle myMissionProposedModle = response.body();
-                    if (myMissionProposedModle.getStatus() == true) {
-                        PbMymissionProposed.setVisibility(View.GONE);
+                    if (myMissionProposedModle.getStatus()) {
                         yourMissionList = myMissionProposedModle.getYourMissions();
                         proposeAdapter.addmymissionDataByProposed(yourMissionList);
                     } else
-                        PbMymissionProposed.setVisibility(View.VISIBLE);
+                        PbMymissionProposed.setVisibility(View.GONE);
 
                 } else {
                     if (response.code() == 400) {

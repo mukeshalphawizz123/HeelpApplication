@@ -22,12 +22,14 @@ import com.freelanceapp.homeTablayout.homeModel.ListOfProjectModel;
 import com.freelanceapp.homeTablayout.homeModel.Project;
 import com.freelanceapp.homefilterPkg.AdapterPkg.FilterAdapter;
 import com.freelanceapp.utility.CheckNetwork;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeCategoryFilterActivity extends AppCompatActivity implements FilterAdapter.FilterAppOnClickListener,HomeCategoryFilterAdapter.HomePublisherRequest{
+public class HomeCategoryFilterActivity extends AppCompatActivity implements FilterAdapter.FilterAppOnClickListener, HomeCategoryFilterAdapter.HomePublisherRequest {
 
     private AppCompatImageView iveditCloseid;
     private Context context;
@@ -55,17 +57,17 @@ public class HomeCategoryFilterActivity extends AppCompatActivity implements Fil
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 //                homeCategoryFilterAdapter.getFilter().filter(s);
-               Toast.makeText(HomeCategoryFilterActivity.this, ""+s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeCategoryFilterActivity.this, "" + s, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() > 0) {
-                  //  homeCategoryFilterAdapter.getFilter().filter(s);
-                    Toast.makeText(HomeCategoryFilterActivity.this, ""+s, Toast.LENGTH_SHORT).show();
+                    //  homeCategoryFilterAdapter.getFilter().filter(s);
+                    Toast.makeText(HomeCategoryFilterActivity.this, "" + s, Toast.LENGTH_SHORT).show();
                     //ivLogoHome.setVisibility(View.VISIBLE);
                 } else {
-                   // ivLogoHome.setVisibility(View.GONE);
+                    // ivLogoHome.setVisibility(View.GONE);
                 }
             }
 
@@ -75,7 +77,6 @@ public class HomeCategoryFilterActivity extends AppCompatActivity implements Fil
             }
         });
     }
-
 
 
     private void searchfilter() {
@@ -99,12 +100,17 @@ public class HomeCategoryFilterActivity extends AppCompatActivity implements Fil
     }
 
     private void init() {
-        Etsearch=findViewById(R.id.EtsearchId);
-        Pbsearch=findViewById(R.id.PbsearchId);
+        Etsearch = findViewById(R.id.EtsearchId);
+        Pbsearch = findViewById(R.id.PbsearchId);
         rvSearch = findViewById(R.id.rvphyFragId);
-        homeCategoryFilterAdapter =new HomeCategoryFilterAdapter(context,this);
+        homeCategoryFilterAdapter = new HomeCategoryFilterAdapter(context, this);
     }
 
+
+    @Override
+    public void publishOnClick(View view, int position, Project project) {
+
+    }
 
     @Override
     public void publishOnClick(View view, int position) {

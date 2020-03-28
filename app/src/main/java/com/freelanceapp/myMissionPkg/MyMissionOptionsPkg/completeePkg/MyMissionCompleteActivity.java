@@ -51,13 +51,16 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
     private ProgressBar pbMymissionComplete;
     private AppCompatTextView tvCommentValueMyMisssion, tvUserNameMyMisssion;
     private CircleImageView ivUserImgMyMision;
+    private String missionId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_complete, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        missionId = this.getArguments().getString("missionId");
+        //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myCompleted("12");
+            myCompleted(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -115,6 +118,9 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
     }
 
     private void replaceFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         AppSession.setStringPreferences(getActivity(), "OnGoing", "Complete");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -148,6 +154,9 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
                         tvUserNameMyMisssion.setText(missionCompleteModle.getData().get(0).getFirstName());
                         tvCommentValueMyMisssion.setText(missionCompleteModle.getData().get(0).getYourComments());
                         Picasso.with(getActivity()).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + missionCompleteModle.getData().get(0).getPictureUrl()).into(ivUserImgMyMision);
+                    }
+                    else {
+
                     }
                 } else {
                     if (response.code() == 400) {

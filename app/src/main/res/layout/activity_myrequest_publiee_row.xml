@@ -20,9 +20,9 @@
             android:layout_marginStart="135dp"
             android:layout_marginTop="30sp"
             android:layout_marginEnd="20sp"
-            android:text="@string/task_that_i_have_bid_on_title_blablablablablablabla"
             android:textColor="@color/Black"
             android:textSize="16sp"
+            android:maxLines="3"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView

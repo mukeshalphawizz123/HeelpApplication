@@ -31,7 +31,7 @@
                     android:id="@+id/ivnotificationprizepoolId"
                     android:layout_width="30sp"
                     android:layout_height="30sp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="15sp"
                     android:src="@drawable/ring" />
@@ -42,7 +42,7 @@
                     android:layout_below="@+id/ivnotificationprizepoolId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/wallet"
+                    android:text="@string/my_wallet"
                     android:textColor="@color/lessBlack"
                     android:textSize="@dimen/_18sdp"
                     android:textStyle="normal" />

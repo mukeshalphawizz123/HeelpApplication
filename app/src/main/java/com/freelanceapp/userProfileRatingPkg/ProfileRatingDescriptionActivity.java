@@ -21,7 +21,9 @@ import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.userProfileRatingPkg.AdapterPkg.ProfileRatingAdapter;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.freelanceapp.userProfileRatingPkg.getuserreviewsModulePkg.Review;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -41,7 +43,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     private ProgressBar Pbgetuserreviews;
     private ApiServices apiServices;
     private List<Review> getuserreview;
-    private String userImg, userName;
+    private String userImg, userName, userId;
     private AppCompatTextView tvname;
     private AppCompatImageView ivuserprofileimage;
     private RatingBar rbhelperprofile;
@@ -54,9 +56,10 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userImg = getIntent().getStringExtra("userImg");
         userName = getIntent().getStringExtra("userName");
+        userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            getReviews("12");
+            getReviews(userId);
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }

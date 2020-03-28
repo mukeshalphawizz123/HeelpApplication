@@ -107,8 +107,6 @@ public class HomeCategoryFrament extends Fragment implements
                 intent.putExtra("projectId", projectlist.get(position).getProjectId());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-             /*   Intent intent1=new Intent(getActivity(),PostADemandActivity.class);
-                intent1.putExtra("imagetitle",projectlist.get(position).getTitle());*/
                 break;
         }
     }

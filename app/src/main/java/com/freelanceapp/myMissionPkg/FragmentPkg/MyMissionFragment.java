@@ -148,22 +148,22 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
     }
 
     @Override
-    public void myMissionOnClick(View view, int position, String text) {
+    public void myMissionOnClick(View view, int position, String text, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlmymissionid:
                 if (text.equals(getResources().getString(R.string.Proposée))) {
-                    addFragment(new MyMissionProposeeActivity(), true, Constants.MY_MISSION_PROPOSEE_ACTIVITY);
+                    addFragment(new MyMissionProposeeActivity(), true, Constants.MY_MISSION_PROPOSEE_ACTIVITY, yourMission.getMissionId());
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
                     /*replaceFragement(new MyMissionOngoingActivity());*/
-                    addFragment(new MyMissionOngoingActivity(), true, Constants.MY_MISSION_ONGOING_ACTIVITY);
+                    addFragment(new MyMissionOngoingActivity(), true, Constants.MY_MISSION_ONGOING_ACTIVITY, yourMission.getMissionId());
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
-                    addFragment(new MyMissionDeliveryActivity(), true, Constants.MY_MISSION_LIVERY_ACTIVITY);
+                    addFragment(new MyMissionDeliveryActivity(), true, Constants.MY_MISSION_LIVERY_ACTIVITY, yourMission.getMissionId());
                     // replaceFragement(new MyMissionDeliveryActivity());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
-                    addFragment(new MyMissionCompleteActivity(), true, Constants.MY_MISSION_COMPLETE_ACTIVITY);
+                    addFragment(new MyMissionCompleteActivity(), true, Constants.MY_MISSION_COMPLETE_ACTIVITY, yourMission.getMissionId());
                     //replaceFragement(new MyMissionCompleteActivity());
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
-                    addFragment(new MyMissionInDisputeActivity(), true, Constants.MY_MISSION_DISPUTE_ACTIVITY);
+                    addFragment(new MyMissionInDisputeActivity(), true, Constants.MY_MISSION_DISPUTE_ACTIVITY, yourMission.getMissionId());
                     // replaceFragement(new MyMissionInDisputeActivity());
                 }
                 break;
@@ -171,8 +171,10 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
         }
     }
 
-    public void addFragment(Fragment fragment, boolean addToBackStack,
-                            String tag) {
+    public void addFragment(Fragment fragment, boolean addToBackStack, String tag, String missionId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,7 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
 
 
     public interface HomePublisherRequest {
-        void publishOnClick(View view, int position);
+        void publishOnClick(View view, int position, Project project);
     }
 
     public HomeCategoryFilterAdapter(Context context, HomePublisherRequest homePublisherRequest) {
@@ -138,7 +139,7 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
 
         @Override
         public void onClick(View v) {
-            homePublisherRequest.publishOnClick(v, getAdapterPosition());
+            homePublisherRequest.publishOnClick(v, getAdapterPosition(),projectlist.get(getAdapterPosition()));
 
         }
     }

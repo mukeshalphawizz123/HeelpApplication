@@ -1,7 +1,11 @@
 package com.freelanceapp.makeAnOfferPkg;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -11,18 +15,24 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
+import com.freelanceapp.CustomToast;
 import com.freelanceapp.R;
+import com.freelanceapp.loginInitial.LoginActivity;
 import com.freelanceapp.makeAnOfferPkg.Adapter.MakeanOfferAdapter;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.Datum;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
 import com.freelanceapp.notificationPkg.NotificationActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.Constants;
 
 import java.util.List;
 
@@ -41,12 +51,19 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
     private ApiServices apiServices;
     private List<Datum> findmissionList;
     private TextView ettitletext, etdemande, etbudget;
+    private String missionId, userid;
+    private AppCompatEditText etAcceptOffer, etMakeOfferAmount;
+    private String status;
+    private String offerPrice;
+    private static Animation shakeAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_an_offer);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        missionId = AppSession.getStringPreferences(getApplicationContext(), "mission_Id");
+        userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
         if (CheckNetwork.isNetAvailable(MakeAnOfferActivity.this)) {
             makeAnOfferDetailApi();
@@ -57,6 +74,9 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
     }
 
     private void init() {
+        shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+        etMakeOfferAmount = findViewById(R.id.etMakeOfferAmountId);
+        etAcceptOffer = findViewById(R.id.etAcceptOfferId);
         etbudget = findViewById(R.id.etbudgetid);
         etdemande = findViewById(R.id.etdemandeidd);
         ettitletext = findViewById(R.id.ettitletextid);
@@ -79,6 +99,10 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     radiogreenid.setChecked(false);
+                    status = "1";
+                    offerPrice = etbudget.getText().toString();
+
+                    //  Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -87,6 +111,9 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     radioid.setChecked(false);
+                    status = "2";
+                    offerPrice = etMakeOfferAmount.getText().toString();
+                    // Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -95,7 +122,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
     private void makeAnOfferDetailApi() {
         pbMakeAnOffer.setVisibility(View.VISIBLE);
-        apiServices.getofferid("2").enqueue(new Callback<MakeOfferDetailModle>() {
+        apiServices.getofferid(missionId).enqueue(new Callback<MakeOfferDetailModle>() {
             @Override
             public void onResponse(Call<MakeOfferDetailModle> call, Response<MakeOfferDetailModle> response) {
                 if (response.isSuccessful()) {
@@ -117,7 +144,8 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
     private void makeAnOfferApi() {
         pbMakeAnOffer.setVisibility(View.VISIBLE);
-        apiServices.makeAnOffer("12", "12", "testing", "1", "200").enqueue(new Callback<SaveOfferModle>() {
+        // Log.v("data",missionId+"/"+userid+"/"+etAcceptOffer.getText().toString()+"/"+status+"/"+offerPrice);
+        apiServices.makeAnOffer(missionId, userid, etAcceptOffer.getText().toString(), status, offerPrice).enqueue(new Callback<SaveOfferModle>() {
             @Override
             public void onResponse(Call<SaveOfferModle> call, Response<SaveOfferModle> response) {
                 if (response.isSuccessful()) {
@@ -125,9 +153,12 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     SaveOfferModle body = response.body();
                     if (body.getStatus()) {
                         CheckNetwork.nextScreenWithoutFinish(MakeAnOfferActivity.this, OfferComfirmationActivity.class);
+                    } else {
+
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<SaveOfferModle> call, Throwable t) {
                 pbMakeAnOffer.setVisibility(View.GONE);
@@ -146,10 +177,16 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                 CheckNetwork.nextScreenWithoutFinish(MakeAnOfferActivity.this, NotificationActivity.class);
                 break;
             case R.id.rlpublishapplicationnsid:
-                if (CheckNetwork.isNetAvailable(MakeAnOfferActivity.this)) {
-                    makeAnOfferApi();
+                if (etAcceptOffer.getText().toString().isEmpty()) {
+                    new CustomToast().Show_Toast(this, v, "Can't Empty");
+                    etAcceptOffer.startAnimation(shakeAnimation);
+                    etAcceptOffer.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                 } else {
-                    Toast.makeText(MakeAnOfferActivity.this, "Check Network Connection", Toast.LENGTH_LONG).show();
+                    if (CheckNetwork.isNetAvailable(MakeAnOfferActivity.this)) {
+                        makeAnOfferApi();
+                    } else {
+                        Toast.makeText(MakeAnOfferActivity.this, "Check Network Connection", Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
 

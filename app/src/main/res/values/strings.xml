@@ -24,7 +24,7 @@ three main needs of the student.</string>
     <string name="connect">Connect</string>
     <string name="i_accept_terms">I accept terms</string>
     <string name="see_more">See more</string>
-    <string name="you_d_ont_have_an_account">You d\'ont have an account ?</string>
+    <string name="you_d_ont_have_an_account">You don\'t have an account ?</string>
     <string name="you_already_have_an_account">You already have an account ?</string>
     <string name="user_name">User Name</string>
     <string name="email">Email</string>
@@ -58,7 +58,7 @@ three main needs of the student.</string>
     <string name="country">Country</string>
     <string name="save">Save</string>
     <string name="details">Details</string>
-    <string name="papular_searches">Papular Searches</string>
+    <string name="papular_searches">Popular Searches</string>
     <string name="discuss">Discuss</string>
     <string name="make_an_offer">Make an offer</string>
     <string name="accept_budget">Accept budget</string>
@@ -98,7 +98,7 @@ three main needs of the student.</string>
     <string name="do_you_want_to_open_a_dispute">Do you want to open a dispute?</string>
     <string name="contact_here">Contact here</string>
     <string name="file_name">File Name</string>
-    <string name="editer">Editer</string>
+    <string name="editer">Edit</string>
     <string name="terminologie">Terminologies :</string>
     <string name="today_4_12pm">Today 4.12pm</string>
     <string name="hey_there_nplease_provide_the_necessary_data_so_that_i_will_start_designing_i_would_hardly_take_1_2_weeks_to_complete">Hey there, Please provide the necessary data so that I will start designing. I would hardly take 1-2 weeks to complete.</string>
@@ -180,7 +180,7 @@ three main needs of the student.</string>
     <string name="debra_martin">Debra Martin</string>
     <string name="june_2018">June 2018</string>
     <string name="_4_8">4.8</string>
-    <string name="_50">50 $</string>
+    <string name="_50">50 €</string>
     <string name="des_frais_de_9_seront_d_duits_n_ex_pour_un_retrait_de_10_vous_recevrez_9_1_soit_0_9_euros_de_frais">fees of 9% will be deducted Ex for a withdrawal of 10 € you will receive 9.1 € or 0.9 euros of fees</string>
     <string name="published">Published</string>
     <string name="filter_proposals">filter proposals:</string>
@@ -218,7 +218,7 @@ three main needs of the student.</string>
     <string name="Proposée">Proposed</string>
     <string name="Encours">In progress</string>
     <string name="Livrée">Delivered</string>
-    <string name="Completée">Complete</string>
+    <string name="Completée">Completed</string>
     <string name="Enlitige">Dispute</string>
     <string name="Publiée">Posted</string>
     <string name="don_t_realease_until_you_are_satisfied">Don\'t realease until you are satisfied !</string>
@@ -240,6 +240,14 @@ three main needs of the student.</string>
     <string name="categories_of_interest_on_heelp">Categories of interest on heelp:</string>
     <string name="skills">Skills</string>
     <string name="status">Status</string>
+    <string name="submit">Submit</string>
+    <string name="enter_your_review_here">Enter your review here</string>
+    <string name="my_wallet">My Wallet</string>
+
+    <string name="facebook_app_id">843307129428324</string>
+    <string name="fb_login_protocol_scheme">fb843307129428324</string>
+    <string name="notification_channel_id">my_channel_01</string>
+
 
 
 </resources>

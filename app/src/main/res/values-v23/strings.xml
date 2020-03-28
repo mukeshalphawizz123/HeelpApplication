@@ -5,4 +5,6 @@
     <string name="university_school">University / School:</string>
     <string name="categories_of_interest_on_heelp">Categories of interest on heelp:</string>
     <string name="skills">Skills</string>
+    <string name="facebook_app_id">843307129428324</string>
+    <string name="fb_login_protocol_scheme">fb843307129428324</string>
 </resources>

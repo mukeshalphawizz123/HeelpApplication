@@ -49,7 +49,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private ImageView ivmissionliverydashboardback, ivnotification;
     private RelativeLayout rlmissliveryviewdetails;
     private TextView tvviewprofile, tvmymissionliverytext;
-    private String livree;
+    private String livree,missionId,userId;
     private ApiServices apiServices;
     private ProgressBar pbMymissionDelivery;
     private AppCompatTextView tvUserNameMyMissionDelivery, tvCommentMyMissionDelivery;
@@ -59,9 +59,10 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_livery, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+         missionId = this.getArguments().getString("missionId");
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myDelivery("12");
+            myDelivery(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -125,6 +126,9 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     }
 
     private void replaceFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         AppSession.setStringPreferences(getActivity(), "OnGoing", "Livree");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
