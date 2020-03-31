@@ -49,7 +49,7 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
         holder.tvMyMissionDesDel.setText(yourMissionList.get(position).getMessage());
         holder.tvOfferValueDel.setText(yourMissionList.get(position).getMissionBudget());
         holder.tvMyMissionDaysDel.setText(yourMissionList.get(position).getCreatedDate());
-        Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + yourMissionList.get(position).getMissionImage()).into(holder.ivMymissionDel);
+        Picasso.with(context).load(RetrofitClient.MISSION_IMAGE_URL + yourMissionList.get(position).getMissionImage()).into(holder.ivMymissionDel);
 
     }
 

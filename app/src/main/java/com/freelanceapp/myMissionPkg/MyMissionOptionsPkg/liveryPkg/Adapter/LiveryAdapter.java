@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
@@ -47,8 +49,14 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout rlFileFolder;
+        private AppCompatTextView tvfilename;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename = itemView.findViewById(R.id.tvfilenameid);
         }
+
     }
 }

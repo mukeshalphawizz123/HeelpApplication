@@ -248,7 +248,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
-                                Toast.makeText(SignupActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(SignupActivity.this, "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -279,7 +279,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
                             sociallogin1(first_name + last_name, id, "2");
-                            Toast.makeText(SignupActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(SignupActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

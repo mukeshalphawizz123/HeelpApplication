@@ -166,7 +166,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
                 break;
             case R.id.ivuserprofileimageId:

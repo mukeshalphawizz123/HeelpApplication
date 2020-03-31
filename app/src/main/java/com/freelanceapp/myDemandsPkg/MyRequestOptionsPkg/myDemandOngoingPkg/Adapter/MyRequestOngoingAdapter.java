@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,8 +49,13 @@ public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout rlFileFolder;
+        TextView tvfilename;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlFileFolder=itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename=itemView.findViewById(R.id.tvfilenameid);
+
         }
     }
 }

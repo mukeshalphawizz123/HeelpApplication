@@ -23,9 +23,9 @@ public class SelectImageAdapter extends RecyclerView.Adapter<SelectImageAdapter.
     private List<Uri> photos;
 
 
-    public SelectImageAdapter(Context context, SelectImageOnClickListener appointmentOnClickListener){
+    public SelectImageAdapter(Context context, SelectImageOnClickListener appointmentOnClickListener) {
         this.appointmentOnClickListener = appointmentOnClickListener;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class SelectImageAdapter extends RecyclerView.Adapter<SelectImageAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Uri photo = photos.get(position);
-        String path = photo.getPath();
-        File sd = Environment.getExternalStorageDirectory();
-        File image = new File(path);
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
-        //bitmap = Bitmap.createScaledBitmap(bitmap,parent.getWidth(),parent.getHeight(),true);
+        // String path = photo.getPath();
+        // File sd = Environment.getExternalStorageDirectory();
+        // File image = new File(path);
+        // BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        // Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+        //  //bitmap = Bitmap.createScaledBitmap(bitmap,parent.getWidth(),parent.getHeight(),true);
         holder.ivselectimageId.setImageURI(photo);
         holder.ivdeletCloseId.setOnClickListener(new View.OnClickListener() {
             @Override

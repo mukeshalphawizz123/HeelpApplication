@@ -304,16 +304,17 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvimageviewcardid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/cvdescriptionid"
-                    android:layout_marginStart="30sp"
-                    android:layout_marginTop="15sp"
-                    android:layout_marginEnd="30sp"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginEnd="15sp"
                     app:cardBackgroundColor="@color/lessgray"
-                    app:cardCornerRadius="20sp">
+                    app:cardCornerRadius="2sp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"

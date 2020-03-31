@@ -241,7 +241,6 @@
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:nestedScrollingEnabled="false" />
 
-
                 </RelativeLayout>
 
                 <RelativeLayout

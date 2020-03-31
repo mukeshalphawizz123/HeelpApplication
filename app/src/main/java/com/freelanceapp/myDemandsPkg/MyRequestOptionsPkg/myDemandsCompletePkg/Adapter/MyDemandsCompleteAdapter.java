@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +14,7 @@ import com.freelanceapp.R;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity;
 
 
-public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsCompleteAdapter.ViewHolder>  {
+public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsCompleteAdapter.ViewHolder> {
 
     private Context context;
     private MyDemandsCompleteAdapter.MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
@@ -46,8 +48,13 @@ public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsComp
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout rlFileFolder;
+        private TextView tvfilename;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename = itemView.findViewById(R.id.tvfilenameid);
         }
     }
 }

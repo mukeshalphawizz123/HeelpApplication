@@ -250,14 +250,14 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.rlPieceId:
-                askStoragePermission();
-               /* BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+               // askStoragePermission();
+                BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()
                         .setMinimumMultiSelectCount(1)
                         .setMaximumMultiSelectCount(6)
                         .build();
-                pickerDialog.show(getSupportFragmentManager(), "picker");*/
+                pickerDialog.show(getSupportFragmentManager(), "picker");
                 break;
             case R.id.rlPieceJointId:
                 showFileChooser();
