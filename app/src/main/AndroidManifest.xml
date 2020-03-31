@@ -22,6 +22,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"></activity>

@@ -115,6 +115,7 @@
                     android:background="@drawable/notificationblankbtn">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvPaymentCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -123,6 +124,8 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="18dp"
                         android:textStyle="bold" />
+
+
 
                 </RelativeLayout>
 
@@ -171,6 +174,7 @@
                     android:background="@drawable/notificationblankbtn">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvStatusCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -179,6 +183,7 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="18dp"
                         android:textStyle="bold" />
+
 
                 </RelativeLayout>
 
@@ -226,6 +231,7 @@
                     android:background="@drawable/notificationblankbtn">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvOfferCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -234,6 +240,8 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="18dp"
                         android:textStyle="bold" />
+
+
 
                 </RelativeLayout>
 
@@ -281,6 +289,7 @@
                     android:background="@drawable/notificationblankbtn">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvMsgCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -289,6 +298,8 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="18dp"
                         android:textStyle="bold" />
+
+
 
                 </RelativeLayout>
 
@@ -337,6 +348,7 @@
                     android:background="@drawable/notificationblankbtn">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvReviewCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -354,6 +366,13 @@
 
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/pbNotificationId"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

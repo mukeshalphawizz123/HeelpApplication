@@ -13,13 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
 import com.freelanceapp.myMissionPkg.Mymissionmodle.mymissionModle;
+import com.freelanceapp.notificationPkg.NotificationModlePkg.Datum;
+import com.freelanceapp.notificationPkg.NotificationModlePkg.NotificationResponseModle;
+import com.freelanceapp.utility.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationMessageAdapter extends RecyclerView.Adapter<NotificationMessageAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<mymissionModle> mymissionModelArrayList;
+    private List<Datum> mymissionModelArrayList;
     private NotificationMessageAppOnClickListener notificationMessageAppOnClickListener;
     private int selectedPos = 0;
     private String filterTag;
@@ -27,11 +31,13 @@ public class NotificationMessageAdapter extends RecyclerView.Adapter<Notificatio
     public interface NotificationMessageAppOnClickListener {
         void notMsgTabClick(View view, int position);
     }
+
     public NotificationMessageAdapter(Context context, NotificationMessageAppOnClickListener notificationMessageAppOnClickListener) {
         this.context = context;
         this.notificationMessageAppOnClickListener = notificationMessageAppOnClickListener;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,38 +49,30 @@ public class NotificationMessageAdapter extends RecyclerView.Adapter<Notificatio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      /*  if (filterTag.equalsIgnoreCase(mymissionModelArrayList.get(position).getName())){
-
-            holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);
-        }else {
-            holder.tvtextmission.setText(mymissionModelArrayList.get(position).getName());
-            holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);
-
-        }
-*//*
-       holder.tvtextmission.setText(mymissionModelArrayList.get(position).getName());
-       holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);*/
-
+        holder.tvtime.setText(Constants.parseDateToddMMyyyy(mymissionModelArrayList.get(position).getCreated()));
+        holder.tvUserNameChat.setText(mymissionModelArrayList.get(position).getNotification());
     }
 
-    public void addmymissionData(ArrayList<mymissionModle> mymissionModelArrayList) {
+    public void addmymissionData(List<Datum> mymissionModelArrayList) {
         this.mymissionModelArrayList = mymissionModelArrayList;
+
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 10;
-       // return mymissionModelArrayList == null ? 0 : mymissionModelArrayList.size();
+        // return 10;
+        return mymissionModelArrayList == null ? 0 : mymissionModelArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private AppCompatTextView tvtextmission;
+        private AppCompatTextView tvtime, tvUserNameChat;
         private RelativeLayout rlmission;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            tvtime = itemView.findViewById(R.id.tvtimeId);
+            tvUserNameChat = itemView.findViewById(R.id.tvUserNameChatId);
         }
 
         @Override
@@ -84,7 +82,7 @@ public class NotificationMessageAdapter extends RecyclerView.Adapter<Notificatio
         }
 
         public void changeToSelect(int colorBackground) {
-            tvtextmission.setTextColor(colorBackground);
+            //  tvtextmission.setTextColor(colorBackground);
         }
 
 

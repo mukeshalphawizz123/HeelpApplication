@@ -89,12 +89,15 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                // .requestIdToken(getResources().getString(R.string.web_client_id))
+                //.requestIdToken(getResources().getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
         callbackManager = CallbackManager.Factory.create();
+
         boolean loggedOut = AccessToken.getCurrentAccessToken() == null;
+
         if (!loggedOut) {
             LoginManager.getInstance().logOut();
         }
@@ -210,11 +213,21 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         }
+        else {
+            try {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                onLoggedIn(account);
+            } catch (ApiException e) {
+                e.printStackTrace();
+                //  Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            }
+        }
     }
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-        Toast.makeText(this, ""+email, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, ""+email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 

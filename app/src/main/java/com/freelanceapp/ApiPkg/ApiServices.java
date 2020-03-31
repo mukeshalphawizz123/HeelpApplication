@@ -24,6 +24,8 @@ import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.dema
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.freelanceapp.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
+import com.freelanceapp.notificationPkg.NotificationCountResponseModle;
+import com.freelanceapp.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
@@ -68,6 +70,19 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Client/myMission")
     Call<MyMissionModel> mymission(@Field("status") String status);
+
+
+    @FormUrlEncoded
+    @POST("Client/getnotificationbytype")
+    Call<NotificationResponseModle> getNotification(
+            @Field("user_id") String user_id,
+            @Field("type_id") String type_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/getnotificationcount")
+    Call<NotificationCountResponseModle> getnotificationcount(
+            @Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("Client/myDemandList")
@@ -202,7 +217,8 @@ public interface ApiServices {
                                         @Part MultipartBody.Part description,
                                         @Part MultipartBody.Part budget,
                                         @Part MultipartBody.Part client_id,
-                                        @Part MultipartBody.Part project_image);
+                                        @Part MultipartBody.Part project_image[],
+                                        @Part MultipartBody.Part project_file[]);
 
     @FormUrlEncoded
     @POST("Offer/getofferid")

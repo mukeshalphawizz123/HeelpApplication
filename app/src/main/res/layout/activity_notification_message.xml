@@ -31,7 +31,6 @@
                     android:textColor="@color/lessBlack"
                     android:textSize="@dimen/_20sdp" />
 
-
             </RelativeLayout>
 
 
@@ -57,12 +56,11 @@
         </RelativeLayout>
 
 
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sflNotMsgId"
-            android:layout_below="@+id/rlbackgroundid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlbackgroundid">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -75,14 +73,12 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
         <ProgressBar
             android:id="@+id/pbNotMsgId"
-            android:visibility="invisible"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
 
     </RelativeLayout>

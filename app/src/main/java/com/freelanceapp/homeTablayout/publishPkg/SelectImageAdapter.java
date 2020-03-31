@@ -52,13 +52,13 @@ public class SelectImageAdapter extends RecyclerView.Adapter<SelectImageAdapter.
         // Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
         //  //bitmap = Bitmap.createScaledBitmap(bitmap,parent.getWidth(),parent.getHeight(),true);
         holder.ivselectimageId.setImageURI(photo);
-        holder.ivdeletCloseId.setOnClickListener(new View.OnClickListener() {
+       /* holder.ivdeletCloseId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 photos.remove(position);
                 notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
     @Override
@@ -79,10 +79,12 @@ public class SelectImageAdapter extends RecyclerView.Adapter<SelectImageAdapter.
             super(itemView);
             ivselectimageId = itemView.findViewById(R.id.ivselectimageId);
             ivdeletCloseId = itemView.findViewById(R.id.ivdeletCloseId);
+            ivdeletCloseId.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            appointmentOnClickListener.onClick(v,getAdapterPosition());
         }
     }
 }

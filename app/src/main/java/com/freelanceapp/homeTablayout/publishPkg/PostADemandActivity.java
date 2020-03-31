@@ -47,6 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -74,6 +75,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private static Animation shakeAnimation;
     private RecyclerView rvselectimageId;
     private SelectImageAdapter selectImageAdapter;
+    private ArrayList<String> stringArrayList = new ArrayList<>();
+    private ArrayList<Uri> uriArrayList = new ArrayList<>();
 
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -142,17 +145,31 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         Pbitemdescription.setVisibility(View.VISIBLE);
         MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
-        if (profilImgPath == null) {
+        MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
+        try {
+            if (stringArrayList.size() == 0) {
+            } else {
+                for (int index = 0; index < stringArrayList.size(); index++) {
+                    File file1 = new File(stringArrayList.get(index));
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file1);
+                    parts[index] = MultipartBody.Part.createFormData("project_image[]", file1.getPath(), requestBody);
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+       /* if (profilImgPath == null) {
         } else {
             fileForImage = new File(profilImgPath);
             RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
             imgFileStation = MultipartBody.Part.createFormData("project_image", fileForImage.getName(), requestFileOne);
-        }
+        }*/
 
         if (docPath == null) {
         } else {
             fileForDocs = new File(docPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), docPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse("image/*"), docPath);
             imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
         }
 
@@ -162,7 +179,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
         // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
-        apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, imgFileStation)
+        apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, parts,imgFileStationDoc)
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
@@ -250,7 +267,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.rlPieceId:
-               // askStoragePermission();
+                // askStoragePermission();
                 BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()
@@ -351,15 +368,40 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onMultiImageSelected(List<Uri> uriList, String tag) {
+        uriArrayList.addAll(uriList);
+        setupImagePath();
+        for (int i = 0; i < uriList.size(); i++) {
+            profilImgPath = getRealPathFromURI(PostADemandActivity.this, uriList.get(i));
+            stringArrayList.add(profilImgPath);
+        }
+    }
+
+    private void setupImagePath() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(PostADemandActivity.this, RecyclerView.HORIZONTAL, false);
         rvselectimageId.setLayoutManager(layoutManager);
         selectImageAdapter = new SelectImageAdapter(this, this);
         rvselectimageId.setAdapter(selectImageAdapter);
-        selectImageAdapter.scheduleappoinList(uriList);
+        selectImageAdapter.scheduleappoinList(uriArrayList);
     }
 
     @Override
     public void onClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.ivdeletCloseId:
+                stringArrayList.clear();
+                uriArrayList.remove(position);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(PostADemandActivity.this, RecyclerView.HORIZONTAL, false);
+                rvselectimageId.setLayoutManager(layoutManager);
+                selectImageAdapter = new SelectImageAdapter(this, this);
+                rvselectimageId.setAdapter(selectImageAdapter);
+                selectImageAdapter.scheduleappoinList(uriArrayList);
 
+                for (int i = 0; i < uriArrayList.size(); i++) {
+                    profilImgPath = getRealPathFromURI(PostADemandActivity.this, uriArrayList.get(i));
+                    stringArrayList.add(profilImgPath);
+                }
+
+                break;
+        }
     }
 }
