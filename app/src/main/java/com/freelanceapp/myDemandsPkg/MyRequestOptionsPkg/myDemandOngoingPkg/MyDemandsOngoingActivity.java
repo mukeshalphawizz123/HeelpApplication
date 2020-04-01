@@ -70,6 +70,7 @@ public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoi
         projectId = AppSession.getStringPreferences(getActivity(), "mission_id");
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
+           // myOnProgressApi(projectId);
             myOnProgressApi(projectId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
