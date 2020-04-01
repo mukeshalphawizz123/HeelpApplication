@@ -62,7 +62,12 @@ public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoi
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
-        projectId = this.getArguments().getString("projectId");
+        try {
+            projectId = this.getArguments().getString("projectId");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        projectId = AppSession.getStringPreferences(getActivity(), "mission_id");
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myOnProgressApi(projectId);

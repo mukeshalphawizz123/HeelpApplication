@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.internal.Utility;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.R;
@@ -33,6 +34,7 @@ import com.freelanceapp.myDemandsPkg.Myrequestmodle.myrequestModle;
 import com.freelanceapp.myDemandsPkg.myRequestModlePkg.Datum;
 import com.freelanceapp.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.freelanceapp.notificationPkg.NotificationActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 
@@ -155,6 +157,7 @@ public class MyRequestFragment extends Fragment implements MyRequestsecAdapter.M
                     addFragment(new MyDemandsPublishedTablayoutFragment(), true, Constants.MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT, datum.getId());
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
                     addFragment(new MyDemandsOngoingActivity(), true, Constants.MY_REQUEST_ONGOING_FRAGMENT, datum.getId());
+                    AppSession.setStringPreferences(getActivity(),"mission_id",datum.getId());
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
                     addFragment(new MyDemandsDeliveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT, datum.getId());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {

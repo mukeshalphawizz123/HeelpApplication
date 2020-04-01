@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -37,7 +38,9 @@ import com.freelanceapp.CustomToast;
 import com.freelanceapp.HelpActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.Adapter.MyDemandsLiveryAdapter;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.Datum;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
@@ -72,6 +75,8 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     private CircleImageView ivUserDemandDely;
     private String projectId;
     private static Animation shakeAnimation;
+    private CheckBox radiogray;
+    private RelativeLayout rlliverymodificationbtnbtn;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_livery, container, false);
@@ -83,10 +88,14 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+
         return view;
     }
 
     private void init(View view) {
+        rlliverymodificationbtnbtn = view.findViewById(R.id.rlliverymodificationbtnbtnid);
+        radiogray = view.findViewById(R.id.radiograyid);
         ivUserDemandDely = view.findViewById(R.id.ivUserDemandDelyId);
         tvCommentDemandDely = view.findViewById(R.id.tvCommentDemandDelyId);
         tvUserDemandDely = view.findViewById(R.id.tvUserDemandDelyId);
@@ -114,6 +123,8 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         SpannableString content1 = new SpannableString(getResources().getString(R.string.report_a_problem));
         content1.setSpan(new UnderlineSpan(), 0, content1.length(), 0);
         tvliverycontact.setText(content1);
+        rlliverymodificationbtnbtn.setOnClickListener(this);
+        rlliverymodificationbtnbtn.setEnabled(false);
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -131,6 +142,18 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
                 }
             }
         });
+
+        radiogray.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    rlliverymodificationbtnbtn.setEnabled(true);
+                } else {
+                    rlliverymodificationbtnbtn.setEnabled(false);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -149,6 +172,13 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
             case R.id.tvliverycontactid:
                 replaceFragement(new HelpActivity());
                 break;
+            case R.id.rlliverymodificationbtnbtnid:
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    askToModify(projectId);
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
 
     }
@@ -163,6 +193,7 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         fragmentTransaction.replace(R.id.flHomeId, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
+
     }
 
     private void replaceFragementWithoutStack(Fragment fragment) {
@@ -217,6 +248,46 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
 
             @Override
             public void onFailure(Call<DemandDeliveredModle> call, Throwable t) {
+                pbDemandDelivery.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    private void askToModify(String misionid) {
+        pbDemandDelivery.setVisibility(View.VISIBLE);
+        apiServices.askToModify(misionid).enqueue(new Callback<AskToModifyResponseModle>() {
+            @Override
+            public void onResponse(Call<AskToModifyResponseModle> call, Response<AskToModifyResponseModle> response) {
+                if (response.isSuccessful()) {
+                    pbDemandDelivery.setVisibility(View.GONE);
+                    AskToModifyResponseModle requestlist = response.body();
+                    if (requestlist.getStatus()) {
+                        Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
+                        removeThisFragment();
+                        replaceFragementWithoutStack(new MyDemandsOngoingActivity());
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbDemandDelivery.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AskToModifyResponseModle> call, Throwable t) {
                 pbDemandDelivery.setVisibility(View.GONE);
             }
         });

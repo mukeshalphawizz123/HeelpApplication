@@ -44,8 +44,12 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_tablayout__my_request_published, container, false);
-        projectId = this.getArguments().getString("projectId");
-        AppSession.setStringPreferences(getActivity(),"projectid",projectId);
+        try {
+            projectId = this.getArguments().getString("projectId");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        AppSession.setStringPreferences(getActivity(), "projectid", projectId);
         addTabs(view);
         return view;
     }

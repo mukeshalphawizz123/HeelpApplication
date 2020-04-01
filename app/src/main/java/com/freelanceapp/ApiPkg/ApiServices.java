@@ -12,6 +12,7 @@ import com.freelanceapp.loginInitial.LoginPkgModel.Loginmodel;
 import com.freelanceapp.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
+import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
@@ -106,7 +107,6 @@ public interface ApiServices {
                                        @Field("auth_token") String auth_token);
 
 
-
     @FormUrlEncoded
     @POST("Client/acceptOffer")
     Call<AcceptOfferModle> acceptOffer(
@@ -154,6 +154,10 @@ public interface ApiServices {
     @POST("Client/demandDelivered")
     Call<DemandDeliveredModle> demandDelivered(@Field("project_id") String project_id);
 
+
+    @FormUrlEncoded
+    @POST("Client/not_satisfied")
+    Call<AskToModifyResponseModle> askToModify(@Field("mission_id") String mission_id);
 
     @FormUrlEncoded
     @POST("Client/addReviewToUser")
@@ -218,7 +222,10 @@ public interface ApiServices {
                                         @Part MultipartBody.Part budget,
                                         @Part MultipartBody.Part client_id,
                                         @Part MultipartBody.Part project_image[],
-                                        @Part MultipartBody.Part project_file[]);
+                                        @Part MultipartBody.Part project_file[]
+    );
+
+    /*@Part MultipartBody.Part project_file[]*/
 
     @FormUrlEncoded
     @POST("Offer/getofferid")

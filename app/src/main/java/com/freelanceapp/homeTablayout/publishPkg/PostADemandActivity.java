@@ -49,6 +49,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,6 +77,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private RecyclerView rvselectimageId;
     private SelectImageAdapter selectImageAdapter;
     private ArrayList<String> stringArrayList = new ArrayList<>();
+    private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
 
     public static final void customToast(Context context, String msg) {
@@ -159,27 +161,30 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
 
-       /* if (profilImgPath == null) {
-        } else {
-            fileForImage = new File(profilImgPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
-            imgFileStation = MultipartBody.Part.createFormData("project_image", fileForImage.getName(), requestFileOne);
-        }*/
-
-        if (docPath == null) {
+        // List<Uri> files; //These are the uris for the files to be uploaded
+        MediaType mediaType = MediaType.parse("");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
+        for (int i = 0; i < files.size(); i++) {
+            File file = new File(files.get(i).getPath());
+            RequestBody fileBody = RequestBody.create(mediaType, file);
+            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+            fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+           // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
+        }
+      /*  if (docPath == null) {
         } else {
             fileForDocs = new File(docPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse("image/*"), docPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse(""), docPath);
             imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
         }
-
+*/
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
         MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
         // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
-        apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, parts,imgFileStationDoc)
+        apiServices.post_a_demand(category_id, title_, description, budget_, client_id_, parts,fileParts)
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
@@ -297,7 +302,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*file/*");
+       // intent.setType("file/*");
+        intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, "Select a File to Copy"), FILE_SELECT_CODE);
@@ -311,8 +317,12 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK) {
             Uri content_describer = data.getData();
-            docPath = getRealPathFromURI(PostADemandActivity.this, content_describer);
-            Log.v("images", docPath);
+            files.add(content_describer);
+
+           // docPath = data.getData().getPath();
+            // docPath = data.getData().getPath();
+            // docPath = getRealPathFromURI(PostADemandActivity.this, content_describer);
+            // Log.v("images", docPath);
             BufferedReader reader = null;
             try {
                 // open the user-picked file for reading:
@@ -344,7 +354,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             try {
                 Bitmap bitmap = ImagePicker.getImageFromResult(PostADemandActivity.this, resultCode, data);
                 profilImgPath = getRealPathFromURI(PostADemandActivity.this, imageUri);
-                Log.v("iamges", profilImgPath.toString());
+              //  Log.v("iamges", profilImgPath.toString());
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
