@@ -110,10 +110,11 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
                 if (response.isSuccessful()) {
                     PbMymission.setVisibility(View.GONE);
                     MyMissionModel missionlist = response.body();
-                    if (missionlist.getStatus() == true) {
+                    if (missionlist.getStatus()) {
                         Tvmymissionitemnot.setVisibility(View.GONE);
                         mymissionlist = missionlist.getYourMissions();
                         myMissionsecAdapter.mymissionlist(mymissionlist);
+
                     } else
                         Tvmymissionitemnot.setVisibility(View.VISIBLE);
 
@@ -126,9 +127,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
                                 PbMymission.setVisibility(View.GONE);
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

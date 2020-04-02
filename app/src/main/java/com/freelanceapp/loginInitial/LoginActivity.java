@@ -352,6 +352,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     SocialLoginModel getLoginModle = response.body();
                     if (getLoginModle.getStatus() == true) {
                         Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

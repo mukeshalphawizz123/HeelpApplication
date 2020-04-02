@@ -142,6 +142,36 @@ public class YourMission {
     @Expose
     private String authToken;
 
+
+
+    @SerializedName("presentation")
+    @Expose
+    private String presentation;
+
+    @SerializedName("Firebase_token")
+    @Expose
+    private String Firebase_token;
+
+
+
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
+    }
+
+    public String getFirebase_token() {
+        return Firebase_token;
+    }
+
+    public void setFirebase_token(String firebase_token) {
+        Firebase_token = firebase_token;
+    }
+
+
+
     /**
      * No args constructor for use in serialization
      * 

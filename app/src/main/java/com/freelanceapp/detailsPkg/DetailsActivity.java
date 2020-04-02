@@ -22,7 +22,7 @@ import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.Adapter.DetailsAdapter;
 import com.freelanceapp.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.freelanceapp.detailsPkg.detailModlePkg.YourMission;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.MyDemandsPublishedTablayoutFragment;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.MyDemandsPublishedTablayoutFragment;
 import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,10 +48,13 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
     private ApiServices apiServices;
     private List<YourMission> yourMissionList;
     private AppCompatTextView etdescription, ettitletext, etbudget;
+    private ArrayList<String> filesList;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_details, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        filesList = new ArrayList<>();
         try {
             missionId = this.getArguments().getString("missionId");
         } catch (NullPointerException e) {
@@ -58,9 +62,10 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         }
         init(view);
         getPreference();
-       // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            myMissionViewDetail(missionId);
+           // myMissionViewDetail("145");
+             myMissionViewDetail(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -79,7 +84,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         rvdetails = view.findViewById(R.id.rvdetailsid);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 6);
         rvdetails.setLayoutManager(layoutManager);
-        DetailsAdapter detailsAdapter = new DetailsAdapter(getActivity(), this);
+        detailsAdapter = new DetailsAdapter(getActivity(), this);
         rvdetails.setAdapter(detailsAdapter);
     }
 
@@ -197,10 +202,28 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                     pbMymissionDetail.setVisibility(View.GONE);
                     MissionViewDetailModle missionViewDetailModle = response.body();
                     if (missionViewDetailModle.getStatus() == true) {
-                        yourMissionList = missionViewDetailModle.getYourMissions();
-                        etdescription.setText(yourMissionList.get(0).getMissionDescription());
-                        ettitletext.setText(yourMissionList.get(0).getCategoryTitle());
-                        etbudget.setText(yourMissionList.get(0).getMissionBudget());
+
+                        try {
+                            yourMissionList = missionViewDetailModle.getYourMissions();
+                            etdescription.setText(yourMissionList.get(0).getMissionDescription());
+                            ettitletext.setText(yourMissionList.get(0).getCategoryTitle());
+                            etbudget.setText(yourMissionList.get(0).getMissionBudget());
+                            String[] imgesArray = yourMissionList.get(0).getImage().split(",");
+                            String[] filesArray = yourMissionList.get(0).getFile().split(",");
+
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                            detailsAdapter.addDetailFiles(filesList);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
                 } else {
                     if (response.code() == 400) {
@@ -229,4 +252,8 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
     }
 
+    @Override
+    public void myDetailsTabClick(View view, int position) {
+
+    }
 }

@@ -74,14 +74,19 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
             public void onResponse(Call<GetUserReviewsModel> call, Response<GetUserReviewsModel> response) {
                 if (response.isSuccessful()) {
                     Pbgetuserreviews.setVisibility(View.GONE);
-                    GetUserReviewsModel getUserReviewsModel = response.body();
-                    tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
-                    rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
-                    Picasso.with(getApplicationContext())
-                            .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
-                            .into(ivuserprofileimage);
-                    getuserreview = getUserReviewsModel.getReviews();
-                    profileRatingAdapter.getuserreview(getuserreview);
+
+                    try {
+                        GetUserReviewsModel getUserReviewsModel = response.body();
+                        tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
+                        rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
+                        Picasso.with(getApplicationContext())
+                                .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
+                                .into(ivuserprofileimage);
+                        getuserreview = getUserReviewsModel.getReviews();
+                        profileRatingAdapter.getuserreview(getuserreview);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     if (response.code() == 400) {
                         if (!response.isSuccessful()) {

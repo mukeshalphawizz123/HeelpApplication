@@ -31,7 +31,7 @@ public class Constants {
     public static String DASHBOARD_HELP_ACTIVITY="DashboardHelpActivity";
     public static String HOME_TABLAYOUT_FRAGMENT="HomeTablayoutFragment";
     public static String MY_MISSION_FRAGMENT="MyMissionFragment";
-    public static String MY_REQUEST_FRAGMENT="MyRequestFragment";
+    public static String MY_REQUEST_FRAGMENT="MyDemandFragment";
     public static String MESSAGE_LIST_TAB_LAYOUT_FRAGMENT="MessageListTablayoutFragment";
     public static String MY_MISSION_PROPOSEE_ACTIVITY="MyMissionProposeeActivity";
     public static String MY_MISSION_ONGOING_ACTIVITY="MyMissionOngoingActivity";

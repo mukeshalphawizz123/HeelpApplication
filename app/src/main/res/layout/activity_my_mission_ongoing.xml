@@ -357,11 +357,38 @@
 
                 </RelativeLayout>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvimageviewcardid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlcommentboxid"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginEnd="15sp"
+                    app:cardBackgroundColor="@color/lessgray"
+                    app:cardCornerRadius="2sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvselectimageId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
                 <RelativeLayout
                     android:id="@+id/rlmymissionongoingSendbrtnId"
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_below="@+id/rlcommentboxid"
+                    android:layout_below="@+id/cvimageviewcardid"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:background="@drawable/blankbtn">

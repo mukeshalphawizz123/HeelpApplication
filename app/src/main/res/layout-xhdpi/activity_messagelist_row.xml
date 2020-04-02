@@ -12,22 +12,25 @@
         android:padding="8sp">
 
 
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUserMsgId"
             android:layout_width="60sp"
             android:layout_height="60sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5sp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5sp"
             android:layout_marginTop="5dp"
             android:padding="3dp"
+            app:civ_border_width="@dimen/_1sdp"
+            app:civ_border_color="@color/lessBlack"
             android:src="@drawable/dummyuserimg" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5sp"
-            android:layout_toRightOf="@+id/ivUserMsgId">
+            android:layout_marginStart="5sp"
+            android:layout_toEndOf="@+id/ivUserMsgId">
 
 
             <androidx.appcompat.widget.AppCompatTextView

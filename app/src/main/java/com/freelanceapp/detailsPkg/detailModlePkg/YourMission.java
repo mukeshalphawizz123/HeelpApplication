@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class YourMission {
 
-    @SerializedName("mission_id")
+    @SerializedName("id")
     @Expose
     private String missionId;
     @SerializedName("mission_description")
@@ -31,15 +31,39 @@ public class YourMission {
     @Expose
     private String categoryTitle;
 
+    @SerializedName("image")
+    @Expose
+    private String image;
+
+    @SerializedName("file")
+    @Expose
+    private String file;
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+
     /**
      * No args constructor for use in serialization
-     * 
      */
     public YourMission() {
     }
 
     /**
-     * 
      * @param date
      * @param missionBudget
      * @param duration

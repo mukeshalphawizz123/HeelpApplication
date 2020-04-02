@@ -41,6 +41,7 @@ import com.freelanceapp.R;
 import com.freelanceapp.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.freelanceapp.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.freelanceapp.homePkg.HomeActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.StatusBarManagment;
@@ -234,7 +235,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     RegistrationModel getLoginModle = response.body();
-                    if (getLoginModle.getStatus() == true) {
+                    if (getLoginModle.getStatus()) {
                         Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -249,9 +250,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                // Toast.makeText(SignupActivity.this, "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -337,6 +336,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     SocialLoginModel getLoginModle = response.body();
                     if (getLoginModle.getStatus() == true) {
                         Toast.makeText(SignupActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+                        AppSession.setStringPreferences(SignupActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
+                        AppSession.setStringPreferences(SignupActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
+                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
 
                   /*      AppSession.setStringPreferences(getApplicationContext(), Constants.LOGIN, status);
                         AppSession.setStringPreferences(getApplicationContext(), Constants.USERNAME, getLoginModle.getData().getUserFullname());

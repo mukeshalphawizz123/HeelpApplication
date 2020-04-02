@@ -42,6 +42,7 @@ import com.freelanceapp.notificationPkg.NotificationActivity;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.YourMission;
 import com.freelanceapp.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
 import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.ImagePicker;
@@ -97,14 +98,15 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
     private static Animation shakeAnimation;
     private AppCompatImageView iveditprofilepin;
     private File fileForImage;
-    private String profilImgPath;
+    private String profilImgPath, userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_user_profile_edit, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            getProfileApi("1");
+            getProfileApi(userId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -248,20 +250,22 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                     GetProfileModle missionlist = response.body();
                     if (missionlist.getStatus() == true) {
                         yourMissionList = missionlist.getYourMissions();
-                        EtName.setText(yourMissionList.get(0).getFirstName());
+                        EtName.setText(yourMissionList.get(0).getName());
                         EtUsername.setText(yourMissionList.get(0).getUsername());
                         EtStatus.setText(yourMissionList.get(0).getStatus());
                         EtEmail.setText(yourMissionList.get(0).getEmail());
                         EtPassword.setText(yourMissionList.get(0).getPassword());
                         Etcountry.setText(yourMissionList.get(0).getCountry());
+                        Tvdob.setText(yourMissionList.get(0).getDob());
 
+                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
+                        } else {
+                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                    .get(0).getPictureUrl())
+                                    .into(ivuserprofileimage);
+                        }
 
-                        Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
-                                .get(0).getPictureUrl())
-                                .into(ivuserprofileimage);
-
-
-                        // tvpresentation.setText(yourMissionList.get(0).getP);
+                        tvpresentation.setText(yourMissionList.get(0).getPresentation());
                         tvlevelofstudyy.setText(yourMissionList.get(0).getLevelOfStudy());
                         tvfiledofstudyy.setText(yourMissionList.get(0).getFieldOfStudy());
                         tvunivercityy.setText(yourMissionList.get(0).getSchoolAddress() + "," + yourMissionList.get(0).getUniversity());
@@ -336,7 +340,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
         }
 
-        MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf("1"));
+        MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf(userId));
         MultipartBody.Part name_ = MultipartBody.Part.createFormData("name", EtName.getText().toString());
         MultipartBody.Part email_ = MultipartBody.Part.createFormData("email", EtEmail.getText().toString());
         MultipartBody.Part username_ = MultipartBody.Part.createFormData("username", EtUsername.getText().toString());

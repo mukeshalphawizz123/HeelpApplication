@@ -16,18 +16,20 @@
             android:id="@+id/ivUserMsgId"
             android:layout_width="60sp"
             android:layout_height="60sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5sp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5sp"
             android:layout_marginTop="5dp"
             android:padding="3dp"
-            android:src="@drawable/dummyuserimg" />
+            android:src="@drawable/dummyuserimg"
+            app:civ_border_color="@color/lessBlack"
+            app:civ_border_width="@dimen/_1sdp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5sp"
-            android:layout_toRightOf="@+id/ivUserMsgId">
+            android:layout_marginStart="5sp"
+            android:layout_toEndOf="@+id/ivUserMsgId">
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -36,15 +38,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/jonathan_do"
                 android:textColor="@color/tabselected"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvUserProffesionId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/tabselected"
                 android:layout_below="@+id/tvUserNameMsgId"
                 android:text="@string/please_let_me_know"
+                android:textColor="@color/tabselected"
                 android:textSize="12sp" />
 
 
@@ -52,11 +54,11 @@
                 android:id="@+id/tvtimeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10sp"
-                android:textColor="@color/tabselected"
+                android:layout_marginEnd="10sp"
                 android:text="@string/today_4_12pm"
+                android:textColor="@color/tabselected"
                 android:textSize="12sp" />
 
 

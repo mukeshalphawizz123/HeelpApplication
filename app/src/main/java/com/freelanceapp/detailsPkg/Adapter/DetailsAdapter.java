@@ -12,10 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
+import com.freelanceapp.myDemandsPkg.Myrequestmodle.myrequestModle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
     private Context context;
     private DetailsAdapter.DetailsAppOnClickLister detailsAppOnClickLister;
+    private ArrayList<String> filesList;
 
     public DetailsAdapter(Context context, DetailsActivity detailsAdapter) {
         this.context = context;
@@ -33,15 +38,28 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull DetailsAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+
+    public void addDetailFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
+  /*  @Override
+    public int getItemCount() {
+        return 2;
+    }*/
 
     @Override
     public int getItemCount() {
-        return 2;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
 
     public interface DetailsAppOnClickLister {
+        void myDetailsTabClick(View view, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

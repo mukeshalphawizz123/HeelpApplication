@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -33,12 +34,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asksira.bsimagepicker.BSImagePicker;
 import com.freelanceapp.ApiPkg.ApiServices;
 import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.CustomToast;
 import com.freelanceapp.HelpActivity;
 import com.freelanceapp.R;
 import com.freelanceapp.detailsPkg.DetailsActivity;
+import com.freelanceapp.homeTablayout.publishPkg.PostADemandActivity;
+import com.freelanceapp.homeTablayout.publishPkg.SelectImageAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.Adapter.OngoingAdapter;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
@@ -60,6 +64,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -72,7 +77,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener, View.OnClickListener {
+public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener, View.OnClickListener, SelectImageAdapter.SelectImageOnClickListener {
 
     private CompleteeFileUploadAdapter completeeFileUploadAdapter;
     private RecyclerView rvongoingfileupload;
@@ -93,6 +98,12 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     private AppCompatTextView tvUserNameInProgMission, tvCommentInProgMission;
     private CircleImageView ivUserInprogMission;
 
+    private RecyclerView rvselectimageId;
+    private SelectImageAdapter selectImageAdapter;
+    private ArrayList<String> stringArrayList = new ArrayList<>();
+    private List<Uri> files = new ArrayList<>();
+    private ArrayList<Uri> uriArrayList = new ArrayList<>();
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
@@ -109,6 +120,7 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     }
 
     private void init(View view) {
+        rvselectimageId = view.findViewById(R.id.rvselectimageId);
         ivUserInprogMission = view.findViewById(R.id.ivUserInprogMissionId);
         tvUserNameInProgMission = view.findViewById(R.id.tvUserNameInProgMissionId);
         tvCommentInProgMission = view.findViewById(R.id.tvCommentInProgMissionId);
@@ -153,7 +165,14 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
         switch (v.getId()) {
             case R.id.rlmyMissProgressImagId:
-                chooseFromGallery();
+                //chooseFromGallery();
+                BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+                        .setMaximumDisplayingImages(Integer.MAX_VALUE)
+                        .isMultiSelect()
+                        .setMinimumMultiSelectCount(1)
+                        .setMaximumMultiSelectCount(6)
+                        .build();
+                pickerDialog.show(getFragmentManager(), "picker");
                 break;
             case R.id.rlmyMissProgressFileId:
                 showFileChooser();
@@ -231,7 +250,34 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
     private void sendProjectPorgress(String myMissionId) {
         pbMymissionProgress.setVisibility(View.VISIBLE);
+
         MultipartBody.Part imgFileStation = null;
+        MultipartBody.Part imgFileStationDoc = null;
+        MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
+        try {
+            if (stringArrayList.size() == 0) {
+            } else {
+                for (int index = 0; index < stringArrayList.size(); index++) {
+                    File file1 = new File(stringArrayList.get(index));
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file1);
+                    parts[index] = MultipartBody.Part.createFormData("project_image[]", file1.getPath(), requestBody);
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        // List<Uri> files; //These are the uris for the files to be uploaded
+        MediaType mediaType = MediaType.parse("");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
+        for (int i = 0; i < files.size(); i++) {
+            File file = new File(files.get(i).getPath());
+            RequestBody fileBody = RequestBody.create(mediaType, file);
+            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+            fileParts[i] = MultipartBody.Part.createFormData("project_files[]", file.getPath(), fileBody);
+            // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
+        }
+       /* MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
         if (profilImgPath == null) {
         } else {
@@ -245,14 +291,14 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
             fileForDocs = new File(docPath);
             RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), docPath);
             imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
-        }
+        }*/
 
         MultipartBody.Part project_id_ = MultipartBody.Part.createFormData("project_id", String.valueOf(missionId));
         MultipartBody.Part user_id_ = MultipartBody.Part.createFormData("user_id", String.valueOf(userId));
         MultipartBody.Part your_comments_ = MultipartBody.Part.createFormData("your_comments", etMsgBoxInprogress.getText().toString());
         MultipartBody.Part project_status_ = MultipartBody.Part.createFormData("project_status", "1");
 
-        apiServices.sendProjectPorgress(project_id_, user_id_, your_comments_, project_status_, imgFileStationDoc, imgFileStation).enqueue(new Callback<SendProjectProgDetailModle>() {
+        apiServices.sendProjectPorgress(project_id_, user_id_, your_comments_, project_status_, fileParts, parts).enqueue(new Callback<SendProjectProgDetailModle>() {
             @Override
             public void onResponse(Call<SendProjectProgDetailModle> call, Response<SendProjectProgDetailModle> response) {
                 if (response.isSuccessful()) {
@@ -314,7 +360,7 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*file/*");
+        intent.setType("file/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, "Select a File to Copy"), FILE_SELECT_CODE);
@@ -328,8 +374,10 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK) {
             Uri content_describer = data.getData();
-            docPath = getRealPathFromURI(getActivity(), content_describer);
-            Log.v("images", docPath);
+            // Uri content_describer = data.getData();
+            files.add(content_describer);
+            // docPath = getRealPathFromURI(getActivity(), content_describer);
+            // Log.v("images", docPath);
             BufferedReader reader = null;
             try {
                 // open the user-picked file for reading:
@@ -357,8 +405,9 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
                 }
             }
         } else {
-            Uri imageUri = data.getData();
+
             try {
+                Uri imageUri = data.getData();
                 Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
                 profilImgPath = getRealPathFromURI(getActivity(), imageUri);
                 Log.v("iamges", profilImgPath.toString());
@@ -434,5 +483,32 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
     }
 
+    private void setupImagePath() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        rvselectimageId.setLayoutManager(layoutManager);
+        selectImageAdapter = new SelectImageAdapter(getActivity(), this);
+        rvselectimageId.setAdapter(selectImageAdapter);
+        selectImageAdapter.scheduleappoinList(uriArrayList);
+    }
 
+    @Override
+    public void onClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.ivdeletCloseId:
+                stringArrayList.clear();
+                uriArrayList.remove(position);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+                rvselectimageId.setLayoutManager(layoutManager);
+                selectImageAdapter = new SelectImageAdapter(getActivity(), this);
+                rvselectimageId.setAdapter(selectImageAdapter);
+                selectImageAdapter.scheduleappoinList(uriArrayList);
+
+                for (int i = 0; i < uriArrayList.size(); i++) {
+                    profilImgPath = getRealPathFromURI(getActivity(), uriArrayList.get(i));
+                    stringArrayList.add(profilImgPath);
+                }
+
+                break;
+        }
+    }
 }

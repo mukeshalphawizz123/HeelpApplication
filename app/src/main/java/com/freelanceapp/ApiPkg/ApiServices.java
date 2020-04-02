@@ -12,18 +12,19 @@ import com.freelanceapp.loginInitial.LoginPkgModel.Loginmodel;
 import com.freelanceapp.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.freelanceapp.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
+import com.freelanceapp.messageListPkg.msgModlePkg.ChatUserResponseModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
 import com.freelanceapp.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.freelanceapp.myMissionPkg.myMissionModlePkg.MyMissionModel;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
-import com.freelanceapp.myDemandsPkg.MyRequestOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
+import com.freelanceapp.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.freelanceapp.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.freelanceapp.notificationPkg.NotificationCountResponseModle;
 import com.freelanceapp.notificationPkg.NotificationModlePkg.NotificationResponseModle;
@@ -49,6 +50,11 @@ public interface ApiServices {
     @POST("Authentication/Login")
     Call<Loginmodel> login(@Field("email") String email,
                            @Field("password") String password);
+
+
+    @FormUrlEncoded
+    @POST("client/getuserslist")
+    Call<ChatUserResponseModle> getuserslist(@Field("client_id") String client_id);
 
 
     @FormUrlEncoded
@@ -184,8 +190,8 @@ public interface ApiServices {
                                                          @Part MultipartBody.Part user_id,
                                                          @Part MultipartBody.Part your_comments,
                                                          @Part MultipartBody.Part project_status,
-                                                         @Part MultipartBody.Part project_files,
-                                                         @Part MultipartBody.Part project_image);
+                                                         @Part MultipartBody.Part project_files[],
+                                                         @Part MultipartBody.Part project_image[]);
 
     @Multipart
     @POST("Authentication/editProfile")

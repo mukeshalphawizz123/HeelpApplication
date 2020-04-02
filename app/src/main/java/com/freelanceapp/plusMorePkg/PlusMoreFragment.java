@@ -87,13 +87,13 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private List<YourMission> yourMissionList;
     private CircleImageView ivuserprofileimage;
     private AppCompatTextView tvname, tvdesination;
-    private String userImg, userName ,userId;
+    private String userImg, userName, userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityPlusMoreBinding = DataBindingUtil.inflate(inflater, R.layout.activity_plus_more, container, false);
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
-        userId= AppSession.getStringPreferences(getActivity(),Constants.USERID);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         prefData = new PrefData(getActivity());
 
@@ -339,9 +339,12 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                         yourMissionList = missionlist.getYourMissions();
                         tvname.setText(yourMissionList.get(0).getFirstName() + " " + yourMissionList.get(0).getUsername());
                         tvdesination.setText(yourMissionList.get(0).getSkills());
-                        Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
-                                .get(0).getPictureUrl()).into(ivuserprofileimage);
+                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
 
+                        } else {
+                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                    .get(0).getPictureUrl()).into(ivuserprofileimage);
+                        }
                         userImg = yourMissionList.get(0).getPictureUrl();
                         userName = yourMissionList.get(0).getFirstName();
 

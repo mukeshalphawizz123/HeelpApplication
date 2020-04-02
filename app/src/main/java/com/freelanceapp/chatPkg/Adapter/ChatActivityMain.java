@@ -58,7 +58,7 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
         audioRecordView.getMessageView().requestFocus();
         audioRecordView.setAttachmentOptions(AttachmentOption.getDefaultList(), this);
         audioRecordView.removeAttachmentOptionAnimation(false);
-      //  init();
+        init();
 /*
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_chat, container, false);
@@ -111,11 +111,12 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
         ivbackmsg.setOnClickListener(this);
         rlmessageuserprofile = findViewById(R.id.rlmessageuserprofileid);
         rlmessageuserprofile.setOnClickListener(this);
+        ivnotificationHome.setOnClickListener(this);
         //rvmsglist = findViewById(R.id.rvChatId);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        rvmsglist.setLayoutManager(layoutManager);
-        ChatAdapter chatAdapter = new ChatAdapter(ChatActivityMain.this, this);
-        rvmsglist.setAdapter(chatAdapter);
+      //  LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+       // rvmsglist.setLayoutManager(layoutManager);
+      //  ChatAdapter chatAdapter = new ChatAdapter(ChatActivityMain.this, this);
+      //  rvmsglist.setAdapter(chatAdapter);
 
     }
 

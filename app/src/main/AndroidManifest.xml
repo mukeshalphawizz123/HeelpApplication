@@ -69,16 +69,16 @@
             android:name=".detailsPkg.DetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyRequestOptionsPkg.MyRequestOpenlitigationActivity"
+            android:name=".myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
+            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
+            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyRequestOptionsPkg.myDemandsLiveryPkg.MyDemandsDeliveryActivity"
+            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.MyDemandsDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"

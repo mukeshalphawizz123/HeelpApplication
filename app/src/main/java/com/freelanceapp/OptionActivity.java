@@ -30,7 +30,9 @@ import com.freelanceapp.homePkg.HomeActivity;
 import com.freelanceapp.loginInitial.LoginActivity;
 import com.freelanceapp.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.freelanceapp.signUpInitial.SignupActivity;
+import com.freelanceapp.utility.AppSession;
 import com.freelanceapp.utility.CheckNetwork;
+import com.freelanceapp.utility.Constants;
 import com.freelanceapp.utility.StatusBarManagment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -241,15 +243,13 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SocialLoginModel getLoginModle = response.body();
-                    if (getLoginModle.getStatus() == true) {
+                    if (getLoginModle.getStatus()) {
                         Toast.makeText(OptionActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+                        AppSession.setStringPreferences(OptionActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
+                        AppSession.setStringPreferences(OptionActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
                         Intent intent = new Intent(OptionActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                  /*      AppSession.setStringPreferences(getApplicationContext(), Constants.LOGIN, status);
-                        AppSession.setStringPreferences(getApplicationContext(), Constants.USERNAME, getLoginModle.getData().getUserFullname());
-                        AppSession.setStringPreferences(getApplicationContext(), Constants.USEREId, getLoginModle.getData().getUserId());
-                  */    //  CheckNetwork.goToScreen(LoginActivity.this, HomeActivity.class);
                     }
                 } else {
                     if (response.code() == 400) {
@@ -259,9 +259,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

@@ -17,7 +17,7 @@ import com.freelanceapp.homeTablayout.HomeTablayoutFragment;
 import com.freelanceapp.R;
 import com.freelanceapp.messageListPkg.MessageTablayout.MessageListTablayoutFragment;
 import com.freelanceapp.myMissionPkg.FragmentPkg.MyMissionFragment;
-import com.freelanceapp.myDemandsPkg.FragmentPkg.MyRequestFragment;
+import com.freelanceapp.myDemandsPkg.FragmentPkg.MyDemandFragment;
 import com.freelanceapp.plusMorePkg.PlusMoreFragment;
 import com.freelanceapp.utility.Constants;
 
@@ -98,7 +98,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.rlHomemyrequestId:
                 myrequest();
                 removeThisFragment();
-                addFragment(new MyRequestFragment(), false, Constants.MY_REQUEST_FRAGMENT);
+                addFragment(new MyDemandFragment(), false, Constants.MY_REQUEST_FRAGMENT);
                 break;
             case R.id.rlHomechatId:
                 chat();

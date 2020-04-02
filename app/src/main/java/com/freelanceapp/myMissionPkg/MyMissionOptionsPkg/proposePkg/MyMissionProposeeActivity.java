@@ -59,7 +59,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
-         Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+       //  Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);

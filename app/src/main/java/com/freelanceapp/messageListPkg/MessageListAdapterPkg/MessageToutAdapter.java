@@ -7,14 +7,26 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.freelanceapp.ApiPkg.RetrofitClient;
 import com.freelanceapp.R;
 import com.freelanceapp.messageListPkg.MessageListFragmentPkg.MessageToutFragment;
+import com.freelanceapp.messageListPkg.msgModlePkg.Datum;
+import com.freelanceapp.myMissionPkg.Mymissionmodle.mymissionModle;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageToutAdapter extends RecyclerView.Adapter<MessageToutAdapter.ViewHolder> {
     private Context context;
     private MessageToutAdapter.MessageToutAppOnClickListener messageToutAppOnClickListener;
+    private List<Datum> datumList;
 
 
     public MessageToutAdapter(Context context, MessageToutAppOnClickListener messageToutAppOnClickListener) {
@@ -32,33 +44,46 @@ public class MessageToutAdapter extends RecyclerView.Adapter<MessageToutAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageToutAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.tvUserNameMsg.setText(datumList.get(position).getFirstName() + " " + datumList.get(position).getLastName());
+        Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(position).getPictureUrl()).into(holder.ivUserMsg);
 
     }
 
+
+    public void addmymissionData(List<Datum> datumList) {
+        this.datumList = datumList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
-        return 15;
+        //  return 15;
+        return datumList == null ? 0 : datumList.size();
     }
+
 
     public interface MessageToutAppOnClickListener {
-        void msgOnClick(View view,int position);
+        void msgOnClick(View view, int position);
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public RelativeLayout rlmsguser;
+        CircleImageView ivUserMsg;
+        AppCompatTextView tvUserNameMsg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rlmsguser=itemView.findViewById(R.id.rlmsguserid);
+            rlmsguser = itemView.findViewById(R.id.rlmsguserid);
+            tvUserNameMsg = itemView.findViewById(R.id.tvUserNameMsgId);
+            ivUserMsg = itemView.findViewById(R.id.ivUserMsgId);
             rlmsguser.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            messageToutAppOnClickListener.msgOnClick(v,getAdapterPosition());
+            messageToutAppOnClickListener.msgOnClick(v, getAdapterPosition());
 
         }
     }
