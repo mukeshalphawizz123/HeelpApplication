@@ -133,8 +133,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         content2.setSpan(new UnderlineSpan(), 0, content2.length(), 0);
         tvtextunderline.setText(content2);
         tvtextunderline.setOnClickListener(this);
-
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 // .requestIdToken(getResources().getString(R.string.web_client_id))
                 .requestEmail()
@@ -164,20 +162,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
 
-        FirebaseApp.initializeApp(LoginActivity.this);
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                           // Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-                        token = task.getResult().getToken();
-                      //  Log.d("token",token);
-
-                    }
-                });
+                FirebaseApp.initializeApp(LoginActivity.this);
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if (!task.isSuccessful()) {
+                                   // Log.w(TAG, "getInstanceId failed", task.getException());
+                                    return;
+                                }
+                                token = task.getResult().getToken();
+                              //  Log.d("token",token);
+                            }
+                        });
     }
 
 
