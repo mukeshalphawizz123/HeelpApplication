@@ -175,7 +175,9 @@
                             android:id="@+id/ivUserInprogMissionId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
-                            android:src="@drawable/dummyuserimg" />
+                            android:src="@drawable/dummyuserimg"
+                            app:civ_border_color="@color/lessBlack"
+                            app:civ_border_width="@dimen/_1sdp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvUserNameInProgMissionId"
@@ -321,7 +323,6 @@
                         </RelativeLayout>
 
 
-
                         <RelativeLayout
                             android:id="@+id/rlmyMissProgressImagId"
                             android:layout_width="wrap_content"
@@ -356,6 +357,7 @@
 
 
                 </RelativeLayout>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvimageviewcardid"
                     android:layout_width="match_parent"

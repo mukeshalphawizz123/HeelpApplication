@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "883573841351",
-    "firebase_url": "https://freelanceapp-1584611545621.firebaseio.com",
-    "project_id": "freelanceapp-1584611545621",
-    "storage_bucket": "freelanceapp-1584611545621.appspot.com"
+    "project_number": "562172548440",
+    "firebase_url": "https://heelp-cfef0.firebaseio.com",
+    "project_id": "heelp-cfef0",
+    "storage_bucket": "heelp-cfef0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:883573841351:android:09b70bbb8adfdf6ba98de2",
+        "mobilesdk_app_id": "1:562172548440:android:d8de1ceb1d842fc280c12d",
         "android_client_info": {
-          "package_name": "com.freelanceapp"
+          "package_name": "com.frelance"
         }
       },
       "oauth_client": [
         {
-          "client_id": "883573841351-hpc53kqm17qa7n2nl0279dej59jo70n6.apps.googleusercontent.com",
+          "client_id": "562172548440-vn4u7u4jek7r8kgejb3dbvlloksg22q8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.freelanceapp",
-            "certificate_hash": "f05d4bbc9fe86496b89669ffc8bc04ce6d68491e"
+            "package_name": "com.frelance",
+            "certificate_hash": "7e45ad0799e95370b0ac38348afaf617b6b0a75a"
           }
         },
         {
-          "client_id": "883573841351-tg1o8eo44f22htdi5kaq7tha93k5g9bc.apps.googleusercontent.com",
+          "client_id": "562172548440-riicm449lda45cdhpe8au5ke3m58kn4c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB2coJkdcnVjEiWTXBOWLo-Sorv6Eqi7hI"
+          "current_key": "AIzaSyBsSidP1lUdMmBuOY9_4NOMqWtAy_I85d0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "883573841351-tg1o8eo44f22htdi5kaq7tha93k5g9bc.apps.googleusercontent.com",
+              "client_id": "562172548440-riicm449lda45cdhpe8au5ke3m58kn4c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

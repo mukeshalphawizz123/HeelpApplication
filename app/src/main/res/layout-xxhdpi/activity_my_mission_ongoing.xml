@@ -175,6 +175,8 @@
                             android:id="@+id/ivUserInprogMissionId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
+                            app:civ_border_color="@color/lessBlack"
+                            app:civ_border_width="@dimen/_1sdp"
                             android:src="@drawable/dummyuserimg" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -184,6 +186,7 @@
                             android:layout_centerHorizontal="true"
                             android:text="@string/zeeshan"
                             android:textColor="@color/bluee"
+                            android:layout_below="@+id/ivUserInprogMissionId"
                             android:textSize="@dimen/_9sdp"
                             android:textStyle="bold" />
 

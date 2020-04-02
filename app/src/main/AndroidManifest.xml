@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.freelanceapp">
+    package="com.frelance">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,111 +25,111 @@
         android:requestLegacyExternalStorage="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"></activity>
-        <activity android:name=".notificationPkg.notificationReviewPkg.NotificationReviewActivity" />
-        <activity android:name=".notificationPkg.notificationMessagePkg.NotificationMessageActivity" />
-        <activity android:name=".notificationPkg.notificationOffersPkg.NotificationOfferActivity" />
-        <activity android:name=".notificationPkg.NotificationActivity" />
-        <activity android:name=".forgetpasswordPkg.ForgetPasswordActivity" />
-        <activity android:name=".SelectLanguageDailoge" />
-        <activity android:name=".homefilterPkg.HomeCategoryFilterActivity" />
-        <activity android:name=".EditProfileConfirmation" />
-        <activity android:name=".CreditCardPayerActivity" />
+        <activity android:name="com.frelance.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"></activity>
+        <activity android:name="com.frelance.notificationPkg.notificationReviewPkg.NotificationReviewActivity" />
+        <activity android:name="com.frelance.notificationPkg.notificationMessagePkg.NotificationMessageActivity" />
+        <activity android:name="com.frelance.notificationPkg.notificationOffersPkg.NotificationOfferActivity" />
+        <activity android:name="com.frelance.notificationPkg.NotificationActivity" />
+        <activity android:name="com.frelance.forgetpasswordPkg.ForgetPasswordActivity" />
+        <activity android:name="com.frelance.SelectLanguageDailoge" />
+        <activity android:name="com.frelance.homefilterPkg.HomeCategoryFilterActivity" />
+        <activity android:name="com.frelance.EditProfileConfirmation" />
+        <activity android:name="com.frelance.CreditCardPayerActivity" />
         <activity
-            android:name=".paymentPkg.ComfirmationActivity"
+            android:name="com.frelance.paymentPkg.ComfirmationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".chatPkg.Adapter.ChatActivityMain"
+            android:name="com.frelance.chatPkg.Adapter.ChatActivityMain"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".paymentPkg.PaymentConfirmationPage"
+            android:name="com.frelance.paymentPkg.PaymentConfirmationPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".paymentPkg.CreditCardPayment"
+            android:name="com.frelance.paymentPkg.CreditCardPayment"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".makeAnOfferPkg.MakeAnOfferActivity"
+            android:name="com.frelance.makeAnOfferPkg.MakeAnOfferActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".makeAnOfferPkg.OfferComfirmationActivity"
+            android:name="com.frelance.makeAnOfferPkg.OfferComfirmationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".paymentPkg.DashboardPaymentActivity"
+            android:name="com.frelance.paymentPkg.DashboardPaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userProfileRatingPkg.UserProfileActivity"
+            android:name="com.frelance.userProfileRatingPkg.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AcceptConditionActivity"
+            android:name="com.frelance.AcceptConditionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HelpActivity"
+            android:name="com.frelance.HelpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".detailsPkg.DetailsActivity"
+            android:name="com.frelance.detailsPkg.DetailsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity"
+            android:name="com.frelance.myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
+            android:name="com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
+            android:name="com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.MyDemandsDeliveryActivity"
+            android:name="com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.MyDemandsDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"
+            android:name="com.frelance.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity"
+            android:name="com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.MyMissionInDisputeActivity"
+            android:name="com.frelance.myMissionPkg.MyMissionOptionsPkg.MyMissionInDisputeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity"
+            android:name="com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity"
+            android:name="com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersTermsActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersTermsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.CreditCardActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.CreditCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.PrizePoolActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.PrizePoolActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity"
+            android:name="com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".plusMorePkg.PlusMoreFragment"
+            android:name="com.frelance.plusMorePkg.PlusMoreFragment"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userProfileRatingPkg.ProfileRatingDescriptionActivity"
+            android:name="com.frelance.userProfileRatingPkg.ProfileRatingDescriptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".chatPkg.ChatActivity"
+            android:name="com.frelance.chatPkg.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeTablayout.publishPkg.PostADemandActivity"
+            android:name="com.frelance.homeTablayout.publishPkg.PostADemandActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.frelance.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -160,30 +160,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".signUpInitial.SignupActivity"
+            android:name="com.frelance.signUpInitial.SignupActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".loginInitial.LoginActivity"
+            android:name="com.frelance.loginInitial.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".OptionActivity"
+            android:name="com.frelance.OptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SliderActivity"
+            android:name="com.frelance.SliderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homePkg.HomeActivity"
+            android:name="com.frelance.homePkg.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".splashBanner.BannerFragment"
+            android:name="com.frelance.splashBanner.BannerFragment"
             android:screenOrientation="portrait" />
 
-        <service android:name=".fcmintigationPkg.MyFirebaseMessagingService">
+        <service android:name="com.frelance.fcmintigationPkg.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
+           <!-- <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>-->
         </service>
     </application>
 
