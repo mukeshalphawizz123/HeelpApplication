@@ -386,7 +386,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <RelativeLayout
-                    android:id="@+id/RlmymissionongoingSendbrtnId"
+                    android:id="@+id/rlmymissionongoingSendbrtnId"
                     android:layout_width="@dimen/_130sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_below="@+id/cvimageviewcardid"

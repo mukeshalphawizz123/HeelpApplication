@@ -102,6 +102,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/RlPaymentConfrmId"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="60sp"
                     android:layout_below="@+id/rlpaymentdoneid"

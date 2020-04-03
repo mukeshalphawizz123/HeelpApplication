@@ -34,6 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asksira.bsimagepicker.BSImagePicker;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomToast;
@@ -75,7 +76,8 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener, View.OnClickListener, SelectImageAdapter.SelectImageOnClickListener {
+public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener,
+        View.OnClickListener, SelectImageAdapter.SelectImageOnClickListener {
 
     private CompleteeFileUploadAdapter completeeFileUploadAdapter;
     private RecyclerView rvongoingfileupload;
@@ -167,13 +169,14 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         switch (v.getId()) {
             case R.id.rlmyMissProgressImagId:
                 chooseFromGallery();
-              /*  BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+                //  FragmentManager fragmentManager=getFragmentManager()
+               /* BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()
                         .setMinimumMultiSelectCount(1)
                         .setMaximumMultiSelectCount(6)
                         .build();
-                pickerDialog.show(getFragmentManager(), "picker");*/
+                pickerDialog.show(getChildFragmentManager(), "picker");*/
                 break;
             case R.id.rlmyMissProgressFileId:
                 showFileChooser();

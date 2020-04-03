@@ -38,6 +38,7 @@ import com.frelance.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.paymentPkg.ComfirmationActivity;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
 
@@ -164,22 +165,16 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         }
 
         // List<Uri> files; //These are the uris for the files to be uploaded
-        MediaType mediaType = MediaType.parse("");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
+        MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            File file = new File(files.get(i).getPath());
+            File file = new File(FileUtil.getPath(files.get(i), getApplicationContext()));
             RequestBody fileBody = RequestBody.create(mediaType, file);
             //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
             fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
             // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
         }
-      /*  if (docPath == null) {
-        } else {
-            fileForDocs = new File(docPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse(""), docPath);
-            imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
-        }
-*/
+
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
         MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
@@ -300,7 +295,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             if (stringArrayList.size() >= 3) {
                 postDemands();
             } else {
-                Toast.makeText(getApplicationContext(), "Select More Images", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();
             }
         }
 

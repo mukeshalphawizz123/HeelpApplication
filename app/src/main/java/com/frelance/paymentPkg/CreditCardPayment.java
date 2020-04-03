@@ -10,10 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.frelance.CreditCardPayerActivity;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.CheckNetwork;
 
 public class CreditCardPayment extends AppCompatActivity implements View.OnClickListener {
-    private ImageView ivnotificationcreditcard, ivdashboardcreditcardback,Ivwalletpoint,IvCreditcardpoint;
+    private ImageView ivnotificationcreditcard, ivdashboardcreditcardback, Ivwalletpoint, IvCreditcardpoint;
     private RelativeLayout rlpayer, rlcreditcard, rlMaCanotte;
     private String credit;
 
@@ -22,7 +23,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_card_payment);
         init();
-        credit="1";
+        credit = "1";
     }
 
     private void init() {
@@ -31,8 +32,8 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
         rlpayer = findViewById(R.id.rlpayerId);
         ivnotificationcreditcard = findViewById(R.id.ivnotificationcreditcardId);
         ivdashboardcreditcardback = findViewById(R.id.ivdashboardcreditcardbackId);
-        Ivwalletpoint=findViewById(R.id.IvwalletpointId);
-        IvCreditcardpoint=findViewById(R.id.IvCreditcardpointId);
+        Ivwalletpoint = findViewById(R.id.IvwalletpointId);
+        IvCreditcardpoint = findViewById(R.id.IvCreditcardpointId);
         clickListenerSetup();
     }
 
@@ -50,16 +51,16 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
             case R.id.rlMaCanotteId:
                 Ivwalletpoint.setVisibility(View.VISIBLE);
                 IvCreditcardpoint.setVisibility(View.GONE);
-                credit="2";
+                credit = "2";
                 //credit = "prize";
                 //CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PrizePoolActivity.class);
                 break;
             case R.id.rlcreditcardid:
                 IvCreditcardpoint.setVisibility(View.VISIBLE);
                 Ivwalletpoint.setVisibility(View.GONE);
-                credit="1";
+                credit = "1";
                 //credit = "Creditcard";
-               // CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CreditCardActivity.class);
+                // CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CreditCardActivity.class);
                 break;
             case R.id.ivnotificationcreditcardId:
                 CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, NotificationActivity.class);
@@ -68,10 +69,12 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                 CheckNetwork.backScreenWithouFinish(CreditCardPayment.this);
                 break;
             case R.id.rlpayerId:
-                if (credit.equals("1")){
-                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CreditCardPayerActivity.class);
-                }else if (credit.equals("2")){
-                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PaymentConfirmationPage.class);
+                if (credit.equals("1")) {
+                    //  CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CreditCardPayerActivity.class);
+                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CheckoutActivityJava.class);
+                } else if (credit.equals("2")) {
+                    // CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PaymentConfirmationPage.class);
+                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CheckoutActivityJava.class);
 
                 }
                 break;
