@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,18 +59,15 @@ public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCom
     private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl;
     private CircleImageView ivUserDemandComp;
     private String projectId;
+    private ArrayList<String> filesList;
 
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_request_completee);*/
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_completee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         projectId = this.getArguments().getString("projectId");
+        filesList = new ArrayList<>();
         init(view);
-
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myOnCompleteApi(projectId);
         } else {
@@ -97,9 +96,10 @@ public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCom
         rlreqcompleteviewdetils.setOnClickListener(this);
 
         rvmyreqcompletefileupload = view.findViewById(R.id.rvmyreqcompletefileuploadid);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvmyreqcompletefileupload.setLayoutManager(layoutManager);
-        MyDemandsCompleteAdapter myRequestCompleteAdapter = new MyDemandsCompleteAdapter(getActivity(), this);
+        myRequestCompleteAdapter = new MyDemandsCompleteAdapter(getActivity(), this);
         rvmyreqcompletefileupload.setAdapter(myRequestCompleteAdapter);
 
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
@@ -155,12 +155,35 @@ public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCom
                 if (response.isSuccessful()) {
                     pbDemandComplete.setVisibility(View.GONE);
                     DemandCompleteModle requestlist = response.body();
-                    if (requestlist.getStatus() == true) {
+                    if (requestlist.getStatus()) {
                         datumList = requestlist.getData();
                         tvUserDemandComp.setText(datumList.get(0).getFirstName());
                         tvCommentDemandCompl.setText(datumList.get(0).getYourComments());
-                        Picasso.with(getActivity()).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + datumList.get(0).getProjectImage()).into(ivUserDemandComp);
 
+                        if (datumList.get(0).getPictureUrl().isEmpty()) {
+                        } else {
+                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserDemandComp);
+                        }
+
+                        if (datumList.get(0).getProjectImage().isEmpty()) {
+
+                        } else {
+                            String[] imgesArray = datumList.get(0).getProjectImage().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                        }
+
+                        if (datumList.get(0).getProjectFiles().isEmpty()) {
+
+                        } else {
+                            String[] filesArray = datumList.get(0).getProjectFiles().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                        }
+
+                        myRequestCompleteAdapter.addCompletedDemandsFiles(filesList);
                     }
 
                 } else {

@@ -1,5 +1,5 @@
 
-package com.frelance.userProfileRatingPkg.getuserreviewsModulePkg;
+package com.frelance.clientProfilePkg.getuserreviewsModulePkg;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

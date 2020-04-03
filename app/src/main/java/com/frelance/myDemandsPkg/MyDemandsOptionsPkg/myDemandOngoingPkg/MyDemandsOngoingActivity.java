@@ -5,7 +5,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -25,7 +25,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.HelpActivity;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.Adapter.MyRequestOngoingAdapter;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.Adapter.MyDemandOngoingAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.Datum;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
 import com.frelance.notificationPkg.NotificationActivity;
@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,9 +45,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoingAdapter.MyRequestOngoingAppOnClickListener, View.OnClickListener {
+public class MyDemandsOngoingActivity extends Fragment implements MyDemandOngoingAdapter.MyRequestOngoingAppOnClickListener, View.OnClickListener {
 
-    private MyRequestOngoingAdapter myRequestOngoingAdapter;
+    private MyDemandOngoingAdapter myDemandOngoingAdapter;
     private RecyclerView rvmyreqongoingfileupload;
     private ImageView ivongoingreqdashboardback, ivnotification;
     private RelativeLayout rlreqongoingviewdetails, rlproblemstatement;
@@ -57,20 +58,25 @@ public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoi
     private AppCompatTextView tvCommentDemandProg, tvUserNameDemandProg;
     private CircleImageView ivUserProgDemain;
     private String projectId;
-
+    private ArrayList<String> filesList;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        filesList = new ArrayList<>();
         try {
             projectId = this.getArguments().getString("projectId");
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         projectId = AppSession.getStringPreferences(getActivity(), "mission_id");
+
+
+        //   Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
+
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-           // myOnProgressApi(projectId);
             myOnProgressApi(projectId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
@@ -99,10 +105,10 @@ public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoi
         rlreqongoingviewdetails.setOnClickListener(this);
 
         rvmyreqongoingfileupload = view.findViewById(R.id.rvmyreqongoingfileuploadid);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        LinearLayoutManager  layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false);
         rvmyreqongoingfileupload.setLayoutManager(layoutManager);
-        MyRequestOngoingAdapter myRequestOngoingAdapter = new MyRequestOngoingAdapter(getActivity(), this);
-        rvmyreqongoingfileupload.setAdapter(myRequestOngoingAdapter);
+        myDemandOngoingAdapter = new MyDemandOngoingAdapter(getActivity(), this);
+        rvmyreqongoingfileupload.setAdapter(myDemandOngoingAdapter);
 
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -163,11 +169,35 @@ public class MyDemandsOngoingActivity extends Fragment implements MyRequestOngoi
                 if (response.isSuccessful()) {
                     pbDemandProgress.setVisibility(View.GONE);
                     DemandOnProgressModle requestlist = response.body();
-                    if (requestlist.getStatus() == true) {
+                    if (requestlist.getStatus()) {
                         datumList = requestlist.getData();
                         tvUserNameDemandProg.setText(datumList.get(0).getFirstName());
                         tvCommentDemandProg.setText(datumList.get(0).getYourComments());
-                        Picasso.with(getActivity()).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + datumList.get(0).getProjectImage()).into(ivUserProgDemain);
+                        if (datumList.get(0).getPictureUrl().isEmpty()) {
+
+                        } else {
+                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserProgDemain);
+                        }
+
+
+                        if (datumList.get(0).getProjectImage().isEmpty()) {
+
+                        } else {
+                            String[] imgesArray = datumList.get(0).getProjectImage().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                        }
+
+                        if (datumList.get(0).getProjectFiles().isEmpty()) {
+
+                        } else {
+                            String[] filesArray = datumList.get(0).getProjectFiles().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                        }
+                        myDemandOngoingAdapter.addOnGoingDemandsFiles(filesList);
 
                     }
 

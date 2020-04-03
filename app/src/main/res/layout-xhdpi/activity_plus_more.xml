@@ -134,10 +134,10 @@
                         app:textColor="@color/white"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRatingCountPlusMoreId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="4.3"
                         app:textSize="@dimen/_10sdp"
                         android:textColor="@color/lightYellow"/>
                 </RelativeLayout>

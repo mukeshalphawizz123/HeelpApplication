@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
 
+import java.util.ArrayList;
+
 
 public class CompleteeFileUploadAdapter extends RecyclerView.Adapter<CompleteeFileUploadAdapter.ViewHolder> {
 
     private Context context;
-    private CompleteeFileUploadAdapter.CompleteeFileUploadAppOnClickListener completeeFileUploadAppOnClickListener;
+    private CompleteeFileUploadAppOnClickListener completeeFileUploadAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
     public CompleteeFileUploadAdapter(Context context, MyMissionCompleteActivity completeeFileUploadAdapter) {
@@ -36,13 +39,21 @@ public class CompleteeFileUploadAdapter extends RecyclerView.Adapter<CompleteeFi
 
     @Override
     public void onBindViewHolder(@NonNull CompleteeFileUploadAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+    public void addOnGoingFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return 2;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
+
 
     public interface CompleteeFileUploadAppOnClickListener {
     }

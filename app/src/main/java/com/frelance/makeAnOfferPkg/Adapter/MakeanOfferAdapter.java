@@ -4,16 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.makeAnOfferPkg.MakeAnOfferActivity;
 
+import java.util.ArrayList;
+
 public class MakeanOfferAdapter extends RecyclerView.Adapter<MakeanOfferAdapter.ViewHolder> {
     private Context context;
-    private MakeanOfferAdapter.MakeanOfferAppOnClickListener makeanOfferAppOnClickListener;
+    private MakeanOfferAppOnClickListener makeanOfferAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
     public MakeanOfferAdapter(Context context, MakeAnOfferActivity makeanOfferAppOnClickListener) {
@@ -32,20 +37,33 @@ public class MakeanOfferAdapter extends RecyclerView.Adapter<MakeanOfferAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MakeanOfferAdapter.ViewHolder holder, int position) {
+        holder.tvfilename.setText(filesList.get(position));
+    }
 
+    public void addDetailFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return filesList == null ? 0 : filesList.size();
     }
 
+
     public interface MakeanOfferAppOnClickListener {
+        void myMakeAnOfferDetailTabClick(View view, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout rlFileFolder;
+        AppCompatTextView tvfilename;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename = itemView.findViewById(R.id.tvfilenameid);
+
         }
     }
 }

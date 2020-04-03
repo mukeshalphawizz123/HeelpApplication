@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
@@ -32,6 +34,7 @@ import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,6 +57,8 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
     private String status;
     private String offerPrice;
     private static Animation shakeAnimation;
+    private ArrayList<String> filesList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = AppSession.getStringPreferences(getApplicationContext(), "mission_Id");
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        filesList = new ArrayList<>();
         init();
         if (CheckNetwork.isNetAvailable(MakeAnOfferActivity.this)) {
             makeAnOfferDetailApi();
@@ -88,9 +94,9 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         radiogreenid = findViewById(R.id.radiogreenid);
         ivofferback.setOnClickListener(this);
         rvfileuploadoffer = findViewById(R.id.rvfileuploadofferId);
-        GridLayoutManager layoutManager = new GridLayoutManager(MakeAnOfferActivity.this, 2);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MakeAnOfferActivity.this, LinearLayoutManager.HORIZONTAL, false);
         rvfileuploadoffer.setLayoutManager(layoutManager);
-        MakeanOfferAdapter makeanOfferAdapter = new MakeanOfferAdapter(getApplicationContext(), this);
+        makeanOfferAdapter = new MakeanOfferAdapter(getApplicationContext(), this);
         rvfileuploadoffer.setAdapter(makeanOfferAdapter);
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -130,6 +136,28 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     ettitletext.setText(findmissionList.get(0).getMissionTitle());
                     etdemande.setText(findmissionList.get(0).getMissionDescription());
                     etbudget.setText(findmissionList.get(0).getMissionBudget());
+
+                    if (findmissionList.get(0).getMissionImage().isEmpty()) {
+
+                    } else {
+                        String[] imgesArray = findmissionList.get(0).getMissionImage().split(",");
+                        for (int i = 0; i < imgesArray.length; i++) {
+                            filesList.add(imgesArray[i]);
+                        }
+                    }
+
+                    if (findmissionList.get(0).getMissionDoc().isEmpty()) {
+
+                    } else {
+                        String[] filesArray = findmissionList.get(0).getMissionDoc().split(",");
+                        for (int i = 0; i < filesArray.length; i++) {
+                            filesList.add(filesArray[i]);
+                        }
+
+                    }
+
+                    makeanOfferAdapter.addDetailFiles(filesList);
+                    // makeanOfferAdapter.add();
                 }
             }
 
@@ -196,6 +224,11 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
+    }
+
+    @Override
+    public void myMakeAnOfferDetailTabClick(View view, int position) {
+
     }
 }
 

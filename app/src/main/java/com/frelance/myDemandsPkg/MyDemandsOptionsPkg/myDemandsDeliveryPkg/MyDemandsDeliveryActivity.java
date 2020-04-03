@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
@@ -44,6 +45,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demand
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -53,6 +55,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,7 +79,8 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     private String projectId, userid, clientId;
     private static Animation shakeAnimation;
     private CheckBox radiogray;
-    private RelativeLayout rlliverymodificationbtnbtn;
+    private RelativeLayout rlliverymodificationbtnbtn, rlpaymentbtn;
+    private ArrayList<String> filesList;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_livery, container, false);
@@ -84,7 +88,8 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         projectId = this.getArguments().getString("projectId");
         clientId = AppSession.getStringPreferences(getActivity(), "clientId");
         userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
-       // Toast.makeText(getActivity(), "" + clientId, Toast.LENGTH_LONG).show();
+        filesList = new ArrayList<>();
+        // Toast.makeText(getActivity(), "" + clientId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             // Toast.makeText(getActivity(), "" + projectId, Toast.LENGTH_LONG).show();
@@ -98,6 +103,7 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     }
 
     private void init(View view) {
+        rlpaymentbtn = view.findViewById(R.id.rlpaymentbtnid);
         rlliverymodificationbtnbtn = view.findViewById(R.id.rlliverymodificationbtnbtnid);
         radiogray = view.findViewById(R.id.radiograyid);
         ivUserDemandDely = view.findViewById(R.id.ivUserDemandDelyId);
@@ -117,9 +123,9 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         rlreqlivreeviewdetail.setOnClickListener(this);
         rvmyreqliveryfileupload = view.findViewById(R.id.rvmyreqliveryfileuploadid);
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvmyreqliveryfileupload.setLayoutManager(layoutManager);
-        MyDemandsLiveryAdapter myRequestLiveryAdapter = new MyDemandsLiveryAdapter(getActivity(), this);
+        myRequestLiveryAdapter = new MyDemandsLiveryAdapter(getActivity(), this);
         rvmyreqliveryfileupload.setAdapter(myRequestLiveryAdapter);
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -128,6 +134,7 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
         content1.setSpan(new UnderlineSpan(), 0, content1.length(), 0);
         tvliverycontact.setText(content1);
         rlliverymodificationbtnbtn.setOnClickListener(this);
+        rlpaymentbtn.setOnClickListener(this);
         rlliverymodificationbtnbtn.setEnabled(false);
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -135,6 +142,9 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
                 if (isChecked) {
                     reveiwDialoge();
                     radiograyid.setChecked(false);
+                    //  rlpaymentbtn.setEnabled(true);
+                } else {
+                    //  rlpaymentbtn.setEnabled(false);
                 }
             }
         });
@@ -152,8 +162,10 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     rlliverymodificationbtnbtn.setEnabled(true);
+
                 } else {
                     rlliverymodificationbtnbtn.setEnabled(false);
+
                 }
             }
         });
@@ -163,6 +175,13 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rlpaymentbtnid:
+                if (radioid.isChecked()) {
+                    CheckNetwork.nextScreenWithoutFinish(getActivity(), CreditCardPayment.class);
+                } else {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.kindlyreviews), Toast.LENGTH_LONG).show();
+                }
+                break;
             case R.id.ivlivreedashboardbackId:
                 removeThisFragment();
                 // replaceFragementWithoutStack(new MyDemandFragment());
@@ -220,14 +239,39 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
                 if (response.isSuccessful()) {
                     pbDemandDelivery.setVisibility(View.GONE);
                     DemandDeliveredModle requestlist = response.body();
-                    if (requestlist.getStatus() == true) {
+                    if (requestlist.getStatus()) {
                         datumList = requestlist.getData();
                         tvUserDemandDely.setText(datumList.get(0).getFirstName());
                         tvCommentDemandDely.setText(datumList.get(0).getYourComments());
-                        Picasso.with(getActivity())
-                                .load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + datumList.get(0)
-                                        .getProjectImage())
-                                .into(ivUserDemandDely);
+
+                        if (datumList.get(0).getPictureUrl().isEmpty()) {
+
+                        } else {
+                            Picasso.with(getActivity())
+                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0)
+                                            .getPictureUrl())
+                                    .into(ivUserDemandDely);
+                        }
+
+
+                        if (datumList.get(0).getProjectImage().isEmpty()) {
+
+                        } else {
+                            String[] imgesArray = datumList.get(0).getProjectImage().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                        }
+
+                        if (datumList.get(0).getProjectFiles().isEmpty()) {
+
+                        } else {
+                            String[] filesArray = datumList.get(0).getProjectFiles().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                        }
+                        myRequestLiveryAdapter.addDeliveryDemandsFiles(filesList);
 
                     }
 
@@ -300,6 +344,7 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     private void reveiwDialoge() {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.review_dialoge);
         AppCompatImageView ivReviewClose = (AppCompatImageView) dialog.findViewById(R.id.ivReviewCloseId);
         final AppCompatTextView tvUserNameReview = (AppCompatTextView) dialog.findViewById(R.id.tvUserNameReviewId);
@@ -310,6 +355,7 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                radioid.setChecked(false);
             }
         });
         rlLogin.setOnClickListener(new View.OnClickListener() {
@@ -342,6 +388,8 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
                     if (submitReviewModle.getStatus()) {
                         dialog.dismiss();
                         Toast.makeText(getActivity(), submitReviewModle.getMessage(), Toast.LENGTH_LONG).show();
+                        radioid.setChecked(true);
+                        radioid.setEnabled(false);
                     } else {
                     }
                 } else {

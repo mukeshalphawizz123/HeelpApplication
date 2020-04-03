@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity;
 
+import java.util.ArrayList;
+
 
 public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsCompleteAdapter.ViewHolder> {
 
     private Context context;
-    private MyDemandsCompleteAdapter.MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
+    private MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
-    public MyDemandsCompleteAdapter(Context context, MyDemandsCompleteeActivity myRequestCompleteAdapter) {
+    public MyDemandsCompleteAdapter(Context context, MyDemandsCompleteeActivity myRequestCompleteAppOnClickListener) {
         this.context = context;
         this.myRequestCompleteAppOnClickListener = myRequestCompleteAppOnClickListener;
     }
@@ -36,15 +39,25 @@ public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsComp
 
     @Override
     public void onBindViewHolder(@NonNull MyDemandsCompleteAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+
+    public void addCompletedDemandsFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return 2;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
 
+
     public interface MyRequestCompleteAppOnClickListener {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

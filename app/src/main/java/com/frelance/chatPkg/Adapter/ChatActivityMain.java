@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +19,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
 import com.frelance.ApiPkg.ApiServices;
+import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.chatbox.AttachmentOption;
 import com.frelance.chatPkg.Adapter.chatbox.AttachmentOptionsListener;
 import com.frelance.chatPkg.Adapter.chatbox.AudioRecordView;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.userProfileRatingPkg.UserProfileActivity;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,15 +39,26 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
     private RecyclerView rvmsglist;
     private ImageView ivbackmsg, ivnotificationHome;
     private ApiServices apiServices;
-    private ImageView ivImage1, ivImage2, ivImage3, ivImage4, ivImage5, ivImage6;
+    private ImageView ivUserMsg;
     private MessageAdapter messageAdapter;
     private AudioRecordView audioRecordView;
     private RecyclerView recyclerViewMessages;
     private long time;
+
+    private AppCompatTextView tvUserNameMsg, tvUserProffesion;
+    private String clientId, fName, lName, clientImg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
+
+        clientId = getIntent().getStringExtra("client_id");
+        fName = getIntent().getStringExtra("firstName");
+        lName = getIntent().getStringExtra("lastName");
+        clientImg = getIntent().getStringExtra("clientImg");
+
+
         audioRecordView = new AudioRecordView();
         audioRecordView.initView((FrameLayout) findViewById(R.id.layoutMain));
         View containerView = audioRecordView.setContainerView(R.layout.layout_chatting);
@@ -101,9 +116,11 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
     private void debug(String log) {
         Log.d("VarunJohn", log);
     }
+
     private void init() {
         ivnotificationHome = findViewById(R.id.ivnotificationHomeId);
         ivnotificationHome.setOnClickListener(this);
@@ -112,11 +129,19 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
         rlmessageuserprofile = findViewById(R.id.rlmessageuserprofileid);
         rlmessageuserprofile.setOnClickListener(this);
         ivnotificationHome.setOnClickListener(this);
+
+        ivUserMsg = findViewById(R.id.ivUserMsgId);
+        tvUserNameMsg = findViewById(R.id.tvUserNameMsgId);
+        tvUserProffesion = findViewById(R.id.tvUserProffesionId);
+        Picasso.with(getApplicationContext()).load(RetrofitClient.MISSION_USER_IMAGE_URL + clientImg).into(ivUserMsg);
+        tvUserNameMsg.setText(fName + " " + lName);
+
+
         //rvmsglist = findViewById(R.id.rvChatId);
-      //  LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-       // rvmsglist.setLayoutManager(layoutManager);
-      //  ChatAdapter chatAdapter = new ChatAdapter(ChatActivityMain.this, this);
-      //  rvmsglist.setAdapter(chatAdapter);
+        //  LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        // rvmsglist.setLayoutManager(layoutManager);
+        //  ChatAdapter chatAdapter = new ChatAdapter(ChatActivityMain.this, this);
+        //  rvmsglist.setAdapter(chatAdapter);
 
     }
 
@@ -124,7 +149,9 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlmessageuserprofileid:
-                CheckNetwork.nextScreenWithoutFinish(ChatActivityMain.this, UserProfileActivity.class);
+                //  Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+                AppSession.setStringPreferences(getApplicationContext(), "clientId", clientId);
+                CheckNetwork.nextScreenWithoutFinish(ChatActivityMain.this, ClinetProfileActivity.class);
                 break;
             case R.id.ivbackmsgId:
                 onBackPressed();

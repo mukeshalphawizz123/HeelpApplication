@@ -1,11 +1,12 @@
 
-package com.frelance.messageListPkg.msgModlePkg;
+package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChatUserResponseModle {
+import java.util.List;
+
+public class TransactionInResponseModle {
 
     @SerializedName("status")
     @Expose
@@ -21,7 +22,7 @@ public class ChatUserResponseModle {
      * No args constructor for use in serialization
      * 
      */
-    public ChatUserResponseModle() {
+    public TransactionInResponseModle() {
     }
 
     /**
@@ -30,7 +31,7 @@ public class ChatUserResponseModle {
      * @param message
      * @param status
      */
-    public ChatUserResponseModle(Boolean status, Boolean message, List<Datum> data) {
+    public TransactionInResponseModle(Boolean status, Boolean message, List<Datum> data) {
         super();
         this.status = status;
         this.message = message;

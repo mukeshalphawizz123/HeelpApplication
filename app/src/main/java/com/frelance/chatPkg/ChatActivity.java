@@ -13,7 +13,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatAdapter;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.userProfileRatingPkg.UserProfileActivity;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.utility.CheckNetwork;
 
 public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatAppOnClickListener, View.OnClickListener {
@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlmessageuserprofileid:
-                CheckNetwork.nextScreenWithoutFinish(ChatActivity.this, UserProfileActivity.class);
+                CheckNetwork.nextScreenWithoutFinish(ChatActivity.this, ClinetProfileActivity.class);
                 break;
             case R.id.ivbackmsgId:
                 onBackPressed();

@@ -10,8 +10,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:scrollbars="none"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <RelativeLayout
                 android:id="@+id/rlprofileid"
@@ -69,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivuserprofileimageId"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/mr_smith"
                     android:textColor="@color/lessBlack"
                     android:textSize="18sp"
                     android:textStyle="normal" />
@@ -83,7 +82,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="6sp"
                     android:progressTint="#D8FF7F00"
-                    android:rating="3.5"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:transformPivotX="0dp"
@@ -99,12 +97,13 @@
                         android:id="@+id/rvratinglistid"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+
                     <ProgressBar
                         android:id="@+id/PbgetuserreviewsId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
 
 
                 </RelativeLayout>
@@ -115,6 +114,16 @@
 
         </ScrollView>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvReveiwId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="No Reviews"
+            android:textColor="@color/lessBlack"
+            android:textSize="@dimen/_16sdp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

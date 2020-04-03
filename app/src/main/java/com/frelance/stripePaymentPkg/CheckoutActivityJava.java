@@ -3,22 +3,38 @@ package com.frelance.stripePaymentPkg;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
+import com.frelance.ApiPkg.ApiServices;
+import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
+import com.frelance.OptionActivity;
 import com.frelance.R;
+import com.frelance.homePkg.HomeActivity;
+import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
+import com.frelance.utility.AppSession;
+import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
+import com.google.android.gms.common.api.Api;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.Stripe;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 import com.stripe.android.view.CardInputWidget;
+import com.stripe.android.view.CardMultilineWidget;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -48,15 +64,31 @@ public class CheckoutActivityJava extends AppCompatActivity {
     private OkHttpClient httpClient = new OkHttpClient();
     private Stripe stripe;
 
+    private AppCompatImageView ivBackCheckout;
+    private AppCompatTextView payButton;
+    private ApiServices apiServices;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        PaymentConfiguration.init(getApplicationContext(), "Insert your publishable key"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
-        Button payButton = findViewById(R.id.payButton);
+        apiServices= RetrofitClient.getClient().create(ApiServices.class);
+       // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
+        PaymentConfiguration.init(getApplicationContext(), "pk_test_IKgHpz7lpleTM3rcFSnyoxC700UDOoixI7"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
+        payButton = findViewById(R.id.payButton);
+        ivBackCheckout = findViewById(R.id.ivBackCheckoutId);
         WeakReference<CheckoutActivityJava> weakActivity = new WeakReference<>(this);
+
+
+        ivBackCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckNetwork.backScreenWithouFinish(getApplicationContext());
+            }
+        });
+
         payButton.setOnClickListener((View view) -> {
-            CardInputWidget cardInputWidget = findViewById(R.id.cardInputWidget);
+            CardMultilineWidget cardInputWidget = findViewById(R.id.cardInputWidget);
             Card card = cardInputWidget.getCard();
             if (card != null) {
                 stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
@@ -64,13 +96,10 @@ public class CheckoutActivityJava extends AppCompatActivity {
                     @Override
                     public void onSuccess(@NonNull Token result) {
                         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-                        String json = "{"
-                                + "\"currency\":\"usd\","
-                                + "\"items\":["
-                                + "{\"id\":\"photo_subscription\"}"
-                                + "],"
-                                + "\"token\":\"" + result.getId() + "\""
-                                + "}";
+                        String json = "{" + "\"currency\":\"usd\","
+                                + "\"items\":[" + "{\"id\":\"photo_subscription\"}" + "],"
+                                + "\"token\":\"" + result.getId() + "\"" + "}";
+
                         RequestBody body = RequestBody.create(json, mediaType);
                         Request request = new Request.Builder()
                                 .url(BACKEND_URL + "pay")
@@ -80,13 +109,13 @@ public class CheckoutActivityJava extends AppCompatActivity {
                                 .enqueue(new Callback() {
                                     @Override
                                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                       // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
+                                        // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
                                     }
 
                                     @Override
                                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                                         if (!response.isSuccessful()) {
-                                          //  weakActivity.get().displayAlert("Failed to decode response from server", "Error: " + response, false);
+                                            //  weakActivity.get().displayAlert("Failed to decode response from server", "Error: " + response, false);
                                             return;
                                         }
                                         String responseData = response.body().string();
@@ -94,7 +123,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
                                             JSONObject responseMap = new JSONObject(responseData);
                                             String error = responseMap.optString("error", null);
                                             if (error != null) {
-                                               // weakActivity.get().displayAlert("Payment failed", error, false);
+                                                // weakActivity.get().displayAlert("Payment failed", error, false);
                                             } else {
                                                 //weakActivity.get().displayAlert("Success", "Payment succeeded!", true);
                                             }
@@ -108,7 +137,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull Exception e) {
-                       // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
+                        // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
                     }
                 });
             }
@@ -135,4 +164,44 @@ public class CheckoutActivityJava extends AppCompatActivity {
             builder.create().show();
         });
     }
+
+   /* private void sociallogin1(String name, String email, final String status ) {
+        CustomProgressbar.showProgressBar(this, false);
+        apiServices.sociallogin(name, status, email, token).enqueue(new retrofit2.Callback<SocialLoginModel>() {
+            @Override
+            public void onResponse(retrofit2.Call<SocialLoginModel> call, retrofit2.Response<SocialLoginModel> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    SocialLoginModel getLoginModle = response.body();
+                    if (getLoginModle.getStatus()) {
+                        Toast.makeText(OptionActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
+                        AppSession.setStringPreferences(OptionActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
+                        AppSession.setStringPreferences(OptionActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
+                        Intent intent = new Intent(OptionActivity.this, HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<SocialLoginModel> call, Throwable t) {
+                Log.d("test", String.valueOf(t));
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+    }*/
 }

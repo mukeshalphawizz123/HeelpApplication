@@ -7,4 +7,6 @@
     <string name="skills">Skills</string>
     <string name="facebook_app_id">843307129428324</string>
     <string name="fb_login_protocol_scheme">fb843307129428324</string>
+    <string name="transaction">Transaction</string>
+    <string name="kindlyreviews">Kindly put your reviews</string>
 </resources>

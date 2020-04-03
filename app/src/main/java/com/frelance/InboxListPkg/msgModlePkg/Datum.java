@@ -1,5 +1,5 @@
 
-package com.frelance.messageListPkg.msgModlePkg;
+package com.frelance.InboxListPkg.msgModlePkg;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,9 +9,7 @@ public class Datum {
     @SerializedName("mission_id")
     @Expose
     private String missionId;
-    @SerializedName("user_id")
-    @Expose
-    private String userId;
+
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -21,35 +19,10 @@ public class Datum {
     @SerializedName("picture_url")
     @Expose
     private String pictureUrl;
-    @SerializedName("client_id")
+    @SerializedName("user_id")
     @Expose
     private String clientId;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public Datum() {
-    }
-
-    /**
-     * 
-     * @param firstName
-     * @param lastName
-     * @param missionId
-     * @param clientId
-     * @param pictureUrl
-     * @param userId
-     */
-    public Datum(String missionId, String userId, String firstName, String lastName, String pictureUrl, String clientId) {
-        super();
-        this.missionId = missionId;
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.pictureUrl = pictureUrl;
-        this.clientId = clientId;
-    }
 
     public String getMissionId() {
         return missionId;
@@ -57,14 +30,6 @@ public class Datum {
 
     public void setMissionId(String missionId) {
         this.missionId = missionId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -98,5 +63,29 @@ public class Datum {
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
+
+
+    /**
+     * No args constructor for use in serialization
+     */
+    public Datum() {
+    }
+
+    /**
+     * @param firstName
+     * @param lastName
+     * @param missionId
+     * @param clientId
+     * @param pictureUrl
+     */
+    public Datum(String missionId, String firstName, String lastName, String pictureUrl, String clientId) {
+        super();
+        this.missionId = missionId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.pictureUrl = pictureUrl;
+        this.clientId = clientId;
+    }
+
 
 }

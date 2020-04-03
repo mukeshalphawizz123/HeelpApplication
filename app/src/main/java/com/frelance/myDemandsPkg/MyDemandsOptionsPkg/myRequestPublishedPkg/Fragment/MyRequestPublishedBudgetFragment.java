@@ -21,7 +21,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragm
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.frelance.paymentPkg.CreditCardPayment;
-import com.frelance.userProfileRatingPkg.UserProfileActivity;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -80,7 +80,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
                 break;
             case R.id.ivmymissionid:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), UserProfileActivity.class);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
 
         }

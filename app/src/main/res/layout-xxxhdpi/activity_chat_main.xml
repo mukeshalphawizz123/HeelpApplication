@@ -45,14 +45,16 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20sp">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivUserMsgId"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_75sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:padding="@dimen/_3sdp"
-                    android:src="@drawable/dummyuserimg" />
+                    android:src="@drawable/dummyuserimg"
+                    app:civ_border_color="@color/lessBlack"
+                    app:civ_border_width="@dimen/_1sdp" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -115,13 +117,12 @@
         -->
 
         <FrameLayout
-            android:layout_below="@+id/rlHomeToolbarId"
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/rlHomeToolbarId"
             android:background="#FAF6E3"
             tools:context=".ChattingActivity">
-
 
 
         </FrameLayout>

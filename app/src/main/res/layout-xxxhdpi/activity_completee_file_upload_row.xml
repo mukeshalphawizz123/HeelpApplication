@@ -26,8 +26,9 @@
                 android:textStyle="normal" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:layout_margin="@dimen/_1sdp"
                 android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_height="@dimen/_58sdp"
                 android:layout_below="@+id/tvfilenameid"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"

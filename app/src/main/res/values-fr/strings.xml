@@ -93,7 +93,6 @@ trois principaux besoins de l’étudiant.</string>
     <string name="about">About</string>
     <string name="contact_heelp_com">contact@heelp.com</string>
     <string name="registered_card">Registered card</string>
-    <string name="pay">Pay</string>
     <string name="open_a_dispute">Open a dispute</string>
     <string name="open">Open</string>
     <string name="parametres">Parameters</string>
@@ -251,6 +250,9 @@ trois principaux besoins de l’étudiant.</string>
     <string name="facebook_app_id">843307129428324</string>
     <string name="fb_login_protocol_scheme">fb843307129428324</string>
     <string name="notification_channel_id">my_channel_01</string>
+    <string name="pay">Pay</string>
+    <string name="transaction">Transaction</string>
+    <string name="kindlyreviews">Kindly put your reviews</string>
 
 
 </resources>

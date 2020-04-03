@@ -64,8 +64,8 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         getPreference();
         // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
         if (CheckNetwork.isNetAvailable(getActivity())) {
-           // myMissionViewDetail("145");
-             myMissionViewDetail(missionId);
+            // myMissionViewDetail("145");
+            myMissionViewDetail(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -201,22 +201,32 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                 if (response.isSuccessful()) {
                     pbMymissionDetail.setVisibility(View.GONE);
                     MissionViewDetailModle missionViewDetailModle = response.body();
-                    if (missionViewDetailModle.getStatus() == true) {
+                    if (missionViewDetailModle.getStatus()) {
 
                         try {
                             yourMissionList = missionViewDetailModle.getYourMissions();
                             etdescription.setText(yourMissionList.get(0).getMissionDescription());
                             ettitletext.setText(yourMissionList.get(0).getCategoryTitle());
                             etbudget.setText(yourMissionList.get(0).getMissionBudget());
-                            String[] imgesArray = yourMissionList.get(0).getImage().split(",");
-                            String[] filesArray = yourMissionList.get(0).getFile().split(",");
 
-                            for (int i = 0; i < imgesArray.length; i++) {
-                                filesList.add(imgesArray[i]);
+                            if (yourMissionList.get(0).getImage().isEmpty()) {
+
+                            } else {
+                                String[] imgesArray = yourMissionList.get(0).getImage().split(",");
+                                for (int i = 0; i < imgesArray.length; i++) {
+                                    filesList.add(imgesArray[i]);
+                                }
                             }
-                            for (int i = 0; i < filesArray.length; i++) {
-                                filesList.add(filesArray[i]);
+
+                            if (yourMissionList.get(0).getFile().isEmpty()) {
+
+                            } else {
+                                String[] filesArray = yourMissionList.get(0).getFile().split(",");
+                                for (int i = 0; i < filesArray.length; i++) {
+                                    filesList.add(filesArray[i]);
+                                }
                             }
+
                             detailsAdapter.addDetailFiles(filesList);
 
                         } catch (Exception e) {

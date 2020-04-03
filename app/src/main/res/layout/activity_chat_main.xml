@@ -45,8 +45,10 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20sp">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivUserMsgId"
+                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="@color/lessBlack"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_75sdp"

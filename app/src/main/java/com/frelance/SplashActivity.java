@@ -16,6 +16,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.homePkg.HomeActivity;
 import com.frelance.splashBanner.BannerFragment;
+import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.PrefData;
 import com.frelance.utility.StatusBarManagment;
@@ -35,7 +36,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
-
         flag = AppSession.getStringPreferences(SplashActivity.this, "status");
         init();
 

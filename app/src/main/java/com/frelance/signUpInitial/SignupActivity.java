@@ -150,11 +150,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                           // Log.w(TAG, "getInstanceId failed", task.getException());
+                            // Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
                         token = task.getResult().getToken();
-                        Log.d("token",token);
+                        Log.d("token", token);
 
                     }
                 });
@@ -227,7 +227,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signup(String email, String userName, String password) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.signup(email, userName, password).enqueue(new Callback<RegistrationModel>() {
+        apiServices.signup(email, userName, password, token).enqueue(new Callback<RegistrationModel>() {
             @Override
             public void onResponse(Call<RegistrationModel> call, Response<RegistrationModel> response) {
                 if (response.isSuccessful()) {
@@ -247,7 +247,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
-                               // Toast.makeText(SignupActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(SignupActivity.this, "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
@@ -276,7 +276,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
                             sociallogin1(first_name + last_name, id, "2");
-                          //  Toast.makeText(SignupActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(SignupActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -290,17 +290,18 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         request.executeAsync();
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 101) {
                 try {
                     Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                     GoogleSignInAccount account = task.getResult(ApiException.class);
                     onLoggedIn(account);
                 } catch (ApiException e) {
-                   // Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+                    // Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
                 }
             } else {
                 callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -308,10 +309,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-        Toast.makeText(this, ""+email, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
@@ -323,10 +325,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
-    private void sociallogin1(String name, String email, final String status ) {
+    private void sociallogin1(String name, String email, final String status) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.sociallogin(name,status, email, token).enqueue(new Callback<SocialLoginModel>() {
+        apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {
             @Override
             public void onResponse(Call<SocialLoginModel> call, Response<SocialLoginModel> response) {
                 if (response.isSuccessful()) {
@@ -340,10 +341,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
-                  /*      AppSession.setStringPreferences(getApplicationContext(), Constants.LOGIN, status);
-                        AppSession.setStringPreferences(getApplicationContext(), Constants.USERNAME, getLoginModle.getData().getUserFullname());
-                        AppSession.setStringPreferences(getApplicationContext(), Constants.USEREId, getLoginModle.getData().getUserId());
-                  */    //  CheckNetwork.goToScreen(LoginActivity.this, HomeActivity.class);
                     }
                 } else {
                     if (response.code() == 400) {

@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.MyDemandsDeliveryActivity;
 
+import java.util.ArrayList;
+
 
 public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLiveryAdapter.ViewHolder> {
 
     private Context context;
-    private MyDemandsLiveryAdapter.MyRequestLiveryAppOnClickListener myRequestLiveryAppOnClickListener;
+    private MyRequestLiveryAppOnClickListener myRequestLiveryAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
     public MyDemandsLiveryAdapter(Context context, MyDemandsDeliveryActivity myRequestLiveryAdapter) {
@@ -36,12 +39,21 @@ public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLivery
 
     @Override
     public void onBindViewHolder(@NonNull MyDemandsLiveryAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+
+
+    public void addDeliveryDemandsFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return 3;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
 
     public interface MyRequestLiveryAppOnClickListener {

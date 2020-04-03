@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
     private Context context;
-    private DetailsAdapter.DetailsAppOnClickLister detailsAppOnClickLister;
+    private DetailsAppOnClickLister detailsAppOnClickLister;
     private ArrayList<String> filesList;
 
     public DetailsAdapter(Context context, DetailsActivity detailsAdapter) {
@@ -45,10 +45,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-  /*  @Override
-    public int getItemCount() {
-        return 2;
-    }*/
+
 
     @Override
     public int getItemCount() {

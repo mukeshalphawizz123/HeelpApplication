@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             return;
                         }
                         token = task.getResult().getToken();
-                        //  Log.d("token",token);
+                        Log.d("token", token);
                     }
                 });
     }
@@ -286,7 +286,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login(String email, String password) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.login(email, password, "").enqueue(new Callback<Loginmodel>() {
+        apiServices.login(email, password, token).enqueue(new Callback<Loginmodel>() {
             @Override
             public void onResponse(Call<Loginmodel> call, Response<Loginmodel> response) {
                 if (response.isSuccessful()) {

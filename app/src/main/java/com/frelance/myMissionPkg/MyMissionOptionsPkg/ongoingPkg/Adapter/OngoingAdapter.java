@@ -4,18 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity;
 
+import java.util.ArrayList;
 
-public class OngoingAdapter  extends RecyclerView.Adapter<OngoingAdapter.ViewHolder> {
+
+public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHolder> {
 
     private Context context;
-    private OngoingAdapter.OngoingAppOnClickListener ongoingAppOnClickListener;
+    private OngoingAppOnClickListener ongoingAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
     public OngoingAdapter(Context context, MyMissionOngoingActivity ongoingAdapter) {
@@ -34,20 +39,34 @@ public class OngoingAdapter  extends RecyclerView.Adapter<OngoingAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OngoingAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+    public void addOnGoingFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
+
 
     @Override
     public int getItemCount() {
-        return 3;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
+
 
     public interface OngoingAppOnClickListener {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout rlFileFolder;
+        AppCompatTextView tvfilename;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename = itemView.findViewById(R.id.tvfilenameid);
         }
     }
 }

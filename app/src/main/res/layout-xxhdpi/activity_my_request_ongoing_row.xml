@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rlFileFolderId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_margin="5sp">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -21,15 +20,19 @@
                 android:text="@string/file_name"
                 android:singleLine="true"
                 android:textColor="@color/Black"
-                android:textSize="12sp"
+                android:textSize="@dimen/_8sdp"
                 android:textStyle="normal" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_height="@dimen/_58sdp"
                 android:layout_below="@+id/tvfilenameid"
+                android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/fileupload" />
+
+
 
         </RelativeLayout>
 

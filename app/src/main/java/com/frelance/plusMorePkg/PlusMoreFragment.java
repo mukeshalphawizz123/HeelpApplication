@@ -46,7 +46,7 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersAc
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.UserProfileEditActivity;
-import com.frelance.userProfileRatingPkg.ProfileRatingDescriptionActivity;
+import com.frelance.clientProfilePkg.ProfileRatingDescriptionActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -86,7 +86,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private ProgressBar pbUserEditProfile;
     private List<YourMission> yourMissionList;
     private CircleImageView ivuserprofileimage;
-    private AppCompatTextView tvname, tvdesination;
+    private AppCompatTextView tvname, tvdesination, tvRatingCountPlusMore;
     private String userImg, userName, userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,6 +107,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
 
 
     private void init(View view) {
+        tvRatingCountPlusMore = view.findViewById(R.id.tvRatingCountPlusMoreId);
         pbUserEditProfile = view.findViewById(R.id.pbUserEditProfileId);
         IvUserProfilesettings = view.findViewById(R.id.IvUserProfilesettingsId);
         tvdesination = view.findViewById(R.id.tvdesinationid);
@@ -126,14 +127,10 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         rlcircleprrogressbaro = view.findViewById(R.id.rlcircleprrogressbaroid);
         rlcircleprrogressbaro.setOnClickListener(this);
 
-        CircularProgressIndicator donutprogress = view.findViewById(R.id.donutprogressid);
+        donutprogress = view.findViewById(R.id.donutprogressid);
 
 // you can set max and current progress values individually
         donutprogress.setMaxProgress(5);
-        donutprogress.setCurrentProgress(4.3);
-// or all at once
-        donutprogress.setProgress(4.3, 5);
-
 // you can get progress values using following getters
         donutprogress.getProgress(); // returns 4
         donutprogress.getMaxProgress();// returns 5
@@ -188,6 +185,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                 selectLanguageDailoge();
                 break;
             case R.id.rlratingnameid:
+                AppSession.setStringPreferences(getActivity(), "clientEntry", "user");
                 Intent intent = new Intent(getActivity(), ProfileRatingDescriptionActivity.class);
                 intent.putExtra("userImg", userImg);
                 intent.putExtra("userName", userName);
@@ -347,6 +345,10 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                         }
                         userImg = yourMissionList.get(0).getPictureUrl();
                         userName = yourMissionList.get(0).getFirstName();
+
+                        donutprogress.setCurrentProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()));
+                        donutprogress.setProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()), 5);
+                        tvRatingCountPlusMore.setText(yourMissionList.get(0).getProfileRate());
 
                     }
 

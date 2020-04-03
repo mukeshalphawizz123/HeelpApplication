@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 
+import java.util.ArrayList;
 
-public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoingAdapter.ViewHolder> {
+
+public class MyDemandOngoingAdapter extends RecyclerView.Adapter<MyDemandOngoingAdapter.ViewHolder> {
 
     private Context context;
-    private MyRequestOngoingAdapter.MyRequestOngoingAppOnClickListener myRequestOngoingAppOnClickListener;
+    private MyRequestOngoingAppOnClickListener myRequestOngoingAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
-    public MyRequestOngoingAdapter(Context context, MyDemandsOngoingActivity myRequestOngoingAdapter) {
+    public MyDemandOngoingAdapter(Context context, MyDemandsOngoingActivity myRequestOngoingAppOnClickListener) {
         this.context = context;
         this.myRequestOngoingAppOnClickListener = myRequestOngoingAppOnClickListener;
     }
@@ -28,7 +31,7 @@ public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoi
 
     @NonNull
     @Override
-    public MyRequestOngoingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyDemandOngoingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.activity_my_request_ongoing_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -36,14 +39,23 @@ public class MyRequestOngoingAdapter extends RecyclerView.Adapter<MyRequestOngoi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyRequestOngoingAdapter.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull MyDemandOngoingAdapter.ViewHolder holder, int position) {
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+
+    public void addOnGoingDemandsFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return 3;
+        //return 0;
+        return filesList == null ? 0 : filesList.size();
     }
+
 
     public interface MyRequestOngoingAppOnClickListener {
     }

@@ -153,7 +153,9 @@
                         android:id="@+id/ivUserImgMyMisionId"
                         android:layout_width="60sp"
                         android:layout_height="60sp"
-                        android:src="@drawable/dummyuserimg" />
+                        android:src="@drawable/dummyuserimg"
+                        app:civ_border_color="@color/lessBlack"
+                        app:civ_border_width="@dimen/_1sdp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUserNameMyMisssionId"

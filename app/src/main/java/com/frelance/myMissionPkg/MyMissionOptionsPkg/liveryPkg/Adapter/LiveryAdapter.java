@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity;
 
+import java.util.ArrayList;
+
 
 public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder> {
 
 
     private Context context;
-    private LiveryAdapter.LiveryAppOnClickListener liveryAppOnClickListener;
+    private LiveryAppOnClickListener liveryAppOnClickListener;
+    private ArrayList<String> filesList;
 
 
     public LiveryAdapter(Context context, MyMissionDeliveryActivity liveryAdapter) {
@@ -37,13 +40,20 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull LiveryAdapter.ViewHolder holder, int position) {
-
+        holder.tvfilename.setText(filesList.get(position));
     }
+
+    public void addDetailFiles(ArrayList<String> filesList) {
+        this.filesList = filesList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
-        return 2;
+        return filesList == null ? 0 : filesList.size();
     }
+
 
     public interface LiveryAppOnClickListener {
     }

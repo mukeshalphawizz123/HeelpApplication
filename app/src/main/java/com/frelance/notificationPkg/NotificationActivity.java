@@ -48,7 +48,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            notification("1");
+            notification(userId);
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }

@@ -1,4 +1,4 @@
-package com.frelance.userProfileRatingPkg.AdapterPkg;
+package com.frelance.clientProfilePkg.AdapterPkg;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
-import com.frelance.userProfileRatingPkg.ProfileRatingDescriptionActivity;
-import com.frelance.userProfileRatingPkg.getuserreviewsModulePkg.Review;
+import com.frelance.clientProfilePkg.ProfileRatingDescriptionActivity;
+import com.frelance.clientProfilePkg.getuserreviewsModulePkg.Review;
 
 import java.util.List;
 

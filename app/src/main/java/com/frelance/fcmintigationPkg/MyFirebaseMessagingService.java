@@ -21,7 +21,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.v("NEW_TOKEN",s);
+      //  Log.v("NEW_TOKEN",s);
        // AppSession.setStringPreferences();
     }
     @Override

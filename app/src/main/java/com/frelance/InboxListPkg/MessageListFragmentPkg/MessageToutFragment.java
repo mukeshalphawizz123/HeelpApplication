@@ -1,7 +1,8 @@
-package com.frelance.messageListPkg.MessageListFragmentPkg;
+package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,10 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatActivityMain;
-import com.frelance.messageListPkg.MessageListAdapterPkg.MessageToutAdapter;
-import com.frelance.messageListPkg.msgModlePkg.ChatUserResponseModle;
-import com.frelance.messageListPkg.msgModlePkg.Datum;
+
+import com.frelance.InboxListPkg.MessageListAdapterPkg.MessageToutAdapter;
+import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
+import com.frelance.InboxListPkg.msgModlePkg.Datum;
 import com.frelance.utility.CheckNetwork;
 
 import org.json.JSONException;
@@ -32,13 +34,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MessageNonLusFragment extends Fragment implements MessageToutAdapter.MessageToutAppOnClickListener {
-
-
+public class MessageToutFragment extends Fragment implements MessageToutAdapter.MessageToutAppOnClickListener {
     private RecyclerView rvmsglist;
     private ApiServices apiServices;
     private MessageToutAdapter messageToutAdapter;
     private List<Datum> datumList;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
@@ -54,6 +55,8 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
     }
 
     private void init(View view) {
+        //  rlmsguserid=view.findViewById(R.id.rlmsguserid);
+        // rlmsguserid.setOnClickListener(this);
         rvmsglist = view.findViewById(R.id.rvmsglistId);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvmsglist.setLayoutManager(layoutManager);
@@ -61,12 +64,22 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
         rvmsglist.setAdapter(messageToutAdapter);
     }
 
+    public void onClick(View view, int position) {
+
+    }
 
     @Override
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
+                Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), ChatActivityMain.class);
+                intent.putExtra("client_id", datumList.get(position).getClientId());
+                intent.putExtra("firstName", datumList.get(position).getFirstName());
+                intent.putExtra("lastName", datumList.get(position).getLastName());
+                intent.putExtra("clientImg", datumList.get(position).getPictureUrl());
+                startActivity(intent);
+                (getActivity()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
         }
     }

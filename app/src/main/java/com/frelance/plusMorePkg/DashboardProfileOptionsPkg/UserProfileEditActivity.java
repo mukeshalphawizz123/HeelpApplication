@@ -257,6 +257,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                         EtPassword.setText(yourMissionList.get(0).getPassword());
                         Etcountry.setText(yourMissionList.get(0).getCountry());
                         Tvdob.setText(yourMissionList.get(0).getDob());
+                        tvdesinationedit.setText(yourMissionList.get(0).getSkills());
 
                         if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
                         } else {

@@ -1,4 +1,4 @@
-package com.frelance.messageListPkg.MessageTablayout;
+package com.frelance.InboxListPkg.MessageTablayout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.frelance.R;
-import com.frelance.messageListPkg.MessageListFragmentPkg.MessageNonLusFragment;
-import com.frelance.messageListPkg.MessageListFragmentPkg.MessageToutFragment;
+import com.frelance.InboxListPkg.MessageListFragmentPkg.MessageNonLusFragment;
+import com.frelance.InboxListPkg.MessageListFragmentPkg.MessageToutFragment;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.CheckNetwork;
 import com.google.android.material.tabs.TabLayout;

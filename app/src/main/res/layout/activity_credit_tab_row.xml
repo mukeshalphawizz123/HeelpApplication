@@ -39,6 +39,8 @@
                     android:textStyle="normal" />
 
 
+
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvprojecttitleid"
                     android:layout_width="wrap_content"
@@ -74,6 +76,7 @@
                     android:textColor="@color/tabselected"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="normal" />
+
 
 
             </RelativeLayout>

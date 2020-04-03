@@ -149,7 +149,9 @@
                         android:id="@+id/ivUserDemandDelyId"
                         android:layout_width="60sp"
                         android:layout_height="60sp"
-                        android:src="@drawable/dummyuserimg" />
+                        android:src="@drawable/dummyuserimg"
+                        app:civ_border_color="@color/lessBlack"
+                        app:civ_border_width="@dimen/_1sdp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUserDemandDelyId"
@@ -207,7 +209,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvmyreqliveryfileuploadid"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp" />
@@ -343,17 +345,18 @@
         </RelativeLayout>
 
     </ScrollView>
+
     <RelativeLayout
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
         <ProgressBar
-            android:visibility="invisible"
             android:id="@+id/pbDemandDeliveryId"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

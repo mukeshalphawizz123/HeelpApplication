@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.frelance.homeTablayout.HomeTablayoutFragment;
 import com.frelance.R;
-import com.frelance.messageListPkg.MessageTablayout.MessageListTablayoutFragment;
+import com.frelance.InboxListPkg.MessageTablayout.MessageListTablayoutFragment;
 import com.frelance.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
 import com.frelance.plusMorePkg.PlusMoreFragment;

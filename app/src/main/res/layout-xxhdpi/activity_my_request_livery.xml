@@ -144,11 +144,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10sp">
 
-
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivUserDemandDelyId"
                         android:layout_width="60sp"
                         android:layout_height="60sp"
+                        app:civ_border_color="@color/lessBlack"
+                        app:civ_border_width="@dimen/_1sdp"
                         android:src="@drawable/dummyuserimg" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -207,7 +208,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvmyreqliveryfileuploadid"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp" />

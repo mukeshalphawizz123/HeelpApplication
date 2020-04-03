@@ -6,16 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.TransactionCreditFragment;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.Datum;
+
+import java.util.List;
 
 
 public class TransactionCreditAdapter extends RecyclerView.Adapter<TransactionCreditAdapter.ViewHolder> {
 
     private Context context;
-    private TransactionCreditAdapter.TransactionCreditAppOnClickListener transactionCreditAppOnClickListener;
+    private TransactionCreditAppOnClickListener transactionCreditAppOnClickListener;
+    private List<Datum> transactionList;
 
 
     public TransactionCreditAdapter(Context context, TransactionCreditFragment transactionCreditAdapter) {
@@ -33,21 +38,38 @@ public class TransactionCreditAdapter extends RecyclerView.Adapter<TransactionCr
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TransactionCreditAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.tvdatetime.setText(transactionList.get(0).getCreatedDate());
+        holder.tvprojecttitle.setText(transactionList.get(0).getProjectTitle());
+        holder.tvprojetcost.setText(transactionList.get(0).getAmount() + "$");
+        holder.tvprojectdescription.setText("Project of : " + transactionList.get(0).getUsername());
 
     }
 
+    public void addmymissionData(List<Datum> transactionList) {
+        this.transactionList = transactionList;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
-        return 5;
+        return transactionList == null ? 0 : transactionList.size();
     }
 
     public interface TransactionCreditAppOnClickListener {
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private AppCompatTextView tvdatetime, tvprojecttitle, tvprojetcost,
+                tvprojectdescription;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvdatetime = itemView.findViewById(R.id.tvdatetimeid);
+            tvprojecttitle = itemView.findViewById(R.id.tvprojecttitleid);
+            tvprojetcost = itemView.findViewById(R.id.tvprojetcostid);
+            tvprojectdescription = itemView.findViewById(R.id.tvprojectdescriptionid);
         }
 
         @Override

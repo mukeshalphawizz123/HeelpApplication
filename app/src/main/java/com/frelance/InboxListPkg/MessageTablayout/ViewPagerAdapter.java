@@ -1,4 +1,4 @@
-package com.frelance.messageListPkg.MessageTablayout;
+package com.frelance.InboxListPkg.MessageTablayout;
 
 
 import androidx.fragment.app.Fragment;

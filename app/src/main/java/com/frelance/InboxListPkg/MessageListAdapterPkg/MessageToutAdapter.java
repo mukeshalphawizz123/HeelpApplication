@@ -1,4 +1,4 @@
-package com.frelance.messageListPkg.MessageListAdapterPkg;
+package com.frelance.InboxListPkg.MessageListAdapterPkg;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
-import com.frelance.messageListPkg.msgModlePkg.Datum;
+import com.frelance.InboxListPkg.msgModlePkg.Datum;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

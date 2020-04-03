@@ -57,7 +57,7 @@
             android:name="com.frelance.paymentPkg.DashboardPaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.frelance.userProfileRatingPkg.UserProfileActivity"
+            android:name="com.frelance.clientProfilePkg.ClinetProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.frelance.AcceptConditionActivity"
@@ -120,7 +120,7 @@
             android:name="com.frelance.plusMorePkg.PlusMoreFragment"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.frelance.userProfileRatingPkg.ProfileRatingDescriptionActivity"
+            android:name="com.frelance.clientProfilePkg.ProfileRatingDescriptionActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.frelance.chatPkg.ChatActivity"
@@ -179,6 +179,12 @@
         <activity
             android:name="com.frelance.splashBanner.BannerFragment"
             android:screenOrientation="portrait" />
+
+
+        <activity android:name=".stripePaymentPkg.CheckoutActivityJava"
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <service android:name="com.frelance.fcmintigationPkg.MyFirebaseMessagingService"
             android:exported="false">

@@ -101,12 +101,15 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
     private ArrayList<String> stringArrayList = new ArrayList<>();
     private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
+    private ArrayList<String> filesList;
+    private OngoingAdapter ongoingAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        filesList = new ArrayList<>();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMissionInProgress(missionId);
@@ -138,9 +141,9 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         rlmissongoingviewdetails = view.findViewById(R.id.rlmissongoingviewdetailsid);
         rlmissongoingviewdetails.setOnClickListener(this);
         rvongoingfileupload = view.findViewById(R.id.rvongoingfileuploadid);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvongoingfileupload.setLayoutManager(layoutManager);
-        OngoingAdapter ongoingAdapter = new OngoingAdapter(getActivity(), this);
+        ongoingAdapter = new OngoingAdapter(getActivity(), this);
         rvongoingfileupload.setAdapter(ongoingAdapter);
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -444,10 +447,37 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
                         yourMissionList = myMissionProposedModle.getData();
                         tvUserNameInProgMission.setText(yourMissionList.get(0).getFirstName());
                         tvCommentInProgMission.setText(yourMissionList.get(0).getYourComments());
-                        Picasso.with(getActivity())
-                                .load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + yourMissionList
-                                        .get(0).getPictureUrl())
-                                .into(ivUserInprogMission);
+
+
+                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
+
+                        } else {
+                            Picasso.with(getActivity())
+                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                            .get(0).getPictureUrl())
+                                    .into(ivUserInprogMission);
+                        }
+
+
+                        if (yourMissionList.get(0).getProjectImage().isEmpty()) {
+
+                        } else {
+                            String[] imgesArray = yourMissionList.get(0).getProjectImage().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                        }
+
+                        if (yourMissionList.get(0).getProjectFiles().isEmpty()) {
+
+                        } else {
+                            String[] filesArray = yourMissionList.get(0).getProjectFiles().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                        }
+
+                        ongoingAdapter.addOnGoingFiles(filesList);
 
                     } else {
 

@@ -1,4 +1,4 @@
-package com.frelance.userProfileRatingPkg;
+package com.frelance.clientProfilePkg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -18,9 +18,9 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.userProfileRatingPkg.AdapterPkg.ProfileRatingAdapter;
-import com.frelance.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
-import com.frelance.userProfileRatingPkg.getuserreviewsModulePkg.Review;
+import com.frelance.clientProfilePkg.AdapterPkg.ProfileRatingAdapter;
+import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
+import com.frelance.clientProfilePkg.getuserreviewsModulePkg.Review;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -43,10 +43,11 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     private ProgressBar Pbgetuserreviews;
     private ApiServices apiServices;
     private List<Review> getuserreview;
-    private String userImg, userName, userId;
+    private String userImg, userName, userId, clientId, flag;
     private AppCompatTextView tvname;
     private AppCompatImageView ivuserprofileimage;
     private RatingBar rbhelperprofile;
+    private AppCompatTextView tvReveiw;
 
 
     @Override
@@ -57,13 +58,24 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         userImg = getIntent().getStringExtra("userImg");
         userName = getIntent().getStringExtra("userName");
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
+        flag = AppSession.getStringPreferences(getApplicationContext(), "clientEntry");
         init();
-        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            getReviews(userId);
-        } else {
-            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
-        }
 
+        if (flag.equalsIgnoreCase("client")) {
+            if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                getReviews(clientId);
+            } else {
+                Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                getReviews(userId);
+            } else {
+                Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+            }
+
+        }
 
     }
 
@@ -74,16 +86,21 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
             public void onResponse(Call<GetUserReviewsModel> call, Response<GetUserReviewsModel> response) {
                 if (response.isSuccessful()) {
                     Pbgetuserreviews.setVisibility(View.GONE);
-
                     try {
                         GetUserReviewsModel getUserReviewsModel = response.body();
-                        tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
-                        rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
-                        Picasso.with(getApplicationContext())
-                                .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
-                                .into(ivuserprofileimage);
-                        getuserreview = getUserReviewsModel.getReviews();
-                        profileRatingAdapter.getuserreview(getuserreview);
+                        if (getUserReviewsModel.getStatus()) {
+                            tvReveiw.setVisibility(View.GONE);
+                            tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
+                            rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
+                            Picasso.with(getApplicationContext())
+                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
+                                    .into(ivuserprofileimage);
+                            getuserreview = getUserReviewsModel.getReviews();
+                            profileRatingAdapter.getuserreview(getuserreview);
+
+                        } else {
+                            tvReveiw.setVisibility(View.VISIBLE);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -115,6 +132,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     }
 
     private void init() {
+        tvReveiw = findViewById(R.id.tvReveiwId);
         rbhelperprofile = findViewById(R.id.rbhelperprofileId);
         tvname = findViewById(R.id.tvnameid);
         ivuserprofileimage = findViewById(R.id.ivuserprofileimageId);

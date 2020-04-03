@@ -12,7 +12,7 @@ import com.frelance.loginInitial.LoginPkgModel.Loginmodel;
 import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
-import com.frelance.messageListPkg.msgModlePkg.ChatUserResponseModle;
+import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
@@ -30,9 +30,11 @@ import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.TransactionInResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
-import com.frelance.userProfileRatingPkg.getuserreviewsModulePkg.GetUserReviewsModel;
+import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -66,7 +68,8 @@ public interface ApiServices {
     @POST("Authentication/NewUser")
     Call<RegistrationModel> signup(@Field("email") String email,
                                    @Field("username") String username,
-                                   @Field("password") String password);
+                                   @Field("password") String password,
+                                   @Field("auth_token") String auth_token);
 
     @GET("Projectlist/ListProject")
     Call<ListOfProjectModel> publisherlist();
@@ -101,6 +104,32 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Authentication/myprofilebyid")
     Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/payment_in")
+    Call<TransactionInResponseModle> payment_in(@Field("user_id") String user_id);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/payment_out")
+    Call<TransactionOutResponseModle> payment_out(@Field("user_id") String user_id);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/paymentStrip")
+    Call<TransactionOutResponseModle> payApi(
+            @Field("client_id") String client_id,
+            @Field("user_id") String user_id,
+            @Field("user_name") String user_name,
+            @Field("amount") String amount,
+            @Field("projectaname") String projectaname,
+            @Field("token_Id") String token_Id,
+            @Field("currency") String currency);
+
+
 
 
     @FormUrlEncoded

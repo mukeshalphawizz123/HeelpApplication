@@ -27,6 +27,20 @@ public class YourMission {
     @SerializedName("User_image")
     @Expose
     private String userImage;
+
+    public String getMission_doc() {
+        return mission_doc;
+    }
+
+    public void setMission_doc(String mission_doc) {
+        this.mission_doc = mission_doc;
+    }
+
+    @SerializedName("mission_doc")
+    @Expose
+    private String mission_doc;
+
+
     /**
      * No args constructor for use in serialization
      * 

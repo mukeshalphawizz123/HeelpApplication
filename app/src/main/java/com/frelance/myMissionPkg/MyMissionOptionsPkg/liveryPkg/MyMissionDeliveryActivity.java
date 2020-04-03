@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -49,17 +51,20 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private ImageView ivmissionliverydashboardback, ivnotification;
     private RelativeLayout rlmissliveryviewdetails;
     private TextView tvviewprofile, tvmymissionliverytext;
-    private String livree,missionId,userId;
+    private String livree, missionId, userId;
     private ApiServices apiServices;
     private ProgressBar pbMymissionDelivery;
     private AppCompatTextView tvUserNameMyMissionDelivery, tvCommentMyMissionDelivery;
     private CircleImageView ivUserMyMissionDelivery;
+    private ArrayList<String> filesList;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_livery, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
-         missionId = this.getArguments().getString("missionId");
+        missionId = this.getArguments().getString("missionId");
+        filesList = new ArrayList<>();
+        // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDelivery(missionId);
@@ -89,9 +94,9 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
         rlmissliveryviewdetails.setOnClickListener(this);
 
         rvLiveryfileupload = view.findViewById(R.id.rvLiveryfileuploadid);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 5);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvLiveryfileupload.setLayoutManager(layoutManager);
-        LiveryAdapter liveryAdapter = new LiveryAdapter(getActivity(), this);
+        liveryAdapter = new LiveryAdapter(getActivity(), this);
         rvLiveryfileupload.setAdapter(liveryAdapter);
 
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
@@ -159,13 +164,37 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
                 if (response.isSuccessful()) {
                     pbMymissionDelivery.setVisibility(View.GONE);
                     MissionCompleteModle missionCompleteModle = response.body();
-                    if (missionCompleteModle.getStatus() == true) {
+                    if (missionCompleteModle.getStatus()) {
                         tvUserNameMyMissionDelivery.setText(missionCompleteModle.getData().get(0).getFirstName());
                         tvCommentMyMissionDelivery.setText(missionCompleteModle.getData().get(0).getYourComments());
-                        Picasso.with(getActivity())
-                                .load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + missionCompleteModle.getData()
-                                        .get(0).getPictureUrl())
-                                .into(ivUserMyMissionDelivery);
+                        if (missionCompleteModle.getData().get(0).getPictureUrl().isEmpty()) {
+                        } else {
+                            Picasso.with(getActivity())
+                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL
+                                            + missionCompleteModle.getData()
+                                            .get(0).getPictureUrl())
+                                    .into(ivUserMyMissionDelivery);
+                        }
+
+                        if (missionCompleteModle.getData().get(0).getProject_image().isEmpty()) {
+
+                        } else {
+                            String[] imgesArray = missionCompleteModle.getData().get(0).getProject_image().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
+                        }
+
+                        if (missionCompleteModle.getData().get(0).getProjectFiles().isEmpty()) {
+
+                        } else {
+                            String[] filesArray = missionCompleteModle.getData().get(0).getProjectFiles().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+                        }
+
+                        liveryAdapter.addDetailFiles(filesList);
                     }
                 } else {
                     if (response.code() == 400) {

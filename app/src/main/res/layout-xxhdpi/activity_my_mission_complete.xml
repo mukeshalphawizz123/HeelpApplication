@@ -148,11 +148,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="15sp">
 
-
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivUserImgMyMisionId"
                         android:layout_width="60sp"
                         android:layout_height="60sp"
+                        app:civ_border_width="@dimen/_1sdp"
+                        app:civ_border_color="@color/lessBlack"
                         android:src="@drawable/dummyuserimg" />
 
                     <androidx.appcompat.widget.AppCompatTextView
