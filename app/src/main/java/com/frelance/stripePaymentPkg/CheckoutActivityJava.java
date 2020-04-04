@@ -24,6 +24,8 @@ import com.frelance.OptionActivity;
 import com.frelance.R;
 import com.frelance.homePkg.HomeActivity;
 import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
+import com.frelance.paymentPkg.PaymentConfirmationPage;
+import com.frelance.stripePaymentPkg.stripModlePkg.PaymentResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -67,18 +69,24 @@ public class CheckoutActivityJava extends AppCompatActivity {
     private AppCompatImageView ivBackCheckout;
     private AppCompatTextView payButton;
     private ApiServices apiServices;
+    private String userId, clientId;
+    private String userName, categoryTitle, totalamount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        apiServices= RetrofitClient.getClient().create(ApiServices.class);
-       // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        userName = AppSession.getStringPreferences(getApplicationContext(), Constants.USERNAME);
+        clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
+        categoryTitle = AppSession.getStringPreferences(getApplicationContext(), "categoryTitle");
+        totalamount = AppSession.getStringPreferences(getApplicationContext(), "totalamount");
+        // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         PaymentConfiguration.init(getApplicationContext(), "pk_test_IKgHpz7lpleTM3rcFSnyoxC700UDOoixI7"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         payButton = findViewById(R.id.payButton);
         ivBackCheckout = findViewById(R.id.ivBackCheckoutId);
         WeakReference<CheckoutActivityJava> weakActivity = new WeakReference<>(this);
-
 
         ivBackCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +107,33 @@ public class CheckoutActivityJava extends AppCompatActivity {
                         String json = "{" + "\"currency\":\"usd\","
                                 + "\"items\":[" + "{\"id\":\"photo_subscription\"}" + "],"
                                 + "\"token\":\"" + result.getId() + "\"" + "}";
+                        Log.v("token", result.getId());
+                        paymentStrip(clientId, userId, userName, "100", categoryTitle, result.getId());
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Exception e) {
+                        // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
+                    }
+                });
+            }
+        });
+
+       /* payButton.setOnClickListener((View view) -> {
+            CardMultilineWidget cardInputWidget = findViewById(R.id.cardInputWidget);
+            Card card = cardInputWidget.getCard();
+            if (card != null) {
+                stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
+                stripe.createToken(card, new ApiResultCallback<Token>() {
+                    @Override
+                    public void onSuccess(@NonNull Token result) {
+                        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+                        String json = "{" + "\"currency\":\"usd\","
+                                + "\"items\":[" + "{\"id\":\"photo_subscription\"}" + "],"
+                                + "\"token\":\"" + result.getId() + "\"" + "}";
+
+                        Log.v("token", result.getId());
 
                         RequestBody body = RequestBody.create(json, mediaType);
                         Request request = new Request.Builder()
@@ -141,8 +176,48 @@ public class CheckoutActivityJava extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
     }
+
+
+    private void paymentStrip(String clientid, String userId, String username, String amount, String projectName, String token) {
+        CustomProgressbar.showProgressBar(this, false);
+        apiServices.paymentStrip(clientid, userId, username, amount, projectName, token)
+                .enqueue(new retrofit2.Callback<PaymentResponseModle>() {
+                    @Override
+                    public void onResponse(retrofit2.Call<PaymentResponseModle> call, retrofit2.Response<PaymentResponseModle> response) {
+                        if (response.isSuccessful()) {
+                            CustomProgressbar.hideProgressBar();
+                            PaymentResponseModle getLoginModle = response.body();
+                            if (getLoginModle.getStatus()) {
+                                Toast.makeText(CheckoutActivityJava.this, "Transaction Completed", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CheckoutActivityJava.this, PaymentConfirmationPage.class);
+                                startActivity(intent);
+                            }
+                        } else {
+                            if (response.code() == 400) {
+                                if (!response.isSuccessful()) {
+                                    JSONObject jsonObject = null;
+                                    try {
+                                        jsonObject = new JSONObject(response.errorBody().string());
+                                        CustomProgressbar.hideProgressBar();
+                                        String message = jsonObject.getString("message");
+                                    } catch (JSONException | IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(retrofit2.Call<PaymentResponseModle> call, Throwable t) {
+                        Log.d("test", String.valueOf(t));
+                        CustomProgressbar.hideProgressBar();
+                    }
+                });
+    }
+
 
     private void displayAlert(@NonNull String title,
                               @Nullable String message,

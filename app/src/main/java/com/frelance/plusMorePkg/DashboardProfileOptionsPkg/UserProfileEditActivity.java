@@ -272,6 +272,10 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                         tvunivercityy.setText(yourMissionList.get(0).getSchoolAddress() + "," + yourMissionList.get(0).getUniversity());
                         tvcategoriess.setText(yourMissionList.get(0).getIntrestedCategory());
                         tvcompetencesss.setText(yourMissionList.get(0).getSkills());
+
+
+
+
                     }
 
                 } else {
@@ -365,6 +369,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                     UpdateProfileModle updateProfileModle = response.body();
                     if (updateProfileModle.getStatus()) {
                         Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
+                        AppSession.setStringPreferences(getActivity(),Constants.USERNAME,updateProfileModle.getAllActivities().getUsername());
                     }
                 } else {
                     if (response.code() == 400) {

@@ -42,6 +42,7 @@ import com.frelance.homefilterPkg.HomeCategoryFilterActivity;
 import com.frelance.makeAnOfferPkg.MakeAnOfferActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     private HomeCategoryFilterAdapter homeCategoryFilterAdapter;
     private HomeCategoryFilterActivity homeCategoryFilterActivity;
     private ProgressBar PbsearchId;
+    private String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,18 +74,19 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
         View view = inflater.inflate(R.layout.fragment_home_respondttoarerequest, container, false);
         //apiServices = RetrofitClient.getClient().create(ApiServices.class);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            homeRespondeList();
+            homeRespondeList(userId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
         return view;
     }
 
-    private void homeRespondeList() {
+    private void homeRespondeList(String userId) {
         pbHomeRespondlist.setVisibility(View.VISIBLE);
-        apiServices.repondrelist().enqueue(new Callback<RepondreunedemandeModel>() {
+        apiServices.repondrelist(userId).enqueue(new Callback<RepondreunedemandeModel>() {
             @Override
             public void onResponse(Call<RepondreunedemandeModel> call, Response<RepondreunedemandeModel> response) {
                 if (response.isSuccessful()) {
@@ -94,6 +97,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                     //seearchDoctorAdapter.doctorList(doctorList);
                 }
             }
+
             @Override
             public void onFailure(Call<RepondreunedemandeModel> call, Throwable t) {
                 pbHomeRespondlist.setVisibility(View.GONE);
@@ -121,18 +125,17 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
 
-
     @Override
-    public void findmissionTabClick(View view, int position,YourMission yourMission) {
+    public void findmissionTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.RlacceptofferId:
-                AppSession.setStringPreferences(getActivity(),"mission_Id",yourMission.getMissionId());
+                AppSession.setStringPreferences(getActivity(), "mission_Id", yourMission.getMissionId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), MakeAnOfferActivity.class);
                 break;
             case R.id.RlDiscussId:
                 Intent intent1 = new Intent(getActivity(), ChatActivityMain.class);
                 startActivity(intent1);
-                getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
         }
     }
@@ -178,6 +181,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
             public void beforeTextChanged(CharSequence s, int start, int
                     count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -206,6 +210,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                     homeCategoryFilterAdapter.projectlist(projectlist);
                 }
             }
+
             @Override
             public void onFailure(Call<ListOfProjectModel> call, Throwable t) {
                 PbsearchId.setVisibility(View.GONE);
@@ -214,7 +219,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     @Override
-    public void publishOnClick(View view, int position,Project project) {
+    public void publishOnClick(View view, int position, Project project) {
 
     }
 
@@ -244,7 +249,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 projectlist = (ArrayList<Project>) filterResults.values;
-               // notifyDataSetChanged();
+                // notifyDataSetChanged();
             }
         };
     }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myMissionPkg.myMissionModlePkg.YourMission;
+import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -68,7 +69,7 @@ public class MyMissionsecAdapter extends RecyclerView.Adapter<MyMissionsecAdapte
         }
         holder.tvMyMissionRowFilterStatus.setText(filterTag);
         holder.TvMymissionproposeDes.setText(mymissionlist.get(position).getMissionDescription());
-        holder.TvMyMissionproposeTime.setText(mymissionlist.get(position).getDate());
+        holder.TvMyMissionproposeTime.setText(Constants.missionDemandDate(mymissionlist.get(position).getDate()));
         holder.TvBy.setText("By:" + mymissionlist.get(position).getBy());
         holder.tvMyMissionTitle.setText(mymissionlist.get(position).getCategoryTitle());
         Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + mymissionlist.get(position).getCategoryImage()).into(holder.ivmymissionimage);

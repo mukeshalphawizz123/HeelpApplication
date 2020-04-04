@@ -113,6 +113,30 @@ public class Constants {
         return str;
     }
 
+
+    public static String missionDemandDate(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "EEE, dd MMM yyyy";
+
+        //2020-02-21
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+
+
     public static String currentDate() {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");

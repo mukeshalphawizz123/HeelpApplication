@@ -37,15 +37,51 @@ public class YourMission {
     @Expose
     private String missionImage;
 
+    @SerializedName("picture_url")
+    @Expose
+    private String picture_url;
+    @SerializedName("Profile_Rate")
+    @Expose
+    private String Profile_Rate;
+
+    @SerializedName("duration")
+    @Expose
+    private String duration;
+
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+
+    public String getPicture_url() {
+        return picture_url;
+    }
+
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
+    }
+
+    public String getProfile_Rate() {
+        return Profile_Rate;
+    }
+
+    public void setProfile_Rate(String profile_Rate) {
+        Profile_Rate = profile_Rate;
+    }
+
+
     /**
      * No args constructor for use in serialization
-     * 
      */
     public YourMission() {
     }
 
     /**
-     * 
      * @param missionBudget
      * @param createdDate
      * @param missionId

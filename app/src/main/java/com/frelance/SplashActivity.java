@@ -41,6 +41,8 @@ public class SplashActivity extends AppCompatActivity {
 
         Window window = getWindow();
         StatusBarManagment.hideShowStatusBar(getApplicationContext(), window);
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

@@ -46,13 +46,12 @@
                             android:text="@string/amount" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/ivcreditcardpriceidd"
+                            android:id="@+id/tvcreditcardpriceidd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="60sp"
                             android:layout_marginTop="15sp"
-                            android:layout_toEndOf="@+id/ivcreditcardtextidd"
-                            android:text="600 €" />
+                            android:layout_toEndOf="@+id/ivcreditcardtextidd" />
 
                     </RelativeLayout>
 
@@ -88,13 +87,12 @@
 
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/ivcreditcardpricetwoidd"
+                            android:id="@+id/tvcreditcardpricetwoidd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="70dp"
-                            android:layout_toEndOf="@+id/ivcreditcardtextfouridd"
-                            android:text=": 600 €" />
+                            android:layout_toEndOf="@+id/ivcreditcardtextfouridd" />
 
 
                     </RelativeLayout>
@@ -136,6 +134,7 @@
                         android:src="@drawable/roundedrectanglewhitebtn" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTotalProjecdPriceId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"

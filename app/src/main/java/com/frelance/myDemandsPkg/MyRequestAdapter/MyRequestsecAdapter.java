@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myDemandsPkg.myRequestModlePkg.Datum;
+import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class MyRequestsecAdapter extends RecyclerView.Adapter<MyRequestsecAdapte
         holder.tvmyrequestData.setText(myrequestlist.get(position).getCategoryTitle());
         holder.tvmyrequestdescription.setText(myrequestlist.get(position).getDescription());
         holder.Tvmyreqby.setText("By:" + myrequestlist.get(position).getFullname());
-        holder.tvmyrequesttime.setText(myrequestlist.get(position).getDate());
+        holder.tvmyrequesttime.setText(Constants.missionDemandDate(myrequestlist.get(position).getDate()));
         Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + myrequestlist.get(position).getCategoryImage()).into(holder.ivmyrequestimage);
     }
 

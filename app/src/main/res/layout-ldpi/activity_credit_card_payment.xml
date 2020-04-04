@@ -136,6 +136,7 @@
                         android:src="@drawable/roundedrectanglewhitebtn" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTotalProjecdPriceId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"

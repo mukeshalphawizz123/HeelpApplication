@@ -160,6 +160,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
                     addFragment(new MyDemandsDeliveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT, datum.getId());
                     AppSession.setStringPreferences(getActivity(), "clientId", datum.getClient_id());
+                    AppSession.setStringPreferences(getActivity(), "categoryTitle", datum.getCategoryTitle());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
                     addFragment(new MyDemandsCompleteeActivity(), true, Constants.MY_REQUEST_COMPLETE_FRAGMENT, datum.getId());
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {

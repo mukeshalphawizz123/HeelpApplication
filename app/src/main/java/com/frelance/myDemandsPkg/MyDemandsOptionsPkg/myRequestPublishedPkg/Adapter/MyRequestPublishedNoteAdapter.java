@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
+import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,7 +31,6 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
         this.myRequestPublishedNoteAppOnClickListener = myRequestPublishedNoteAppOnClickListener;
     }
 
-
     @NonNull
     @Override
     public MyRequestPublishedNoteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,11 +42,23 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
 
     @Override
     public void onBindViewHolder(@NonNull MyRequestPublishedNoteAdapter.ViewHolder holder, int position) {
-        holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
-        holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMessage());
-        holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getCreatedDate());
-        Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + mymissionModelArrayList.get(position).getMissionImage()).into(holder.ivmymission);
+        try {
+            holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
+            holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMessage());
+            if (Integer.parseInt(mymissionModelArrayList.get(position).getDuration()) > 10) {
+                holder.tvDaysNotesRow.setText(Constants.missionDemandDate(mymissionModelArrayList.get(position).getCreatedDate()));
+            } else {
+                holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration() + "days ago");
+            }
+            if (mymissionModelArrayList.get(position).getPicture_url().isEmpty()) {
+            } else {
+                Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + mymissionModelArrayList.get(position).getPicture_url()).into(holder.ivmymission);
+            }
 
+            holder.ratingpubished.setRating(Float.parseFloat(mymissionModelArrayList.get(position).getProfile_Rate()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -65,8 +77,6 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
 
     public interface MyRequestPublishedNoteAppOnClickListener {
         void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission);
-
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

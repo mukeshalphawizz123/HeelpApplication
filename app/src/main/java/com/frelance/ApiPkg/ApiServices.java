@@ -28,6 +28,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragm
 import com.frelance.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
+import com.frelance.paymentPkg.paymentModlePkg.ProjectAmountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
@@ -35,6 +36,7 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptio
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
+import com.frelance.stripePaymentPkg.stripModlePkg.PaymentResponseModle;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -74,10 +76,15 @@ public interface ApiServices {
     @GET("Projectlist/ListProject")
     Call<ListOfProjectModel> publisherlist();
 
-    @GET("Client/findMissionList")
-    Call<RepondreunedemandeModel> repondrelist();
+/*    @GET("Client/findMissionList")
+    Call<RepondreunedemandeModel> repondrelist();*/
 
 
+    @FormUrlEncoded
+    @POST("Client/findMissionListbyid")
+    Call<RepondreunedemandeModel> repondrelist(@Field("client_id") String client_id);
+
+//client_id
 
     @FormUrlEncoded
     @POST("Client/myMission")
@@ -111,11 +118,9 @@ public interface ApiServices {
     Call<TransactionInResponseModle> payment_in(@Field("user_id") String user_id);
 
 
-
     @FormUrlEncoded
     @POST("Client/payment_out")
     Call<TransactionOutResponseModle> payment_out(@Field("user_id") String user_id);
-
 
 
     @FormUrlEncoded
@@ -130,8 +135,6 @@ public interface ApiServices {
             @Field("currency") String currency);
 
 
-
-
     @FormUrlEncoded
     @POST("Client/myDemandbidbyid")
     Call<DemandInProgressModle> myDemandbidbyid(@Field("demand_id") String status);
@@ -143,6 +146,20 @@ public interface ApiServices {
                                        @Field("status") String status,
                                        @Field("auth_token") String auth_token);
 
+
+    @FormUrlEncoded
+    @POST("Client/paymentStrip")
+    Call<PaymentResponseModle>paymentStrip(@Field("client_id") String client_id,
+                                            @Field("user_id") String user_id,
+                                            @Field("user_name") String user_name,
+                                            @Field("amount") String amount,
+                                            @Field("projectaname") String projectaname,
+                                            @Field("token_Id") String token_Id);
+
+
+    @FormUrlEncoded
+    @POST("Client/getmissionAmount")
+    Call<ProjectAmountResponseModle> getProjectPrize(@Field("mission_id") String mission_id);
 
     @FormUrlEncoded
     @POST("Client/acceptOffer")
