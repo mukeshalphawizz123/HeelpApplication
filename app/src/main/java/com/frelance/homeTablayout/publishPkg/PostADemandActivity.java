@@ -37,7 +37,9 @@ import com.frelance.R;
 import com.frelance.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.paymentPkg.ComfirmationActivity;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
@@ -91,6 +93,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_description);
+        client_id = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        Toast.makeText(getApplicationContext(), client_id, Toast.LENGTH_LONG).show();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
@@ -146,7 +150,6 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postDemands() {
-        client_id = "1";
         Pbitemdescription.setVisibility(View.VISIBLE);
         MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
@@ -269,7 +272,6 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 onBackPressed();
                 break;
             case R.id.rlPieceId:
-                // askStoragePermission();
                 BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()

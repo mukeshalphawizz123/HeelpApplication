@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.ViewHolder> {
     private Context context;
     private HomerespondtoarequestAppOnClickListener homerespondtoarequesttAppOnClickListener;
@@ -37,12 +39,13 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
         ViewHolder viewHolder = new ViewHolder(listItem);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvDescription.setText(findmission.get(position).getMissionDescription());
         holder.Tvduration.setText(findmission.get(position).getDuration());
-        holder.TvBudget.setText(findmission.get(position).getMissionBudget());
-        Picasso.with(context).load(RetrofitClient.MISSION_IMAGE_URL + findmission.get(position).getMissionImage()).into(holder.ivMissionImage);
+        holder.TvBudget.setText(" " + findmission.get(position).getMissionBudget() + "€");
+        Picasso.with(context).load(RetrofitClient.IMAGE_URL + findmission.get(position).getCategory_project_image()).into(holder.ivMissionImage);
         Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + findmission.get(position).getUserImage()).into(holder.ivUserImage);
     }
 
@@ -58,13 +61,15 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
     }
 
     public interface HomerespondtoarequestAppOnClickListener {
-        void findmissionTabClick(View view, int position,YourMission yourMission);
+        void findmissionTabClick(View view, int position, YourMission yourMission);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView ivMissionImage, ivUserImage;
+        private ImageView ivMissionImage;
         private AppCompatTextView tvDescription, Tvduration, TvBudget;
-        private RelativeLayout RlDiscuss, Rlacceptoffer,rldiscuter;
+        private RelativeLayout RlDiscuss, Rlacceptoffer, rldiscuter;
+        private CircleImageView ivUserImage;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivMissionImage = itemView.findViewById(R.id.ivMissionImageid);
@@ -74,7 +79,7 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
             TvBudget = itemView.findViewById(R.id.TvBudgetId);
             RlDiscuss = itemView.findViewById(R.id.RlDiscussId);
             Rlacceptoffer = itemView.findViewById(R.id.RlacceptofferId);
-            rldiscuter=itemView.findViewById(R.id.rldiscuterid);
+            rldiscuter = itemView.findViewById(R.id.rldiscuterid);
             rldiscuter.setOnClickListener(this);
             RlDiscuss.setOnClickListener(this);
             Rlacceptoffer.setOnClickListener(this);
@@ -82,7 +87,7 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            homerespondtoarequesttAppOnClickListener.findmissionTabClick(v, getAdapterPosition(),findmission.get(getAdapterPosition()));
+            homerespondtoarequesttAppOnClickListener.findmissionTabClick(v, getAdapterPosition(), findmission.get(getAdapterPosition()));
         }
     }
 }

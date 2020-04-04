@@ -35,12 +35,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asksira.bsimagepicker.BSImagePicker;
+import com.bumptech.glide.Glide;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomToast;
 import com.frelance.HelpActivity;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
+import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.homeTablayout.publishPkg.SelectImageAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.Adapter.OngoingAdapter;
@@ -51,6 +53,7 @@ import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
 
@@ -76,8 +79,12 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter.OngoingAppOnClickListener,
-        View.OnClickListener, SelectImageAdapter.SelectImageOnClickListener {
+public class MyMissionOngoingActivity extends Fragment implements
+        OngoingAdapter.OngoingAppOnClickListener,
+        View.OnClickListener,
+        SelectImageAdapter.SelectImageOnClickListener,
+        BSImagePicker.OnMultiImageSelectedListener,
+        BSImagePicker.ImageLoaderDelegate {
 
     private CompleteeFileUploadAdapter completeeFileUploadAdapter;
     private RecyclerView rvongoingfileupload;
@@ -120,6 +127,11 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         }
 
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
     }
 
     private void init(View view) {
@@ -168,15 +180,15 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
         switch (v.getId()) {
             case R.id.rlmyMissProgressImagId:
-                chooseFromGallery();
+                // chooseFromGallery();
                 //  FragmentManager fragmentManager=getFragmentManager()
-               /* BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
+                BSImagePicker pickerDialog = new BSImagePicker.Builder("com.asksira.imagepickersheetdemo")
                         .setMaximumDisplayingImages(Integer.MAX_VALUE)
                         .isMultiSelect()
                         .setMinimumMultiSelectCount(1)
                         .setMaximumMultiSelectCount(6)
                         .build();
-                pickerDialog.show(getChildFragmentManager(), "picker");*/
+                pickerDialog.show(getChildFragmentManager(), "picker");
                 break;
             case R.id.rlmyMissProgressFileId:
                 showFileChooser();
@@ -272,30 +284,15 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
         }
 
         // List<Uri> files; //These are the uris for the files to be uploaded
-        MediaType mediaType = MediaType.parse("");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
+        MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            File file = new File(files.get(i).getPath());
+            File file = new File(FileUtil.getPath(files.get(i), getActivity()));
             RequestBody fileBody = RequestBody.create(mediaType, file);
             //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
             fileParts[i] = MultipartBody.Part.createFormData("project_files[]", file.getPath(), fileBody);
             // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
         }
-       /* MultipartBody.Part imgFileStation = null;
-        MultipartBody.Part imgFileStationDoc = null;
-        if (profilImgPath == null) {
-        } else {
-            fileForImage = new File(profilImgPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
-            imgFileStation = MultipartBody.Part.createFormData("project_image", fileForImage.getName(), requestFileOne);
-        }
-
-        if (docPath == null) {
-        } else {
-            fileForDocs = new File(docPath);
-            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), docPath);
-            imgFileStationDoc = MultipartBody.Part.createFormData("project_file", fileForDocs.getName(), requestFileOne);
-        }*/
 
         MultipartBody.Part project_id_ = MultipartBody.Part.createFormData("project_id", String.valueOf(missionId));
         MultipartBody.Part user_id_ = MultipartBody.Part.createFormData("user_id", String.valueOf(userId));
@@ -308,7 +305,8 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
                 if (response.isSuccessful()) {
                     pbMymissionProgress.setVisibility(View.GONE);
                     SendProjectProgDetailModle sendProjectProgDetailModle = response.body();
-                    if (sendProjectProgDetailModle.getStatus() == true) {
+                    if (sendProjectProgDetailModle.getStatus()) {
+                        Toast.makeText(getActivity(), sendProjectProgDetailModle.getMessage(), Toast.LENGTH_LONG).show();
                         //   yourMissionList = sendProjectProgDetailModle.getYourMissions();
                     }
                 } else {
@@ -332,6 +330,7 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
             @Override
             public void onFailure(Call<SendProjectProgDetailModle> call, Throwable t) {
+                Log.v("going", t.toString());
                 pbMymissionProgress.setVisibility(View.GONE);
             }
         });
@@ -364,7 +363,7 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("file/*");
+        intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, "Select a File to Copy"), FILE_SELECT_CODE);
@@ -540,6 +539,21 @@ public class MyMissionOngoingActivity extends Fragment implements OngoingAdapter
                 }
 
                 break;
+        }
+    }
+
+    @Override
+    public void loadImage(Uri imageUri, ImageView ivImage) {
+        Glide.with(getActivity()).load(imageUri).into(ivImage);
+    }
+
+    @Override
+    public void onMultiImageSelected(List<Uri> uriList, String tag) {
+        uriArrayList.addAll(uriList);
+        setupImagePath();
+        for (int i = 0; i < uriList.size(); i++) {
+            profilImgPath = getRealPathFromURI(getActivity(), uriList.get(i));
+            stringArrayList.add(profilImgPath);
         }
     }
 }

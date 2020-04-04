@@ -71,7 +71,7 @@ public class DashboardSupportActivity extends Fragment implements View.OnClickLi
     }
 
     private void dashboardsupport(String title, String description) {
-        userId = "1";
+
         PbContact.setVisibility(View.VISIBLE);
         apiServices.enquiry(title, userId, description).enqueue(new Callback<Dashboardsupportmodel>() {
             @Override

@@ -33,7 +33,7 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
 
     @NonNull
     @Override
-    public ProposeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.activity_proposee_row, parent, false);
         ViewHolder viewHolder = new ViewHolder(listItem);
@@ -41,7 +41,7 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProposeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvMyMissionDelTitle.setText(yourMissionList.get(position).getMissionTitle());
         holder.tvMyMissionDesDel.setText(yourMissionList.get(position).getMessage());
         holder.tvOfferValueDel.setText(yourMissionList.get(position).getMissionBudget());

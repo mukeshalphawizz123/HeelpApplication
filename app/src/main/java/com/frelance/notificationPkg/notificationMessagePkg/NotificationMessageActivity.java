@@ -55,7 +55,7 @@ public class NotificationMessageActivity extends AppCompatActivity implements No
             }
         });
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            notification("1", "4");
+            notification(userId, "4");
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }

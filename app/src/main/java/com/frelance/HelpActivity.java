@@ -23,7 +23,9 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,11 +43,14 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
     private ApiServices apiServices;
     private ProgressBar pbHelp;
     private AppCompatEditText etEnterDispute;
+    private String userid, missionId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
         View view = inflater.inflate(R.layout.activity_help, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        missionId = getArguments().getString("missionId");
         init(view);
         return view;
     }
@@ -113,13 +118,15 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
 
     private void sendProjectDispute() {
         pbHelp.setVisibility(View.VISIBLE);
-        apiServices.sendDispute("12", "test", "2020-03-26").enqueue(new Callback<ProjectSendDisputeModle>() {
+        String dispute = etEnterDispute.getText().toString();
+        String date = Constants.currentDate();
+        apiServices.sendDispute(missionId, dispute, date).enqueue(new Callback<ProjectSendDisputeModle>() {
             @Override
             public void onResponse(Call<ProjectSendDisputeModle> call, Response<ProjectSendDisputeModle> response) {
                 if (response.isSuccessful()) {
                     pbHelp.setVisibility(View.GONE);
                     ProjectSendDisputeModle projectSendDisputeModle = response.body();
-                    if (projectSendDisputeModle.getStatus() == true) {
+                    if (projectSendDisputeModle.getStatus()) {
                         Toast.makeText(getActivity(), projectSendDisputeModle.getData().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {

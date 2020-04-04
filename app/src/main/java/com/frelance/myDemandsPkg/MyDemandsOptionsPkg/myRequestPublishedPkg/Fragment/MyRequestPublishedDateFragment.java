@@ -74,7 +74,8 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
     public void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlacceptid:
-                acceptOffer(yourMission.getOfferId(), userId, "1");
+
+                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(),"1");
                 break;
 
             case R.id.rldiscuteridd:
@@ -82,6 +83,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
                 break;
 
             case R.id.ivmymissionid:
+                AppSession.setStringPreferences(getActivity(),"clientId",yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
 
@@ -133,9 +135,9 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
     }
 
 
-    private void acceptOffer(String offerid, String userId, String status) {
+    private void acceptOffer(String offerid, String userId,String missionId, String status) {
         pbNoteMyDemands.setVisibility(View.VISIBLE);
-        apiServices.acceptOffer(offerid, userId, projectId, status).enqueue(new Callback<AcceptOfferModle>() {
+        apiServices.acceptOffer(offerid, userId, missionId, status).enqueue(new Callback<AcceptOfferModle>() {
             @Override
             public void onResponse(Call<AcceptOfferModle> call, Response<AcceptOfferModle> response) {
                 if (response.isSuccessful()) {

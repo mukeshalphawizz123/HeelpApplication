@@ -28,6 +28,24 @@ public class YourMission {
     @Expose
     private String userImage;
 
+    @SerializedName("category_project_image")
+    @Expose
+    private String category_project_image;
+
+    @SerializedName("mission_doc")
+    @Expose
+    private String mission_doc;
+
+
+    public String getCategory_project_image() {
+        return category_project_image;
+    }
+
+    public void setCategory_project_image(String category_project_image) {
+        this.category_project_image = category_project_image;
+    }
+
+
     public String getMission_doc() {
         return mission_doc;
     }
@@ -36,20 +54,14 @@ public class YourMission {
         this.mission_doc = mission_doc;
     }
 
-    @SerializedName("mission_doc")
-    @Expose
-    private String mission_doc;
-
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public YourMission() {
     }
 
     /**
-     * 
      * @param missionBudget
      * @param duration
      * @param missionId

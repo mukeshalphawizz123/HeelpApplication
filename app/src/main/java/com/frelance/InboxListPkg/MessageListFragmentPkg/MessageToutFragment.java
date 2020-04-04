@@ -22,7 +22,9 @@ import com.frelance.chatPkg.Adapter.ChatActivityMain;
 import com.frelance.InboxListPkg.MessageListAdapterPkg.MessageToutAdapter;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.InboxListPkg.msgModlePkg.Datum;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,15 +41,18 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     private ApiServices apiServices;
     private MessageToutAdapter messageToutAdapter;
     private List<Datum> datumList;
+    private String userId;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
         View view = inflater.inflate(R.layout.fragment_message_tout, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            chatUserlist("1");
+            chatUserlist(userId);
+          //  chatUserlist("1");
         } else {
 
         }
@@ -72,7 +77,7 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ChatActivityMain.class);
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());

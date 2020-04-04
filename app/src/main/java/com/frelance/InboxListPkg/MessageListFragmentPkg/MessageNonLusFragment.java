@@ -25,6 +25,7 @@ import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.InboxListPkg.msgModlePkg.Datum;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,17 +44,21 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
     private ApiServices apiServices;
     private MessageToutAdapter messageToutAdapter;
     private List<Datum> datumList;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
         View view = inflater.inflate(R.layout.fragment_message_tout, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            chatUserlist("1");
+            // chatUserlist("1");
+            chatUserlist(userId);
         } else {
 
         }
+
         return view;
     }
 
@@ -71,7 +76,7 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
         switch (view.getId()) {
             case R.id.rlmsguserid:
                 Intent intent = new Intent(getActivity(), ChatActivityMain.class);
-              //  Log.v("ccc", datumList.get(position).getClientId());
+                //  Log.v("ccc", datumList.get(position).getClientId());
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());
                 intent.putExtra("lastName", datumList.get(position).getLastName());

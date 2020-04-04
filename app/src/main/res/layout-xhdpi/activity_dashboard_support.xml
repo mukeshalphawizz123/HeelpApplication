@@ -138,23 +138,25 @@
                         android:id="@+id/tvdescriptionidd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15sp"
+                        android:layout_marginEnd="15sp"
+                        android:layout_marginStart="15sp"
+                        android:layout_marginTop="15sp"
                         android:text="@string/description"
                         android:textColor="@color/Black"
-                        android:textSize="16sp"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
-
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etDescSupportId"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15sp"
-                        android:layout_toEndOf="@+id/tvdescriptionidd"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="15sp"
+                        android:layout_marginStart="15sp"
+                        android:layout_below="@+id/tvdescriptionidd"
                         android:background="@android:color/transparent"
                         android:textColor="@color/lessBlack"
                         android:textSize="14sp"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:textStyle="normal" />
 
                 </RelativeLayout>

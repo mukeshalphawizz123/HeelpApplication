@@ -112,12 +112,13 @@
 
                 </RelativeLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivUserImageId"
                     android:layout_width="40sp"
                     android:layout_height="40sp"
                     android:layout_centerVertical="true"
-                    android:scaleType="fitXY"
+                    app:civ_border_color="@color/lessBlack"
+                    app:civ_border_width="@dimen/_1sdp"
                     android:src="@drawable/circleimg" />
 
             </RelativeLayout>

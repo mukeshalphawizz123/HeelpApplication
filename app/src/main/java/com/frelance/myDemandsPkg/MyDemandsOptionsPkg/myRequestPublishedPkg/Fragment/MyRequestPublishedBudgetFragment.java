@@ -43,14 +43,14 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
     private RecyclerView rvnote;
     private ProgressBar pbNoteMyDemands;
     private List<YourMission> yourMissionList;
-    private String userId,projectId;
+    private String userId, projectId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_request_published_note, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         projectId = AppSession.getStringPreferences(getActivity(), "projectid");
-        Toast.makeText(getActivity(),projectId,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(),projectId,Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDemandsNotes(projectId);
@@ -74,12 +74,13 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
     public void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlacceptid:
-                acceptOffer(yourMission.getOfferId(), userId, "1");
+                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
             case R.id.rldiscuteridd:
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
                 break;
             case R.id.ivmymissionid:
+                AppSession.setStringPreferences(getActivity(),"clientId",yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
 
@@ -95,13 +96,12 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                 if (response.isSuccessful()) {
                     pbNoteMyDemands.setVisibility(View.GONE);
                     DemandInProgressModle requestlist = response.body();
-                    if (requestlist.getStatus() == true) {
+                    if (requestlist.getStatus()) {
                         yourMissionList = requestlist.getYourMissions();
                         myRequestPublishedNoteAdapter.addmyDemandsData(yourMissionList);
                     } else {
 
                     }
-
                 } else {
                     if (response.code() == 400) {
                         if (!response.isSuccessful()) {
@@ -129,9 +129,9 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
     }
 
 
-    private void acceptOffer(String offerid, String userId, String status) {
+    private void acceptOffer(String offerid, String userId, String missionId, String status) {
         pbNoteMyDemands.setVisibility(View.VISIBLE);
-        apiServices.acceptOffer(offerid, userId, "12", status).enqueue(new Callback<AcceptOfferModle>() {
+        apiServices.acceptOffer(offerid, userId, missionId, status).enqueue(new Callback<AcceptOfferModle>() {
             @Override
             public void onResponse(Call<AcceptOfferModle> call, Response<AcceptOfferModle> response) {
                 if (response.isSuccessful()) {

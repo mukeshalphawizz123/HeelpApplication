@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -41,8 +42,8 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
 
     @Override
     public void onBindViewHolder(@NonNull MyRequestPublishedNoteAdapter.ViewHolder holder, int position) {
-        holder.tvNoteBudgetsRow.setText(mymissionModelArrayList.get(position).getMissionBudget());
-        // holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMessage());
+        holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
+        holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMessage());
         holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getCreatedDate());
         Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + mymissionModelArrayList.get(position).getMissionImage()).into(holder.ivmymission);
 
@@ -72,6 +73,7 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
         public RelativeLayout rlaccept, rldiscuteridd;
         public AppCompatImageView ivmymission;
         private AppCompatTextView tvNoteBudgetsRow, tvDesBudgetsRow, tvDaysNotesRow;
+        private RatingBar ratingpubished;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +83,7 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
             tvNoteBudgetsRow = itemView.findViewById(R.id.tvNoteBudgetsRowId);
             tvDesBudgetsRow = itemView.findViewById(R.id.tvDesBudgetsRowId);
             tvDaysNotesRow = itemView.findViewById(R.id.tvDaysNotesRowId);
+            ratingpubished = itemView.findViewById(R.id.ratingpubishedidd);
             rlaccept.setOnClickListener(this);
             ivmymission.setOnClickListener(this);
             rldiscuteridd.setOnClickListener(this);

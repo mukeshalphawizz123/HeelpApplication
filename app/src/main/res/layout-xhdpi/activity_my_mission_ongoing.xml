@@ -411,7 +411,7 @@
                     android:id="@+id/rlproblemid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/RlmymissionongoingSendbrtnId"
+                    android:layout_below="@+id/rlmymissionongoingSendbrtnId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30sp"
                     android:layout_marginBottom="35dp">
