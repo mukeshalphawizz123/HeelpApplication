@@ -136,12 +136,18 @@ public class Constants {
     }
 
 
-
     public static String currentDate() {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = df.format(c);
         return formattedDate;
+    }
 
+
+    public static String currentDateAndTime() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate = sdf.format(c.getTime());
+        return strDate;
     }
 }

@@ -144,8 +144,8 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/name"
                         android:gravity="center"
+                        android:text="@string/name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -189,8 +189,8 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:text="@string/username"
                         android:gravity="center"
+                        android:text="@string/username"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -279,8 +279,8 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/email"
                         android:gravity="center"
+                        android:text="@string/email"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -322,9 +322,9 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
+                        android:gravity="center"
                         android:text="@string/password"
                         android:textColor="@color/white"
-                        android:gravity="center"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="normal" />
 
@@ -366,8 +366,8 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/birth"
                         android:gravity="center"
+                        android:text="@string/birth"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -425,8 +425,8 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:text="@string/country"
                         android:gravity="center"
+                        android:text="@string/country"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="normal" />
@@ -484,7 +484,7 @@
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/presentation"
                             android:textColor="@color/Black"
-                            android:textSize="16dp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
 
@@ -517,10 +517,9 @@
                             android:id="@+id/tvlevelofstudyyid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvpresentationidd"
-                            android:layout_marginStart="10sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_toEndOf="@+id/tvlevelofstudyid"
+                            android:layout_below="@+id/tvlevelofstudyid"
+                            android:layout_marginTop="5sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
@@ -531,7 +530,7 @@
                             android:id="@+id/tvfiledofstudyid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvlevelofstudyid"
+                            android:layout_below="@+id/tvlevelofstudyyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/field_of_studies"
@@ -544,10 +543,9 @@
                             android:id="@+id/tvfiledofstudyyid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvlevelofstudyyid"
-                            android:layout_marginStart="10sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_toEndOf="@+id/tvfiledofstudyid"
+                            android:layout_below="@+id/tvfiledofstudyid"
+                            android:layout_marginTop="5sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
@@ -558,7 +556,7 @@
                             android:id="@+id/tvunivercityid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvfiledofstudyid"
+                            android:layout_below="@+id/tvfiledofstudyyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/university_school"
@@ -571,22 +569,19 @@
                             android:id="@+id/tvunivercityyid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvfiledofstudyid"
-                            android:layout_marginStart="10sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_toEndOf="@+id/tvunivercityid"
+                            android:layout_below="@+id/tvunivercityid"
+                            android:layout_marginTop="5sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
-                            android:text="@string/ex_universite_de_paris"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
-
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvcategoriesid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvunivercityid"
+                            android:layout_below="@+id/tvunivercityyid"
                             android:layout_marginTop="10sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:text="@string/categories_of_interest_on_heelp"
@@ -600,7 +595,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvcategoriesid"
-                            android:layout_marginStart="10sp"
                             android:layout_marginTop="5sp"
                             android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
@@ -626,10 +620,9 @@
                             android:id="@+id/tvcompetencesssid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvcategoriessid"
-                            android:layout_marginStart="10sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_toEndOf="@+id/tvcompetencesid"
+                            android:layout_below="@+id/tvcompetencesid"
+                            android:layout_marginTop="5sp"
+                            android:layout_toEndOf="@+id/ivdescriptionimageid"
                             android:background="@android:color/transparent"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
@@ -674,10 +667,11 @@
 
 
     </ScrollView>
+
     <ProgressBar
         android:id="@+id/pbUserEditProfileId"
-        android:visibility="invisible"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 </RelativeLayout>

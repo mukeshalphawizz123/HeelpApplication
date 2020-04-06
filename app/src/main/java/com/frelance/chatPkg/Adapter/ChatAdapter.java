@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
-
+import com.frelance.chatPkg.ChatActivity;
 
 
 public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
@@ -17,7 +17,7 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatAppOnClickListener chatAppOnClickListener;
 
 
-    public ChatAdapter(Context context, ChatActivityMain chatAdapter) {
+    public ChatAdapter(Context context, ChatActivity chatAdapter) {
         this.context = context;
         this.chatAppOnClickListener = chatAppOnClickListener;
     }

@@ -335,7 +335,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                     GetProfileModle missionlist = response.body();
                     if (missionlist.getStatus() == true) {
                         yourMissionList = missionlist.getYourMissions();
-                        tvname.setText(yourMissionList.get(0).getFirstName() + " " + yourMissionList.get(0).getUsername());
+                        tvname.setText(yourMissionList.get(0).getUsername());
                         tvdesination.setText(yourMissionList.get(0).getSkills());
                         if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
 

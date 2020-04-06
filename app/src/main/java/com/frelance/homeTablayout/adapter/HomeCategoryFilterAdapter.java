@@ -32,7 +32,6 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
     private HomePublisherRequest homePublisherRequest;
 
 
-
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -87,9 +86,13 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.tvHomeData.setText(projectlist.get(position).getTitle());
-        Picasso.with(context).load(RetrofitClient.IMAGE_URL + projectlist.get(position).getPictureUrl()).into(holder.ivphy);
-        holder.rlhomeitems.setOnClickListener(new View.OnClickListener() {
+        try {
+            holder.tvHomeData.setText(projectlist.get(position).getTitle());
+            Picasso.with(context).load(RetrofitClient.IMAGE_URL + projectlist.get(position).getPictureUrl()).into(holder.ivphy);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+    /*    holder.rlhomeitems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PostADemandActivity.class);
@@ -102,7 +105,7 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
                 context.startActivity(intent);
             }
         });
-
+*/
     }
 
 
@@ -120,9 +123,6 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
     }
 
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public AppCompatTextView tvHomeData;
         public ImageView ivphy;
@@ -138,7 +138,7 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
 
         @Override
         public void onClick(View v) {
-            homePublisherRequest.publishOnClick(v, getAdapterPosition(),projectlist.get(getAdapterPosition()));
+            homePublisherRequest.publishOnClick(v, getAdapterPosition(), projectlist.get(getAdapterPosition()));
 
         }
     }

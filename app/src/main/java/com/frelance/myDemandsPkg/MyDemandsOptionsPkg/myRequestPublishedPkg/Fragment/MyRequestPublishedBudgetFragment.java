@@ -74,13 +74,14 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
     public void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlacceptid:
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
             case R.id.rldiscuteridd:
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
                 break;
             case R.id.ivmymissionid:
-                AppSession.setStringPreferences(getActivity(),"clientId",yourMission.getUserId());
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
 

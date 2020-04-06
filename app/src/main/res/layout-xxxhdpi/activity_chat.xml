@@ -190,7 +190,7 @@
                         android:background="@android:color/transparent"
                         android:hint="@string/type_a_message"
                         android:padding="2sp"
-                        android:layout_marginStart="@dimen/_42sdp"
+                        android:layout_marginStart="@dimen/_52sdp"
                         android:layout_centerHorizontal="true"
                         android:paddingStart="@dimen/_23sdp"
                         android:paddingTop="2sp"

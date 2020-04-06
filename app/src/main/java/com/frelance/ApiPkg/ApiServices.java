@@ -82,9 +82,13 @@ public interface ApiServices {
 
     @FormUrlEncoded
     @POST("Client/findMissionListbyid")
-    Call<RepondreunedemandeModel> repondrelist(@Field("client_id") String client_id);
+    Call<RepondreunedemandeModel> repondrelist(
+            @Field("client_id") String client_id,
+            @Field("category_id") String category_id
+    );
 
-//client_id
+
+//category_id
 
     @FormUrlEncoded
     @POST("Client/myMission")
@@ -149,7 +153,7 @@ public interface ApiServices {
 
     @FormUrlEncoded
     @POST("Client/paymentStrip")
-    Call<PaymentResponseModle>paymentStrip(@Field("client_id") String client_id,
+    Call<PaymentResponseModle> paymentStrip(@Field("client_id") String client_id,
                                             @Field("user_id") String user_id,
                                             @Field("user_name") String user_name,
                                             @Field("amount") String amount,

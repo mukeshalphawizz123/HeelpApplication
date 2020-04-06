@@ -1,6 +1,7 @@
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragm
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.frelance.clientProfilePkg.ClinetProfileActivity;
+import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -74,7 +76,8 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
     public void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlacceptid:
-                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(),"1");
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
+                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
 
             case R.id.rldiscuteridd:
@@ -85,7 +88,7 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                 break;
 
             case R.id.ivmymissionid:
-                AppSession.setStringPreferences(getActivity(),"clientId",yourMission.getUserId());
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
 
                 //Intent profile = new Intent(getActivity(), ClinetProfileActivity.class);
@@ -140,7 +143,7 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
         });
     }
 
-    private void acceptOffer(String offerid, String userId,String missionid, String status) {
+    private void acceptOffer(String offerid, String userId, String missionid, String status) {
         pbNoteMyDemands.setVisibility(View.VISIBLE);
         apiServices.acceptOffer(offerid, userId, missionid, status).enqueue(new Callback<AcceptOfferModle>() {
             @Override
@@ -150,6 +153,7 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                     AcceptOfferModle requestlist = response.body();
                     if (requestlist.getStatus() == true) {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
+                        CheckNetwork.nextScreenWithoutFinish(getActivity(), CreditCardPayment.class);
                     } else {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
                     }

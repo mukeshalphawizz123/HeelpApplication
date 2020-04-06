@@ -67,6 +67,8 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     private HomeCategoryFilterActivity homeCategoryFilterActivity;
     private ProgressBar PbsearchId;
     private String userId;
+    private Dialog dialog;
+    private boolean flag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,16 +79,17 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            homeRespondeList(userId);
+            flag = false;
+            homeRespondeList(userId, "0");
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
         return view;
     }
 
-    private void homeRespondeList(String userId) {
+    private void homeRespondeList(String userId, String category_id) {
         pbHomeRespondlist.setVisibility(View.VISIBLE);
-        apiServices.repondrelist(userId).enqueue(new Callback<RepondreunedemandeModel>() {
+        apiServices.repondrelist(userId, category_id).enqueue(new Callback<RepondreunedemandeModel>() {
             @Override
             public void onResponse(Call<RepondreunedemandeModel> call, Response<RepondreunedemandeModel> response) {
                 if (response.isSuccessful()) {
@@ -94,6 +97,10 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                     RepondreunedemandeModel repondreunedemandeModel = response.body();
                     findmission = repondreunedemandeModel.getYourMissions();
                     findMisionAdapter.findmission(findmission);
+                    if (flag == false) {
+                    } else {
+                        dialog.dismiss();
+                    }
                     //seearchDoctorAdapter.doctorList(doctorList);
                 }
             }
@@ -151,7 +158,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
 
     private void Homecategoryfilter() {
         final View dialogView = View.inflate(getActivity(), R.layout.activity_home__category__filter, null);
-        final Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(dialogView);
@@ -220,7 +227,16 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
 
     @Override
     public void publishOnClick(View view, int position, Project project) {
-
+        switch (view.getId()) {
+            case R.id.rlhomeitemsRowid:
+                flag = true;
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    homeRespondeList(userId, project.getProjectId());
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 
     @Override

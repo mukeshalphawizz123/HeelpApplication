@@ -74,7 +74,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
     public void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlacceptid:
-
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(),"1");
                 break;
 

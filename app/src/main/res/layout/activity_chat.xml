@@ -35,7 +35,7 @@
                 android:layout_marginTop="25dp"
                 android:text="@string/messenger"
                 android:textColor="@color/tabselected"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
             <RelativeLayout
                 android:id="@+id/rlmessageuserprofileid"
@@ -164,7 +164,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ivrecordedbuttonid"
                         android:layout_weight="1"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:src="@drawable/sendarrow" />
 
                 </RelativeLayout>
@@ -190,7 +190,7 @@
                         android:background="@android:color/transparent"
                         android:hint="@string/type_a_message"
                         android:padding="2sp"
-                        android:layout_marginStart="@dimen/_42sdp"
+                        android:layout_marginStart="@dimen/_52sdp"
                         android:layout_centerHorizontal="true"
                         android:paddingStart="@dimen/_23sdp"
                         android:paddingTop="2sp"

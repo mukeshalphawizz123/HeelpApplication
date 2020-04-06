@@ -12,6 +12,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true  //ADD THIS LINE
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
 
     }
     buildTypes {
@@ -64,6 +69,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.2'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
+    implementation 'com.firebaseui:firebase-ui-database:2.3.0'
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+
+/*    implementation 'com.google.firebase:firebase-auth:16.0.3'*/
+
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.stripe:stripe-android:14.2.1'

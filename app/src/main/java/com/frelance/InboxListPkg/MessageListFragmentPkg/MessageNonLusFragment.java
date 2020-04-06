@@ -23,6 +23,7 @@ import com.frelance.chatPkg.Adapter.ChatActivityMain;
 import com.frelance.InboxListPkg.MessageListAdapterPkg.MessageToutAdapter;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.InboxListPkg.msgModlePkg.Datum;
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -75,7 +76,7 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                Intent intent = new Intent(getActivity(), ChatActivityMain.class);
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
                 //  Log.v("ccc", datumList.get(position).getClientId());
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());
