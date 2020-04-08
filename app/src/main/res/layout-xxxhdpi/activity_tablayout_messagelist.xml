@@ -27,10 +27,11 @@
                 android:textSize="30sp" />
 
             <RelativeLayout
+                android:id="@+id/rlUserSearchBoxId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_below="@+id/tvinboxid">
+                android:layout_below="@+id/tvinboxid"
+                android:layout_marginTop="@dimen/_20sdp">
 
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -46,10 +47,10 @@
                     android:id="@+id/etserachmsglistid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/ivSerachmsgId"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_toEndOf="@+id/ivSerachmsgId"
                     android:background="@android:color/transparent"
-                    android:hint="@string/looking_for_a_person_or_message"
+                    android:enabled="false"
                     android:singleLine="true"
                     android:textSize="14sp" />
 
@@ -74,12 +75,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlHomeToolbarId"
             android:layout_marginStart="10sp"
+            android:minHeight="?attr/actionBarSize"
             app:tabGravity="fill"
             app:tabIndicator="@drawable/ic_tab_indicator"
             app:tabIndicatorColor="@color/Black"
             app:tabIndicatorHeight="5dp"
             app:tabMode="fixed"
-            android:minHeight="?attr/actionBarSize"
             app:tabRippleColor="@color/white"
             app:tabSelectedTextColor="@color/tabselected"
             app:tabTextAppearance="@style/tab_textsize"

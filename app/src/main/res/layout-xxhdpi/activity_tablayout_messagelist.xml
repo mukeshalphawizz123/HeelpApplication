@@ -27,6 +27,7 @@
                 android:textSize="30sp" />
 
             <RelativeLayout
+                android:id="@+id/rlUserSearchBoxId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -48,8 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/ivSerachmsgId"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:enabled="false"
                     android:background="@android:color/transparent"
-                    android:hint="@string/looking_for_a_person_or_message"
                     android:singleLine="true"
                     android:textSize="14sp" />
 

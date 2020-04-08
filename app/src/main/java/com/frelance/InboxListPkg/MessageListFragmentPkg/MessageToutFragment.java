@@ -52,8 +52,8 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
+            //chatUserlist(userId);
             chatUserlist(userId);
-          //  chatUserlist("1");
         } else {
 
         }

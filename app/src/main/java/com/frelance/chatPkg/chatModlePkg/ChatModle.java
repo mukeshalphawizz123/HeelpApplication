@@ -5,13 +5,33 @@ public class ChatModle {
     private String client;
     private String dateTime;
     private String message;
+    private String userImgPath;
 
-    public ChatModle(String userId, String client, String dateTime, String message) {
+    public ChatModle(String userId, String client, String dateTime, String message, String userImgPath) {
         this.userId = userId;
         this.client = client;
         this.dateTime = dateTime;
         this.message = message;
+        this.userImgPath = userImgPath;
     }
+
+
+/*    public ChatModle(String userId, String client, String dateTime, String message) {
+        this.userId = userId;
+        this.client = client;
+        this.dateTime = dateTime;
+        this.message = message;
+
+    }*/
+
+    public String getUserImgPath() {
+        return userImgPath;
+    }
+
+    public void setUserImgPath(String userImgPath) {
+        this.userImgPath = userImgPath;
+    }
+
 
 
     public String getUserId() {

@@ -45,10 +45,12 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20sp">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivUserMsgId"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
+                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="@color/lessBlack"
                     android:layout_marginLeft="@dimen/_75sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:padding="@dimen/_3sdp"
@@ -144,7 +146,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_weight="1"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:src="@drawable/paperclip" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -154,7 +156,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/ivsharefilebuttonid"
                         android:layout_weight="1"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:src="@drawable/mike" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -164,7 +166,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ivrecordedbuttonid"
                         android:layout_weight="1"
-                        android:padding="5dp"
+                        android:padding="2dp"
                         android:src="@drawable/sendarrow" />
 
                 </RelativeLayout>

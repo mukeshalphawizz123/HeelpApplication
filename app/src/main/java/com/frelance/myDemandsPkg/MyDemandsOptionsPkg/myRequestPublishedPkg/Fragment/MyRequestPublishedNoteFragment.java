@@ -19,6 +19,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatActivityMain;
 
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
@@ -81,10 +82,11 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                 break;
 
             case R.id.rldiscuteridd:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
-                // Intent intent1 = new Intent(getActivity(), ChatActivity.class);
-                //  startActivity(intent1);
-                //  getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+               // CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivity.class);
+                Intent intent1 = new Intent(getActivity(), ChatActivity.class);
+                intent1.putExtra("client_id",yourMission.getUserId());
+                startActivity(intent1);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
 
             case R.id.ivmymissionid:

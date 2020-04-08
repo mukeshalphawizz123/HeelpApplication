@@ -27,6 +27,7 @@
                 android:textSize="30sp" />
 
             <RelativeLayout
+                android:id="@+id/rlUserSearchBoxId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
@@ -44,12 +45,12 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etserachmsglistid"
+                    android:enabled="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/ivSerachmsgId"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@android:color/transparent"
-                    android:hint="@string/looking_for_a_person_or_message"
                     android:singleLine="true"
                     android:textSize="14sp" />
 

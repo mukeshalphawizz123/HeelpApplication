@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
         android:layout_marginTop="5sp"
-        android:layout_marginEnd="100sp">
+        android:layout_marginEnd="80sp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivchatprofileId"
@@ -24,27 +24,27 @@
             android:src="@drawable/dummyuserimg" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvtimeId"
+            android:id="@+id/tvSendertimeId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
             android:layout_marginRight="10sp"
             android:layout_toEndOf="@+id/ivchatprofileId"
             android:text="@string/today_4_12pm"
             android:textColor="@color/lessBlack"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/ivchatprofileId"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/whiteblankbackg">
+            android:layout_marginStart="@dimen/_18sdp"
+            android:background="@drawable/white_chat_box">
 
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvUserNameChatId"
+                android:id="@+id/tvSenderChatId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
@@ -61,10 +61,55 @@
 
 
     <RelativeLayout
+        android:id="@+id/rlChatuUserImgLeftId"
+        android:layout_width="220sp"
+        android:layout_height="220sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:visibility="gone"
+        android:layout_marginEnd="80sp"
+        android:background="@drawable/white_chat_box">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivchatImageprofileId"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="3dp"
+            android:src="@drawable/dummyuserimg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSenderImagetimeId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_toEndOf="@+id/ivchatImageprofileId"
+            android:layout_marginRight="10sp"
+            android:text="@string/today_4_12pm"
+            android:textColor="@color/lessBlack"
+            android:textSize="10sp" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_below="@+id/tvSenderImagetimeId"
+            android:id="@+id/ivchatSharedImageId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/dummyuserimg" />
+
+
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlChatuUserRightId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="10sp"
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="20sp">
 
@@ -76,23 +121,26 @@
             android:layout_alignParentRight="true"
             android:text="@string/today_4_12pm"
             android:textColor="@color/lessBlack"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
+
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvusertimeId"
+            android:layout_alignParentRight="true"
             android:layout_marginStart="10sp"
             android:layout_marginTop="5sp"
-            android:layout_marginEnd="20sp"
             android:layout_marginBottom="10sp"
-            android:background="@drawable/bluetextbox">
+            android:background="@drawable/blue_chat_box">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUserChatId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5sp"
+                android:padding="@dimen/_8sdp"
                 android:text="@string/let_me_know_when_you_complete"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -100,6 +148,45 @@
 
 
         </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_gravity="right"
+        android:id="@+id/rlChatuUserImgRightId"
+        android:layout_width="220sp"
+        android:layout_height="220sp"
+        android:layout_marginStart="80sp"
+        android:layout_marginTop="10sp"
+        android:visibility="gone"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="20sp"
+        android:background="@drawable/white_chat_box">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSendSharetimeRightId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="10sp"
+            android:text="@string/today_4_12pm"
+            android:textColor="@color/lessBlack"
+            android:textSize="10sp" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_below="@+id/tvSendSharetimeRightId"
+            android:id="@+id/ivchatSharedImageRightId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/dummyuserimg" />
+
+
+
+
 
     </RelativeLayout>
 

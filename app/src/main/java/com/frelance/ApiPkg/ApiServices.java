@@ -2,6 +2,7 @@ package com.frelance.ApiPkg;
 
 
 import com.frelance.SetLangPkg.SetLangmodel;
+import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.forgetpasswordPkg.ForgetPasswordModle;
@@ -16,6 +17,8 @@ import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
+import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
+import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.SendDiputeResponseModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.SendProjectProgDetailModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
@@ -94,6 +97,23 @@ public interface ApiServices {
     @POST("Client/myMission")
     Call<MyMissionModel> mymission(@Field("status") String status);
 
+
+
+
+    @FormUrlEncoded
+    @POST("Client/getprojectdispute")
+    Call<GetAllDiputeResponseModle> getprojectdispute(@Field("user_id") String user_id);
+
+
+
+
+    @FormUrlEncoded
+    @POST("Client/projectsenddispute")
+    Call<SendDiputeResponseModle> projectsenddispute(
+            @Field("project_id") String project_id,
+            @Field("message") String message,
+            @Field("user_id") String user_id
+    );
 
     @FormUrlEncoded
     @POST("Client/getnotificationbytype")
@@ -261,6 +281,12 @@ public interface ApiServices {
                                            @Part MultipartBody.Part skill,
                                            @Part MultipartBody.Part field_of_study,
                                            @Part MultipartBody.Part categroy_of_interest);
+
+
+
+    @Multipart
+    @POST("client/addchatimage")
+    Call<ChatImageResponseModle> addchatimage(@Part MultipartBody.Part picture_url);
 
 
     @FormUrlEncoded

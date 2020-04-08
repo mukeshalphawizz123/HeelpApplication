@@ -1,5 +1,6 @@
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatActivityMain;
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.YourMission;
@@ -78,7 +80,10 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                 acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
             case R.id.rldiscuteridd:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivityMain.class);
+                Intent intent1 = new Intent(getActivity(), ChatActivity.class);
+                intent1.putExtra("client_id",yourMission.getUserId());
+                startActivity(intent1);
+                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
             case R.id.ivmymissionid:
                 AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());

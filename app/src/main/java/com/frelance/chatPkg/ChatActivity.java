@@ -1,33 +1,69 @@
 package com.frelance.chatPkg;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
+import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatAdapter;
 import com.frelance.chatPkg.chatModlePkg.ChatModle;
 import com.frelance.chatPkg.chatModlePkg.Consersation;
+import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.clientProfilePkg.ClinetProfileActivity;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.ImagePicker;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
-public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatAppOnClickListener
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ChatActivity extends AppCompatActivity implements
+        ChatAdapter.ChatAppOnClickListener
         , View.OnClickListener {
     private ChatAdapter chatAdapter;
     private RelativeLayout rlmessageuserprofile;
@@ -40,24 +76,40 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
     private LinearLayoutManager layoutManager;
     private Consersation consersation;
     private DatabaseReference mRootReference;
+    private AppCompatTextView tvUserNameMsg, tvUserProffesion;
+    private CircleImageView ivUserMsg;
+    private AppCompatImageView ivsharefilebutton;
+    private static final int PERMISSION_READ_EXTERNAL_STORAGE = 100;
+    private static final int SELECT_PICTURE = 101;
+    private String profilImgPath;
+    private File fileForImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        userid = getIntent().getStringExtra(Constants.USERID);
+        apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         clientId = getIntent().getStringExtra("client_id");
         fName = getIntent().getStringExtra("firstName");
         lName = getIntent().getStringExtra("lastName");
         clientImg = getIntent().getStringExtra("clientImg");
         consersation = new Consersation();
         init();
-
-
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            getProfileApi(clientId);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void init() {
+        ivsharefilebutton = findViewById(R.id.ivsharefilebuttonid);
+        ivUserMsg = findViewById(R.id.ivUserMsgId);
+        tvUserProffesion = findViewById(R.id.tvUserProffesionId);
+        tvUserNameMsg = findViewById(R.id.tvUserNameMsgId);
         ettypemsg = findViewById(R.id.ettypemsgid);
         ivnotificationHome = findViewById(R.id.ivnotificationHomeId);
         ivnotificationHome.setOnClickListener(this);
@@ -65,59 +117,64 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
         ivgifbutton = findViewById(R.id.ivgifbuttonid);
         ivbackmsg.setOnClickListener(this);
         ivgifbutton.setOnClickListener(this);
+        ivsharefilebutton.setOnClickListener(this);
         rlmessageuserprofile = findViewById(R.id.rlmessageuserprofileid);
         rlmessageuserprofile.setOnClickListener(this);
         rvmsglist = findViewById(R.id.rvChatId);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         rvmsglist.setLayoutManager(layoutManager);
         chatAdapter = new ChatAdapter(getApplicationContext(), this);
-      //  chatDataSanpchat();
+        chatDataSanpchat();
     }
 
 
     private void chatDataSanpchat() {
-
-        ///  adapter = new ListMessageAdapter(this, consersation, bitmapAvataFriend, bitmapAvataUser);
-        FirebaseDatabase.getInstance().getReference().child("message/" +userid + "_" + clientId).addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        if (dataSnapshot.getValue() != null) {
+        String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
+        FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.getValue() != null) {
+                    //CustomProgressbar.hideProgressBar();
 //                        postnotification("Alert", "You received message");
-                            HashMap mapMessage = (HashMap) dataSnapshot.getValue();
-                            ChatModle chatModle = new ChatModle((String) mapMessage.get("userId"),
-                                    (String) mapMessage.get("client"),
-                                    (String) mapMessage.get("dateTime"),
-                                    (String) mapMessage.get("message"));
+                    HashMap mapMessage = (HashMap) dataSnapshot.getValue();
 
-                            consersation.getListMessageData().add(chatModle);
-                            chatAdapter.notifyDataSetChanged();
-                            layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
+                    ChatModle chatModle = new ChatModle((String) mapMessage.get("userId"),
+                            (String) mapMessage.get("client"),
+                            (String) mapMessage.get("dateTime"),
+                            (String) mapMessage.get("message"),
+                            (String) mapMessage.get("userImgPath"));
 
-                        }
-                    }
+                    consersation.getListMessageData().add(chatModle);
+                    chatAdapter.addChatList(consersation.getListMessageData());
+                    chatAdapter.notifyDataSetChanged();
+                    layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+            }
 
-                    }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
 
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                    }
+            }
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                    }
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                CustomProgressbar.hideProgressBar();
 
-                    }
-                });
-
+            }
+        });
+        //  CustomProgressbar.hideProgressBar();
         rvmsglist.setAdapter(chatAdapter);
 
     }
@@ -126,6 +183,9 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivsharefilebuttonid:
+                askStoragePermission();
+                break;
             case R.id.rlmessageuserprofileid:
                 CheckNetwork.nextScreenWithoutFinish(ChatActivity.this, ClinetProfileActivity.class);
                 break;
@@ -140,8 +200,11 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
                 final String message = ettypemsg.getText().toString();
                 if (content.length() > 0) {
                     ettypemsg.setText("");
-                    ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message);
-                    FirebaseDatabase.getInstance().getReference().child("message/" +userid + "_" + clientId).push().setValue(newMessage);
+                    String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
+                    String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
+                    ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message, "");
+                    FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
+                    FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
                     break;
 
                 }
@@ -153,5 +216,182 @@ public class ChatActivity extends AppCompatActivity implements ChatAdapter.ChatA
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
+    }
+
+    private void getProfileApi(String user_id) {
+        CustomProgressbar.showProgressBar(this, false);
+        apiServices.getMyProfile(user_id).enqueue(new Callback<GetProfileModle>() {
+            @Override
+            public void onResponse(Call<GetProfileModle> call, Response<GetProfileModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    GetProfileModle missionlist = response.body();
+                    if (missionlist.getStatus() == true) {
+                        tvUserNameMsg.setText(missionlist.getYourMissions().get(0).getUsername());
+                        tvUserProffesion.setText(missionlist.getYourMissions().get(0).getSkills());
+                        if (missionlist.getYourMissions().get(0).getPictureUrl().isEmpty()) {
+
+                        } else {
+                            Picasso.with(getApplicationContext())
+                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + missionlist.getYourMissions()
+                                            .get(0).getPictureUrl())
+                                    .into(ivUserMsg);
+                        }
+
+                    }
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProfileModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+    private void uploadImagForChat(String profilImgPath) {
+        CustomProgressbar.showProgressBar(this, false);
+        MultipartBody.Part imgFileStation = null;
+        if (profilImgPath == null) {
+        } else {
+            fileForImage = new File(profilImgPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
+            imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
+        }
+        apiServices.addchatimage(imgFileStation).enqueue(new Callback<ChatImageResponseModle>() {
+            @Override
+            public void onResponse(Call<ChatImageResponseModle> call, Response<ChatImageResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    ChatImageResponseModle chatImageResponseModle = response.body();
+                    if (chatImageResponseModle.getStatus() == true) {
+                        String imgurl = chatImageResponseModle.getData().get(0).getImageName();
+                        String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
+                        String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
+                        ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), "", imgurl);
+                        FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
+                        FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
+                    }
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChatImageResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+
+    private void askStoragePermission() {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_READ_EXTERNAL_STORAGE);
+            }
+        } else {
+            chooseFromGallery();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    chooseFromGallery();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SELECT_PICTURE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Uri imageUri = data.getData();
+                    // Bitmap bitmap = ImagePicker.getImageFromResult(getApplicationContext(), resultCode, data);
+                    profilImgPath = getRealPathFromURI(getApplicationContext(), imageUri);
+                    if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                        uploadImagForChat(profilImgPath);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
+
+    private void chooseFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }
