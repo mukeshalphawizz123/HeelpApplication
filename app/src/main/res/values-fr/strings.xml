@@ -16,7 +16,7 @@ trois principaux besoins de l’étudiant.</string>
 
 
     <string name="app_name">Freelance App</string>
-
+    <string name="RecordingStarted">Recording Started</string>
     <!--new generated-->
     <string name="sweep_to_next_page">Sweep to next page</string>
     <string name="go">C\'est parti!</string>
@@ -75,16 +75,16 @@ trois principaux besoins de l’étudiant.</string>
     <string name="demand_posted_succefully">Demand posted succefully</string>
     <string name="payment_confirmation">Payment confirmation</string>
     <string name="back_to_home">Back to Home</string>
-    <string name="support_and_contact">Support and contact</string>
-    <string name="contact_form">Contact form :</string>
+    <string name="support_and_contact">Support et contact</string>
+    <string name="contact_form">Formulaire de contact :</string>
     <string name="please_precise_the_subject_of_your_contact_in_the_title">Please precise the subject of your contact in the title :</string>
-    <string name="send">Send</string>
-    <string name="contact_the_heelp_team_by_e_mail">Contact the heelp team by e-mail:</string>
+    <string name="send">Envoyer</string>
+    <string name="contact_the_heelp_team_by_e_mail">Contacter l’équipe Heelp par mail :</string>
     <string name="add_a_new_card">+ add a new card</string>
     <string name="my_credit">My credit</string>
     <string name="withdraw_money">Withdraw money</string>
-    <string name="conditions_and_terms">Conditions and terms</string>
-    <string name="log_out">Log out</string>
+    <string name="conditions_and_terms">Conditions générales d\'utilisation</string>
+    <string name="log_out">Se déconnecter</string>
     <string name="promotion_offer">Promotion offer</string>
     <string name="keep_a_review_share_the_app_with_your_friends_and_earn_money_for_each_new_registration">Keep a review Share the app with your friends and earn money for each new registration !</string>
     <string name="share_the_app_and_earn_money">Share the app and earn money</string>
@@ -95,7 +95,7 @@ trois principaux besoins de l’étudiant.</string>
     <string name="registered_card">Registered card</string>
     <string name="open_a_dispute">Open a dispute</string>
     <string name="open">Open</string>
-    <string name="parametres">Parameters</string>
+    <string name="parametres">Paramètres</string>
     <string name="contact_heelp_team">Contact Heelp team :</string>
     <string name="do_you_want_to_open_a_dispute">Do you want to open a dispute?</string>
     <string name="contact_here">Contact here</string>
@@ -146,22 +146,22 @@ trois principaux besoins de l’étudiant.</string>
     <string name="support_message">Support Message:</string>
     <string name="please_let_me_know">Please let me know</string>
     <string name="mission_title">Mission title</string>
-    <string name="view_details">View Details</string>
-    <string name="complete">Complete</string>
+    <string name="view_details">Voir détails</string>
+    <string name="complete">Completée</string>
     <string name="my_comment">My comment :</string>
     <string name="i_finished_it">I finished it</string>
-    <string name="open_litigation">Open litigation</string>
-    <string name="delivered">Delivered</string>
+    <string name="open_litigation">Litige ouvert</string>
+    <string name="delivered">Livrée</string>
     <string name="waiting_for_payment">Waiting for payment</string>
     <string name="my_comment_i_finished_again">My comment : i finished again</string>
     <string name="your_comments">Your Comments :</string>
     <string name="in_progress">In progress</string>
     <string name="_1_er_livrable">1st available</string>
     <string name="proposed">Proposed</string>
-    <string name="title_request">Title request</string>
+    <string name="title_request">Demande title</string>
     <string name="helper_s_comment">helper\'s comment</string>
-    <string name="i_m_satisfied">I\'m satisfied</string>
-    <string name="release_payment">Release payment</string>
+    <string name="i_m_satisfied">Je suis satisfait</string>
+    <string name="release_payment">Libérer le paiement</string>
     <string name="ne_lib_rer_le_paiement_qu_apr_s_satisfaction">Ne libérer le paiement qu\'après satisfaction !</string>
     <string name="ask_for_a_change">Ask for a change</string>
     <string name="freelancer_commits">Freelancer Commits :</string>
@@ -218,15 +218,15 @@ trois principaux besoins de l’étudiant.</string>
     <string name="In">In</string>
     <string name="Out">Out</string>
 
-    <string name="Proposée">Proposed</string>
+    <string name="Proposée">Publiée</string>
     <string name="Encours">Encours</string>
     <string name="Livrée">Livrée</string>
     <string name="Completée">Completée</string>
     <string name="Enlitige">Enlitige</string>
     <string name="Publiée">Publiée</string>
-    <string name="don_t_realease_until_you_are_satisfied">Don\'t realease until you are satisfied !</string>
-    <string name="need_a_modification">Need a modification</string>
-    <string name="ask_to_modify">Ask to modify</string>
+    <string name="don_t_realease_until_you_are_satisfied">Ne libérer le paiement qu\'après satisfaction !</string>
+    <string name="need_a_modification">Demander une modification</string>
+    <string name="ask_to_modify">Demander une modification</string>
     <string name="claim_an_issue">Claim an issue</string>
     <string name="All">Tout</string>
     <string name="Unread">Non lus</string>
@@ -249,9 +249,9 @@ trois principaux besoins de l’étudiant.</string>
     <string name="facebook_app_id">843307129428324</string>
     <string name="fb_login_protocol_scheme">fb843307129428324</string>
     <string name="notification_channel_id">my_channel_01</string>
-    <string name="pay">Pay</string>
+    <string name="pay">Payer</string>
     <string name="transaction">Transaction</string>
-    <string name="kindlyreviews">Kindly put your reviews</string>
+    <string name="kindlyreviews">Veuillez mettre vos commentaires</string>
 
 
 </resources>

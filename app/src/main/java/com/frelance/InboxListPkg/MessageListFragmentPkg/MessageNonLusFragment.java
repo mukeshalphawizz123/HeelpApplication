@@ -39,8 +39,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageNonLusFragment extends Fragment implements MessageToutAdapter.MessageToutAppOnClickListener {
-
-
     private RecyclerView rvmsglist;
     private ApiServices apiServices;
     private MessageToutAdapter messageToutAdapter;
@@ -77,7 +75,6 @@ public class MessageNonLusFragment extends Fragment implements MessageToutAdapte
         switch (view.getId()) {
             case R.id.rlmsguserid:
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
-                //  Log.v("ccc", datumList.get(position).getClientId());
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());
                 intent.putExtra("lastName", datumList.get(position).getLastName());

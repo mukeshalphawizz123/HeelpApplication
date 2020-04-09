@@ -3,6 +3,7 @@ package com.frelance.ApiPkg;
 
 import com.frelance.SetLangPkg.SetLangmodel;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
+import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
 import com.frelance.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.forgetpasswordPkg.ForgetPasswordModle;
@@ -95,7 +96,10 @@ public interface ApiServices {
 
     @FormUrlEncoded
     @POST("Client/myMission")
-    Call<MyMissionModel> mymission(@Field("status") String status);
+    Call<MyMissionModel> mymission(
+            @Field("status") String status,
+            @Field("user_id") String user_id
+    );
 
 
 
@@ -129,7 +133,9 @@ public interface ApiServices {
 
     @FormUrlEncoded
     @POST("Client/myDemandList")
-    Call<MyDemandeModel> myrequest(@Field("status") String status);
+    Call<MyDemandeModel> myrequest(
+            @Field("status") String status,
+            @Field("user_id") String user_id);
 
 
     @FormUrlEncoded
@@ -288,6 +294,10 @@ public interface ApiServices {
     @POST("client/addchatimage")
     Call<ChatImageResponseModle> addchatimage(@Part MultipartBody.Part picture_url);
 
+
+    @Multipart
+    @POST("client/addchatvoicenote")
+    Call<RecordingResponseModle> voice_url(@Part MultipartBody.Part voice_url);
 
     @FormUrlEncoded
     @POST("Client/projectsenddispute")

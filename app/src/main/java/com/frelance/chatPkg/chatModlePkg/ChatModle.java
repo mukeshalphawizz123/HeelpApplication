@@ -6,23 +6,34 @@ public class ChatModle {
     private String dateTime;
     private String message;
     private String userImgPath;
+    private String userVoice;
 
-    public ChatModle(String userId, String client, String dateTime, String message, String userImgPath) {
+    public ChatModle(String userId, String client, String dateTime, String message, String userImgPath
+            , String userVoice) {
         this.userId = userId;
         this.client = client;
         this.dateTime = dateTime;
         this.message = message;
         this.userImgPath = userImgPath;
+        this.userVoice = userVoice;
     }
 
 
-/*    public ChatModle(String userId, String client, String dateTime, String message) {
-        this.userId = userId;
-        this.client = client;
-        this.dateTime = dateTime;
-        this.message = message;
+    /*    public ChatModle(String userId, String client, String dateTime, String message) {
+            this.userId = userId;
+            this.client = client;
+            this.dateTime = dateTime;
+            this.message = message;
 
-    }*/
+        }*/
+    public String getUserVoice() {
+        return userVoice;
+    }
+
+    public void setUserVoice(String userVoice) {
+        this.userVoice = userVoice;
+    }
+
 
     public String getUserImgPath() {
         return userImgPath;
@@ -31,7 +42,6 @@ public class ChatModle {
     public void setUserImgPath(String userImgPath) {
         this.userImgPath = userImgPath;
     }
-
 
 
     public String getUserId() {

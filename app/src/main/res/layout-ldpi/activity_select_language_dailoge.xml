@@ -52,30 +52,31 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_below="@+id/tvLogoutTagId"
-
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cbEnglishid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:lineSpacingExtra="5sp"
-                android:text="  English"
-                android:textSize="16sp" />
+
+
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cbfrenchiId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cbEnglishid"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:layout_centerInParent="true"
                 android:lineSpacingExtra="5sp"
-                android:text="  French "
+                android:text="  French"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cbEnglishid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cbfrenchiId"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:lineSpacingExtra="5sp"
+                android:text="  English "
                 android:textSize="16sp" />
 
         </LinearLayout>

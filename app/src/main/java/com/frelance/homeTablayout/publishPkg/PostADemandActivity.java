@@ -94,7 +94,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_description);
         client_id = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
-        Toast.makeText(getApplicationContext(), client_id, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), client_id, Toast.LENGTH_LONG).show();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");

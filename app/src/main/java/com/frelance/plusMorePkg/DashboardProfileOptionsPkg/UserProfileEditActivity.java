@@ -252,7 +252,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                         yourMissionList = missionlist.getYourMissions();
                         EtName.setText(yourMissionList.get(0).getName());
                         EtUsername.setText(yourMissionList.get(0).getUsername());
-                        EtStatus.setText(yourMissionList.get(0).getStatus());
+                        EtStatus.setText(yourMissionList.get(0).getState());
                         EtEmail.setText(yourMissionList.get(0).getEmail());
                         EtPassword.setText(yourMissionList.get(0).getPassword());
                         Etcountry.setText(yourMissionList.get(0).getCountry());

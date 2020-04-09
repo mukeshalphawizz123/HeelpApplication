@@ -1,6 +1,7 @@
 package com.frelance.chatPkg.Adapter;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.frelance.utility.AppSession;
 import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -27,12 +29,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private ChatAppOnClickListener chatAppOnClickListener;
     private ArrayList<ChatModle> chatModleArrayList;
     private String userId;
+    private MediaPlayer mediaPlayer;
 
 
     public ChatAdapter(Context context, ChatActivity chatAdapter) {
         this.context = context;
         this.chatAppOnClickListener = chatAppOnClickListener;
         userId = AppSession.getStringPreferences(context, Constants.USERID);
+        mediaPlayer = new MediaPlayer();
     }
 
 
@@ -82,7 +86,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             if (chatModleArrayList.get(position).getUserImgPath().isEmpty()) {
                 holder.rlChatuUserImgRight.setVisibility(View.GONE);
                 holder.rlChatuUserImgLeft.setVisibility(View.GONE);
-
                 holder.rlChatuUserLeft.setVisibility(View.VISIBLE);
                 holder.rlChatuUserRight.setVisibility(View.GONE);
 
@@ -100,6 +103,92 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             }
 
         }
+
+        if (userId.equalsIgnoreCase(chatModleArrayList.get(position).getUserId())) {
+            if (chatModleArrayList.get(position).getUserVoice().isEmpty()) {
+                holder.rlChatuUserVoiceLeft.setVisibility(View.GONE);
+                holder.rlChatuUserVoiceRight.setVisibility(View.GONE);
+            } else {
+                holder.rlChatuUserVoiceLeft.setVisibility(View.GONE);
+                holder.rlChatuUserVoiceRight.setVisibility(View.VISIBLE);
+                holder.tvvoicetimePlayRight.setText(Constants.missionChatDate(chatModleArrayList.get(position).getDateTime()));
+                holder.rlChatuUserLeft.setVisibility(View.GONE);
+                holder.rlChatuUserRight.setVisibility(View.GONE);
+            }
+
+        } else {
+            if (chatModleArrayList.get(position).getUserVoice().isEmpty()) {
+                holder.rlChatuUserVoiceLeft.setVisibility(View.GONE);
+                holder.rlChatuUserVoiceRight.setVisibility(View.GONE);
+
+            } else {
+
+                holder.rlChatuUserVoiceLeft.setVisibility(View.VISIBLE);
+                holder.rlChatuUserVoiceRight.setVisibility(View.GONE);
+                holder.tvSenderImagetimeVoice.setText(Constants.missionChatDate(chatModleArrayList.get(position).getDateTime()));
+                holder.rlChatuUserLeft.setVisibility(View.GONE);
+                holder.rlChatuUserRight.setVisibility(View.GONE);
+
+            }
+        }
+
+
+        holder.ivchaRecordingPlayImageleft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.ivchaRecordingPlayImageleft.setVisibility(View.GONE);
+                holder.ivchaRecordingStopImageleft.setVisibility(View.VISIBLE);
+                mediaPlayer.stop();
+                notifyDataSetChanged();
+            }
+        });
+
+
+        holder.ivchaRecordingPlayImageRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.ivchaRecordingStopImageRight.setVisibility(View.VISIBLE);
+                holder.ivchaRecordingPlayImageRight.setVisibility(View.GONE);
+                mediaPlayer.stop();
+            }
+        });
+
+
+        holder.ivchaRecordingStopImageleft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.ivchaRecordingPlayImageleft.setVisibility(View.VISIBLE);
+                holder.ivchaRecordingStopImageleft.setVisibility(View.GONE);
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.stop();
+                try {
+                    mediaPlayer.setDataSource(chatModleArrayList.get(position).getUserVoice());
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                mediaPlayer.start();
+            }
+        });
+
+        holder.ivchaRecordingStopImageRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.ivchaRecordingPlayImageRight.setVisibility(View.VISIBLE);
+                holder.ivchaRecordingStopImageRight.setVisibility(View.GONE);
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.stop();
+                try {
+                    mediaPlayer.setDataSource(chatModleArrayList.get(position).getUserVoice());
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                mediaPlayer.start();
+            }
+        });
     }
 
     @Override
@@ -117,30 +206,40 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private AppCompatTextView tvusertime, tvSenderChat,
+        private AppCompatTextView tvusertime, tvSenderChat, tvSenderImagetimeVoice,
                 tvSendertime, tvUserChat;
         private AppCompatImageView ivchatprofile;
-        private RelativeLayout rlChatuUserLeft, rlChatuUserRight, rlChatuUserImgLeft, rlChatuUserImgRight;
-        private AppCompatImageView ivchatSharedImage, ivchatImageprofile, ivchatSharedImageRight;
+        private RelativeLayout rlChatuUserLeft, rlChatuUserRight, rlChatuUserImgLeft, rlChatuUserImgRight, rlChatuUserVoiceRight, rlChatuUserVoiceLeft;
+        private AppCompatImageView ivchatSharedImage, ivchatImageprofile, ivchaRecordingPlayImageleft, ivchaRecordingStopImageleft,
+                ivchatSharedImageRight, ivchaRecordingStopImageRight, ivchaRecordingPlayImageRight;
         private AppCompatTextView tvSenderImagetime, tvSendSharetimeRight;
-
+        private AppCompatTextView tvvoicetimePlayRight, tvvoicetimeRight;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rlChatuUserVoiceLeft = itemView.findViewById(R.id.rlChatuUserVoiceLeftId);
+            rlChatuUserVoiceRight = itemView.findViewById(R.id.rlChatuUserVoiceRightId);
             rlChatuUserImgRight = itemView.findViewById(R.id.rlChatuUserImgRightId);
             rlChatuUserImgLeft = itemView.findViewById(R.id.rlChatuUserImgLeftId);
             rlChatuUserLeft = itemView.findViewById(R.id.rlChatuUserLeftId);
             rlChatuUserRight = itemView.findViewById(R.id.rlChatuUserRightId);
             ivchatprofile = itemView.findViewById(R.id.ivchatprofileId);
+            ivchaRecordingStopImageRight = itemView.findViewById(R.id.ivchaRecordingStopImageRightId);
+            ivchaRecordingPlayImageRight = itemView.findViewById(R.id.ivchaRecordingPlayImageRightId);
             ivchatSharedImage = itemView.findViewById(R.id.ivchatSharedImageId);
+            ivchaRecordingPlayImageleft = itemView.findViewById(R.id.ivchaRecordingPlayImageleftId);
+            ivchaRecordingStopImageleft = itemView.findViewById(R.id.ivchaRecordingStopImageleftId);
             ivchatImageprofile = itemView.findViewById(R.id.ivchatImageprofileId);
             ivchatSharedImageRight = itemView.findViewById(R.id.ivchatSharedImageRightId);
             tvusertime = itemView.findViewById(R.id.tvusertimeId);
             tvSenderChat = itemView.findViewById(R.id.tvSenderChatId);
+            tvSenderImagetimeVoice = itemView.findViewById(R.id.tvSenderImagetimeVoiceId);
             tvSendertime = itemView.findViewById(R.id.tvSendertimeId);
             tvUserChat = itemView.findViewById(R.id.tvUserChatId);
             tvSenderImagetime = itemView.findViewById(R.id.tvSenderImagetimeId);
             tvSendSharetimeRight = itemView.findViewById(R.id.tvSendSharetimeRightId);
+            tvvoicetimePlayRight = itemView.findViewById(R.id.tvvoicetimePlayRightId);
+          //  tvvoicetimeRight = itemView.findViewById(R.id.tvvoicetimeRightId);
 
         }
     }

@@ -32,6 +32,7 @@ import com.frelance.myMissionPkg.Mymissionmodle.mymissionModle;
 import com.frelance.myMissionPkg.myMissionModlePkg.MyMissionModel;
 import com.frelance.myMissionPkg.myMissionModlePkg.YourMission;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 
@@ -61,6 +62,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
     public MyMissionsecAdapter myMissionsecAdapter;
     private List<YourMission> mymissionlist;
     private String position, filtertag;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentHomePublisharequestBinding = DataBindingUtil.inflate(inflater, R.layout.activity_mymissions, container, false);
@@ -68,6 +70,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         View view = fragmentHomePublisharequestBinding.getRoot();
         mymissionModelArrayList = new ArrayList<>();
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mymissionModelArrayList.add(new mymissionModle(getResources().getString(R.string.Proposée)));
         mymissionModelArrayList.add(new mymissionModle(getResources().getString(R.string.Encours)));
         mymissionModelArrayList.add(new mymissionModle(getResources().getString(R.string.Livrée)));
@@ -104,7 +107,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
 
     private void myMission(String status) {
         PbMymission.setVisibility(View.VISIBLE);
-        apiServices.mymission(status).enqueue(new Callback<MyMissionModel>() {
+        apiServices.mymission(status, userId).enqueue(new Callback<MyMissionModel>() {
             @Override
             public void onResponse(Call<MyMissionModel> call, Response<MyMissionModel> response) {
                 if (response.isSuccessful()) {

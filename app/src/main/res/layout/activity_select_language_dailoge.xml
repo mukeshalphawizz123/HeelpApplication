@@ -52,7 +52,6 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_below="@+id/tvLogoutTagId"
-
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cbEnglishid"
@@ -65,6 +64,8 @@
                 android:lineSpacingExtra="5sp"
                 android:text="  English"
                 android:textSize="16sp" />
+
+
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cbfrenchiId"
                 android:layout_width="wrap_content"

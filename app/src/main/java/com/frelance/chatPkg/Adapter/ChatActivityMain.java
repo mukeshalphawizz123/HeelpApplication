@@ -58,7 +58,6 @@ public class ChatActivityMain extends AppCompatActivity implements ChatAdapter.C
         lName = getIntent().getStringExtra("lastName");
         clientImg = getIntent().getStringExtra("clientImg");
 
-
         audioRecordView = new AudioRecordView();
         audioRecordView.initView((FrameLayout) findViewById(R.id.layoutMain));
         View containerView = audioRecordView.setContainerView(R.layout.layout_chatting);

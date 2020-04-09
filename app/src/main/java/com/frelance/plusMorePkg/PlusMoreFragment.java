@@ -191,7 +191,6 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                 intent.putExtra("userName", userName);
                 getActivity().startActivity(intent);
                 ((Activity) (getActivity())).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-
                 break;
 
 
@@ -211,7 +210,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         final AppCompatCheckBox cbEnglishid = dialog.findViewById(R.id.cbEnglishid);
         ImageView ivlogoutClose = dialog.findViewById(R.id.ivlogoutCloseId);
         RelativeLayout rlOkId = dialog.findViewById(R.id.rlOkId);
-        if (prefData.getCurrentLanguage().equals("sp")) {
+        if (prefData.getCurrentLanguage().equals("fr")) {
             cbfrenchiId.setChecked(true);
         } else if (prefData.getCurrentLanguage().equals("eng")) {
             cbEnglishid.setChecked(true);
@@ -227,7 +226,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     cbEnglishid.setChecked(false);
-                    language = "sp";
+                    language = "fr";
 
                 }
             }

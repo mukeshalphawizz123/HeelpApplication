@@ -2,6 +2,7 @@ package com.frelance.homeTablayout;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,6 +35,7 @@ import com.frelance.R;
 
 import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
 import com.frelance.homeTablayout.homeModel.Project;
+import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.CheckNetwork;
 import com.google.android.material.tabs.TabLayout;
@@ -55,6 +57,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
     private ApiServices apiServices;
     private List<Project> projectlist;
     private List<Project> projectlist1;
+    Dialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,9 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position == 1) {
+
+                }
             }
 
             @Override
@@ -123,7 +129,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
 
     private void Homecategoryfilter() {
         final View dialogView = View.inflate(getActivity(), R.layout.activity_home__category__filter, null);
-        final Dialog dialog = new Dialog(getActivity());
+        dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(dialogView);
@@ -223,6 +229,19 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void publishOnClick(View view, int position, Project project) {
+        switch (view.getId()) {
+            case R.id.rlhomeitemsRowid:
+                //Toast.makeText(getActivity(), "sdfsdf", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), PostADemandActivity.class);
+                intent.putExtra("imagetitle", projectlist.get(position).getTitle());
+                intent.putExtra("title", projectlist.get(position).getTitle());
+                intent.putExtra("description", projectlist.get(position).getDescription());
+                intent.putExtra("budget", projectlist.get(position).getBudget());
+                intent.putExtra("imageUrl", projectlist.get(position).getPictureUrl());
+                getActivity().startActivity(intent);
+                dialog.dismiss();
+                break;
+        }
 
     }
 }
