@@ -368,6 +368,8 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                     if (updateProfileModle.getStatus()) {
                         Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
                         AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
+                        AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getName());
+                        AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
                     }
                 } else {
                     if (response.code() == 400) {

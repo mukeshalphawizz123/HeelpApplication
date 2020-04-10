@@ -243,6 +243,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="5sp"
                                 android:background="@android:color/transparent"
+                                android:enabled="false"
                                 android:inputType="number"
                                 android:maxLength="8"
                                 android:textColor="@color/blue"
@@ -309,9 +310,9 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etMakeOfferAmountId"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:layout_marginStart="@dimen/_2sdp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_marginTop="5sp"
                         android:layout_toEndOf="@+id/radiogreenid"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
@@ -319,14 +320,14 @@
                         android:textSize="14sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_toEndOf="@+id/etMakeOfferAmountId"
-                        android:layout_width="wrap_content"
                         android:id="@+id/ivEuroMakeAnOfferId"
-                        android:text="€"
-                        android:fontFamily="@font/poppins_reguiar"
-                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_toEndOf="@+id/etMakeOfferAmountId"
+                        android:fontFamily="@font/poppins_reguiar"
+                        android:text="€"
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -399,18 +400,18 @@
             </RelativeLayout>
 
         </ScrollView>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
             <ProgressBar
-                android:visibility="gone"
                 android:id="@+id/pbMakeAnOfferId"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </RelativeLayout>
-
 
 
     </RelativeLayout>

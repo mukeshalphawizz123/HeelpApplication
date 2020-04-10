@@ -301,8 +301,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(getApplicationContext(), "Successfully Login", Toast.LENGTH_LONG).show();
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().getUsername());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.FIRST_NAME, getLoginModle.getData().getName());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.EMAIL, getLoginModle.getData().getEmail());
-                        AppSession.setStringPreferences(LoginActivity.this, Constants.PICTURE_URL, getLoginModle.getData().getProfileUrl());
+                        AppSession.setStringPreferences(LoginActivity.this, Constants.PICTURE_URL, getLoginModle.getData().getPictureUrl());
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

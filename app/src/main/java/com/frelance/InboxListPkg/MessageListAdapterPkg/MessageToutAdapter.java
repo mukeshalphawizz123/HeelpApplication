@@ -67,7 +67,7 @@ public class MessageToutAdapter extends RecyclerView.Adapter<MessageToutAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public RelativeLayout rlmsguser;
         CircleImageView ivUserMsg;
-        AppCompatTextView tvUserNameMsg;
+        AppCompatTextView tvUserNameMsg,tvtime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

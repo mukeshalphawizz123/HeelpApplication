@@ -12,7 +12,6 @@
         android:padding="8sp">
 
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUserMsgId"
             android:layout_width="60sp"
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/jonathan_do"
                 android:textColor="@color/tabselected"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvUserProffesionId"
@@ -48,6 +47,7 @@
                 android:textColor="@color/tabselected"
                 android:layout_below="@+id/tvUserNameMsgId"
                 android:text="@string/please_let_me_know"
+                android:visibility="gone"
                 android:textSize="12sp" />
 
 

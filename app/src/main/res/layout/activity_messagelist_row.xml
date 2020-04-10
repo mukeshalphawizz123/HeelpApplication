@@ -47,6 +47,7 @@
                 android:textColor="@color/tabselected"
                 android:layout_below="@+id/tvUserNameMsgId"
                 android:text="@string/please_let_me_know"
+                android:visibility="gone"
                 android:textSize="12sp" />
 
 

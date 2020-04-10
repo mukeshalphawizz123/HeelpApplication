@@ -106,12 +106,17 @@ public class ChatActivity extends AppCompatActivity implements
     private Chronometer tvTimer;
     private GetProfileModle missionlist;
 
+    private String entryFlag = "0", firstname, lastName, user_picturUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        firstname = AppSession.getStringPreferences(getApplicationContext(), Constants.FIRST_NAME);
+        user_picturUrl = AppSession.getStringPreferences(getApplicationContext(), Constants.PICTURE_URL);
+
         clientId = getIntent().getStringExtra("client_id");
         fName = getIntent().getStringExtra("firstName");
         lName = getIntent().getStringExtra("lastName");
@@ -162,7 +167,6 @@ public class ChatActivity extends AppCompatActivity implements
                     //CustomProgressbar.hideProgressBar();
 //                        postnotification("Alert", "You received message");
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
-
                     ChatModle chatModle = new ChatModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("client"),
                             (String) mapMessage.get("dateTime"),
@@ -175,7 +179,12 @@ public class ChatActivity extends AppCompatActivity implements
                     chatAdapter.notifyDataSetChanged();
                     layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
 
+                    if (entryFlag.equalsIgnoreCase("0")) {
+                        entryFlag = "1";
+                    }
+
                 }
+
             }
 
             @Override
@@ -263,29 +272,17 @@ public class ChatActivity extends AppCompatActivity implements
                     FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
 
                     UnReadMessageUserModle unReadMessageUserModle = new UnReadMessageUserModle(clientId,
-                            missionlist.getYourMissions().get(0).getFirstName() + " " + missionlist.getYourMissions().get(0).getLastName(),
-                            missionlist.getYourMissions().get(0).getPictureUrl(),
+                            firstname ,
+                            user_picturUrl,
                             Constants.currentDateAndTime(),
                             userid);
 
+                    if (entryFlag.equalsIgnoreCase("1")) {
+                        entryFlag = "2";
+                        // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").push().setValue(unReadMessageUserModle);
+                        FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").push().setValue(unReadMessageUserModle);
+                    }
 
-                   // FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).push().setValue(unReadMessageUserModle);
-                   // FirebaseDatabase.getInstance().getReference().child("userList/" + clientRecordinsertFormat).push().setValue(unReadMessageUserModle);
-
-                   /* DatabaseReference reference = FirebaseDatabase.getInstance().getReference("userList/");
-                    reference.orderByChild("userId").equalTo(clientId).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot datas: dataSnapshot.getChildren()){
-                                //String familyname=datas.child("familyName").getValue().toString();
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).push().setValue(unReadMessageUserModle);
-                            FirebaseDatabase.getInstance().getReference().child("userList/" + clientRecordinsertFormat).push().setValue(unReadMessageUserModle);
-                        }
-                    });*/
                     break;
 
                 }
