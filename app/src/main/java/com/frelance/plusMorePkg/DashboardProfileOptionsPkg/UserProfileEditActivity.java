@@ -254,11 +254,10 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                         EtUsername.setText(yourMissionList.get(0).getUsername());
                         EtStatus.setText(yourMissionList.get(0).getState());
                         EtEmail.setText(yourMissionList.get(0).getEmail());
-                        EtPassword.setText(yourMissionList.get(0).getPassword());
+                        // EtPassword.setText(yourMissionList.get(0).getPassword());
                         Etcountry.setText(yourMissionList.get(0).getCountry());
                         Tvdob.setText(yourMissionList.get(0).getDob());
                         tvdesinationedit.setText(yourMissionList.get(0).getSkills());
-
                         if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
                         } else {
                             Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
@@ -300,7 +299,6 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                 pbUserEditProfile.setVisibility(View.GONE);
             }
         });
-
     }
 
     private void validation(View v) {
@@ -316,17 +314,24 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             new CustomToast().Show_Toast(getActivity(), v, "Invalid Email Id");
             EtEmail.startAnimation(shakeAnimation);
             EtEmail.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-        } else if (EtPassword.getText().toString().isEmpty()) {
+        }/* else if (EtPassword.getText().toString().isEmpty()) {
             new CustomToast().Show_Toast(getActivity(), v, "Can't Empty");
             EtPassword.startAnimation(shakeAnimation);
             EtPassword.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
             EtPassword.getText().toString().trim();
-        } else {
-
-            if (CheckNetwork.isNetAvailable(getActivity())) {
-                updateProfile();
+        }*/ else {
+            if (EtPassword.getText().toString().isEmpty()) {
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    updateProfileWithoutPass();
+                } else {
+                    new CustomToast().Show_Toast(getActivity(), v, "Check Network Connection");
+                }
             } else {
-                new CustomToast().Show_Toast(getActivity(), v, "Check Network Connection");
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    updateProfile();
+                } else {
+                    new CustomToast().Show_Toast(getActivity(), v, "Check Network Connection");
+                }
             }
         }
     }
@@ -343,6 +348,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
         }
 
+        MultipartBody.Part state_ = MultipartBody.Part.createFormData("state", String.valueOf(EtStatus.getText().toString()));
         MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf(userId));
         MultipartBody.Part name_ = MultipartBody.Part.createFormData("name", EtName.getText().toString());
         MultipartBody.Part email_ = MultipartBody.Part.createFormData("email", EtEmail.getText().toString());
@@ -358,7 +364,72 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
 
 
-        apiServices.updateProfile(profile_id_, name_, email_, username_, password_, dob_,
+        apiServices.updateProfile(profile_id_, state_, name_, email_, username_, password_, dob_,
+                country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study, categroy_of_interest).enqueue(new Callback<UpdateProfileModle>() {
+            @Override
+            public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
+                if (response.isSuccessful()) {
+                    pbUserEditProfile.setVisibility(View.GONE);
+                    UpdateProfileModle updateProfileModle = response.body();
+                    if (updateProfileModle.getStatus()) {
+                        Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
+                        AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
+                        AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getName());
+                        AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbUserEditProfile.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateProfileModle> call, Throwable t) {
+                pbUserEditProfile.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+
+    private void updateProfileWithoutPass() {
+        pbUserEditProfile.setVisibility(View.VISIBLE);
+        MultipartBody.Part imgFileStation = null;
+        MultipartBody.Part imgFileStationDoc = null;
+        if (profilImgPath == null) {
+        } else {
+            fileForImage = new File(profilImgPath);
+            RequestBody requestFileOne = RequestBody.create(MediaType.parse("multipart/form-data"), fileForImage);
+            imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
+        }
+
+        MultipartBody.Part state_ = MultipartBody.Part.createFormData("state", String.valueOf(EtStatus.getText().toString()));
+        MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf(userId));
+        MultipartBody.Part name_ = MultipartBody.Part.createFormData("name", EtName.getText().toString());
+        MultipartBody.Part email_ = MultipartBody.Part.createFormData("email", EtEmail.getText().toString());
+        MultipartBody.Part username_ = MultipartBody.Part.createFormData("username", EtUsername.getText().toString());
+        MultipartBody.Part dob_ = MultipartBody.Part.createFormData("dob", Tvdob.getText().toString());
+        MultipartBody.Part country = MultipartBody.Part.createFormData("country", Etcountry.getText().toString());
+        MultipartBody.Part presentation = MultipartBody.Part.createFormData("presentation", tvpresentation.getText().toString());
+        MultipartBody.Part level_of_study = MultipartBody.Part.createFormData("level_of_study", tvlevelofstudyy.getText().toString());
+        MultipartBody.Part school_college = MultipartBody.Part.createFormData("school_address", tvunivercityy.getText().toString());
+        MultipartBody.Part skill = MultipartBody.Part.createFormData("skills", tvcompetencesss.getText().toString());
+        MultipartBody.Part field_of_study = MultipartBody.Part.createFormData("Field_of_study", tvfiledofstudyy.getText().toString());
+        MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
+
+
+        apiServices.updateProfileWithouPassword(profile_id_, state_, name_, email_, username_, dob_,
                 country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study, categroy_of_interest).enqueue(new Callback<UpdateProfileModle>() {
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {

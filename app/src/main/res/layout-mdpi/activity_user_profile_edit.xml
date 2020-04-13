@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:gravity="center"
-                        android:text="@string/name"
+                        android:text="@string/first_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -169,10 +169,54 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rlusernamebtnid"
+                    android:id="@+id/rlstatusid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_below="@+id/rlnameid"
+                    android:layout_marginLeft="20sp"
+                    android:layout_marginRight="20sp"
+                    android:background="@drawable/editgraybtn">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="100sp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/editbluebtn" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/last_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/EtStatusId"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="95dp"
+                        android:layout_marginEnd="15sp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_reguiar"
+                        android:singleLine="true"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlusernamebtnid"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/rlstatusid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
@@ -215,54 +259,10 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rlstatusid"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_below="@+id/rlusernamebtnid"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginRight="20sp"
-                    android:background="@drawable/editgraybtn">
-
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="100sp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:src="@drawable/editbluebtn" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="100sp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:gravity="center"
-                        android:text="@string/status"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11sdp"
-                        android:textStyle="normal" />
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/EtStatusId"
-                        android:layout_width="match_parent"
-                        android:layout_height="50sp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="95dp"
-                        android:layout_marginEnd="15sp"
-                        android:background="@android:color/transparent"
-                        android:fontFamily="@font/poppins_reguiar"
-                        android:singleLine="true"
-                        android:textColor="@color/lessBlack"
-                        android:textSize="16sp"
-                        android:textStyle="normal" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/rlemailid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlstatusid"
+                    android:layout_below="@+id/rlusernamebtnid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">

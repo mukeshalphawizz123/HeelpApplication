@@ -234,10 +234,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     CustomProgressbar.hideProgressBar();
                     RegistrationModel getLoginModle = response.body();
                     if (getLoginModle.getStatus()) {
+                        AppSession.setStringPreferences(SignupActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
+                        AppSession.setStringPreferences(SignupActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
+                        AppSession.setStringPreferences(SignupActivity.this, Constants.EMAIL, getLoginModle.getData().get(0).getEmail());
                         Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         // CheckNetwork.nextScreenWithoutFinish(SignupActivity.this, HomeActivity.class);
+                    } else {
+                        Toast.makeText(getApplicationContext(), getLoginModle.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
                     if (response.code() == 400) {

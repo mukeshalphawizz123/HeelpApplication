@@ -144,7 +144,7 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:text="@string/name"
+                        android:text="@string/first_name"
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
@@ -172,7 +172,7 @@
                     android:id="@+id/rlusernamebtnid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlnameid"
+                    android:layout_below="@+id/rlstatusid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
@@ -213,12 +213,11 @@
 
                 </RelativeLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/rlstatusid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlusernamebtnid"
+                    android:layout_below="@+id/rlnameid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
@@ -235,7 +234,7 @@
                         android:layout_width="100sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15sdp"
-                        android:text="@string/status"
+                        android:text="@string/last_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:gravity="center"

@@ -108,7 +108,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                             (String) mapMessage.get("senderId"));
                     try {
 
-
                         datumList.add(chatModle);
                         unReadMsgAdapter.addmymissionData(datumList);
                         unReadMsgAdapter.notifyDataSetChanged();

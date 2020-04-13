@@ -250,6 +250,8 @@ three main needs of the student.</string>
     <string name="transaction">Transaction</string>
     <string name="kindlyreviews">Kindly put your reviews</string>
     <string name="RecordingStarted">Recording Started</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 
 
 </resources>

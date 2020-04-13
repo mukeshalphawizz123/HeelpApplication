@@ -97,6 +97,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
 
         payButton.setOnClickListener((View view) -> {
             CardMultilineWidget cardInputWidget = findViewById(R.id.cardInputWidget);
+            cardInputWidget.setPostalCodeRequired(false);
             Card card = cardInputWidget.getCard();
             if (card != null) {
                 stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());

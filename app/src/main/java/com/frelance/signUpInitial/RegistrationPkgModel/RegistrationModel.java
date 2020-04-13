@@ -1,6 +1,7 @@
 
 package com.frelance.signUpInitial.RegistrationPkgModel;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,6 +10,9 @@ public class RegistrationModel {
     @SerializedName("status")
     @Expose
     private Boolean status;
+    @SerializedName("data")
+    @Expose
+    private List<Datum> data = null;
     @SerializedName("message")
     @Expose
     private String message;
@@ -22,12 +26,14 @@ public class RegistrationModel {
 
     /**
      * 
+     * @param data
      * @param message
      * @param status
      */
-    public RegistrationModel(Boolean status, String message) {
+    public RegistrationModel(Boolean status, List<Datum> data, String message) {
         super();
         this.status = status;
+        this.data = data;
         this.message = message;
     }
 
@@ -37,6 +43,14 @@ public class RegistrationModel {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public List<Datum> getData() {
+        return data;
+    }
+
+    public void setData(List<Datum> data) {
+        this.data = data;
     }
 
     public String getMessage() {

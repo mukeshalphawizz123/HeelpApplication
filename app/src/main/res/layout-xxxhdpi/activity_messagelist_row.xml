@@ -20,9 +20,9 @@
             android:layout_marginStart="5sp"
             android:layout_marginTop="5dp"
             android:padding="3dp"
-            app:civ_border_width="@dimen/_1sdp"
+            android:src="@drawable/dummyuserimg"
             app:civ_border_color="@color/lessBlack"
-            android:src="@drawable/dummyuserimg" />
+            app:civ_border_width="@dimen/_1sdp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -44,22 +44,22 @@
                 android:id="@+id/tvUserProffesionId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/tabselected"
                 android:layout_below="@+id/tvUserNameMsgId"
                 android:text="@string/please_let_me_know"
-                android:visibility="gone"
-                android:textSize="12sp" />
+                android:textColor="@color/tabselected"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvtimeId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10sp"
-                android:textColor="@color/tabselected"
+                android:layout_marginEnd="10sp"
                 android:text="@string/today_4_12pm"
+                android:textColor="@color/tabselected"
                 android:textSize="12sp" />
 
 

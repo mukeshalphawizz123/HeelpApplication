@@ -9,4 +9,6 @@
     <string name="fb_login_protocol_scheme">fb843307129428324</string>
     <string name="transaction">Transaction</string>
     <string name="kindlyreviews">Kindly put your reviews</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>

@@ -274,6 +274,7 @@ public interface ApiServices {
     @Multipart
     @POST("Authentication/editProfile")
     Call<UpdateProfileModle> updateProfile(@Part MultipartBody.Part profile_id,
+                                           @Part MultipartBody.Part state,
                                            @Part MultipartBody.Part name,
                                            @Part MultipartBody.Part email,
                                            @Part MultipartBody.Part username,
@@ -289,6 +290,23 @@ public interface ApiServices {
                                            @Part MultipartBody.Part categroy_of_interest);
 
 
+
+    @Multipart
+    @POST("Authentication/editProfile")
+    Call<UpdateProfileModle> updateProfileWithouPassword(@Part MultipartBody.Part profile_id,
+                                           @Part MultipartBody.Part state,
+                                           @Part MultipartBody.Part name,
+                                           @Part MultipartBody.Part email,
+                                           @Part MultipartBody.Part username,
+                                           @Part MultipartBody.Part dob,
+                                           @Part MultipartBody.Part country,
+                                           @Part MultipartBody.Part picture_url,
+                                           @Part MultipartBody.Part presentation,
+                                           @Part MultipartBody.Part level_of_study,
+                                           @Part MultipartBody.Part school_college,
+                                           @Part MultipartBody.Part skill,
+                                           @Part MultipartBody.Part field_of_study,
+                                           @Part MultipartBody.Part categroy_of_interest);
 
     @Multipart
     @POST("client/addchatimage")

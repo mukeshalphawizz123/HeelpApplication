@@ -74,7 +74,7 @@
                 android:text="Items Not Found"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="normal"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -94,8 +94,8 @@
                 android:id="@+id/PbMyrequestId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

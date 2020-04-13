@@ -49,25 +49,27 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        userId = chatModleArrayList.get(position).getSenderId();
-        senderId = chatModleArrayList.get(position).getSenderId();
-        holder.tvUserNameMsg.setText(chatModleArrayList.get(position).getName());
-        holder.tvtime.setText(Constants.missionDemandDate(chatModleArrayList.get(position).getDateAndTime()));
-        if (chatModleArrayList.get(position).getImgUrl().isEmpty()) {
-        } else {
-            Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + chatModleArrayList.get(position).getImgUrl()).into(holder.ivUserMsg);
+        try {
+            userId = chatModleArrayList.get(position).getSenderId();
+            senderId = chatModleArrayList.get(position).getSenderId();
+            holder.tvUserNameMsg.setText(chatModleArrayList.get(position).getName());
+            holder.tvtime.setText(Constants.missionDemandDate(chatModleArrayList.get(position).getDateAndTime()));
+            if (chatModleArrayList.get(position).getImgUrl().isEmpty()) {
+            } else {
+                Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + chatModleArrayList.get(position).getImgUrl()).into(holder.ivUserMsg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
     public void addmymissionData(ArrayList<UnReadMessageUserModle> chatModleArrayList_) {
         this.chatModleArrayList = chatModleArrayList_;
-     /*   for (int i = 0; i < chatModleArrayList_.size(); i++) {
+       /* for (int i = 0; i < chatModleArrayList_.size(); i++) {
             String senderId = chatModleArrayList_.get(i).getSenderId();
-            for(int j=0;j<chatModleArrayListDemo.size();j++)
-            {
-                if (chatModleArrayListDemo.contains(chatModleArrayList_.get(j).getSenderId().equalsIgnoreCase(senderId)))
-                {
+            for (int j = 0; j < chatModleArrayListDemo.size(); j++) {
+                if (chatModleArrayListDemo.contains(chatModleArrayList_.get(j).getSenderId().equalsIgnoreCase(senderId))) {
 
                 }
             }

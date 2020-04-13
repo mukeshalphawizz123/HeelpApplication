@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="center"
-                        android:text="@string/name"
+                        android:text="@string/first_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -172,7 +172,7 @@
                     android:id="@+id/rlusernamebtnid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlnameid"
+                    android:layout_below="@+id/rlstatusid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
@@ -218,7 +218,7 @@
                     android:id="@+id/rlstatusid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlusernamebtnid"
+                    android:layout_below="@+id/rlnameid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="center"
-                        android:text="@string/status"
+                        android:text="@string/last_name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal" />
@@ -262,7 +262,7 @@
                     android:id="@+id/rlemailid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_below="@+id/rlstatusid"
+                    android:layout_below="@+id/rlusernamebtnid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">
