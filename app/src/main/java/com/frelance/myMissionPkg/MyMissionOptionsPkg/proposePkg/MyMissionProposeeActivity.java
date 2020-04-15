@@ -23,8 +23,8 @@ import android.widget.Toast;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.Adapter.ProposeAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
@@ -59,7 +59,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
-       // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);
@@ -130,10 +130,11 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     }
 
     @Override
-    public void mymissionpropose(View view, int position) {
+    public void mymissionpropose(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlMyMissionDiscusseDelId:
-                Intent intent = new Intent(getActivity(), ChatActivityMain.class);
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra("client_id", yourMission.getUserId());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;

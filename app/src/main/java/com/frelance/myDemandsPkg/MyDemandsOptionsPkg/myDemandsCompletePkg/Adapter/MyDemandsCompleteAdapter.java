@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 
 public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsCompleteAdapter.ViewHolder> {
-
     private Context context;
     private MyRequestCompleteAppOnClickListener myRequestCompleteAppOnClickListener;
     private ArrayList<String> filesList;
@@ -48,19 +47,16 @@ public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsComp
         notifyDataSetChanged();
     }
 
-
     @Override
     public int getItemCount() {
-        //return 0;
         return filesList == null ? 0 : filesList.size();
     }
 
-
     public interface MyRequestCompleteAppOnClickListener {
-
+        void myDemandCompleteOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RelativeLayout rlFileFolder;
         private TextView tvfilename;
 
@@ -68,6 +64,12 @@ public class MyDemandsCompleteAdapter extends RecyclerView.Adapter<MyDemandsComp
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            myRequestCompleteAppOnClickListener.myDemandCompleteOnClick(v, getAdapterPosition());
         }
     }
 }

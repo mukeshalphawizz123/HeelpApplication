@@ -17,14 +17,12 @@ import java.util.ArrayList;
 
 
 public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder> {
-
-
     private Context context;
     private LiveryAppOnClickListener liveryAppOnClickListener;
     private ArrayList<String> filesList;
 
 
-    public LiveryAdapter(Context context, MyMissionDeliveryActivity liveryAdapter) {
+    public LiveryAdapter(Context context, MyMissionDeliveryActivity liveryAppOnClickListener) {
         this.context = context;
         this.liveryAppOnClickListener = liveryAppOnClickListener;
     }
@@ -48,7 +46,6 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-
     @Override
     public int getItemCount() {
         return filesList == null ? 0 : filesList.size();
@@ -56,9 +53,10 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
 
 
     public interface LiveryAppOnClickListener {
+        void myMissDeliveryOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RelativeLayout rlFileFolder;
         private AppCompatTextView tvfilename;
 
@@ -66,7 +64,12 @@ public class LiveryAdapter extends RecyclerView.Adapter<LiveryAdapter.ViewHolder
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            liveryAppOnClickListener.myMissDeliveryOnClick(v, getAdapterPosition());
+        }
     }
 }

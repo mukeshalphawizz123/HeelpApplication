@@ -31,6 +31,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demand
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -45,7 +46,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCompleteAdapter.MyRequestCompleteAppOnClickListener, View.OnClickListener {
+public class MyDemandsCompleteeActivity extends Fragment implements
+        MyDemandsCompleteAdapter.MyRequestCompleteAppOnClickListener,
+        View.OnClickListener {
 
 
     private MyDemandsCompleteAdapter myRequestCompleteAdapter;
@@ -60,11 +63,13 @@ public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCom
     private CircleImageView ivUserDemandComp;
     private String projectId;
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_completee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         projectId = this.getArguments().getString("projectId");
         filesList = new ArrayList<>();
         init(view);
@@ -210,5 +215,14 @@ public class MyDemandsCompleteeActivity extends Fragment implements MyDemandsCom
                 pbDemandComplete.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void myDemandCompleteOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
     }
 }

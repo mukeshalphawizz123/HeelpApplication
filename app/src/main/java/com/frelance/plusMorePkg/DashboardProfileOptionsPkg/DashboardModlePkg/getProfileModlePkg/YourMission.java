@@ -143,7 +143,6 @@ public class YourMission {
     private String authToken;
 
 
-
     @SerializedName("presentation")
     @Expose
     private String presentation;
@@ -153,6 +152,20 @@ public class YourMission {
     private String Firebase_token;
 
 
+    @SerializedName("password_show")
+    @Expose
+    private String password_show;
+
+
+    public String getPassword_show() {
+        return password_show;
+    }
+
+    public void setPassword_show(String password_show) {
+        this.password_show = password_show;
+    }
+
+    //
 
     public String getPresentation() {
         return presentation;
@@ -171,16 +184,13 @@ public class YourMission {
     }
 
 
-
     /**
      * No args constructor for use in serialization
-     * 
      */
     public YourMission() {
     }
 
     /**
-     * 
      * @param profileUrl
      * @param lastName
      * @param country

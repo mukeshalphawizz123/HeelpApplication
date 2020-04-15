@@ -37,6 +37,7 @@ import com.frelance.R;
 import com.frelance.chatPkg.Adapter.ChatAdapter;
 import com.frelance.chatPkg.chatModlePkg.ChatModle;
 import com.frelance.chatPkg.chatModlePkg.Consersation;
+import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
@@ -118,6 +119,7 @@ public class ChatActivity extends AppCompatActivity implements
         user_picturUrl = AppSession.getStringPreferences(getApplicationContext(), Constants.PICTURE_URL);
 
         clientId = getIntent().getStringExtra("client_id");
+        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
         fName = getIntent().getStringExtra("firstName");
         lName = getIntent().getStringExtra("lastName");
         clientImg = getIntent().getStringExtra("clientImg");
@@ -252,6 +254,7 @@ public class ChatActivity extends AppCompatActivity implements
                 askStoragePermission();
                 break;
             case R.id.rlmessageuserprofileid:
+                AppSession.setStringPreferences(getApplicationContext(), "clientId", clientId);
                 CheckNetwork.nextScreenWithoutFinish(ChatActivity.this, ClinetProfileActivity.class);
                 break;
             case R.id.ivbackmsgId:
@@ -270,19 +273,23 @@ public class ChatActivity extends AppCompatActivity implements
                     ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message, "", "");
                     FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
                     FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
-
                     UnReadMessageUserModle unReadMessageUserModle = new UnReadMessageUserModle(clientId,
-                            firstname ,
+                            firstname,
                             user_picturUrl,
                             Constants.currentDateAndTime(),
                             userid);
-
                     if (entryFlag.equalsIgnoreCase("1")) {
                         entryFlag = "2";
                         // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").push().setValue(unReadMessageUserModle);
                         FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").push().setValue(unReadMessageUserModle);
                     }
-
+                    if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                        sendChat(clientId, content);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Check Network Connection",
+                                Toast.LENGTH_LONG).show();
+                    }
                     break;
 
                 }
@@ -350,6 +357,47 @@ public class ChatActivity extends AppCompatActivity implements
         });
 
     }
+
+
+    private void sendChat(String clientId, String msg) {
+        // CustomProgressbar.showProgressBar(this, false);
+        apiServices.send_message(clientId, msg).enqueue(new Callback<MsgSentModel>() {
+            @Override
+            public void onResponse(Call<MsgSentModel> call, Response<MsgSentModel> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    try {
+                        MsgSentModel msgSentModel = response.body();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MsgSentModel> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
 
     private void uploadImagForChat(String profilImgPath) {
         CustomProgressbar.showProgressBar(this, false);

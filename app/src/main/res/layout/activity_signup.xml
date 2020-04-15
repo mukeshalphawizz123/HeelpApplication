@@ -77,59 +77,6 @@
                         android:orientation="vertical"
                         android:padding="@dimen/_10sdp">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_25sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_25sdp">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/ivemailId"
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
-                                android:layout_centerVertical="true"
-                                android:src="@drawable/email" />
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/etemailsignupid"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@+id/ivemailId"
-                                android:background="@android:color/transparent"
-                                android:gravity="left"
-                                android:textSize="16dp"
-                                android:textStyle="normal">
-
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/tiewEmailsignupId"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10sp"
-                                    android:background="@android:color/transparent"
-                                    android:hint="@string/email"
-                                    android:inputType="text"
-                                    android:padding="4dp"
-                                    android:singleLine="true"
-                                    android:textColor="@color/Black"
-                                    android:textColorHint="@color/blue"
-                                    android:textSize="16dp" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-
-                        </RelativeLayout>
-
-                        <View
-                            android:id="@+id/ViewIdemailRe"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_below="@+id/ivemailId"
-                            android:layout_marginStart="25dp"
-                            android:layout_marginTop="5sp"
-                            android:layout_marginEnd="25dp"
-                            android:background="@color/colorAccent" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -184,6 +131,61 @@
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_25sdp"
                             android:background="@color/colorAccent" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_25sdp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivemailId"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/email" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/etemailsignupid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/ivemailId"
+                                android:background="@android:color/transparent"
+                                android:gravity="left"
+                                android:textSize="16dp"
+                                android:textStyle="normal">
+
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/tiewEmailsignupId"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10sp"
+                                    android:background="@android:color/transparent"
+                                    android:hint="@string/email"
+                                    android:inputType="text"
+                                    android:padding="4dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/Black"
+                                    android:textColorHint="@color/blue"
+                                    android:textSize="16dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:id="@+id/ViewIdemailRe"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/ivemailId"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="5sp"
+                            android:layout_marginEnd="25dp"
+                            android:background="@color/colorAccent" />
+
 
                         <RelativeLayout
                             android:layout_width="match_parent"

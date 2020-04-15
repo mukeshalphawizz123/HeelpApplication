@@ -60,6 +60,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5sp"
                     android:layout_marginEnd="15sp"
+                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="@color/lessBlack"
                     android:src="@drawable/dashboarddummyimg" />
 
                 <RelativeLayout

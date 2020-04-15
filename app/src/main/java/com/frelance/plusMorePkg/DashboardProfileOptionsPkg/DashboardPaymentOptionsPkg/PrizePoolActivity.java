@@ -2,6 +2,7 @@ package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOpti
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.CheckNetwork;
 
 public class PrizePoolActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,7 +40,6 @@ public class PrizePoolActivity extends AppCompatActivity implements View.OnClick
         ivnotificationprizepool = findViewById(R.id.ivnotificationprizepoolId);
         ivdashboardprizepooloptionback = findViewById(R.id.ivdashboardprizepooloptionbackId);
         rlsubmitbtnid = findViewById(R.id.rlsubmitbtnid);
-
         clickListenerSetup();
     }
 
@@ -63,7 +64,8 @@ public class PrizePoolActivity extends AppCompatActivity implements View.OnClick
                 CheckNetwork.nextScreenWithoutFinish(PrizePoolActivity.this, NotificationActivity.class);
                 break;
             case R.id.rlsubmitbtnid:
-                Toast.makeText(this, "under development", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PrizePoolActivity.this, CheckoutActivityJava.class);
+                startActivity(intent);
                 break;
 
         }

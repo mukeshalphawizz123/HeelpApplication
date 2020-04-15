@@ -119,7 +119,7 @@
                     android:layout_centerVertical="true"
                     app:civ_border_color="@color/lessBlack"
                     app:civ_border_width="@dimen/_1sdp"
-                    android:src="@drawable/circleimg" />
+                    android:src="@drawable/dashboarddummyimg" />
             </RelativeLayout>
 
             <RelativeLayout

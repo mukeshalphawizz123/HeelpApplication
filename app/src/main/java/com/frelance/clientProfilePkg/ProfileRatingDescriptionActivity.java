@@ -92,9 +92,13 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                             tvReveiw.setVisibility(View.GONE);
                             tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
                             rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
-                            Picasso.with(getApplicationContext())
-                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
-                                    .into(ivuserprofileimage);
+                            if (getUserReviewsModel.getUserDetail().getPictureUrl().isEmpty()) {
+
+                            } else {
+                                Picasso.with(getApplicationContext())
+                                        .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
+                                        .into(ivuserprofileimage);
+                            }
                             getuserreview = getUserReviewsModel.getReviews();
                             profileRatingAdapter.getuserreview(getuserreview);
 

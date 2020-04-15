@@ -23,7 +23,7 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
     private ArrayList<String> filesList;
 
 
-    public OngoingAdapter(Context context, MyMissionOngoingActivity ongoingAdapter) {
+    public OngoingAdapter(Context context, MyMissionOngoingActivity ongoingAppOnClickListener) {
         this.context = context;
         this.ongoingAppOnClickListener = ongoingAppOnClickListener;
     }
@@ -48,18 +48,17 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
     }
 
 
-
     @Override
     public int getItemCount() {
-        //return 0;
         return filesList == null ? 0 : filesList.size();
     }
 
 
     public interface OngoingAppOnClickListener {
+        void myMissOnGoingOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         AppCompatTextView tvfilename;
 
@@ -67,6 +66,12 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ongoingAppOnClickListener.myMissOnGoingOnClick(v, getAdapterPosition());
         }
     }
 }

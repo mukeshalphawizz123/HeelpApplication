@@ -31,6 +31,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandPr
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -45,7 +46,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyDemandsOngoingActivity extends Fragment implements MyDemandOngoingAdapter.MyRequestOngoingAppOnClickListener, View.OnClickListener {
+public class MyDemandsOngoingActivity extends Fragment
+        implements MyDemandOngoingAdapter.MyRequestOngoingAppOnClickListener,
+        View.OnClickListener {
 
     private MyDemandOngoingAdapter myDemandOngoingAdapter;
     private RecyclerView rvmyreqongoingfileupload;
@@ -59,10 +62,12 @@ public class MyDemandsOngoingActivity extends Fragment implements MyDemandOngoin
     private CircleImageView ivUserProgDemain;
     private String projectId;
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         filesList = new ArrayList<>();
         try {
             projectId = this.getArguments().getString("projectId");
@@ -105,7 +110,7 @@ public class MyDemandsOngoingActivity extends Fragment implements MyDemandOngoin
         rlreqongoingviewdetails.setOnClickListener(this);
 
         rvmyreqongoingfileupload = view.findViewById(R.id.rvmyreqongoingfileuploadid);
-        LinearLayoutManager  layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rvmyreqongoingfileupload.setLayoutManager(layoutManager);
         myDemandOngoingAdapter = new MyDemandOngoingAdapter(getActivity(), this);
         rvmyreqongoingfileupload.setAdapter(myDemandOngoingAdapter);
@@ -225,5 +230,14 @@ public class MyDemandsOngoingActivity extends Fragment implements MyDemandOngoin
                 pbDemandProgress.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void myDemandOnGoingOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
     }
 }

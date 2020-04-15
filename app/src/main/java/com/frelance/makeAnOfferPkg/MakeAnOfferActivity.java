@@ -98,6 +98,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         rvfileuploadoffer.setLayoutManager(layoutManager);
         makeanOfferAdapter = new MakeanOfferAdapter(getApplicationContext(), this);
         rvfileuploadoffer.setAdapter(makeanOfferAdapter);
+        radioid.setChecked(true);
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -105,6 +106,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radiogreenid.setChecked(false);
                     status = "1";
                     offerPrice = etbudget.getText().toString();
+                   // etMakeOfferAmount.setFocusable(false);
 
                     //  Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
@@ -117,6 +119,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radioid.setChecked(false);
                     status = "2";
                     offerPrice = etMakeOfferAmount.getText().toString();
+                  //  etMakeOfferAmount.setFocusable(true);
                     // Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
             }

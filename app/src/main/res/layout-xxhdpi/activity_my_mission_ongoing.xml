@@ -177,7 +177,7 @@
                             android:layout_height="60sp"
                             app:civ_border_color="@color/lessBlack"
                             app:civ_border_width="@dimen/_1sdp"
-                            android:src="@drawable/dummyuserimg" />
+                            android:src="@drawable/dashboarddummyimg" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvUserNameInProgMissionId"
@@ -215,7 +215,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvtextidd"
-                            android:text="I finished it"
                             android:textColor="@color/Black"
                             android:textSize="@dimen/_11sdp"
                             android:textStyle="normal" />

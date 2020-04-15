@@ -1,14 +1,11 @@
 package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,13 +17,8 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.InboxListPkg.MessageListAdapterPkg.UnReadMsgAdapter;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 import com.frelance.InboxListPkg.MessageListAdapterPkg.MessageToutAdapter;
-import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
-import com.frelance.InboxListPkg.msgModlePkg.Datum;
 import com.frelance.chatPkg.ChatActivity;
-import com.frelance.chatPkg.chatModlePkg.ChatModle;
-import com.frelance.chatPkg.chatModlePkg.Consersation;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.UnReadMsgConsersation;
 import com.frelance.utility.AppSession;
@@ -37,19 +29,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.MessageToutAppOnClickListener {
     private RecyclerView rvmsglist;

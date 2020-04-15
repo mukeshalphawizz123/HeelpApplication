@@ -49,6 +49,7 @@ import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -63,7 +64,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLiveryAdapter.MyRequestLiveryAppOnClickListener, View.OnClickListener {
+public class MyDemandsDeliveryActivity extends Fragment
+        implements MyDemandsLiveryAdapter.MyRequestLiveryAppOnClickListener,
+        View.OnClickListener {
 
     private MyDemandsLiveryAdapter myRequestLiveryAdapter;
     private RecyclerView rvmyreqliveryfileupload;
@@ -81,10 +84,12 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     private CheckBox radiogray;
     private RelativeLayout rlliverymodificationbtnbtn, rlpaymentbtn;
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_livery, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         projectId = this.getArguments().getString("projectId");
         clientId = AppSession.getStringPreferences(getActivity(), "clientId");
         userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
@@ -419,4 +424,12 @@ public class MyDemandsDeliveryActivity extends Fragment implements MyDemandsLive
     }
 
 
+    @Override
+    public void myDemandDeliveryOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
+    }
 }

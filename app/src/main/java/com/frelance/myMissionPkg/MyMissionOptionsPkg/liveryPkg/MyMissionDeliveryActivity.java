@@ -31,6 +31,7 @@ import com.frelance.myMissionPkg.MyMissionOptionsPkg.liveryPkg.Adapter.LiveryAda
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -44,7 +45,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter.LiveryAppOnClickListener, View.OnClickListener {
+public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter.LiveryAppOnClickListener,
+        View.OnClickListener {
 
     private LiveryAdapter liveryAdapter;
     private RecyclerView rvLiveryfileupload;
@@ -57,11 +59,13 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private AppCompatTextView tvUserNameMyMissionDelivery, tvCommentMyMissionDelivery;
     private CircleImageView ivUserMyMissionDelivery;
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_livery, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
         filesList = new ArrayList<>();
         // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
@@ -224,4 +228,12 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     }
 
 
+    @Override
+    public void myMissDeliveryOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
+    }
 }

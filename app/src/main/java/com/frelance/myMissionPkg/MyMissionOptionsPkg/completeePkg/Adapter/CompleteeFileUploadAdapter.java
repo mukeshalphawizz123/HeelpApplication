@@ -23,7 +23,7 @@ public class CompleteeFileUploadAdapter extends RecyclerView.Adapter<CompleteeFi
     private ArrayList<String> filesList;
 
 
-    public CompleteeFileUploadAdapter(Context context, MyMissionCompleteActivity completeeFileUploadAdapter) {
+    public CompleteeFileUploadAdapter(Context context, MyMissionCompleteActivity completeeFileUploadAppOnClickListener) {
         this.context = context;
         this.completeeFileUploadAppOnClickListener = completeeFileUploadAppOnClickListener;
     }
@@ -50,15 +50,15 @@ public class CompleteeFileUploadAdapter extends RecyclerView.Adapter<CompleteeFi
 
     @Override
     public int getItemCount() {
-        //return 0;
         return filesList == null ? 0 : filesList.size();
     }
 
 
     public interface CompleteeFileUploadAppOnClickListener {
+        void myMissCompleteOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         AppCompatTextView tvfilename;
 
@@ -66,6 +66,12 @@ public class CompleteeFileUploadAdapter extends RecyclerView.Adapter<CompleteeFi
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            completeeFileUploadAppOnClickListener.myMissCompleteOnClick(v, getAdapterPosition());
         }
     }
 }

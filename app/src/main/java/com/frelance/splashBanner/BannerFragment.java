@@ -60,7 +60,7 @@ public class BannerFragment extends AppCompatActivity implements View.OnClickLis
         ivbackarrow = findViewById(R.id.ivbackarrowid);
         ivnextpasser.setOnClickListener(this);
         rlCestParti.setOnClickListener(this);
-        ivbackarrow.setOnClickListener(this);
+      //  ivbackarrow.setOnClickListener(this);
         bannerAdapter = new BannerAdapter(getApplicationContext(), sliderImg);
         vpFirstBanner.setAdapter(bannerAdapter);
         tlFirstBanner.setupWithViewPager(vpFirstBanner);

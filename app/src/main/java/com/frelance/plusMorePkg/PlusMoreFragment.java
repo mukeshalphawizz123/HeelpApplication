@@ -94,6 +94,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         prefData = new PrefData(getActivity());
 
@@ -114,7 +115,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         tvname = view.findViewById(R.id.tvnameid);
         ivuserprofileimage = view.findViewById(R.id.ivuserprofileimageId);
         IvUserProfilesettings.setOnClickListener(this);
-
+        IvUserProfilesettings.setVisibility(View.INVISIBLE);
         IvUserProfileNotifi = view.findViewById(R.id.IvUserProfileNotifiId);
         IvUserProfileNotifi.setOnClickListener(this);
 
@@ -347,7 +348,12 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
 
                         donutprogress.setCurrentProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()));
                         donutprogress.setProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()), 5);
-                        tvRatingCountPlusMore.setText(yourMissionList.get(0).getProfileRate());
+                        //tvRatingCountPlusMore.setText(yourMissionList.get(0).getProfileRate());
+                        if (missionlist.getRating().isEmpty()) {
+                            tvRatingCountPlusMore.setText("0");
+                        } else {
+                            tvRatingCountPlusMore.setText(missionlist.getRating());
+                        }
 
                     }
 

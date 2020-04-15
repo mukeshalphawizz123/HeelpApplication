@@ -80,13 +80,14 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public RelativeLayout rlaccept, rldiscuteridd;
+        public RelativeLayout rlaccept, rldiscuteridd, rluserprofile;
         public AppCompatImageView ivmymission;
         private AppCompatTextView tvNoteBudgetsRow, tvDesBudgetsRow, tvDaysNotesRow;
         private RatingBar ratingpubished;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            rluserprofile = itemView.findViewById(R.id.rluserprofileid);
             rlaccept = itemView.findViewById(R.id.rlacceptid);
             rldiscuteridd = itemView.findViewById(R.id.rldiscuteridd);
             ivmymission = itemView.findViewById(R.id.ivmymissionid);
@@ -97,6 +98,7 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
             rlaccept.setOnClickListener(this);
             ivmymission.setOnClickListener(this);
             rldiscuteridd.setOnClickListener(this);
+            rluserprofile.setOnClickListener(this);
         }
 
         @Override

@@ -2,7 +2,6 @@ package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 
 import com.frelance.InboxListPkg.MessageListAdapterPkg.MessageToutAdapter;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;

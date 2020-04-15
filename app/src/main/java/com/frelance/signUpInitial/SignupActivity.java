@@ -2,6 +2,7 @@ package com.frelance.signUpInitial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -76,6 +78,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private CallbackManager callbackManager;
     private GoogleSignInClient googleSignInClient;
     private String token;
+    private AppCompatCheckBox radio;
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +89,27 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         Window window = getWindow();
         StatusBarManagment.hideShowStatusBar(getApplicationContext(), window);
         init();
+
+
+        radio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    flag = "true";
+                } else {
+                    flag = "false";
+                }
+            }
+        });
+
+        if (!radio.isChecked()) {
+            flag = "false";
+        }
+
     }
 
     private void init() {
+        radio = findViewById(R.id.radioid);
         rlFacbookLogin = findViewById(R.id.rlFacbookLoginId);
         rlFacbookLogin.setOnClickListener(this);
         tiewEmailsignupId = findViewById(R.id.tiewEmailsignupId);
@@ -192,7 +214,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void validation(View v) {
-        if (tiewEmailsignupId.getText().toString().isEmpty()) {
+        if (tiewUsernameId.getText().toString().isEmpty()) {
+            new CustomToast().Show_Toast(this, v, "UserName Can't Empty");
+            viewUserId.startAnimation(shakeAnimation);
+            viewUserId.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        } else if (tiewEmailsignupId.getText().toString().isEmpty()) {
             new CustomToast().Show_Toast(this, v, "Email Can't Empty");
             ViewIdemailRe.startAnimation(shakeAnimation);
             ViewIdemailRe.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
@@ -200,12 +226,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             new CustomToast().Show_Toast(getApplicationContext(), v, "Invalid Email");
             ViewIdemailRe.startAnimation(shakeAnimation);
             ViewIdemailRe.getBackground().mutate().setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-        } else if (tiewUsernameId.getText().toString().isEmpty()) {
-            new CustomToast().Show_Toast(this, v, "UserName Can't Empty");
-            viewUserId.startAnimation(shakeAnimation);
-            viewUserId.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         } else if (tiewPasswordId.getText().toString().isEmpty()) {
             new CustomToast().Show_Toast(this, v, "Password Can't Empty");
+            viewPasswordId.startAnimation(shakeAnimation);
+            viewPasswordId.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        } else if (tiewPasswordId.getText().toString().length() < 6) {
+            new CustomToast().Show_Toast(this, v, "Password must contains at least 6 characters");
             viewPasswordId.startAnimation(shakeAnimation);
             viewPasswordId.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         } else if (tiewcomfirmPasswordId.getText().toString().isEmpty()) {
@@ -234,6 +260,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     CustomProgressbar.hideProgressBar();
                     RegistrationModel getLoginModle = response.body();
                     if (getLoginModle.getStatus()) {
+                        if (flag.equalsIgnoreCase("false")) {
+                            AppSession.setStringPreferences(SignupActivity.this, "status", "");
+                        } else {
+                            AppSession.setStringPreferences(SignupActivity.this, "status", "auth");
+                        }
                         AppSession.setStringPreferences(SignupActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
                         AppSession.setStringPreferences(SignupActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
                         AppSession.setStringPreferences(SignupActivity.this, Constants.EMAIL, getLoginModle.getData().get(0).getEmail());

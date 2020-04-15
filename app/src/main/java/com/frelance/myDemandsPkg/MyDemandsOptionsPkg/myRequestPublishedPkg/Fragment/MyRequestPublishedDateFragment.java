@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;

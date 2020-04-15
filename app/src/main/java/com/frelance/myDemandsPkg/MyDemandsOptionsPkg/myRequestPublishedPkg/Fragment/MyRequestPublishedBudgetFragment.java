@@ -2,6 +2,7 @@ package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Frag
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
@@ -56,6 +56,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDemandsNotes(projectId);
+
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -81,7 +82,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                 break;
             case R.id.rldiscuteridd:
                 Intent intent1 = new Intent(getActivity(), ChatActivity.class);
-                intent1.putExtra("client_id",yourMission.getUserId());
+                intent1.putExtra("client_id", yourMission.getUserId());
                 startActivity(intent1);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
@@ -104,6 +105,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                     DemandInProgressModle requestlist = response.body();
                     if (requestlist.getStatus()) {
                         yourMissionList = requestlist.getYourMissions();
+                        Log.v("testing", yourMissionList.get(0).getPicture_url());
                         myRequestPublishedNoteAdapter.addmyDemandsData(yourMissionList);
                     } else {
 

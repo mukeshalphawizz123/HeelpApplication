@@ -150,7 +150,7 @@
                         android:layout_height="60sp"
                         app:civ_border_color="@color/lessBlack"
                         app:civ_border_width="@dimen/_1sdp"
-                        android:src="@drawable/dummyuserimg" />
+                        android:src="@drawable/dashboarddummyimg" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvUserDemandDelyId"

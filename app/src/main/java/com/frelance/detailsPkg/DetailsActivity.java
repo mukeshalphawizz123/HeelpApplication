@@ -2,13 +2,23 @@ package com.frelance.detailsPkg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +37,17 @@ import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.FileDownloading;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +66,13 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
     private AppCompatTextView etdescription, ettitletext, etbudget;
     private ArrayList<String> filesList;
 
+    FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_details, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         filesList = new ArrayList<>();
+        fileDownloading = new FileDownloading(getActivity());
         try {
             missionId = this.getArguments().getString("missionId");
         } catch (NullPointerException e) {
@@ -206,7 +224,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                         try {
                             yourMissionList = missionViewDetailModle.getYourMissions();
                             etdescription.setText(yourMissionList.get(0).getMissionDescription());
-                            ettitletext.setText(yourMissionList.get(0).getCategoryTitle());
+                            ettitletext.setText(yourMissionList.get(0).getMission_title());
                             etbudget.setText(yourMissionList.get(0).getMissionBudget());
 
                             if (yourMissionList.get(0).getImage().isEmpty()) {
@@ -264,6 +282,14 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
     @Override
     public void myDetailsTabClick(View view, int position) {
-
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
     }
+
+
+
+
 }

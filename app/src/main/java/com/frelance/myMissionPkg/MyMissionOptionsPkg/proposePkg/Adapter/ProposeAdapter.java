@@ -15,6 +15,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.YourMission;
+import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,14 +46,13 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
         holder.tvMyMissionDelTitle.setText(yourMissionList.get(position).getMissionTitle());
         holder.tvMyMissionDesDel.setText(yourMissionList.get(position).getMessage());
         holder.tvOfferValueDel.setText(yourMissionList.get(position).getMissionBudget());
-        holder.tvMyMissionDaysDel.setText(yourMissionList.get(position).getCreatedDate());
+        holder.tvMyMissionDaysDel.setText(Constants.parseDateToddMMyyyy(yourMissionList.get(position).getCreatedDate()));
         Picasso.with(context).load(RetrofitClient.MISSION_IMAGE_URL + yourMissionList.get(position).getMissionImage()).into(holder.ivMymissionDel);
-
     }
 
 
     public interface ProposeAppOnClickListener {
-        void mymissionpropose(View view, int position);
+        void mymissionpropose(View view, int position, YourMission yourMission);
     }
 
 
@@ -86,7 +86,7 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            proposeAppOnClickListener.mymissionpropose(v, getAdapterPosition());
+            proposeAppOnClickListener.mymissionpropose(v, getAdapterPosition(), yourMissionList.get(getAdapterPosition()));
 
         }
     }

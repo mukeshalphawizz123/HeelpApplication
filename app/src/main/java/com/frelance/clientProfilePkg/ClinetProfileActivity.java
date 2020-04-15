@@ -16,7 +16,6 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
 
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
@@ -64,41 +63,45 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
 
     private void init() {
 
-        rbhelperprofile = findViewById(R.id.rbhelperprofileId);
-        tvRatingCountPlusMore = findViewById(R.id.tvRatingCountPlusMoreId);
-        tvname = findViewById(R.id.tvnameid);
-        tvdesination = findViewById(R.id.tvdesinationid);
-        tvpresentation = findViewById(R.id.tvpresentationidd);
-        tvlevelofstudyy = findViewById(R.id.tvlevelofstudyyid);
-        tvfiledofstudyy = findViewById(R.id.tvfiledofstudyyid);
-        tvunivercityy = findViewById(R.id.tvunivercityyid);
-        tvcategoriess = findViewById(R.id.tvcategoriessid);
-        tvcompetencesss = findViewById(R.id.tvcompetencesssid);
-        ivuserprofileimage = findViewById(R.id.ivuserprofileimageId);
+        try {
+            rbhelperprofile = findViewById(R.id.rbhelperprofileId);
+            tvRatingCountPlusMore = findViewById(R.id.tvRatingCountPlusMoreId);
+            tvname = findViewById(R.id.tvnameid);
+            tvdesination = findViewById(R.id.tvdesinationid);
+            tvpresentation = findViewById(R.id.tvpresentationidd);
+            tvlevelofstudyy = findViewById(R.id.tvlevelofstudyyid);
+            tvfiledofstudyy = findViewById(R.id.tvfiledofstudyyid);
+            tvunivercityy = findViewById(R.id.tvunivercityyid);
+            tvcategoriess = findViewById(R.id.tvcategoriessid);
+            tvcompetencesss = findViewById(R.id.tvcompetencesssid);
+            ivuserprofileimage = findViewById(R.id.ivuserprofileimageId);
 
 
-        ivnotificationuserprofile = findViewById(R.id.ivnotificationuserprofileId);
-        ivnotificationuserprofile.setOnClickListener(this);
+            ivnotificationuserprofile = findViewById(R.id.ivnotificationuserprofileId);
+            ivnotificationuserprofile.setOnClickListener(this);
 
-        ivbackproffilemsg = findViewById(R.id.ivbackproffilemsgId);
-        ivbackproffilemsg.setOnClickListener(this);
+            ivbackproffilemsg = findViewById(R.id.ivbackproffilemsgId);
+            ivbackproffilemsg.setOnClickListener(this);
 
-        rlcircleprrogressbar = findViewById(R.id.rlcircleprrogressbarid);
-        rldiscuss = findViewById(R.id.rldiscussid);
-        rldiscuss.setOnClickListener(this);
-        rlcircleprrogressbar.setOnClickListener(this);
+            rlcircleprrogressbar = findViewById(R.id.rlcircleprrogressbarid);
+            rldiscuss = findViewById(R.id.rldiscussid);
+            rldiscuss.setOnClickListener(this);
+            rlcircleprrogressbar.setOnClickListener(this);
 
-        donutprogress = findViewById(R.id.donutprogressid);
+            donutprogress = findViewById(R.id.donutprogressid);
 
 // you can set max and current progress values individually
-        donutprogress.setMaxProgress(5);
-        //  donutprogress.setCurrentProgress(4.3);
+            donutprogress.setMaxProgress(5);
+            //  donutprogress.setCurrentProgress(4.3);
 // or all at once
-        //   donutprogress.setProgress(4.3, 5);
+            //   donutprogress.setProgress(4.3, 5);
 
 // you can get progress values using following getters
-        donutprogress.getProgress(); // returns 4
-        donutprogress.getMaxProgress();// returns 5
+            donutprogress.getProgress(); // returns 4
+            donutprogress.getMaxProgress();// returns 5
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -110,7 +113,8 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                 startActivity(intent);
                 break;
             case R.id.rldiscussid:
-                CheckNetwork.nextScreenWithoutFinish(ClinetProfileActivity.this, ChatActivityMain.class);
+                CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
+                //  CheckNetwork.nextScreenWithoutFinish(ClinetProfileActivity.this, ChatActivityMain.class);
                 break;
             case R.id.ivbackproffilemsgId:
                 CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
@@ -128,34 +132,41 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<GetProfileModle> call, Response<GetProfileModle> response) {
                 if (response.isSuccessful()) {
-                    CustomProgressbar.hideProgressBar();
-                    GetProfileModle missionlist = response.body();
-                    if (missionlist.getStatus() == true) {
-                        clientDetailList = missionlist.getYourMissions();
-                        tvname.setText(clientDetailList.get(0).getFirstName() + " " + clientDetailList.get(0).getUsername());
-                        // tvdesination.setText(clientDetailList.get(0).getSkills());
-                        if (clientDetailList.get(0).getPictureUrl().isEmpty()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        GetProfileModle missionlist = response.body();
+                        if (missionlist.getStatus() == true) {
+                            clientDetailList = missionlist.getYourMissions();
+                           // Toast.makeText(getApplicationContext(), clientDetailList.get(0).getUsername(), Toast.LENGTH_LONG).show();
+                            tvname.setText(clientDetailList.get(0).getUsername());
+                            // tvdesination.setText(clientDetailList.get(0).getSkills());
+                            if (clientDetailList.get(0).getPictureUrl().isEmpty()) {
 
-                        } else {
-                            Picasso.with(getApplicationContext()).load(RetrofitClient.MISSION_USER_IMAGE_URL + clientDetailList
-                                    .get(0).getPictureUrl()).into(ivuserprofileimage);
-                        }
+                            } else {
+                                Picasso.with(getApplicationContext()).load(RetrofitClient.MISSION_USER_IMAGE_URL + clientDetailList
+                                        .get(0).getPictureUrl()).into(ivuserprofileimage);
+                            }
 
+                            tvdesination.setText(clientDetailList.get(0).getSkills());
+                            tvpresentation.setText(clientDetailList.get(0).getPresentation());
+                            tvlevelofstudyy.setText(clientDetailList.get(0).getLevelOfStudy());
+                            tvfiledofstudyy.setText(clientDetailList.get(0).getFieldOfStudy());
+                            tvunivercityy.setText(clientDetailList.get(0).getUniversity());
+                            tvcategoriess.setText(clientDetailList.get(0).getIntrestedCategory());
+                            tvcompetencesss.setText(clientDetailList.get(0).getSkills());
 
-                        tvdesination.setText(clientDetailList.get(0).getSkills());
-                        tvpresentation.setText(clientDetailList.get(0).getPresentation());
-                        tvlevelofstudyy.setText(clientDetailList.get(0).getLevelOfStudy());
-                        tvfiledofstudyy.setText(clientDetailList.get(0).getFieldOfStudy());
-                        tvunivercityy.setText(clientDetailList.get(0).getUniversity());
-                        tvcategoriess.setText(clientDetailList.get(0).getIntrestedCategory());
-                        tvcompetencesss.setText(clientDetailList.get(0).getSkills());
-
-                        donutprogress.setCurrentProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()));
+                            if (clientDetailList.get(0).getProfileRate().isEmpty()) {
+                            } else {
+                                donutprogress.setCurrentProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()));
+                            }
 // or all at once
-                        donutprogress.setProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()), 5);
-                        rbhelperprofile.setRating(Float.parseFloat(clientDetailList.get(0).getProfileRate()));
-                        tvRatingCountPlusMore.setText(clientDetailList.get(0).getProfileRate());
+                            donutprogress.setProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()), 5);
+                            rbhelperprofile.setRating(Float.parseFloat(clientDetailList.get(0).getProfileRate()));
+                            tvRatingCountPlusMore.setText(clientDetailList.get(0).getProfileRate());
 
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } else {

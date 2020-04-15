@@ -113,7 +113,7 @@ three main needs of the student.</string>
     <string name="project_of_user_name_of_byer_seller">Project of : user name of byer/seller</string>
     <string name="_100">100$</string>
     <string name="messenger">Messenger</string>
-    <string name="zeeshan">Zeeshan</string>
+    <string name="zeeshan">Name</string>
     <string name="type_a_message">Type a Message..</string>
     <string name="freelance_designer">Freelance Designer</string>
     <string name="donn_es_personnelles">Personal data :</string>
@@ -143,7 +143,7 @@ three main needs of the student.</string>
     <string name="view_details">View Details</string>
     <string name="complete">Complete</string>
     <string name="my_comment">My comment :</string>
-    <string name="i_finished_it">I finished it</string>
+    <string name="i_finished_it"></string>
     <string name="open_litigation">Open litigation</string>
     <string name="delivered">Delivered</string>
     <string name="waiting_for_payment">Waiting for payment</string>
@@ -164,7 +164,7 @@ three main needs of the student.</string>
     <string name="accept_offer">Accept offer</string>
     <string name="he_need_help">He need help</string>
     <string name="mon_01_nov_2019">Mon,01 Nov 2019</string>
-    <string name="by_zeeshan_akhter">By:Zeeshan Akhter</string>
+    <string name="by_zeeshan_akhter"></string>
     <string name="chemistry">Chemistry</string>
     <string name="task_that_i_have_bid_on_title_blablablablablablabla">Task that i have bid on title blablablablablablabla</string>
     <string name="notiifcation">Notifications</string>
@@ -172,10 +172,10 @@ three main needs of the student.</string>
     <string name="payment">Payment</string>
     <string name="successfully">successfully !</string>
     <string name="dashboard">Dashboard</string>
-    <string name="zeeshan_akhtar">Zeeshan Akhtar</string>
-    <string name="ui_ux_designer">UI/UX Designer</string>
+    <string name="zeeshan_akhtar"></string>
+    <string name="ui_ux_designer"></string>
     <string name="support">Support</string>
-    <string name="mr_smith">Mr. Smith</string>
+    <string name="mr_smith"></string>
     <string name="debra_martin">Debra Martin</string>
     <string name="june_2018">June 2018</string>
     <string name="_4_8">4.8</string>

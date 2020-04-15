@@ -52,7 +52,7 @@
                     android:layout_marginLeft="@dimen/_75sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:padding="@dimen/_3sdp"
-                    android:src="@drawable/dummyuserimg"
+                    android:src="@drawable/dashboarddummyimg"
                     app:civ_border_color="@color/lessBlack"
                     app:civ_border_width="@dimen/_1sdp" />
 
@@ -68,7 +68,6 @@
                         android:id="@+id/tvUserNameMsgId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/zeeshan"
                         android:textColor="@color/bluee"
                         android:textSize="@dimen/_12sdp" />
 
@@ -77,7 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvUserNameMsgId"
-                        android:text="@string/freelance_designer"
                         android:textSize="@dimen/_11sdp" />
 
 

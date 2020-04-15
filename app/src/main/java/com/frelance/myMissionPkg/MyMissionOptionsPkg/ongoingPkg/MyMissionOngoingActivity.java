@@ -53,6 +53,7 @@ import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.FileDownloading;
 import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
@@ -112,10 +113,12 @@ public class MyMissionOngoingActivity extends Fragment implements
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
     private ArrayList<String> filesList;
     private OngoingAdapter ongoingAdapter;
+    private FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         filesList = new ArrayList<>();
@@ -554,6 +557,15 @@ public class MyMissionOngoingActivity extends Fragment implements
         for (int i = 0; i < uriList.size(); i++) {
             profilImgPath = getRealPathFromURI(getActivity(), uriList.get(i));
             stringArrayList.add(profilImgPath);
+        }
+    }
+
+    @Override
+    public void myMissOnGoingOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
         }
     }
 }

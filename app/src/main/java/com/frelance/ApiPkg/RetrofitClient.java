@@ -1,6 +1,9 @@
 package com.frelance.ApiPkg;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -10,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     /*https://alphawizz.com/Freelance/Api_controllers*/
+    public static final String DOWNLOAD_URL = "http://alphawizz.com/Freelance/uploads/demands_documents/";
     private static final String BASE_URL = "https://alphawizz.com/Freelance/Api_controllers/";
     public static final String IMAGE_URL = "https://alphawizz.com/Freelance/uploads/project_image/";
     public static final String MISSION_IMAGE_URL = "https://alphawizz.com/Freelance/uploads/mission/";
@@ -19,6 +23,10 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
+
+      /*  Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();*/
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30000, TimeUnit.SECONDS)
@@ -32,6 +40,8 @@ public class RetrofitClient {
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+
+            /*  .addConverterFactory(GsonConverterFactory.create())*/
         }
         return retrofit;
     }

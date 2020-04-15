@@ -23,7 +23,7 @@ public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLivery
     private ArrayList<String> filesList;
 
 
-    public MyDemandsLiveryAdapter(Context context, MyDemandsDeliveryActivity myRequestLiveryAdapter) {
+    public MyDemandsLiveryAdapter(Context context, MyDemandsDeliveryActivity myRequestLiveryAppOnClickListener) {
         this.context = context;
         this.myRequestLiveryAppOnClickListener = myRequestLiveryAppOnClickListener;
     }
@@ -43,7 +43,6 @@ public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLivery
     }
 
 
-
     public void addDeliveryDemandsFiles(ArrayList<String> filesList) {
         this.filesList = filesList;
         notifyDataSetChanged();
@@ -57,9 +56,10 @@ public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLivery
     }
 
     public interface MyRequestLiveryAppOnClickListener {
+        void myDemandDeliveryOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         private AppCompatTextView tvfilename;
 
@@ -67,6 +67,12 @@ public class MyDemandsLiveryAdapter extends RecyclerView.Adapter<MyDemandsLivery
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            myRequestLiveryAppOnClickListener.myDemandDeliveryOnClick(v, getAdapterPosition());
         }
     }
 }

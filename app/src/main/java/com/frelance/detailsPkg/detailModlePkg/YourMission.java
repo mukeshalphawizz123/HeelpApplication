@@ -12,6 +12,7 @@ public class YourMission {
     @SerializedName("mission_description")
     @Expose
     private String missionDescription;
+
     @SerializedName("mission_status")
     @Expose
     private String missionStatus;
@@ -38,6 +39,20 @@ public class YourMission {
     @SerializedName("file")
     @Expose
     private String file;
+
+
+    @SerializedName("mission_title")
+    @Expose
+    private String mission_title;
+
+
+    public String getMission_title() {
+        return mission_title;
+    }
+
+    public void setMission_title(String mission_title) {
+        this.mission_title = mission_title;
+    }
 
 
     public String getImage() {

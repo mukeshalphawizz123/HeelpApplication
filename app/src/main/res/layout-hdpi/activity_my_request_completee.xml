@@ -151,14 +151,13 @@
                         android:layout_marginStart="15sp">
 
 
-
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivUserDemandCompId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
-                            app:civ_border_width="@dimen/_1sdp"
+                            android:src="@drawable/dashboarddummyimg"
                             app:civ_border_color="@color/lessBlack"
-                            android:src="@drawable/dummyuserimg" />
+                            app:civ_border_width="@dimen/_1sdp" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvUserDemandCompId"
@@ -215,11 +214,11 @@
                     android:layout_below="@+id/rlcomleteebackgroundid">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
                         android:id="@+id/rvmyreqcompletefileuploadid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:nestedScrollingEnabled="false" />
 
 
@@ -232,17 +231,17 @@
         </ScrollView>
 
         <RelativeLayout
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
 
             <ProgressBar
-                android:visibility="invisible"
                 android:id="@+id/pbDemandCompleteId"
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
 
         </RelativeLayout>
     </RelativeLayout>

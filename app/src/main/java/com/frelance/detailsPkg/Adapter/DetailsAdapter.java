@@ -20,7 +20,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     private DetailsAppOnClickLister detailsAppOnClickLister;
     private ArrayList<String> filesList;
 
-    public DetailsAdapter(Context context, DetailsActivity detailsAdapter) {
+    public DetailsAdapter(Context context, DetailsActivity detailsAppOnClickLister) {
         this.context = context;
         this.detailsAppOnClickLister = detailsAppOnClickLister;
     }
@@ -46,7 +46,6 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     }
 
 
-
     @Override
     public int getItemCount() {
         //return 0;
@@ -57,7 +56,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
         void myDetailsTabClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         AppCompatTextView tvfilename;
 
@@ -65,6 +64,12 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            detailsAppOnClickLister.myDetailsTabClick(v, getAdapterPosition());
         }
     }
 }

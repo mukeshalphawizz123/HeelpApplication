@@ -52,22 +52,29 @@ public class MyDemandOngoingAdapter extends RecyclerView.Adapter<MyDemandOngoing
 
     @Override
     public int getItemCount() {
-        //return 0;
         return filesList == null ? 0 : filesList.size();
     }
 
 
     public interface MyRequestOngoingAppOnClickListener {
+        void myDemandOnGoingOnClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         TextView tvfilename;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rlFileFolder=itemView.findViewById(R.id.rlFileFolderId);
-            tvfilename=itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
+            tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            myRequestOngoingAppOnClickListener.myDemandOnGoingOnClick(v, getAdapterPosition());
         }
     }
 }

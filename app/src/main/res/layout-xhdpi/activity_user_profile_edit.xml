@@ -61,7 +61,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5sp"
                     android:layout_marginEnd="15sp"
+                    app:civ_border_color="@color/lessBlack"
+                    app:civ_border_width="@dimen/_1sdp"
                     android:src="@drawable/dashboarddummyimg" />
+
 
 
                 <androidx.appcompat.widget.AppCompatImageView

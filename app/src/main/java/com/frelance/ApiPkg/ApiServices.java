@@ -2,6 +2,7 @@ package com.frelance.ApiPkg;
 
 
 import com.frelance.SetLangPkg.SetLangmodel;
+import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
 import com.frelance.detailsPkg.detailModlePkg.MissionViewDetailModle;
@@ -83,7 +84,6 @@ public interface ApiServices {
 /*    @GET("Client/findMissionList")
     Call<RepondreunedemandeModel> repondrelist();*/
 
-
     @FormUrlEncoded
     @POST("Client/findMissionListbyid")
     Call<RepondreunedemandeModel> repondrelist(
@@ -102,13 +102,9 @@ public interface ApiServices {
     );
 
 
-
-
     @FormUrlEncoded
     @POST("Client/getprojectdispute")
     Call<GetAllDiputeResponseModle> getprojectdispute(@Field("user_id") String user_id);
-
-
 
 
     @FormUrlEncoded
@@ -141,6 +137,13 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Authentication/myprofilebyid")
     Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/send_message")
+    Call<MsgSentModel> send_message(
+            @Field("receiver_id") String receiver_id,
+            @Field("message_dta") String message_dta);
 
 
     @FormUrlEncoded
@@ -268,14 +271,14 @@ public interface ApiServices {
                                                          @Part MultipartBody.Part user_id,
                                                          @Part MultipartBody.Part your_comments,
                                                          @Part MultipartBody.Part project_status,
-                                                         @Part MultipartBody.Part project_files[],
-                                                         @Part MultipartBody.Part project_image[]);
+                                                         @Part MultipartBody.Part[] project_files,
+                                                         @Part MultipartBody.Part[] project_image);
 
     @Multipart
     @POST("Authentication/editProfile")
     Call<UpdateProfileModle> updateProfile(@Part MultipartBody.Part profile_id,
-                                           @Part MultipartBody.Part state,
-                                           @Part MultipartBody.Part name,
+                                           @Part MultipartBody.Part last_name,
+                                           @Part MultipartBody.Part first_name,
                                            @Part MultipartBody.Part email,
                                            @Part MultipartBody.Part username,
                                            @Part MultipartBody.Part password,
@@ -290,23 +293,23 @@ public interface ApiServices {
                                            @Part MultipartBody.Part categroy_of_interest);
 
 
-
     @Multipart
     @POST("Authentication/editProfile")
     Call<UpdateProfileModle> updateProfileWithouPassword(@Part MultipartBody.Part profile_id,
-                                           @Part MultipartBody.Part state,
-                                           @Part MultipartBody.Part name,
-                                           @Part MultipartBody.Part email,
-                                           @Part MultipartBody.Part username,
-                                           @Part MultipartBody.Part dob,
-                                           @Part MultipartBody.Part country,
-                                           @Part MultipartBody.Part picture_url,
-                                           @Part MultipartBody.Part presentation,
-                                           @Part MultipartBody.Part level_of_study,
-                                           @Part MultipartBody.Part school_college,
-                                           @Part MultipartBody.Part skill,
-                                           @Part MultipartBody.Part field_of_study,
-                                           @Part MultipartBody.Part categroy_of_interest);
+                                                         @Part MultipartBody.Part last_name,
+                                                         @Part MultipartBody.Part first_name,
+                                                         @Part MultipartBody.Part email,
+                                                         @Part MultipartBody.Part username,
+                                                         @Part MultipartBody.Part dob,
+                                                         @Part MultipartBody.Part country,
+                                                         @Part MultipartBody.Part picture_url,
+                                                         @Part MultipartBody.Part presentation,
+                                                         @Part MultipartBody.Part level_of_study,
+                                                         @Part MultipartBody.Part school_college,
+                                                         @Part MultipartBody.Part skill,
+                                                         @Part MultipartBody.Part field_of_study,
+                                                         @Part MultipartBody.Part categroy_of_interest);
+
 
     @Multipart
     @POST("client/addchatimage")
@@ -333,9 +336,42 @@ public interface ApiServices {
                                         @Part MultipartBody.Part description,
                                         @Part MultipartBody.Part budget,
                                         @Part MultipartBody.Part client_id,
-                                        @Part MultipartBody.Part project_image[],
-                                        @Part MultipartBody.Part project_file[]
+                                        @Part MultipartBody.Part[] project_image,
+                                        @Part MultipartBody.Part[] project_file
     );
+
+
+    @Multipart
+    @POST("Client/post_a_demand")
+    Call<PostDemandModle> post_a_demandWithoutImg(@Part MultipartBody.Part category_id,
+                                                  @Part MultipartBody.Part title,
+                                                  @Part MultipartBody.Part description,
+                                                  @Part MultipartBody.Part budget,
+                                                  @Part MultipartBody.Part client_id,
+                                                  @Part MultipartBody.Part[] project_file
+    );
+
+
+    @Multipart
+    @POST("Client/post_a_demand")
+    Call<PostDemandModle> post_a_demandWithoutFile(@Part MultipartBody.Part category_id,
+                                                   @Part MultipartBody.Part title,
+                                                   @Part MultipartBody.Part description,
+                                                   @Part MultipartBody.Part budget,
+                                                   @Part MultipartBody.Part client_id,
+                                                   @Part MultipartBody.Part[] project_image
+    );
+
+
+    @Multipart
+    @POST("Client/post_a_demand")
+    Call<PostDemandModle> post_a_demandWithoutFileImage(@Part MultipartBody.Part category_id,
+                                                        @Part MultipartBody.Part title,
+                                                        @Part MultipartBody.Part description,
+                                                        @Part MultipartBody.Part budget,
+                                                        @Part MultipartBody.Part client_id
+    );
+
 
     /*@Part MultipartBody.Part project_file[]*/
 

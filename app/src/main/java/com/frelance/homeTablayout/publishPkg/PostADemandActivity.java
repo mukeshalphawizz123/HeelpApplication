@@ -94,7 +94,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_description);
         client_id = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
-       // Toast.makeText(getApplicationContext(), client_id, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), client_id, Toast.LENGTH_LONG).show();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
@@ -104,6 +104,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         projectId = intent.getStringExtra("projectId");
 
         init();
+
         return;
     }
 
@@ -150,9 +151,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postDemands() {
-        Pbitemdescription.setVisibility(View.VISIBLE);
-        MultipartBody.Part imgFileStation = null;
-        MultipartBody.Part imgFileStationDoc = null;
+        //  Toast.makeText(getApplicationContext(), "withFileImage", Toast.LENGTH_LONG).show();
         MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
         try {
             if (stringArrayList.size() == 0) {
@@ -207,6 +206,129 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 });
     }
 
+
+    private void postDemandsWithouImag() {
+        //  Toast.makeText(getApplicationContext(), "withFileImage", Toast.LENGTH_LONG).show();
+        Pbitemdescription.setVisibility(View.VISIBLE);
+        // List<Uri> files; //These are the uris for the files to be uploaded
+        MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
+        for (int i = 0; i < files.size(); i++) {
+            File file = new File(FileUtil.getPath(files.get(i), getApplicationContext()));
+            RequestBody fileBody = RequestBody.create(mediaType, file);
+            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+            fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+            // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
+        }
+
+        MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
+        MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
+        MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
+        // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
+        apiServices.post_a_demandWithoutImg(category_id, title_, description, budget_, client_id_, fileParts)
+                .enqueue(new Callback<PostDemandModle>() {
+                    @Override
+                    public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
+                        if (response.isSuccessful()) {
+                            {
+                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostDemandModle> call, Throwable t) {
+                        Log.v("Error", t.toString());
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+
+    private void postDemandsWithouFile() {
+        //  Toast.makeText(getApplicationContext(), "withImage", Toast.LENGTH_LONG).show();
+        Pbitemdescription.setVisibility(View.VISIBLE);
+        MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
+        try {
+            if (stringArrayList.size() == 0) {
+            } else {
+                for (int index = 0; index < stringArrayList.size(); index++) {
+                    File file1 = new File(stringArrayList.get(index));
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file1);
+                    parts[index] = MultipartBody.Part.createFormData("project_image[]", file1.getPath(), requestBody);
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
+        MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
+        MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
+        // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
+        apiServices.post_a_demandWithoutFile(category_id, title_, description, budget_, client_id_, parts)
+                .enqueue(new Callback<PostDemandModle>() {
+                    @Override
+                    public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
+                        if (response.isSuccessful()) {
+                            {
+                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostDemandModle> call, Throwable t) {
+                        Log.v("Error", t.toString());
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+
+    private void postDemandsWithoutFileandImage() {
+        //  Toast.makeText(getApplicationContext(), "withoutFileImage", Toast.LENGTH_LONG).show();
+        Pbitemdescription.setVisibility(View.VISIBLE);
+        MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
+        MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
+        MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
+        // Log.v("data", projectId + "/" + title + "/" + EtItemdes.getText().toString() + "/" + client_id + "/" + docPath + "/" + profilImgPath);
+        apiServices.post_a_demandWithoutFileImage(category_id, title_, description, budget_, client_id_)
+                .enqueue(new Callback<PostDemandModle>() {
+                    @Override
+                    public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
+                        if (response.isSuccessful()) {
+                            {
+                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostDemandModle> call, Throwable t) {
+                        Log.v("Error", t.toString());
+                        Pbitemdescription.setVisibility(View.GONE);
+                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 
     private void askStoragePermission() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -294,13 +416,22 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             EtItemdesTitleText.startAnimation(shakeAnimation);
             EtItemdesTitleText.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         } else {
-            if (stringArrayList.size() >= 3) {
+            if (stringArrayList.size() == 0 && files.size() > 0) {
+                postDemandsWithouImag();
+            } else if (files.size() == 0 && stringArrayList.size() > 0) {
+                if (stringArrayList.size() >= 3) {
+                    postDemandsWithouFile();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();
+                }
+            } else if (stringArrayList.size() == 0 && files.size() == 0) {
+                postDemandsWithoutFileandImage();
+            } else if (stringArrayList.size() >= 3) {
                 postDemands();
             } else {
                 Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
     private void showFileChooser() {

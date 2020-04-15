@@ -250,11 +250,11 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                     GetProfileModle missionlist = response.body();
                     if (missionlist.getStatus() == true) {
                         yourMissionList = missionlist.getYourMissions();
-                        EtName.setText(yourMissionList.get(0).getName());
+                        EtName.setText(yourMissionList.get(0).getFirstName());
                         EtUsername.setText(yourMissionList.get(0).getUsername());
-                        EtStatus.setText(yourMissionList.get(0).getState());
+                        EtStatus.setText(yourMissionList.get(0).getLastName());
                         EtEmail.setText(yourMissionList.get(0).getEmail());
-                        // EtPassword.setText(yourMissionList.get(0).getPassword());
+                        EtPassword.setText(yourMissionList.get(0).getPassword_show());
                         Etcountry.setText(yourMissionList.get(0).getCountry());
                         Tvdob.setText(yourMissionList.get(0).getDob());
                         tvdesinationedit.setText(yourMissionList.get(0).getSkills());
@@ -348,9 +348,9 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
         }
 
-        MultipartBody.Part state_ = MultipartBody.Part.createFormData("state", String.valueOf(EtStatus.getText().toString()));
+        MultipartBody.Part last_name_ = MultipartBody.Part.createFormData("last_name", String.valueOf(EtStatus.getText().toString()));
         MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf(userId));
-        MultipartBody.Part name_ = MultipartBody.Part.createFormData("name", EtName.getText().toString());
+        MultipartBody.Part name_ = MultipartBody.Part.createFormData("first_name", EtName.getText().toString());
         MultipartBody.Part email_ = MultipartBody.Part.createFormData("email", EtEmail.getText().toString());
         MultipartBody.Part username_ = MultipartBody.Part.createFormData("username", EtUsername.getText().toString());
         MultipartBody.Part password_ = MultipartBody.Part.createFormData("password", EtPassword.getText().toString());
@@ -364,7 +364,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
 
 
-        apiServices.updateProfile(profile_id_, state_, name_, email_, username_, password_, dob_,
+        apiServices.updateProfile(profile_id_, last_name_, name_, email_, username_, password_, dob_,
                 country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study, categroy_of_interest).enqueue(new Callback<UpdateProfileModle>() {
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
@@ -414,9 +414,9 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             imgFileStation = MultipartBody.Part.createFormData("picture_url", fileForImage.getName(), requestFileOne);
         }
 
-        MultipartBody.Part state_ = MultipartBody.Part.createFormData("state", String.valueOf(EtStatus.getText().toString()));
+        MultipartBody.Part state_ = MultipartBody.Part.createFormData("last_name", String.valueOf(EtStatus.getText().toString()));
         MultipartBody.Part profile_id_ = MultipartBody.Part.createFormData("profile_id", String.valueOf(userId));
-        MultipartBody.Part name_ = MultipartBody.Part.createFormData("name", EtName.getText().toString());
+        MultipartBody.Part name_ = MultipartBody.Part.createFormData("first_name", EtName.getText().toString());
         MultipartBody.Part email_ = MultipartBody.Part.createFormData("email", EtEmail.getText().toString());
         MultipartBody.Part username_ = MultipartBody.Part.createFormData("username", EtUsername.getText().toString());
         MultipartBody.Part dob_ = MultipartBody.Part.createFormData("dob", Tvdob.getText().toString());

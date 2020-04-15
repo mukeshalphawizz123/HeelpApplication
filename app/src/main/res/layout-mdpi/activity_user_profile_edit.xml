@@ -52,7 +52,6 @@
                     android:padding="5sp"
                     android:src="@drawable/back" />
 
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivuserprofileimageId"
                     android:layout_width="100dp"
@@ -61,7 +60,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5sp"
                     android:layout_marginEnd="15sp"
+                    app:civ_border_color="@color/lessBlack"
+                    app:civ_border_width="@dimen/_1sdp"
                     android:src="@drawable/dashboarddummyimg" />
+
 
 
                 <androidx.appcompat.widget.AppCompatImageView

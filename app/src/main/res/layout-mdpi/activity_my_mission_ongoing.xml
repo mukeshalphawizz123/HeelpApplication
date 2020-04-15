@@ -175,7 +175,7 @@
                             android:id="@+id/ivUserInprogMissionId"
                             android:layout_width="60sp"
                             android:layout_height="60sp"
-                            android:src="@drawable/dummyuserimg"
+                            android:src="@drawable/dashboarddummyimg"
                             app:civ_border_color="@color/lessBlack"
                             app:civ_border_width="@dimen/_1sdp" />
 

@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
-import com.frelance.chatPkg.Adapter.ChatActivityMain;
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.databinding.FragmentHomeRespondttoarerequestBinding;
 import com.frelance.homeTablayout.adapter.HomeCategoryFilterAdapter;
 import com.frelance.homeTablayout.adapter.FindMisionAdapter;
@@ -140,7 +140,8 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), MakeAnOfferActivity.class);
                 break;
             case R.id.RlDiscussId:
-                Intent intent1 = new Intent(getActivity(), ChatActivityMain.class);
+                Intent intent1 = new Intent(getActivity(), ChatActivity.class);
+                intent1.putExtra("client_id", yourMission.getClient_id());
                 startActivity(intent1);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;

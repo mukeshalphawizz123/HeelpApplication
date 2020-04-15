@@ -57,6 +57,8 @@
                     android:id="@+id/ivuserprofileimageId"
                     android:layout_width="@dimen/_65sdp"
                     android:layout_height="@dimen/_65sdp"
+                    app:civ_border_width="@dimen/_1sdp"
+                    app:civ_border_color="@color/lessBlack"
                     android:layout_below="@+id/tvdeshbordid"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5sp"

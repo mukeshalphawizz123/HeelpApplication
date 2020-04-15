@@ -30,6 +30,7 @@ import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompl
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -43,7 +44,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyMissionCompleteActivity extends Fragment implements CompleteeFileUploadAdapter.CompleteeFileUploadAppOnClickListener, View.OnClickListener {
+public class MyMissionCompleteActivity extends Fragment implements
+        CompleteeFileUploadAdapter.CompleteeFileUploadAppOnClickListener,
+        View.OnClickListener {
     private CompleteeFileUploadAdapter completeeFileUploadAdapter;
     private RecyclerView rvfileupload;
     private ImageView ivmissioncompleterdashboardback, ivnotification;
@@ -56,10 +59,12 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
     private String missionId;
 
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_complete, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
         filesList = new ArrayList<>();
         //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
@@ -166,7 +171,6 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
                         }
 
 
-
                         if (missionCompleteModle.getData().get(0).getProject_image().isEmpty()) {
 
                         } else {
@@ -186,7 +190,6 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
                         }
 
                         completeeFileUploadAdapter.addOnGoingFiles(filesList);
-
 
 
                     } else {
@@ -217,5 +220,14 @@ public class MyMissionCompleteActivity extends Fragment implements CompleteeFile
             }
         });
 
+    }
+
+    @Override
+    public void myMissCompleteOnClick(View view, int position) {
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
     }
 }
