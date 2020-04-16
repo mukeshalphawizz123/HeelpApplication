@@ -48,6 +48,7 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
         View view = inflater.inflate(R.layout.fragment_message_tout, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+       // Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             //chatUserlist(userId);
@@ -69,14 +70,13 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     }
 
     public void onClick(View view, int position) {
-
     }
 
     @Override
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                // Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());
@@ -103,16 +103,14 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

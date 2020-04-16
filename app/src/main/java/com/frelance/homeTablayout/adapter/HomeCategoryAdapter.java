@@ -48,7 +48,8 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvHomeData.setText(projectlist.get(position).getTitle());
-        Picasso.with(context).load(RetrofitClient.IMAGE_URL + projectlist.get(position).getPictureUrl()).into(holder.ivphy);
+        Picasso.with(context).load(RetrofitClient.IMAGE_URL + projectlist.get(position).getPictureUrl())
+                .resize(100, 100).into(holder.ivphy);
 
     }
 

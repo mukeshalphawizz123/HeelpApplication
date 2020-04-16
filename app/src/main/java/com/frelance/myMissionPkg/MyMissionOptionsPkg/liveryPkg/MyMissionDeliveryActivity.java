@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.HelpActivity;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
@@ -161,12 +162,12 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     }
 
     private void myDelivery(String myMissionId) {
-        pbMymissionDelivery.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myMissionProjectDeliery(myMissionId).enqueue(new Callback<MissionCompleteModle>() {
             @Override
             public void onResponse(Call<MissionCompleteModle> call, Response<MissionCompleteModle> response) {
                 if (response.isSuccessful()) {
-                    pbMymissionDelivery.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     MissionCompleteModle missionCompleteModle = response.body();
                     if (missionCompleteModle.getStatus()) {
                         tvUserNameMyMissionDelivery.setText(missionCompleteModle.getData().get(0).getFirstName());
@@ -206,7 +207,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbMymissionDelivery.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -221,7 +222,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
 
             @Override
             public void onFailure(Call<MissionCompleteModle> call, Throwable t) {
-                pbMymissionDelivery.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

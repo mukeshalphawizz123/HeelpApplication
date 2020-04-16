@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
@@ -76,18 +77,18 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
         switch (view.getId()) {
             case R.id.rlacceptid:
                 AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
-                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(),"1");
+                acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
 
             case R.id.rldiscuteridd:
                 Intent intent1 = new Intent(getActivity(), ChatActivity.class);
-                intent1.putExtra("client_id",yourMission.getUserId());
+                intent1.putExtra("client_id", yourMission.getUserId());
                 startActivity(intent1);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
 
             case R.id.ivmymissionid:
-                AppSession.setStringPreferences(getActivity(),"clientId",yourMission.getUserId());
+                AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
 
@@ -97,12 +98,12 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
     }
 
     private void myDemandsNotes(String id) {
-        pbNoteMyDemands.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myDemandbidbydate(id).enqueue(new Callback<DemandInProgressModle>() {
             @Override
             public void onResponse(Call<DemandInProgressModle> call, Response<DemandInProgressModle> response) {
                 if (response.isSuccessful()) {
-                    pbNoteMyDemands.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     DemandInProgressModle requestlist = response.body();
                     if (requestlist.getStatus() == true) {
                         yourMissionList = requestlist.getYourMissions();
@@ -118,7 +119,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNoteMyDemands.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -133,22 +134,23 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
 
             @Override
             public void onFailure(Call<DemandInProgressModle> call, Throwable t) {
-                pbNoteMyDemands.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
 
 
-    private void acceptOffer(String offerid, String userId,String missionId, String status) {
-        pbNoteMyDemands.setVisibility(View.VISIBLE);
+    private void acceptOffer(String offerid, String userId, String missionId, String status) {
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.acceptOffer(offerid, userId, missionId, status).enqueue(new Callback<AcceptOfferModle>() {
             @Override
             public void onResponse(Call<AcceptOfferModle> call, Response<AcceptOfferModle> response) {
                 if (response.isSuccessful()) {
-                    pbNoteMyDemands.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     AcceptOfferModle requestlist = response.body();
                     if (requestlist.getStatus() == true) {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
+                        AppSession.setStringPreferences(getActivity(), "pay_mission_id", missionId);
                         CheckNetwork.nextScreenWithoutFinish(getActivity(), CreditCardPayment.class);
                     } else {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
@@ -160,7 +162,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNoteMyDemands.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -175,7 +177,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
 
             @Override
             public void onFailure(Call<AcceptOfferModle> call, Throwable t) {
-                pbNoteMyDemands.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

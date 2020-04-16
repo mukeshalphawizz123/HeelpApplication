@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.EditProfileConfirmation;
 import com.frelance.R;
 import com.frelance.SelectLanguageDailoge;
@@ -94,7 +95,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
-        Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         prefData = new PrefData(getActivity());
 
@@ -326,35 +327,47 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     }
 
     private void getProfileApi(String user_id) {
-        pbUserEditProfile.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getMyProfile(user_id).enqueue(new Callback<GetProfileModle>() {
             @Override
             public void onResponse(Call<GetProfileModle> call, Response<GetProfileModle> response) {
                 if (response.isSuccessful()) {
-                    pbUserEditProfile.setVisibility(View.GONE);
-                    GetProfileModle missionlist = response.body();
-                    if (missionlist.getStatus() == true) {
-                        yourMissionList = missionlist.getYourMissions();
-                        tvname.setText(yourMissionList.get(0).getUsername());
-                        tvdesination.setText(yourMissionList.get(0).getSkills());
-                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        GetProfileModle missionlist = response.body();
+                        if (missionlist.getStatus() == true) {
+                            yourMissionList = missionlist.getYourMissions();
+                            tvname.setText(yourMissionList.get(0).getUsername());
+                            tvdesination.setText(yourMissionList.get(0).getSkills());
+                            if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
 
-                        } else {
-                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
-                                    .get(0).getPictureUrl()).into(ivuserprofileimage);
+                            } else {
+                                Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                        .get(0).getPictureUrl())
+                                        .resize(200,200)
+                                        .into(ivuserprofileimage);
+                            }
+                            userImg = yourMissionList.get(0).getPictureUrl();
+                            userName = yourMissionList.get(0).getFirstName();
+
+                            donutprogress.setCurrentProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()));
+                            donutprogress.setProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()), 5);
+
+                            AppSession.setStringPreferences(getActivity(), Constants.USERNAME, yourMissionList.get(0).getUsername());
+                            AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, yourMissionList.get(0).getFirstName());
+                            AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, yourMissionList.get(0).getPictureUrl());
+
+
+                            //tvRatingCountPlusMore.setText(yourMissionList.get(0).getProfileRate());
+                            if (missionlist.getRating().isEmpty()) {
+                                tvRatingCountPlusMore.setText("0");
+                            } else {
+                                tvRatingCountPlusMore.setText(missionlist.getRating());
+                            }
+
                         }
-                        userImg = yourMissionList.get(0).getPictureUrl();
-                        userName = yourMissionList.get(0).getFirstName();
-
-                        donutprogress.setCurrentProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()));
-                        donutprogress.setProgress(Double.parseDouble(yourMissionList.get(0).getProfileRate()), 5);
-                        //tvRatingCountPlusMore.setText(yourMissionList.get(0).getProfileRate());
-                        if (missionlist.getRating().isEmpty()) {
-                            tvRatingCountPlusMore.setText("0");
-                        } else {
-                            tvRatingCountPlusMore.setText(missionlist.getRating());
-                        }
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } else {
@@ -363,7 +376,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbUserEditProfile.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -378,7 +391,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
 
             @Override
             public void onFailure(Call<GetProfileModle> call, Throwable t) {
-                pbUserEditProfile.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

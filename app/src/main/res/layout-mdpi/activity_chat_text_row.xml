@@ -16,12 +16,14 @@
         android:layout_marginTop="5sp"
         android:layout_marginEnd="80sp">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_color="@color/lessBlack"
+            app:civ_border_width="@dimen/_1sdp"
             android:id="@+id/ivchatprofileId"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:padding="3dp"
-            android:src="@drawable/dummyuserimg" />
+            android:src="@drawable/dashboarddummyimg" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSendertimeId"
@@ -69,12 +71,14 @@
         android:background="@drawable/white_chat_box"
         android:visibility="gone">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_width="@dimen/_1sdp"
+            app:civ_border_color="@color/lessBlack"
             android:id="@+id/ivchatImageprofileId"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:padding="3dp"
-            android:src="@drawable/dummyuserimg" />
+            android:src="@drawable/dashboarddummyimg" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSenderImagetimeId"
@@ -107,14 +111,16 @@
         android:layout_marginTop="10sp"
         android:layout_marginEnd="80sp"
         android:background="@drawable/white_chat_box"
-        android:visibility="gone">
+        android:visibility="visible">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivchatImageprofileVoiceId"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:padding="3dp"
-            android:src="@drawable/dummyuserimg" />
+            app:civ_border_color="@color/lessBlack"
+            app:civ_border_width="@dimen/_1sdp"
+            android:src="@drawable/dashboarddummyimg" />
 
 
         <androidx.appcompat.widget.AppCompatTextView

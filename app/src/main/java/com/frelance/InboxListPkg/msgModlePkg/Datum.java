@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Datum {
 
-    @SerializedName("mission_id")
-    @Expose
-    private String missionId;
 
     @SerializedName("first_name")
     @Expose
@@ -19,18 +16,18 @@ public class Datum {
     @SerializedName("picture_url")
     @Expose
     private String pictureUrl;
-    @SerializedName("user_id")
+    @SerializedName("id")
     @Expose
     private String clientId;
 
 
-    public String getMissionId() {
+/*    public String getMissionId() {
         return missionId;
     }
 
     public void setMissionId(String missionId) {
         this.missionId = missionId;
-    }
+    }*/
 
     public String getFirstName() {
         return firstName;
@@ -74,13 +71,11 @@ public class Datum {
     /**
      * @param firstName
      * @param lastName
-     * @param missionId
      * @param clientId
      * @param pictureUrl
      */
-    public Datum(String missionId, String firstName, String lastName, String pictureUrl, String clientId) {
+    public Datum(String firstName, String lastName, String pictureUrl, String clientId) {
         super();
-        this.missionId = missionId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.pictureUrl = pictureUrl;

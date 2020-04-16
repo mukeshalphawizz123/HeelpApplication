@@ -27,7 +27,7 @@
             android:id="@+id/ivnotificationId"
             android:layout_width="28dp"
             android:layout_height="30sp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="15sp"
             android:src="@drawable/ring" />
@@ -186,7 +186,7 @@
                             android:id="@+id/rvdetailsid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layoutDirection="rtl" />
 
 
@@ -255,14 +255,13 @@
                             android:background="@android:color/transparent"
                             android:inputType="number"
                             android:maxLength="8"
-                            android:text="200"
                             android:textColor="@color/bluee"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="18dp"
-                            android:layout_toRightOf="@+id/etbudgetid"
+                            android:layout_toEndOf="@+id/etbudgetid"
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
                             android:scaleType="fitXY"

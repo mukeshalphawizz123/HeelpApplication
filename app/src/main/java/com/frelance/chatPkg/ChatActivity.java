@@ -119,12 +119,12 @@ public class ChatActivity extends AppCompatActivity implements
         user_picturUrl = AppSession.getStringPreferences(getApplicationContext(), Constants.PICTURE_URL);
 
         clientId = getIntent().getStringExtra("client_id");
-        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
         fName = getIntent().getStringExtra("firstName");
         lName = getIntent().getStringExtra("lastName");
         clientImg = getIntent().getStringExtra("clientImg");
         consersation = new Consersation();
         random = new Random();
+
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             getProfileApi(clientId);
@@ -280,6 +280,7 @@ public class ChatActivity extends AppCompatActivity implements
                             userid);
                     if (entryFlag.equalsIgnoreCase("1")) {
                         entryFlag = "2";
+                       // Toast.makeText(getApplicationContext(), "sdfsd", Toast.LENGTH_LONG).show();
                         // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").push().setValue(unReadMessageUserModle);
                         FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").push().setValue(unReadMessageUserModle);
                     }
@@ -397,7 +398,6 @@ public class ChatActivity extends AppCompatActivity implements
         });
 
     }
-
 
     private void uploadImagForChat(String profilImgPath) {
         CustomProgressbar.showProgressBar(this, false);

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.homeTablayout.adapter.HomeCategoryAdapter;
 import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
 import com.frelance.homeTablayout.homeModel.Project;
@@ -57,22 +58,30 @@ public class HomeCategoryFrament extends Fragment implements
     }
 
     private void homePublisherList() {
-        pbHomepublisherlist.setVisibility(View.VISIBLE);
+        // pbHomepublisherlist.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.publisherlist().enqueue(new Callback<ListOfProjectModel>() {
             @Override
             public void onResponse(Call<ListOfProjectModel> call, Response<ListOfProjectModel> response) {
                 if (response.isSuccessful()) {
-                    pbHomepublisherlist.setVisibility(View.GONE);
-                    ListOfProjectModel listOfProjectModel = response.body();
-                    projectlist = listOfProjectModel.getProjects();
-                    homeCategoryAdapter.projectlist(projectlist);
+
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        ListOfProjectModel listOfProjectModel = response.body();
+                        projectlist = listOfProjectModel.getProjects();
+                        homeCategoryAdapter.projectlist(projectlist);
+                        homeCategoryAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     // seearchDoctorAdapter.doctorList(doctorList);
                 }
             }
 
             @Override
             public void onFailure(Call<ListOfProjectModel> call, Throwable t) {
-                pbHomepublisherlist.setVisibility(View.GONE);
+                //  pbHomepublisherlist.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="160sp"
         android:background="@drawable/proposeebackg">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMissionImageid"
             android:layout_width="70dp"

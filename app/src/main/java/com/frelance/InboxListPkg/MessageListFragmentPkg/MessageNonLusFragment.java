@@ -3,6 +3,7 @@ package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,15 +73,15 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
     }
 
     private void chatDataSanpchat() {
-        datumList.clear();
+     //   datumList.clear();
         String userRecordinsertFormat = "user_" + userId + "_";
-
         FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.getValue() != null) {
                     //CustomProgressbar.hideProgressBar();
 //                        postnotification("Alert", "You received message");
+                    datumList = new ArrayList<>();
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("name"),
@@ -88,7 +89,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                             (String) mapMessage.get("dateAndTime"),
                             (String) mapMessage.get("senderId"));
                     try {
-
+                       // datumList.clear();
                         datumList.add(chatModle);
                         unReadMsgAdapter.addmymissionData(datumList);
                         unReadMsgAdapter.notifyDataSetChanged();
@@ -135,69 +136,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
 
             }
         });
-
-    /*    FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.getValue() != null) {
-                    //CustomProgressbar.hideProgressBar();
-//                        postnotification("Alert", "You received message");
-                    HashMap mapMessage = (HashMap) dataSnapshot.getValue();
-                    UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
-                            (String) mapMessage.get("name"),
-                            (String) mapMessage.get("imgUrl"),
-                            (String) mapMessage.get("dateAndTime"),
-                            (String) mapMessage.get("senderId"));
-                    try {
-
-
-                        datumList.add(chatModle);
-                        unReadMsgAdapter.addmymissionData(datumList);
-                        unReadMsgAdapter.notifyDataSetChanged();
-                       // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
-
-
-                       *//* if (datumList.contains(chatModle.getSenderId())) {
-                        } else {
-                            datumList.add(chatModle);
-                            unReadMsgAdapter.addmymissionData(datumList);
-                            unReadMsgAdapter.notifyDataSetChanged();
-                            layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
-                        }*//*
-                        //consersation.getListMessageData().add(chatModle);
-
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                CustomProgressbar.hideProgressBar();
-
-            }
-        });*/
-
         rvmsglist.setAdapter(unReadMsgAdapter);
 
     }

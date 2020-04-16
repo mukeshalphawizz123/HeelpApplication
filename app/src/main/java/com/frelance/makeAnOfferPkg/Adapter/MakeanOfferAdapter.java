@@ -55,7 +55,7 @@ public class MakeanOfferAdapter extends RecyclerView.Adapter<MakeanOfferAdapter.
         void myMakeAnOfferDetailTabClick(View view, int position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RelativeLayout rlFileFolder;
         AppCompatTextView tvfilename;
 
@@ -63,7 +63,13 @@ public class MakeanOfferAdapter extends RecyclerView.Adapter<MakeanOfferAdapter.
             super(itemView);
             rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
             tvfilename = itemView.findViewById(R.id.tvfilenameid);
+            rlFileFolder.setOnClickListener(this);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            makeanOfferAppOnClickListener.myMakeAnOfferDetailTabClick(v,getAdapterPosition());
         }
     }
 }

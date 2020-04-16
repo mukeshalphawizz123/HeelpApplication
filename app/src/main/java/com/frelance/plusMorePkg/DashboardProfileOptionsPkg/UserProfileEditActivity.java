@@ -36,6 +36,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
@@ -241,38 +242,51 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
     }
 
     private void getProfileApi(String user_id) {
-        pbUserEditProfile.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getMyProfile(user_id).enqueue(new Callback<GetProfileModle>() {
             @Override
             public void onResponse(Call<GetProfileModle> call, Response<GetProfileModle> response) {
                 if (response.isSuccessful()) {
-                    pbUserEditProfile.setVisibility(View.GONE);
-                    GetProfileModle missionlist = response.body();
-                    if (missionlist.getStatus() == true) {
-                        yourMissionList = missionlist.getYourMissions();
-                        EtName.setText(yourMissionList.get(0).getFirstName());
-                        EtUsername.setText(yourMissionList.get(0).getUsername());
-                        EtStatus.setText(yourMissionList.get(0).getLastName());
-                        EtEmail.setText(yourMissionList.get(0).getEmail());
-                        EtPassword.setText(yourMissionList.get(0).getPassword_show());
-                        Etcountry.setText(yourMissionList.get(0).getCountry());
-                        Tvdob.setText(yourMissionList.get(0).getDob());
-                        tvdesinationedit.setText(yourMissionList.get(0).getSkills());
-                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
-                        } else {
-                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
-                                    .get(0).getPictureUrl())
-                                    .into(ivuserprofileimage);
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        GetProfileModle missionlist = response.body();
+                        if (missionlist.getStatus() == true) {
+                            yourMissionList = missionlist.getYourMissions();
+                            EtName.setText(yourMissionList.get(0).getFirstName());
+                            EtUsername.setText(yourMissionList.get(0).getUsername());
+                            EtStatus.setText(yourMissionList.get(0).getLastName());
+                            EtEmail.setText(yourMissionList.get(0).getEmail());
+                            EtPassword.setText(yourMissionList.get(0).getPassword_show());
+                            Etcountry.setText(yourMissionList.get(0).getCountry());
+                            Tvdob.setText(yourMissionList.get(0).getDob());
+                            tvdesinationedit.setText(yourMissionList.get(0).getSkills());
+                            if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
+                            } else {
+                                Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
+                                        .get(0).getPictureUrl())
+                                        .resize(200,200)
+                                        .into(ivuserprofileimage);
+                            }
+
+                            tvpresentation.setText(yourMissionList.get(0).getPresentation());
+                            tvlevelofstudyy.setText(yourMissionList.get(0).getLevelOfStudy());
+                            tvfiledofstudyy.setText(yourMissionList.get(0).getFieldOfStudy());
+                            tvunivercityy.setText(yourMissionList.get(0).getSchoolAddress() + "," + yourMissionList.get(0).getUniversity());
+                            tvcategoriess.setText(yourMissionList.get(0).getIntrestedCategory());
+                            tvcompetencesss.setText(yourMissionList.get(0).getSkills());
+                            tvname.setText(yourMissionList.get(0).getUsername());
+
+
+                            AppSession.setStringPreferences(getActivity(), Constants.USERNAME, yourMissionList.get(0).getUsername());
+                            AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, yourMissionList.get(0).getFirstName());
+                            AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, yourMissionList.get(0).getPictureUrl());
+
+
+                            //  AppSession.setStringPreferences(getActivity(),Constants.FIRST_NAME,);
+
                         }
-
-                        tvpresentation.setText(yourMissionList.get(0).getPresentation());
-                        tvlevelofstudyy.setText(yourMissionList.get(0).getLevelOfStudy());
-                        tvfiledofstudyy.setText(yourMissionList.get(0).getFieldOfStudy());
-                        tvunivercityy.setText(yourMissionList.get(0).getSchoolAddress() + "," + yourMissionList.get(0).getUniversity());
-                        tvcategoriess.setText(yourMissionList.get(0).getIntrestedCategory());
-                        tvcompetencesss.setText(yourMissionList.get(0).getSkills());
-                        tvname.setText(yourMissionList.get(0).getUsername());
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } else {
@@ -281,7 +295,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbUserEditProfile.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -296,7 +310,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<GetProfileModle> call, Throwable t) {
-                pbUserEditProfile.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
@@ -338,7 +352,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
 
 
     private void updateProfile() {
-        pbUserEditProfile.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
         if (profilImgPath == null) {
@@ -369,13 +383,18 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
                 if (response.isSuccessful()) {
-                    pbUserEditProfile.setVisibility(View.GONE);
-                    UpdateProfileModle updateProfileModle = response.body();
-                    if (updateProfileModle.getStatus()) {
-                        Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
-                        AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
-                        AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getName());
-                        AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        UpdateProfileModle updateProfileModle = response.body();
+                        if (updateProfileModle.getStatus()) {
+                            Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getActivity(), updateProfileModle.getAllActivities().getPictureUrl(), Toast.LENGTH_LONG).show();
+                            AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
+                            AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getFirst_name());
+                            AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
@@ -383,7 +402,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbUserEditProfile.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException | IOException e) {
@@ -396,7 +415,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<UpdateProfileModle> call, Throwable t) {
-                pbUserEditProfile.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 
@@ -404,7 +423,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
 
 
     private void updateProfileWithoutPass() {
-        pbUserEditProfile.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
         if (profilImgPath == null) {
@@ -434,13 +453,17 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
                 if (response.isSuccessful()) {
-                    pbUserEditProfile.setVisibility(View.GONE);
-                    UpdateProfileModle updateProfileModle = response.body();
-                    if (updateProfileModle.getStatus()) {
-                        Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
-                        AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
-                        AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getName());
-                        AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        UpdateProfileModle updateProfileModle = response.body();
+                        if (updateProfileModle.getStatus()) {
+                            Toast.makeText(getActivity(), updateProfileModle.getMessage(), Toast.LENGTH_LONG).show();
+                            AppSession.setStringPreferences(getActivity(), Constants.USERNAME, updateProfileModle.getAllActivities().getUsername());
+                            AppSession.setStringPreferences(getActivity(), Constants.FIRST_NAME, updateProfileModle.getAllActivities().getName());
+                            AppSession.setStringPreferences(getActivity(), Constants.PICTURE_URL, updateProfileModle.getAllActivities().getPictureUrl());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
@@ -448,7 +471,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbUserEditProfile.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException | IOException e) {
@@ -461,7 +484,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
 
             @Override
             public void onFailure(Call<UpdateProfileModle> call, Throwable t) {
-                pbUserEditProfile.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

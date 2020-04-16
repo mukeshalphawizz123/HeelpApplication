@@ -38,6 +38,7 @@ import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.HelpActivity;
 import com.frelance.R;
@@ -441,12 +442,12 @@ public class MyMissionOngoingActivity extends Fragment implements
 
 
     private void myMissionInProgress(String myMissionId) {
-        pbMymissionProgress.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.projectPorgress(myMissionId).enqueue(new Callback<MissionInProgressModle>() {
             @Override
             public void onResponse(Call<MissionInProgressModle> call, Response<MissionInProgressModle> response) {
                 if (response.isSuccessful()) {
-                    pbMymissionProgress.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     MissionInProgressModle myMissionProposedModle = response.body();
                     if (myMissionProposedModle.getStatus() == true) {
                         yourMissionList = myMissionProposedModle.getData();
@@ -495,7 +496,7 @@ public class MyMissionOngoingActivity extends Fragment implements
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbMymissionProgress.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -510,7 +511,7 @@ public class MyMissionOngoingActivity extends Fragment implements
 
             @Override
             public void onFailure(Call<MissionInProgressModle> call, Throwable t) {
-                pbMymissionProgress.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

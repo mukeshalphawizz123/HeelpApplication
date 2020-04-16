@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.databinding.ActivityMymissionsBinding;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
@@ -106,12 +107,13 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
 
 
     private void myMission(String status) {
-        PbMymission.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.mymission(status, userId).enqueue(new Callback<MyMissionModel>() {
             @Override
             public void onResponse(Call<MyMissionModel> call, Response<MyMissionModel> response) {
                 if (response.isSuccessful()) {
-                    PbMymission.setVisibility(View.GONE);
+
+                    CustomProgressbar.hideProgressBar();
                     MyMissionModel missionlist = response.body();
                     if (missionlist.getStatus()) {
                         Tvmymissionitemnot.setVisibility(View.GONE);
@@ -127,7 +129,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                PbMymission.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException | IOException e) {
@@ -140,7 +142,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
 
             @Override
             public void onFailure(Call<MyMissionModel> call, Throwable t) {
-                PbMymission.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

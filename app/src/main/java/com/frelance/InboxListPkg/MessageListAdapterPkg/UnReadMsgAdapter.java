@@ -1,6 +1,7 @@
 package com.frelance.InboxListPkg.MessageListAdapterPkg;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
     private Context context;
     private MessageToutAppOnClickListener messageToutAppOnClickListener;
     private ArrayList<UnReadMessageUserModle> chatModleArrayList;
+    private ArrayList<String> sendIdList;
     private ArrayList<UnReadMessageUserModle> chatModleArrayListDemo;
     private String userId, senderId;
 
@@ -36,6 +38,7 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
     public UnReadMsgAdapter(Context context, MessageToutAppOnClickListener messageToutAppOnClickListener) {
         this.context = context;
         this.messageToutAppOnClickListener = messageToutAppOnClickListener;
+        sendIdList = new ArrayList<>();
     }
 
     @NonNull
@@ -56,7 +59,10 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
             holder.tvtime.setText(Constants.missionDemandDate(chatModleArrayList.get(position).getDateAndTime()));
             if (chatModleArrayList.get(position).getImgUrl().isEmpty()) {
             } else {
-                Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + chatModleArrayList.get(position).getImgUrl()).into(holder.ivUserMsg);
+                Picasso.with(context)
+                        .load(RetrofitClient.MISSION_USER_IMAGE_URL + chatModleArrayList.get(position).getImgUrl())
+                        .resize(100, 100)
+                        .into(holder.ivUserMsg);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,16 +72,29 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
 
     public void addmymissionData(ArrayList<UnReadMessageUserModle> chatModleArrayList_) {
         this.chatModleArrayList = chatModleArrayList_;
+        notifyDataSetChanged();
        /* for (int i = 0; i < chatModleArrayList_.size(); i++) {
             String senderId = chatModleArrayList_.get(i).getSenderId();
-            for (int j = 0; j < chatModleArrayListDemo.size(); j++) {
-                if (chatModleArrayListDemo.contains(chatModleArrayList_.get(j).getSenderId().equalsIgnoreCase(senderId))) {
-
+            sendIdList.add(senderId);
+        }
+        Set<String> primesWithoutDuplicates = new LinkedHashSet<String>(sendIdList);
+        // now let's clear the ArrayList so that we can copy all elements from LinkedHashSet
+        sendIdList.clear(); // copying elements but without any duplicates
+        sendIdList.addAll(primesWithoutDuplicates);
+        Log.v("senderid", sendIdList.toString());
+        chatModleArrayList.clear();
+        for (int j = 0; j < sendIdList.size(); j++) {
+            for (int i = 0; i < chatModleArrayList_.size(); i++) {
+                String senderId = chatModleArrayList_.get(i).getSenderId();
+                if (sendIdList.get(j).equalsIgnoreCase(senderId)) {
+                    chatModleArrayList.add(chatModleArrayList_.get(i));
+                    break;
                 }
             }
-        }*/
+        }
+        Log.v("chat", chatModleArrayList.toString());
         notifyDataSetChanged();
-    }
+   */ }
 
     @Override
     public int getItemCount() {
@@ -111,21 +130,4 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
     }
 
 
-    public <UnReadMessageUserModle> ArrayList<UnReadMessageUserModle> removeDuplicates(ArrayList<UnReadMessageUserModle> list) {
-        // Create a new LinkedHashSet
-        Set<UnReadMessageUserModle> set = new LinkedHashSet<>();
-
-        // Add the elements to set
-        set.addAll(list);
-
-        // Clear the list
-        list.clear();
-
-        // add the elements of set
-        // with no duplicates to the list
-        list.addAll(set);
-
-        // return the list
-        return list;
-    }
 }

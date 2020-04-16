@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.makeAnOfferPkg.Adapter.MakeanOfferAdapter;
@@ -33,6 +34,7 @@ import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.frelance.utility.FileDownloading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
     private String offerPrice;
     private static Animation shakeAnimation;
     private ArrayList<String> filesList;
+    FileDownloading fileDownloading;
 
 
     @Override
@@ -65,7 +68,9 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_an_offer);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        fileDownloading = new FileDownloading(getApplicationContext());
         missionId = AppSession.getStringPreferences(getApplicationContext(), "mission_Id");
+        // Toast.makeText(getApplicationContext(), missionId, Toast.LENGTH_LONG).show();
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         filesList = new ArrayList<>();
         init();
@@ -106,7 +111,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radiogreenid.setChecked(false);
                     status = "1";
                     offerPrice = etbudget.getText().toString();
-                   // etMakeOfferAmount.setFocusable(false);
+                    // etMakeOfferAmount.setFocusable(false);
 
                     //  Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
@@ -119,7 +124,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radioid.setChecked(false);
                     status = "2";
                     offerPrice = etMakeOfferAmount.getText().toString();
-                  //  etMakeOfferAmount.setFocusable(true);
+                    //  etMakeOfferAmount.setFocusable(true);
                     // Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
                 }
             }
@@ -128,69 +133,77 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
 
     private void makeAnOfferDetailApi() {
-        pbMakeAnOffer.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(this, false);
         apiServices.getofferid(missionId).enqueue(new Callback<MakeOfferDetailModle>() {
             @Override
             public void onResponse(Call<MakeOfferDetailModle> call, Response<MakeOfferDetailModle> response) {
                 if (response.isSuccessful()) {
-                    pbMakeAnOffer.setVisibility(View.GONE);
-                    MakeOfferDetailModle makeOfferDetailModle = response.body();
-                    findmissionList = makeOfferDetailModle.getData();
-                    ettitletext.setText(findmissionList.get(0).getMissionTitle());
-                    etdemande.setText(findmissionList.get(0).getMissionDescription());
-                    etbudget.setText(findmissionList.get(0).getMissionBudget());
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        MakeOfferDetailModle makeOfferDetailModle = response.body();
+                        findmissionList = makeOfferDetailModle.getData();
+                        ettitletext.setText(findmissionList.get(0).getMissionTitle());
+                        etdemande.setText(findmissionList.get(0).getMissionDescription());
+                        etbudget.setText(findmissionList.get(0).getMissionBudget());
 
-                    if (findmissionList.get(0).getMissionImage().isEmpty()) {
+                        if (findmissionList.get(0).getMissionImage().isEmpty()) {
 
-                    } else {
-                        String[] imgesArray = findmissionList.get(0).getMissionImage().split(",");
-                        for (int i = 0; i < imgesArray.length; i++) {
-                            filesList.add(imgesArray[i]);
-                        }
-                    }
-
-                    if (findmissionList.get(0).getMissionDoc().isEmpty()) {
-
-                    } else {
-                        String[] filesArray = findmissionList.get(0).getMissionDoc().split(",");
-                        for (int i = 0; i < filesArray.length; i++) {
-                            filesList.add(filesArray[i]);
+                        } else {
+                            String[] imgesArray = findmissionList.get(0).getMissionImage().split(",");
+                            for (int i = 0; i < imgesArray.length; i++) {
+                                filesList.add(imgesArray[i]);
+                            }
                         }
 
-                    }
+                        if (findmissionList.get(0).getMissionDoc().isEmpty()) {
 
-                    makeanOfferAdapter.addDetailFiles(filesList);
+                        } else {
+                            String[] filesArray = findmissionList.get(0).getMissionDoc().split(",");
+                            for (int i = 0; i < filesArray.length; i++) {
+                                filesList.add(filesArray[i]);
+                            }
+
+                        }
+
+                        makeanOfferAdapter.addDetailFiles(filesList);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     // makeanOfferAdapter.add();
                 }
             }
 
             @Override
             public void onFailure(Call<MakeOfferDetailModle> call, Throwable t) {
-                pbMakeAnOffer.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
 
     private void makeAnOfferApi() {
-        pbMakeAnOffer.setVisibility(View.VISIBLE);
-        // Log.v("data",missionId+"/"+userid+"/"+etAcceptOffer.getText().toString()+"/"+status+"/"+offerPrice);
+        CustomProgressbar.showProgressBar(this, false);
         apiServices.makeAnOffer(missionId, userid, etAcceptOffer.getText().toString(), status, offerPrice).enqueue(new Callback<SaveOfferModle>() {
             @Override
             public void onResponse(Call<SaveOfferModle> call, Response<SaveOfferModle> response) {
                 if (response.isSuccessful()) {
-                    pbMakeAnOffer.setVisibility(View.GONE);
-                    SaveOfferModle body = response.body();
-                    if (body.getStatus()) {
-                        CheckNetwork.nextScreenWithoutFinish(MakeAnOfferActivity.this, OfferComfirmationActivity.class);
-                    } else {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        SaveOfferModle body = response.body();
+                        if (body.getStatus()) {
+                            CheckNetwork.nextScreenWithoutFinish(MakeAnOfferActivity.this, OfferComfirmationActivity.class);
+                        } else {
 
+                        }
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<SaveOfferModle> call, Throwable t) {
-                pbMakeAnOffer.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
@@ -231,7 +244,11 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
     @Override
     public void myMakeAnOfferDetailTabClick(View view, int position) {
-
+        switch (view.getId()) {
+            case R.id.rlFileFolderId:
+                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+                break;
+        }
     }
 }
 

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.Adapter.DetailsAdapter;
 import com.frelance.detailsPkg.detailModlePkg.MissionViewDetailModle;
@@ -212,12 +213,12 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
 
     private void myMissionViewDetail(String myMissionId) {
-        pbMymissionDetail.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myMisionViewDetail(myMissionId).enqueue(new Callback<MissionViewDetailModle>() {
             @Override
             public void onResponse(Call<MissionViewDetailModle> call, Response<MissionViewDetailModle> response) {
                 if (response.isSuccessful()) {
-                    pbMymissionDetail.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     MissionViewDetailModle missionViewDetailModle = response.body();
                     if (missionViewDetailModle.getStatus()) {
 
@@ -259,7 +260,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbMymissionDetail.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -274,7 +275,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
 
             @Override
             public void onFailure(Call<MissionViewDetailModle> call, Throwable t) {
-                pbMymissionDetail.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

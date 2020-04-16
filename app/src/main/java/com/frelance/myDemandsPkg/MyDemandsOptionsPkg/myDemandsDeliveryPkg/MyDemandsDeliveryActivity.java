@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.HelpActivity;
 import com.frelance.R;
@@ -237,12 +238,12 @@ public class MyDemandsDeliveryActivity extends Fragment
     }
 
     private void myOnDeliveryApi(String status) {
-        pbDemandDelivery.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.demandDelivered(status).enqueue(new Callback<DemandDeliveredModle>() {
             @Override
             public void onResponse(Call<DemandDeliveredModle> call, Response<DemandDeliveredModle> response) {
                 if (response.isSuccessful()) {
-                    pbDemandDelivery.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     DemandDeliveredModle requestlist = response.body();
                     if (requestlist.getStatus()) {
                         datumList = requestlist.getData();
@@ -286,7 +287,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbDemandDelivery.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -301,19 +302,19 @@ public class MyDemandsDeliveryActivity extends Fragment
 
             @Override
             public void onFailure(Call<DemandDeliveredModle> call, Throwable t) {
-                pbDemandDelivery.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
 
 
     private void askToModify(String misionid) {
-        pbDemandDelivery.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.askToModify(misionid).enqueue(new Callback<AskToModifyResponseModle>() {
             @Override
             public void onResponse(Call<AskToModifyResponseModle> call, Response<AskToModifyResponseModle> response) {
                 if (response.isSuccessful()) {
-                    pbDemandDelivery.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     AskToModifyResponseModle requestlist = response.body();
                     if (requestlist.getStatus()) {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
@@ -325,7 +326,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbDemandDelivery.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -340,7 +341,7 @@ public class MyDemandsDeliveryActivity extends Fragment
 
             @Override
             public void onFailure(Call<AskToModifyResponseModle> call, Throwable t) {
-                pbDemandDelivery.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
@@ -383,19 +384,23 @@ public class MyDemandsDeliveryActivity extends Fragment
     }
 
     private void submitReviewApi(String reveriewMsg, String numberOfStar, final Dialog dialog) {
-        pbDemandDelivery.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.addReviewToUser(clientId, numberOfStar, reveriewMsg, userid).enqueue(new Callback<SubmitReviewModle>() {
             @Override
             public void onResponse(Call<SubmitReviewModle> call, Response<SubmitReviewModle> response) {
                 if (response.isSuccessful()) {
-                    pbDemandDelivery.setVisibility(View.GONE);
-                    SubmitReviewModle submitReviewModle = response.body();
-                    if (submitReviewModle.getStatus()) {
-                        dialog.dismiss();
-                        Toast.makeText(getActivity(), submitReviewModle.getMessage(), Toast.LENGTH_LONG).show();
-                        radioid.setChecked(true);
-                        radioid.setEnabled(false);
-                    } else {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        SubmitReviewModle submitReviewModle = response.body();
+                        if (submitReviewModle.getStatus()) {
+                            dialog.dismiss();
+                            Toast.makeText(getActivity(), submitReviewModle.getMessage(), Toast.LENGTH_LONG).show();
+                            radioid.setChecked(true);
+                            radioid.setEnabled(false);
+                        } else {
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
@@ -403,7 +408,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbDemandDelivery.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -418,7 +423,7 @@ public class MyDemandsDeliveryActivity extends Fragment
 
             @Override
             public void onFailure(Call<SubmitReviewModle> call, Throwable t) {
-                pbDemandDelivery.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

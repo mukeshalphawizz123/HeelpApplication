@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -44,15 +45,22 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
     public void onBindViewHolder(@NonNull MyRequestPublishedNoteAdapter.ViewHolder holder, int position) {
         try {
             holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
-            holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMessage());
-            if (Integer.parseInt(mymissionModelArrayList.get(position).getDuration()) > 10) {
+            holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMissionTitle());
+            holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration());
+            /*if (Integer.parseInt(mymissionModelArrayList.get(position).getDuration()) > 10) {
                 holder.tvDaysNotesRow.setText(Constants.missionDemandDate(mymissionModelArrayList.get(position).getCreatedDate()));
-            } else {
-                holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration() + "days ago");
             }
+            else {
+                holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration() + "days ago");
+            }*/
             if (mymissionModelArrayList.get(position).getPicture_url().isEmpty()) {
+               // Toast.makeText(context, mymissionModelArrayList.get(position).getPicture_url(), Toast.LENGTH_LONG).show();
             } else {
-                Picasso.with(context).load(RetrofitClient.MYMISSIONANDMYDEMANDE_IMAGE_URL + mymissionModelArrayList.get(position).getPicture_url()).into(holder.ivmymission);
+              //  Toast.makeText(context, mymissionModelArrayList.get(position).getPicture_url(), Toast.LENGTH_LONG).show();
+                Picasso.with(context)
+                        .load(RetrofitClient.MISSION_USER_IMAGE_URL + mymissionModelArrayList.get(0).getPicture_url())
+                        .into(holder.ivmymission);
+
             }
 
             holder.ratingpubished.setRating(Float.parseFloat(mymissionModelArrayList.get(position).getProfile_Rate()));
@@ -67,13 +75,10 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
         notifyDataSetChanged();
     }
 
-
     @Override
-
     public int getItemCount() {
         return mymissionModelArrayList == null ? 0 : mymissionModelArrayList.size();
     }
-
 
     public interface MyRequestPublishedNoteAppOnClickListener {
         void myReqPublishedNoteTabClick(View view, int position, YourMission yourMission);

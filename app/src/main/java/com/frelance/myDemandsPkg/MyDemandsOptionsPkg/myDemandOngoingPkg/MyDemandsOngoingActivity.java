@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.HelpActivity;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
@@ -167,43 +168,47 @@ public class MyDemandsOngoingActivity extends Fragment
     }
 
     private void myOnProgressApi(String projectId) {
-        pbDemandProgress.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.demandPorgress(projectId).enqueue(new Callback<DemandOnProgressModle>() {
             @Override
             public void onResponse(Call<DemandOnProgressModle> call, Response<DemandOnProgressModle> response) {
                 if (response.isSuccessful()) {
-                    pbDemandProgress.setVisibility(View.GONE);
-                    DemandOnProgressModle requestlist = response.body();
-                    if (requestlist.getStatus()) {
-                        datumList = requestlist.getData();
-                        tvUserNameDemandProg.setText(datumList.get(0).getFirstName());
-                        tvCommentDemandProg.setText(datumList.get(0).getYourComments());
-                        if (datumList.get(0).getPictureUrl().isEmpty()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        DemandOnProgressModle requestlist = response.body();
+                        if (requestlist.getStatus()) {
+                            datumList = requestlist.getData();
+                            tvUserNameDemandProg.setText(datumList.get(0).getFirstName());
+                            tvCommentDemandProg.setText(datumList.get(0).getYourComments());
+                            if (datumList.get(0).getPictureUrl().isEmpty()) {
 
-                        } else {
-                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserProgDemain);
-                        }
-
-
-                        if (datumList.get(0).getProjectImage().isEmpty()) {
-
-                        } else {
-                            String[] imgesArray = datumList.get(0).getProjectImage().split(",");
-                            for (int i = 0; i < imgesArray.length; i++) {
-                                filesList.add(imgesArray[i]);
+                            } else {
+                                Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserProgDemain);
                             }
-                        }
 
-                        if (datumList.get(0).getProjectFiles().isEmpty()) {
 
-                        } else {
-                            String[] filesArray = datumList.get(0).getProjectFiles().split(",");
-                            for (int i = 0; i < filesArray.length; i++) {
-                                filesList.add(filesArray[i]);
+                            if (datumList.get(0).getProjectImage().isEmpty()) {
+
+                            } else {
+                                String[] imgesArray = datumList.get(0).getProjectImage().split(",");
+                                for (int i = 0; i < imgesArray.length; i++) {
+                                    filesList.add(imgesArray[i]);
+                                }
                             }
-                        }
-                        myDemandOngoingAdapter.addOnGoingDemandsFiles(filesList);
 
+                            if (datumList.get(0).getProjectFiles().isEmpty()) {
+
+                            } else {
+                                String[] filesArray = datumList.get(0).getProjectFiles().split(",");
+                                for (int i = 0; i < filesArray.length; i++) {
+                                    filesList.add(filesArray[i]);
+                                }
+                            }
+                            myDemandOngoingAdapter.addOnGoingDemandsFiles(filesList);
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } else {
@@ -212,7 +217,7 @@ public class MyDemandsOngoingActivity extends Fragment
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbDemandProgress.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -227,7 +232,7 @@ public class MyDemandsOngoingActivity extends Fragment
 
             @Override
             public void onFailure(Call<DemandOnProgressModle> call, Throwable t) {
-                pbDemandProgress.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

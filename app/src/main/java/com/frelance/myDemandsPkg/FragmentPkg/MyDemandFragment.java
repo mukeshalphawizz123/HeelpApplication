@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.databinding.ActivityMyrequestBinding;
 import com.frelance.myDemandsPkg.MyRequestAdapter.MyRequestAdapter;
@@ -107,12 +108,12 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
     }
 
     private void MyRequest(String status) {
-        PbMyrequest.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myrequest(status,userId).enqueue(new Callback<MyDemandeModel>() {
             @Override
             public void onResponse(Call<MyDemandeModel> call, Response<MyDemandeModel> response) {
                 if (response.isSuccessful()) {
-                    PbMyrequest.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     MyDemandeModel requestlist = response.body();
                     if (requestlist.getStatus() == true) {
                         Tvmyrequestitemnot.setVisibility(View.GONE);
@@ -127,7 +128,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                PbMyrequest.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -142,7 +143,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
 
             @Override
             public void onFailure(Call<MyDemandeModel> call, Throwable t) {
-                PbMyrequest.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

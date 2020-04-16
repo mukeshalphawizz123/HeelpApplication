@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -84,8 +83,7 @@
                             android:layout_height="50sp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10sp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/physique" />
+                            android:scaleType="fitXY" />
 
                         <RelativeLayout
                             android:id="@+id/RlItemdestitleId"
@@ -304,6 +302,7 @@
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvimageviewcardid"
                     android:layout_width="match_parent"
@@ -314,7 +313,6 @@
                     android:layout_marginEnd="15sp"
                     app:cardBackgroundColor="@color/lessgray"
                     app:cardCornerRadius="2sp">
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -436,18 +434,14 @@
 
         </ScrollView>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
 
             <ProgressBar
                 android:id="@+id/PbitemdescriptionId"
                 android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
 
-        </RelativeLayout>
 
 
     </RelativeLayout>

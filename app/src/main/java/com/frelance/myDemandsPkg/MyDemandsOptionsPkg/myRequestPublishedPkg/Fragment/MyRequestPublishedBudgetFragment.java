@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Adapter.MyRequestPublishedNoteAdapter;
@@ -52,7 +53,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         projectId = AppSession.getStringPreferences(getActivity(), "projectid");
-        // Toast.makeText(getActivity(),projectId,Toast.LENGTH_LONG).show();
+      //   Toast.makeText(getActivity(),projectId,Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDemandsNotes(projectId);
@@ -96,19 +97,18 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
     }
 
     private void myDemandsNotes(String id) {
-        pbNoteMyDemands.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myDemandbidbybudget(id).enqueue(new Callback<DemandInProgressModle>() {
             @Override
             public void onResponse(Call<DemandInProgressModle> call, Response<DemandInProgressModle> response) {
                 if (response.isSuccessful()) {
-                    pbNoteMyDemands.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     DemandInProgressModle requestlist = response.body();
                     if (requestlist.getStatus()) {
                         yourMissionList = requestlist.getYourMissions();
                         Log.v("testing", yourMissionList.get(0).getPicture_url());
                         myRequestPublishedNoteAdapter.addmyDemandsData(yourMissionList);
                     } else {
-
                     }
                 } else {
                     if (response.code() == 400) {
@@ -116,7 +116,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNoteMyDemands.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -131,22 +131,23 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
 
             @Override
             public void onFailure(Call<DemandInProgressModle> call, Throwable t) {
-                pbNoteMyDemands.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
 
 
     private void acceptOffer(String offerid, String userId, String missionId, String status) {
-        pbNoteMyDemands.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.acceptOffer(offerid, userId, missionId, status).enqueue(new Callback<AcceptOfferModle>() {
             @Override
             public void onResponse(Call<AcceptOfferModle> call, Response<AcceptOfferModle> response) {
                 if (response.isSuccessful()) {
-                    pbNoteMyDemands.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     AcceptOfferModle requestlist = response.body();
                     if (requestlist.getStatus()) {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
+                        AppSession.setStringPreferences(getActivity(),"pay_mission_id",missionId);
                         CheckNetwork.nextScreenWithoutFinish(getActivity(), CreditCardPayment.class);
                     } else {
                         Toast.makeText(getActivity(), requestlist.getMessage(), Toast.LENGTH_LONG).show();
@@ -157,7 +158,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNoteMyDemands.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -172,7 +173,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
 
             @Override
             public void onFailure(Call<AcceptOfferModle> call, Throwable t) {
-                pbNoteMyDemands.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

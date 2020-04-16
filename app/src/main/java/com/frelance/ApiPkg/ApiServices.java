@@ -2,6 +2,7 @@ package com.frelance.ApiPkg;
 
 
 import com.frelance.SetLangPkg.SetLangmodel;
+import com.frelance.chatPkg.chatModlePkg.ChatEntryModel;
 import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
@@ -90,6 +91,13 @@ public interface ApiServices {
             @Field("client_id") String client_id,
             @Field("category_id") String category_id
     );
+
+
+    @FormUrlEncoded
+    @POST("Client/adddiscussuser")
+    Call<ChatEntryModel> chatEntryApi(
+            @Field("sender_id") String sender_id,
+            @Field("reciver_id") String reciver_id);
 
 
 //category_id
@@ -187,6 +195,7 @@ public interface ApiServices {
                                             @Field("user_name") String user_name,
                                             @Field("amount") String amount,
                                             @Field("projectaname") String projectaname,
+                                            @Field("mission_id") String mission_id,
                                             @Field("token_Id") String token_Id);
 
 

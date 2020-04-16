@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.Adapter.MyDemandsCompleteAdapter;
@@ -153,42 +154,46 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     }
 
     private void myOnCompleteApi(String projectId) {
-        pbDemandComplete.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.demandomplete(projectId).enqueue(new Callback<DemandCompleteModle>() {
             @Override
             public void onResponse(Call<DemandCompleteModle> call, Response<DemandCompleteModle> response) {
                 if (response.isSuccessful()) {
-                    pbDemandComplete.setVisibility(View.GONE);
-                    DemandCompleteModle requestlist = response.body();
-                    if (requestlist.getStatus()) {
-                        datumList = requestlist.getData();
-                        tvUserDemandComp.setText(datumList.get(0).getFirstName());
-                        tvCommentDemandCompl.setText(datumList.get(0).getYourComments());
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        DemandCompleteModle requestlist = response.body();
+                        if (requestlist.getStatus()) {
+                            datumList = requestlist.getData();
+                            tvUserDemandComp.setText(datumList.get(0).getFirstName());
+                            tvCommentDemandCompl.setText(datumList.get(0).getYourComments());
 
-                        if (datumList.get(0).getPictureUrl().isEmpty()) {
-                        } else {
-                            Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserDemandComp);
-                        }
-
-                        if (datumList.get(0).getProjectImage().isEmpty()) {
-
-                        } else {
-                            String[] imgesArray = datumList.get(0).getProjectImage().split(",");
-                            for (int i = 0; i < imgesArray.length; i++) {
-                                filesList.add(imgesArray[i]);
+                            if (datumList.get(0).getPictureUrl().isEmpty()) {
+                            } else {
+                                Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserDemandComp);
                             }
-                        }
 
-                        if (datumList.get(0).getProjectFiles().isEmpty()) {
+                            if (datumList.get(0).getProjectImage().isEmpty()) {
 
-                        } else {
-                            String[] filesArray = datumList.get(0).getProjectFiles().split(",");
-                            for (int i = 0; i < filesArray.length; i++) {
-                                filesList.add(filesArray[i]);
+                            } else {
+                                String[] imgesArray = datumList.get(0).getProjectImage().split(",");
+                                for (int i = 0; i < imgesArray.length; i++) {
+                                    filesList.add(imgesArray[i]);
+                                }
                             }
-                        }
 
-                        myRequestCompleteAdapter.addCompletedDemandsFiles(filesList);
+                            if (datumList.get(0).getProjectFiles().isEmpty()) {
+
+                            } else {
+                                String[] filesArray = datumList.get(0).getProjectFiles().split(",");
+                                for (int i = 0; i < filesArray.length; i++) {
+                                    filesList.add(filesArray[i]);
+                                }
+                            }
+
+                            myRequestCompleteAdapter.addCompletedDemandsFiles(filesList);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 } else {
@@ -197,7 +202,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbDemandComplete.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -212,7 +217,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
 
             @Override
             public void onFailure(Call<DemandCompleteModle> call, Throwable t) {
-                pbDemandComplete.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
     }

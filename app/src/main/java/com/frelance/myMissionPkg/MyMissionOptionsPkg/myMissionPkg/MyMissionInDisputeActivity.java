@@ -27,17 +27,13 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
-import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.SendDiputeResponseModle;
-import com.frelance.myMissionPkg.myMissionModlePkg.MyMissionModel;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -128,7 +124,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
 
     private void myMissionDispute(String userId) {
-        //  PbMymission.setVisibility(View.VISIBLE);
+       /// CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getprojectdispute(userId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {

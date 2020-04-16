@@ -183,7 +183,6 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
             @Override
             public void onResponse(Call<ChatUserResponseModle> call, Response<ChatUserResponseModle> response) {
                 if (response.isSuccessful()) {
-                    Pbsearch.setVisibility(View.GONE);
                     ChatUserResponseModle chatUserResponseModle = response.body();
                     if (chatUserResponseModle.getStatus()) {
                         datumList = chatUserResponseModle.getData();

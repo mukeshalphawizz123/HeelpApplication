@@ -78,11 +78,15 @@ public class DialogeMessageUserAdapter extends RecyclerView.Adapter<DialogeMessa
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvUserNameMsg.setText(datumList.get(position).getFirstName() + " " + datumList.get(position).getLastName());
-        Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(position).getPictureUrl()).into(holder.ivUserMsg);
-
+        if (datumList.get(position).getFirstName().isEmpty()) {
+        } else {
+            holder.tvUserNameMsg.setText(datumList.get(position).getFirstName() + " " + datumList.get(position).getLastName());
+        }
+        if (datumList.get(position).getPictureUrl().isEmpty()) {
+        } else {
+            Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(position).getPictureUrl()).into(holder.ivUserMsg);
+        }
     }
-
 
     public void addmymissionData(List<Datum> datumList) {
         this.datumList = datumList;
@@ -105,13 +109,15 @@ public class DialogeMessageUserAdapter extends RecyclerView.Adapter<DialogeMessa
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public RelativeLayout rlmsguser;
         CircleImageView ivUserMsg;
-        AppCompatTextView tvUserNameMsg;
+        AppCompatTextView tvUserNameMsg,tvtime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             rlmsguser = itemView.findViewById(R.id.rlmsguserid);
             tvUserNameMsg = itemView.findViewById(R.id.tvUserNameMsgId);
             ivUserMsg = itemView.findViewById(R.id.ivUserMsgId);
+            tvtime = itemView.findViewById(R.id.tvtimeId);
+            tvtime.setVisibility(View.GONE);
             rlmsguser.setOnClickListener(this);
         }
 

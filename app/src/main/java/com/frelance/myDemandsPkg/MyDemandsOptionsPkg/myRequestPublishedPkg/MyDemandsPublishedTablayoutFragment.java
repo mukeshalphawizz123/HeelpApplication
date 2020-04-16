@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +36,7 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
     private RelativeLayout rlreqpublishviewdetails;
     private TextView tvviewprofile;
     private String projectId;
+    private AppCompatTextView tvPublishedTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
         View view = inflater.inflate(R.layout.activity_tablayout__my_request_published, container, false);
         try {
             projectId = this.getArguments().getString("projectId");
+            //  Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -96,8 +101,10 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
     }
 
     private void replaceFragement(Fragment fragment) {
-
         AppSession.setStringPreferences(getActivity(), "OnGoing", "MyReqPubliee");
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", projectId);
+        fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
         fragmentTransaction.replace(R.id.flHomeId, fragment);

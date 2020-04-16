@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6sp"
                     android:progressTint="#D8FF7F00"
-                    android:rating="3.5"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:transformPivotX="0dp"

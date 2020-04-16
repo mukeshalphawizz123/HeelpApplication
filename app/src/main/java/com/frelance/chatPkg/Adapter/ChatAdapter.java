@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context context;
@@ -208,9 +210,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatTextView tvusertime, tvSenderChat, tvSenderImagetimeVoice,
                 tvSendertime, tvUserChat;
-        private AppCompatImageView ivchatprofile;
+        private CircleImageView ivchatprofile,ivchatImageprofile;
         private RelativeLayout rlChatuUserLeft, rlChatuUserRight, rlChatuUserImgLeft, rlChatuUserImgRight, rlChatuUserVoiceRight, rlChatuUserVoiceLeft;
-        private AppCompatImageView ivchatSharedImage, ivchatImageprofile, ivchaRecordingPlayImageleft, ivchaRecordingStopImageleft,
+        private AppCompatImageView ivchatSharedImage, ivchaRecordingPlayImageleft, ivchaRecordingStopImageleft,
                 ivchatSharedImageRight, ivchaRecordingStopImageRight, ivchaRecordingPlayImageRight;
         private AppCompatTextView tvSenderImagetime, tvSendSharetimeRight;
         private AppCompatTextView tvvoicetimePlayRight, tvvoicetimeRight;

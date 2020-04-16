@@ -70,7 +70,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
     private AppCompatTextView payButton;
     private ApiServices apiServices;
     private String userId, clientId;
-    private String userName, categoryTitle, totalamount;
+    private String userName, categoryTitle, totalamount, missionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,8 @@ public class CheckoutActivityJava extends AppCompatActivity {
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
         categoryTitle = AppSession.getStringPreferences(getApplicationContext(), "categoryTitle");
         totalamount = AppSession.getStringPreferences(getApplicationContext(), "totalamount");
+        missionId = AppSession.getStringPreferences(getApplicationContext(), "pay_mission_id");
+
         // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         PaymentConfiguration.init(getApplicationContext(), "pk_test_IKgHpz7lpleTM3rcFSnyoxC700UDOoixI7"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         payButton = findViewById(R.id.payButton);
@@ -183,7 +185,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
 
     private void paymentStrip(String clientid, String userId, String username, String amount, String projectName, String token) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.paymentStrip(clientid, userId, username, amount, projectName, token)
+        apiServices.paymentStrip(clientid, userId, username, amount, projectName,missionId, token)
                 .enqueue(new retrofit2.Callback<PaymentResponseModle>() {
                     @Override
                     public void onResponse(retrofit2.Call<PaymentResponseModle> call, retrofit2.Response<PaymentResponseModle> response) {

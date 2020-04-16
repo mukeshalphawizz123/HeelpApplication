@@ -120,7 +120,7 @@ three main needs of the student.</string>
     <string name="heelp_utilise_des_technologies_de_traitement_des_donn_es_s_curis_es_afin_de_prot_ger_au_maximum_vos_donn_es_personnelles_vos_donn_es_personnelles_ne_seront_jamais_utilis_es_ou_transmises_des_tiers_sans_votre_autorisation_heelp_s_engage_vous_permettre_d_acc_der_vos_informations_personnelles_et_de_les_modifier_conform_ment_la_loi_informatique_et_libert_s_et_au_rgpd">Heelp utilise des technologies de traitement des données sécurisées afin de protéger au maximum vos données personnelles. Vos données personnelles ne seront jamais utilisées ou transmises à des tiers sans votre autorisation. Heelp s’engage à vous permettre d’accéder à vos informations personnelles et de les modifier conformément à la loi informatique et libertés et au RGPD.</string>
     <string name="la_transparence_est_notre_principe_pas_de_frais_cach_s_les_frais_de_services_permet_de_vous_assurer_plusieurs_fonctionnalit_s_et_services_tels_que_le_stockage_s_curis_de_vos_donn_es_le_traitement_des_litiges_le_support_client_les_transactions_bancaires_s_curis_es_publier_une_demande_la_publication_d_une_demande_est_gratuite_accepter_une_offre_propos_e_pour_votre_demande_12_du_montant_de_l_offre_0_25_euros_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_montant_de_10_vous_payerez_11_45_soit_1_45_de_frais_proposer_une_offre_la_proposition_d_offre_est_gratuite_retirer_l_argent_que_vous_avez_gagn_d_une_mission_que_vous_avez_r_alis_9_du_montant_retirer_y_compris_les_frais_de_traitement_bancaire_exemple_pour_un_retrait_de_10_vous_recevrez_un_virement_de_9_1_soit_0_90_de_frais_nb_les_frais_de_services_peuvent_changer_sans_pr_avis">La transparence est notre principe : Pas de frais cachés  !! Les frais de services permet de vous assurer plusieurs fonctionnalités et services tels que : le stockage sécurisé de vos données, le traitement des litiges, le support client, les transactions bancaires sécurisées… -Publier une demande : La publication d’une demande est gratuite -Accepter une offre proposée pour votre demande : 12% du montant de l’offre + 0,25 euros (y compris les frais de traitement bancaire) Exemple : pour un montant de 10€ vous payerez 11,45 € (soit 1,45 € de frais) -Proposer une offre : La proposition d’offre est gratuite. -Retirer l’argent que vous avez gagné d’une mission que vous avez réalisé : 9% du montant à retirer (y compris les frais de traitement bancaire). Exemple : pour un retrait de 10€ vous recevrez un virement de 9.1 € (soit 0,90€ de frais) NB : Les frais de services peuvent changer sans préavis.</string>
     <string name="si_oui_erci_de_preciser_la_nature_du_probleme">If yes, please specify the nature of the problem</string>
-    <string name="ex_j_ai_besoin_de">ex: j\'ai besoin de...</string>
+    <string name="ex_j_ai_besoin_de"></string>
     <string name="do_you_want_to_edit">Do You Want To Edit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -136,7 +136,7 @@ three main needs of the student.</string>
     <string name="image">Image</string>
     <string name="post_your_demand">Post your demand</string>
     <string name="_200">200</string>
-    <string name="jonathan_do">Jonathan Do</string>
+    <string name="jonathan_do">None</string>
     <string name="support_message">Support Message:</string>
     <string name="please_let_me_know">Please let me know</string>
     <string name="mission_title">Mission title</string>

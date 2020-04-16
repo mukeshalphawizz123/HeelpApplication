@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6sp"
                     android:progressTint="#D8FF7F00"
-                    android:rating="3.5"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
                     android:transformPivotX="0dp"
@@ -46,7 +45,7 @@
                     android:layout_below="@+id/ratingpubishedidd"
                     android:layout_marginTop="4sp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/userprofileimage" />
+                    android:src="@drawable/dashboarddummyimg" />
 
 
             </RelativeLayout>
@@ -95,7 +94,6 @@
                     android:id="@+id/tvDaysNotesRowId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_2_days_ago"
                     android:textColor="@color/gray"
                     android:textSize="10sp" />
 

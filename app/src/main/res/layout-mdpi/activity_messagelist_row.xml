@@ -22,7 +22,7 @@
             android:padding="3dp"
             app:civ_border_width="@dimen/_1sdp"
             app:civ_border_color="@color/lessBlack"
-            android:src="@drawable/dummyuserimg" />
+            android:src="@drawable/dashboarddummyimg" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -20,7 +20,7 @@
             android:layout_marginStart="5sp"
             android:layout_marginTop="5dp"
             android:padding="3dp"
-            android:src="@drawable/dummyuserimg"
+            android:src="@drawable/dashboarddummyimg"
             app:civ_border_color="@color/lessBlack"
             app:civ_border_width="@dimen/_1sdp" />
 

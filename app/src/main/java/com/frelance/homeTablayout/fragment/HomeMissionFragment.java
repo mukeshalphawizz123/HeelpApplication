@@ -29,9 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.chatPkg.ChatActivity;
-import com.frelance.databinding.FragmentHomeRespondttoarerequestBinding;
+import com.frelance.chatPkg.chatModlePkg.ChatEntryModel;
 import com.frelance.homeTablayout.adapter.HomeCategoryFilterAdapter;
 import com.frelance.homeTablayout.adapter.FindMisionAdapter;
 import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
@@ -53,7 +54,7 @@ import retrofit2.Response;
 
 public class HomeMissionFragment extends Fragment implements HomeCategoryFilterAdapter.HomePublisherRequest,
         FindMisionAdapter.HomerespondtoarequestAppOnClickListener, View.OnClickListener, Filterable {
-    private FragmentHomeRespondttoarerequestBinding fragmentHomeRespondttoarerequestBinding;
+
     private FindMisionAdapter findMisionAdapter;
     private RecyclerView rvcategoriesFrag;
     private ProgressBar pbHomeRespondlist;
@@ -88,18 +89,25 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     private void homeRespondeList(String userId, String category_id) {
-        pbHomeRespondlist.setVisibility(View.VISIBLE);
+        //   pbHomeRespondlist.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.repondrelist(userId, category_id).enqueue(new Callback<RepondreunedemandeModel>() {
             @Override
             public void onResponse(Call<RepondreunedemandeModel> call, Response<RepondreunedemandeModel> response) {
                 if (response.isSuccessful()) {
-                    pbHomeRespondlist.setVisibility(View.GONE);
-                    RepondreunedemandeModel repondreunedemandeModel = response.body();
-                    findmission = repondreunedemandeModel.getYourMissions();
-                    findMisionAdapter.findmission(findmission);
-                    if (flag == false) {
-                    } else {
-                        dialog.dismiss();
+
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        // pbHomeRespondlist.setVisibility(View.GONE);
+                        RepondreunedemandeModel repondreunedemandeModel = response.body();
+                        findmission = repondreunedemandeModel.getYourMissions();
+                        findMisionAdapter.findmission(findmission);
+                        if (flag == false) {
+                        } else {
+                            dialog.dismiss();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     //seearchDoctorAdapter.doctorList(doctorList);
                 }
@@ -107,7 +115,39 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
 
             @Override
             public void onFailure(Call<RepondreunedemandeModel> call, Throwable t) {
-                pbHomeRespondlist.setVisibility(View.GONE);
+                //  pbHomeRespondlist.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+    }
+
+    private void chatEntryApi(String userId, String client) {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.chatEntryApi(userId, client).enqueue(new Callback<ChatEntryModel>() {
+            @Override
+            public void onResponse(Call<ChatEntryModel> call, Response<ChatEntryModel> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        ChatEntryModel chatEntryModel = response.body();
+                        if (chatEntryModel.getStatus()) {
+                            Intent intent1 = new Intent(getActivity(), ChatActivity.class);
+                            intent1.putExtra("client_id", client);
+                            startActivity(intent1);
+                            getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                        } else {
+                           // dialog.dismiss();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //seearchDoctorAdapter.doctorList(doctorList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChatEntryModel> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
             }
         });
     }
@@ -140,10 +180,11 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), MakeAnOfferActivity.class);
                 break;
             case R.id.RlDiscussId:
-                Intent intent1 = new Intent(getActivity(), ChatActivity.class);
-                intent1.putExtra("client_id", yourMission.getClient_id());
-                startActivity(intent1);
-                getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    chatEntryApi(userId, yourMission.getClient_id());
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }

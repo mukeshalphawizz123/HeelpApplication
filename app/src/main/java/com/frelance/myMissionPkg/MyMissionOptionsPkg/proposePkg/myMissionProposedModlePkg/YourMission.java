@@ -37,15 +37,78 @@ public class YourMission {
     @Expose
     private String missionImage;
 
+
+    @SerializedName("category_title")
+    @Expose
+    private String category_title;
+
+    @SerializedName("category_image")
+    @Expose
+    private String category_image;
+
+
+    @SerializedName("category_description")
+    @Expose
+    private String category_description;
+
+    @SerializedName("duration")
+    @Expose
+    private String duration;
+
+
+    @SerializedName("mission_description")
+    @Expose
+    private String mission_description;
+
+
+    public String getCategory_title() {
+        return category_title;
+    }
+
+    public void setCategory_title(String category_title) {
+        this.category_title = category_title;
+    }
+
+    public String getCategory_image() {
+        return category_image;
+    }
+
+    public void setCategory_image(String category_image) {
+        this.category_image = category_image;
+    }
+
+    public String getCategory_description() {
+        return category_description;
+    }
+
+    public void setCategory_description(String category_description) {
+        this.category_description = category_description;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getMission_description() {
+        return mission_description;
+    }
+
+    public void setMission_description(String mission_description) {
+        this.mission_description = mission_description;
+    }
+
+
     /**
      * No args constructor for use in serialization
-     * 
      */
     public YourMission() {
     }
 
     /**
-     * 
      * @param missionBudget
      * @param createdDate
      * @param missionId

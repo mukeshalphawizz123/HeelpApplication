@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.notificationPkg.notificationMessagePkg.NotificationMessageActivity;
 import com.frelance.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity;
@@ -124,46 +125,46 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
     private void notification(String userId) {
-        pbNotification.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(this, false);
         apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
             @Override
             public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
                 if (response.isSuccessful()) {
-                    pbNotification.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     NotificationCountResponseModle notificationResponseModle = response.body();
                     if (notificationResponseModle.getStatus()) {
 
                         if (notificationResponseModle.getCountPayment() > 10) {
                             tvPaymentCount.setText("10" + "+");
                         } else {
-                            tvPaymentCount.setText(""+notificationResponseModle.getCountPayment());
+                            tvPaymentCount.setText("" + notificationResponseModle.getCountPayment());
                         }
 
 
                         if (notificationResponseModle.getCountMissionanddemands() > 10) {
                             tvStatusCount.setText("10" + "+");
                         } else {
-                            tvStatusCount.setText(""+notificationResponseModle.getCountMissionanddemands());
+                            tvStatusCount.setText("" + notificationResponseModle.getCountMissionanddemands());
                         }
 
 
                         if (notificationResponseModle.getCountOffers() > 10) {
                             tvOfferCount.setText("10" + "+");
                         } else {
-                            tvOfferCount.setText(""+notificationResponseModle.getCountOffers());
+                            tvOfferCount.setText("" + notificationResponseModle.getCountOffers());
                         }
 
 
                         if (notificationResponseModle.getCountMessages() > 10) {
                             tvMsgCount.setText("10" + "+");
                         } else {
-                            tvMsgCount.setText(""+notificationResponseModle.getCountMessages());
+                            tvMsgCount.setText("" + notificationResponseModle.getCountMessages());
                         }
 
                         if (notificationResponseModle.getCountReviews() > 10) {
                             tvReviewCount.setText("10" + "+");
                         } else {
-                            tvReviewCount.setText(""+notificationResponseModle.getCountReviews());
+                            tvReviewCount.setText("" + notificationResponseModle.getCountReviews());
                         }
 
 
@@ -174,7 +175,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNotification.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -189,7 +190,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
-                pbNotification.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

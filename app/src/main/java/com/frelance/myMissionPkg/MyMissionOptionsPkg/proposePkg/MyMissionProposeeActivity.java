@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 
 import com.frelance.chatPkg.ChatActivity;
@@ -59,7 +60,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
-        // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);
@@ -186,12 +187,12 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
 
 
     private void myMission(String myMissionId) {
-        PbMymissionProposed.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.myMissionbidbyProposed(myMissionId).enqueue(new Callback<MyMissionProposedModle>() {
             @Override
             public void onResponse(Call<MyMissionProposedModle> call, Response<MyMissionProposedModle> response) {
                 if (response.isSuccessful()) {
-                    PbMymissionProposed.setVisibility(View.GONE);
+                    CustomProgressbar.hideProgressBar();
                     MyMissionProposedModle myMissionProposedModle = response.body();
                     if (myMissionProposedModle.getStatus()) {
                         yourMissionList = myMissionProposedModle.getYourMissions();
@@ -205,7 +206,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                PbMymissionProposed.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -220,7 +221,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
 
             @Override
             public void onFailure(Call<MyMissionProposedModle> call, Throwable t) {
-                PbMymissionProposed.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

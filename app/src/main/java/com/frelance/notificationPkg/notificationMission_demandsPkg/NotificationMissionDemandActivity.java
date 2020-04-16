@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
@@ -87,16 +88,20 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
 
 
     private void notification(String userId, String typeId) {
-        pbNotMissionDemands.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(this, false);
         apiServices.getNotification(userId, typeId).enqueue(new Callback<NotificationResponseModle>() {
             @Override
             public void onResponse(Call<NotificationResponseModle> call, Response<NotificationResponseModle> response) {
                 if (response.isSuccessful()) {
-                    pbNotMissionDemands.setVisibility(View.GONE);
-                    NotificationResponseModle notificationResponseModle = response.body();
-                    if (notificationResponseModle.getStatus()) {
-                        notificationList = notificationResponseModle.getData();
-                        missionAndDemandsAdapter.addmymissionData(notificationList);
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        NotificationResponseModle notificationResponseModle = response.body();
+                        if (notificationResponseModle.getStatus()) {
+                            notificationList = notificationResponseModle.getData();
+                            missionAndDemandsAdapter.addmymissionData(notificationList);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
@@ -104,7 +109,7 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
-                                pbNotMissionDemands.setVisibility(View.GONE);
+                                CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
@@ -119,7 +124,7 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
 
             @Override
             public void onFailure(Call<NotificationResponseModle> call, Throwable t) {
-                pbNotMissionDemands.setVisibility(View.GONE);
+                CustomProgressbar.hideProgressBar();
             }
         });
 

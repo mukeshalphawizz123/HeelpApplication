@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="15sp"
@@ -17,10 +16,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMissionImageid"
             android:layout_width="70dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
             android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:scaleType="fitXY" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/TvdurationId"
             android:layout_width="wrap_content"
@@ -117,9 +117,9 @@
                     android:layout_width="40sp"
                     android:layout_height="40sp"
                     android:layout_centerVertical="true"
+                    android:src="@drawable/dashboarddummyimg"
                     app:civ_border_color="@color/lessBlack"
-                    app:civ_border_width="@dimen/_1sdp"
-                    android:src="@drawable/dashboarddummyimg" />
+                    app:civ_border_width="@dimen/_1sdp" />
 
             </RelativeLayout>
 

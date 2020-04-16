@@ -32,6 +32,7 @@ import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
@@ -151,7 +152,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void postDemands() {
-        //  Toast.makeText(getApplicationContext(), "withFileImage", Toast.LENGTH_LONG).show();
+        CustomProgressbar.showProgressBar(this, false);
         MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
         try {
             if (stringArrayList.size() == 0) {
@@ -178,7 +179,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         }
 
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
-        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(EtItemdesTitleText.getText().toString()));
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
@@ -187,30 +188,31 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.isSuccessful()) {
-                            {
-                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
-                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+
+                        try {
+                            CustomProgressbar.hideProgressBar();
+                            if (response.isSuccessful()) {
+                                {
+                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                    CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PostDemandModle> call, Throwable t) {
                         Log.v("Error", t.toString());
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                        CustomProgressbar.hideProgressBar();
                     }
                 });
     }
 
 
     private void postDemandsWithouImag() {
-        //  Toast.makeText(getApplicationContext(), "withFileImage", Toast.LENGTH_LONG).show();
-        Pbitemdescription.setVisibility(View.VISIBLE);
-        // List<Uri> files; //These are the uris for the files to be uploaded
+        CustomProgressbar.showProgressBar(this, false);
         MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
@@ -222,7 +224,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         }
 
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
-        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", EtItemdesTitleText.getText().toString());
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
@@ -231,20 +233,23 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.isSuccessful()) {
-                            {
-                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
-                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                        CustomProgressbar.hideProgressBar();
+                        try {
+                            if (response.isSuccessful()) {
+                                {
+                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                    CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PostDemandModle> call, Throwable t) {
                         Log.v("Error", t.toString());
-                        Pbitemdescription.setVisibility(View.GONE);
+                        CustomProgressbar.hideProgressBar();
                         //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -252,8 +257,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
 
     private void postDemandsWithouFile() {
-        //  Toast.makeText(getApplicationContext(), "withImage", Toast.LENGTH_LONG).show();
-        Pbitemdescription.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(this, false);
         MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
         try {
             if (stringArrayList.size() == 0) {
@@ -269,7 +273,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         }
 
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
-        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", EtItemdesTitleText.getText().toString());
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
@@ -278,31 +282,32 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.isSuccessful()) {
-                            {
-                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
-                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                        try {
+                            CustomProgressbar.hideProgressBar();
+                            if (response.isSuccessful()) {
+                                {
+                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                    CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PostDemandModle> call, Throwable t) {
-                        Log.v("Error", t.toString());
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                        CustomProgressbar.hideProgressBar();
+
                     }
                 });
     }
 
 
     private void postDemandsWithoutFileandImage() {
-        //  Toast.makeText(getApplicationContext(), "withoutFileImage", Toast.LENGTH_LONG).show();
-        Pbitemdescription.setVisibility(View.VISIBLE);
+        CustomProgressbar.showProgressBar(this, false);
         MultipartBody.Part category_id = MultipartBody.Part.createFormData("category_id", String.valueOf(projectId));
-        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", String.valueOf(title));
+        MultipartBody.Part title_ = MultipartBody.Part.createFormData("title", EtItemdesTitleText.getText().toString());
         MultipartBody.Part description = MultipartBody.Part.createFormData("description", EtItemdes.getText().toString());
         MultipartBody.Part budget_ = MultipartBody.Part.createFormData("budget", EtItemdesBudget.getText().toString());
         MultipartBody.Part client_id_ = MultipartBody.Part.createFormData("client_id", String.valueOf(client_id));
@@ -311,21 +316,22 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 .enqueue(new Callback<PostDemandModle>() {
                     @Override
                     public void onResponse(Call<PostDemandModle> call, Response<PostDemandModle> response) {
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + response.toString(), Toast.LENGTH_LONG).show();
-                        if (response.isSuccessful()) {
-                            {
-                                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
-                                CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                        try {
+                            CustomProgressbar.hideProgressBar();
+                            if (response.isSuccessful()) {
+                                {
+                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_LONG).show();
+                                    CheckNetwork.goTobackScreen(PostADemandActivity.this, ComfirmationActivity.class);
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<PostDemandModle> call, Throwable t) {
-                        Log.v("Error", t.toString());
-                        Pbitemdescription.setVisibility(View.GONE);
-                        //Toast.makeText(getActivity(), "testing" + t.toString(), Toast.LENGTH_LONG).show();
+                        CustomProgressbar.hideProgressBar();
                     }
                 });
     }

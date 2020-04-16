@@ -255,14 +255,13 @@
                             android:background="@android:color/transparent"
                             android:inputType="number"
                             android:maxLength="8"
-                            android:text="200"
                             android:textColor="@color/bluee"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="18dp"
-                            android:layout_toRightOf="@+id/etbudgetid"
+                            android:layout_toEndOf="@+id/etbudgetid"
                             android:layout_height="10dp"
                             android:layout_centerVertical="true"
                             android:scaleType="fitXY"

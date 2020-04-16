@@ -40,6 +40,7 @@ public class YourMission {
     @SerializedName("picture_url")
     @Expose
     private String picture_url;
+
     @SerializedName("Profile_Rate")
     @Expose
     private String Profile_Rate;

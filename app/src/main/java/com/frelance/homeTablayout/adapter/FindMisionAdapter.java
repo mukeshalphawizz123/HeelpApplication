@@ -45,8 +45,22 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
         holder.tvDescription.setText(findmission.get(position).getMissionDescription());
         holder.Tvduration.setText(findmission.get(position).getDuration());
         holder.TvBudget.setText(" " + findmission.get(position).getMissionBudget() + "€");
-        Picasso.with(context).load(RetrofitClient.IMAGE_URL + findmission.get(position).getCategory_project_image()).into(holder.ivMissionImage);
-        Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + findmission.get(position).getUserImage()).into(holder.ivUserImage);
+        if (findmission.get(position).getCategory_project_image().isEmpty()) {
+        } else {
+            Picasso.with(context)
+                    .load(RetrofitClient.IMAGE_URL + findmission.get(position).getCategory_project_image())
+                    .resize(100, 100)
+                    .into(holder.ivMissionImage);
+        }
+
+        if (findmission.get(position).getUserImage().isEmpty()) {
+
+        } else {
+            Picasso.with(context)
+                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + findmission.get(position).getUserImage())
+                    .resize(100, 100)
+                    .into(holder.ivUserImage);
+        }
     }
 
     public void findmission(List<YourMission> findmission) {
