@@ -55,6 +55,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
             // chatUserlist("1");
             // chatUserlist(userId);
             chatDataSanpchat();
+            chatDataSanpchat();
         } else {
 
         }
