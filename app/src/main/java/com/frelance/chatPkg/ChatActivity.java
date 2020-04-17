@@ -109,6 +109,7 @@ public class ChatActivity extends AppCompatActivity implements
 
     private String entryFlag = "0", firstname, lastName, user_picturUrl;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,12 +126,34 @@ public class ChatActivity extends AppCompatActivity implements
         consersation = new Consersation();
         random = new Random();
 
+       // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             getProfileApi(clientId);
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        //removing data from firebase server=====================================================
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userNameRef = rootRef.child("userList").child("user_" + userid + "_");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(clientId).exists()) {//create new user
+                    rootRef.removeValue();
+                } else {
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+            }
+        };
+        userNameRef.addListenerForSingleValueEvent(eventListener);
+
     }
 
     private void init() {
@@ -273,16 +296,33 @@ public class ChatActivity extends AppCompatActivity implements
                     ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message, "", "");
                     FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
                     FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
+
                     UnReadMessageUserModle unReadMessageUserModle = new UnReadMessageUserModle(clientId,
                             firstname,
                             user_picturUrl,
                             Constants.currentDateAndTime(),
                             userid);
+
                     if (entryFlag.equalsIgnoreCase("1")) {
                         entryFlag = "2";
-                       // Toast.makeText(getApplicationContext(), "sdfsd", Toast.LENGTH_LONG).show();
-                        // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").push().setValue(unReadMessageUserModle);
-                        FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").push().setValue(unReadMessageUserModle);
+
+                        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference userNameRef = rootRef.child("userList").child("user_" + clientId + "_");
+                        ValueEventListener eventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child(userid).exists()) {//create new user
+                                } else {
+                                    FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").push().setValue(unReadMessageUserModle);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+                            }
+                        };
+                        userNameRef.addListenerForSingleValueEvent(eventListener);
                     }
                     if (CheckNetwork.isNetAvailable(getApplicationContext())) {
                         sendChat(clientId, content);

@@ -60,7 +60,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
-        //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);
@@ -135,7 +135,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         switch (view.getId()) {
             case R.id.rlMyMissionDiscusseDelId:
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra("client_id", yourMission.getUserId());
+                intent.putExtra("client_id", yourMission.getClient_id());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;

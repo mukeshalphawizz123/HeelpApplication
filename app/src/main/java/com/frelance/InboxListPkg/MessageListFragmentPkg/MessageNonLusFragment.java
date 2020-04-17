@@ -1,18 +1,14 @@
 package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -29,7 +25,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,9 +47,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         consersation = new UnReadMsgConsersation();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            // chatUserlist("1");
-            // chatUserlist(userId);
-            chatDataSanpchat();
             chatDataSanpchat();
         } else {
 
@@ -69,12 +61,10 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         rvmsglist.setLayoutManager(layoutManager);
         unReadMsgAdapter = new UnReadMsgAdapter(getActivity(), this);
         rvmsglist.setAdapter(messageToutAdapter);
-        chatDataSanpchat();
-
     }
 
     private void chatDataSanpchat() {
-     //   datumList.clear();
+        datumList.clear();
         String userRecordinsertFormat = "user_" + userId + "_";
         FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
             @Override
@@ -82,7 +72,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                 if (dataSnapshot.getValue() != null) {
                     //CustomProgressbar.hideProgressBar();
 //                        postnotification("Alert", "You received message");
-                    datumList = new ArrayList<>();
+                  //  datumList = new ArrayList<>();
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("name"),
@@ -96,25 +86,11 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                         unReadMsgAdapter.notifyDataSetChanged();
                         // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
 
-
-                       /* if (datumList.contains(chatModle.getSenderId())) {
-                        } else {
-                            datumList.add(chatModle);
-                            unReadMsgAdapter.addmymissionData(datumList);
-                            unReadMsgAdapter.notifyDataSetChanged();
-                            layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
-                        }*/
-                        //consersation.getListMessageData().add(chatModle);
-
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
-
-
                 }
-
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -137,6 +113,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
 
             }
         });
+
         rvmsglist.setAdapter(unReadMsgAdapter);
 
     }

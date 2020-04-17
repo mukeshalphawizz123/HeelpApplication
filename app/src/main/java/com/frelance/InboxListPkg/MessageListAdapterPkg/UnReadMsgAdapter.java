@@ -39,6 +39,8 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
         this.context = context;
         this.messageToutAppOnClickListener = messageToutAppOnClickListener;
         sendIdList = new ArrayList<>();
+        chatModleArrayListDemo = new ArrayList<>();
+        chatModleArrayList = new ArrayList<>();
     }
 
     @NonNull
@@ -82,7 +84,7 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
         sendIdList.clear(); // copying elements but without any duplicates
         sendIdList.addAll(primesWithoutDuplicates);
         Log.v("senderid", sendIdList.toString());
-        chatModleArrayList.clear();
+       // chatModleArrayListDemo.clear();
         for (int j = 0; j < sendIdList.size(); j++) {
             for (int i = 0; i < chatModleArrayList_.size(); i++) {
                 String senderId = chatModleArrayList_.get(i).getSenderId();
@@ -90,11 +92,13 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
                     chatModleArrayList.add(chatModleArrayList_.get(i));
                     break;
                 }
+                break;
             }
+            break;
         }
         Log.v("chat", chatModleArrayList.toString());
-        notifyDataSetChanged();
-   */ }
+        notifyDataSetChanged();*/
+    }
 
     @Override
     public int getItemCount() {

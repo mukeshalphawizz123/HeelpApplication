@@ -95,7 +95,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
-        // Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         prefData = new PrefData(getActivity());
 
@@ -344,7 +344,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
                             } else {
                                 Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
                                         .get(0).getPictureUrl())
-                                        .resize(200,200)
+                                        .resize(200, 200)
                                         .into(ivuserprofileimage);
                             }
                             userImg = yourMissionList.get(0).getPictureUrl();
