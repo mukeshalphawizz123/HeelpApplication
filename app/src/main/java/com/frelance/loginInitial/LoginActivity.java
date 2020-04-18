@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
                             sociallogin1(first_name + last_name, id, "2");
-                            Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -226,7 +226,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-        Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
@@ -298,7 +298,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             AppSession.setStringPreferences(LoginActivity.this, "status", "auth");
                         }
-                        Toast.makeText(getApplicationContext(), getLoginModle.getData().getId(), Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(), getLoginModle.getData().getId(), Toast.LENGTH_LONG).show();
                         Toast.makeText(getApplicationContext(), "Successfully Login", Toast.LENGTH_LONG).show();
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().getUsername());

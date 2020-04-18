@@ -1,6 +1,7 @@
 package com.frelance.homePkg;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,9 @@ import com.frelance.R;
 import com.frelance.InboxListPkg.MessageTablayout.MessageListTablayoutFragment;
 import com.frelance.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
+import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.PlusMoreFragment;
+import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,10 +34,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        String data = getIntent().getStringExtra("data");
         fragmentManager = getSupportFragmentManager();
         init();
-        addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
-        //replaceFragement(new HomeTablayoutFragment());
+        if (data != null) {
+            if (data.equals("fromoutside")) {
+                chat();
+                addFragment(new MessageListTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+            } else {
+                addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+                CheckNetwork.nextScreenWithoutFinish(getApplicationContext(), NotificationActivity.class);
+            }
+        } else {
+            addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+        }
+        ///  addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
     }
 
     private void init() {
@@ -261,7 +275,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             account();
             addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         } else if (PLUS_MORE_FRAGMENT != null) {
-           // super.onBackPressed();
+            // super.onBackPressed();
             if (DESHBOARD_SPONSOR_SHIP != null) {
                 super.onBackPressed();
             } else if (DASHBOARD_PAYMENT_ACTIVITY != null) {
@@ -286,4 +300,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         manager.popBackStackImmediate();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            String data = intent.getStringExtra("data");
+            if (data != null) {
+                Fragment fragment = new MessageListTablayoutFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flHomeId, fragment).addToBackStack(null).commit();
+            }
+        }
+    }
 }

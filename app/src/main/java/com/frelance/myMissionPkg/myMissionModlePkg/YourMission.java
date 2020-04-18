@@ -12,6 +12,14 @@ public class YourMission {
     @SerializedName("mission_description")
     @Expose
     private String missionDescription;
+
+
+    @SerializedName("mission_title")
+    @Expose
+    private String mission_title;
+
+
+
     @SerializedName("mission_status")
     @Expose
     private String missionStatus;
@@ -30,7 +38,6 @@ public class YourMission {
     @SerializedName("client_id")
     @Expose
     private String client_id;
-
 
 
     /**
@@ -121,6 +128,13 @@ public class YourMission {
 
     public void setClient_id(String client_id) {
         this.client_id = client_id;
+    }
+    public String getMission_title() {
+        return mission_title;
+    }
+
+    public void setMission_title(String mission_title) {
+        this.mission_title = mission_title;
     }
 
 

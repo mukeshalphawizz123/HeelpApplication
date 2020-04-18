@@ -97,16 +97,15 @@ public class ChatActivity extends AppCompatActivity implements
     private String profilImgPath;
     private File fileForImage;
 
-    String AudioSavePathInDevice = null;
-    MediaRecorder mediaRecorder;
-    Random random;
-    String RandomAudioFileName = "ABCDEFGHIJKLMNOP";
+    private String AudioSavePathInDevice = null;
+    private MediaRecorder mediaRecorder;
+    private Random random;
+    private String RandomAudioFileName = "ABCDEFGHIJKLMNOP";
     public static final int RequestPermissionCode = 1;
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
     private RelativeLayout rlVoiceRecordingStop;
     private Chronometer tvTimer;
     private GetProfileModle missionlist;
-
     private String entryFlag = "0", firstname, lastName, user_picturUrl;
 
 
@@ -126,7 +125,7 @@ public class ChatActivity extends AppCompatActivity implements
         consersation = new Consersation();
         random = new Random();
 
-       // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
 
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
@@ -136,7 +135,7 @@ public class ChatActivity extends AppCompatActivity implements
         }
 
         //removing data from firebase server=====================================================
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+      /*  DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userNameRef = rootRef.child("userList").child("user_" + userid + "_");
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -153,6 +152,31 @@ public class ChatActivity extends AppCompatActivity implements
             }
         };
         userNameRef.addListenerForSingleValueEvent(eventListener);
+*/
+
+        // DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userList").child("user_" + userid + "_");
+        // userNameRef.child(clientId).removeValue();
+
+        // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").child(clientId).removeValue();
+
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.child("senderId").getValue(String.class).equals(clientId)) {
+                        ds.child("senderId").getRef().removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
 
     }
 

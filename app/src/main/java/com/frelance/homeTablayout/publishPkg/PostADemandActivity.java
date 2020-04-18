@@ -425,14 +425,14 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             if (stringArrayList.size() == 0 && files.size() > 0) {
                 postDemandsWithouImag();
             } else if (files.size() == 0 && stringArrayList.size() > 0) {
-                if (stringArrayList.size() >= 3) {
-                    postDemandsWithouFile();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();
-                }
+                //  if (stringArrayList.size() >= 3) {
+                postDemandsWithouFile();
+                // } else {
+                //    Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();
+                //  }
             } else if (stringArrayList.size() == 0 && files.size() == 0) {
                 postDemandsWithoutFileandImage();
-            } else if (stringArrayList.size() >= 3) {
+            } else if (stringArrayList.size() > 0 && files.size() > 0) {
                 postDemands();
             } else {
                 Toast.makeText(getApplicationContext(), "Select more than three images", Toast.LENGTH_LONG).show();

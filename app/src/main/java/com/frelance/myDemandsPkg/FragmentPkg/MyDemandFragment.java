@@ -72,13 +72,14 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
         activityMyrequestBinding = DataBindingUtil.inflate(inflater, R.layout.activity_myrequest, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         View view = activityMyrequestBinding.getRoot();
-        userId=AppSession.getStringPreferences(getActivity(),Constants.USERID);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         myrequestModleArrayList = new ArrayList<>();
         myrequestModleArrayList.add(new myrequestModle(getResources().getString(R.string.Publiée)));
         myrequestModleArrayList.add(new myrequestModle(getResources().getString(R.string.Encours)));
         myrequestModleArrayList.add(new myrequestModle(getResources().getString(R.string.Livrée)));
         myrequestModleArrayList.add(new myrequestModle(getResources().getString(R.string.Completée)));
         myrequestModleArrayList.add(new myrequestModle(getResources().getString(R.string.Enlitige)));
+        //  Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             MyRequest("0");
@@ -109,7 +110,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
 
     private void MyRequest(String status) {
         CustomProgressbar.showProgressBar(getActivity(), false);
-        apiServices.myrequest(status,userId).enqueue(new Callback<MyDemandeModel>() {
+        apiServices.myrequest(status, userId).enqueue(new Callback<MyDemandeModel>() {
             @Override
             public void onResponse(Call<MyDemandeModel> call, Response<MyDemandeModel> response) {
                 if (response.isSuccessful()) {

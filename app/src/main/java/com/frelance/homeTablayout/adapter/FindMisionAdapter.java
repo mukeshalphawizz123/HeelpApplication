@@ -42,7 +42,7 @@ public class FindMisionAdapter extends RecyclerView.Adapter<FindMisionAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvDescription.setText(findmission.get(position).getMissionDescription());
+        holder.tvDescription.setText(findmission.get(position).getMissionTitle());
         holder.Tvduration.setText(findmission.get(position).getDuration());
         holder.TvBudget.setText(" " + findmission.get(position).getMissionBudget() + "€");
         if (findmission.get(position).getCategory_project_image().isEmpty()) {

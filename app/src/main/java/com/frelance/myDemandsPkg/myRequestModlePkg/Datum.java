@@ -12,7 +12,12 @@ public class Datum {
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("status")
+
+    @SerializedName("mission_title")
+    @Expose
+    private String mission_title;
+
+    @SerializedName("mission_status")
     @Expose
     private String status;
     @SerializedName("date")
@@ -123,5 +128,14 @@ public class Datum {
     public void setCategoryTitle(String categoryTitle) {
         this.categoryTitle = categoryTitle;
     }
+
+    public String getMission_title() {
+        return mission_title;
+    }
+
+    public void setMission_title(String mission_title) {
+        this.mission_title = mission_title;
+    }
+
 
 }

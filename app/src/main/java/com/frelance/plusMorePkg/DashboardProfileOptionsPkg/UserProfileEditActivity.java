@@ -97,7 +97,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             tvcategoriess, tvcompetencesss;
     private RelativeLayout rlnextpager;
     private static Animation shakeAnimation;
-    private AppCompatImageView iveditprofilepin;
+    private AppCompatImageView iveditprofilepin,iveditprofilepins;
     private File fileForImage;
     private String profilImgPath, userId;
 
@@ -115,6 +115,8 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
     }
 
     private void init(View view) {
+        iveditprofilepins = view.findViewById(R.id.iveditprofilepinsId);
+        iveditprofilepins.setVisibility(View.GONE);
         iveditprofilepin = view.findViewById(R.id.iveditprofilepinId);
         rlnextpager = view.findViewById(R.id.rlnextpagerid);
         tvlevelofstudyy = view.findViewById(R.id.tvlevelofstudyyid);

@@ -3,17 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_above="@+id/bottomRel"
             android:orientation="vertical"
-            android:weightSum="2"
-            android:layout_height="match_parent">
+            android:weightSum="2">
 
             <RelativeLayout
                 android:id="@+id/rlbackgroundid"
@@ -32,6 +34,7 @@
                     android:src="@drawable/creditcard" />
 
                 <RelativeLayout
+                    android:id="@+id/rlAddANewCardId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivcreditcardimgidd"
@@ -77,7 +80,7 @@
                         android:id="@+id/ivnotificationcreditcardId"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="25dp"
                         android:layout_marginEnd="15sp"
                         android:src="@drawable/ring" />
@@ -101,8 +104,6 @@
                 android:id="@+id/editorRel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rlbackgroundid"
-                android:layout_above="@+id/bottomLayout"
                 android:layout_weight="1"
                 android:background="@color/white">
 
@@ -115,12 +116,12 @@
                         android:id="@+id/tvediterid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="15sp"
                         android:layout_marginEnd="50sp"
                         android:text="@string/editer"
                         android:textColor="@color/Black"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -134,19 +135,99 @@
                 </RelativeLayout>
 
 
-
                 <RelativeLayout
                     android:id="@+id/rlcreditcardimghhgid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rlediterid">
+                    android:layout_below="@+id/rlediterid"
+                    android:background="@drawable/cardbox">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etCardHolderNameId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginEnd="@dimen/_60sdp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:hint="@string/card_holder_name"
+                        android:padding="@dimen/_2sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivChipId"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_60sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/cardchip" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etCardNumberId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_80sdp"
+                        android:layout_marginTop="@dimen/_90sdp"
+                        android:layout_marginEnd="@dimen/_60sdp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:inputType="numberPassword"
+                        android:letterSpacing="0.02"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:text="0000000000000000"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="normal" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvValidityId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etCardNumberId"
+                        android:layout_marginStart="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_9sdp"
+                        android:text="@string/validity"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etExpiryId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etCardNumberId"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_toEndOf="@+id/tvValidityId"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/mm_yy"
+                        android:maxLength="5"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/_10sdp" />
 
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivcreditcardimghhgid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/creditcardimage" />
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_below="@+id/etCardNumberId"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_58sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:src="@drawable/card_visa" />
+
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -155,22 +236,22 @@
 
 
         <RelativeLayout
+            android:id="@+id/bottomRel"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/bottomRel"
-            android:background="@drawable/blankbtn"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/blankbtn">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="normal"
-                android:textSize="@dimen/_13sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/save"/>
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="normal" />
 
         </RelativeLayout>
 

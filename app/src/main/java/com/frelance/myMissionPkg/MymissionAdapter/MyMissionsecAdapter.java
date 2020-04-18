@@ -68,7 +68,7 @@ public class MyMissionsecAdapter extends RecyclerView.Adapter<MyMissionsecAdapte
             holder.tvMyMissionRowFilterStatus.setTextColor(context.getResources().getColor(R.color.lightRed));
         }
         holder.tvMyMissionRowFilterStatus.setText(filterTag);
-        holder.TvMymissionproposeDes.setText(mymissionlist.get(position).getMissionDescription());
+        holder.TvMymissionproposeDes.setText(mymissionlist.get(position).getMission_title());
         holder.TvMyMissionproposeTime.setText(Constants.missionDemandDate(mymissionlist.get(position).getDate()));
         holder.TvBy.setText("By:" + mymissionlist.get(position).getBy());
         holder.tvMyMissionTitle.setText(mymissionlist.get(position).getCategoryTitle());

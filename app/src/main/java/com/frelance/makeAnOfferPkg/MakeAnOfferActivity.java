@@ -2,6 +2,8 @@ package com.frelance.makeAnOfferPkg;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -70,7 +72,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         fileDownloading = new FileDownloading(getApplicationContext());
         missionId = AppSession.getStringPreferences(getApplicationContext(), "mission_Id");
-        // Toast.makeText(getApplicationContext(), missionId, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), missionId, Toast.LENGTH_LONG).show();
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         filesList = new ArrayList<>();
         init();
@@ -104,6 +106,8 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         makeanOfferAdapter = new MakeanOfferAdapter(getApplicationContext(), this);
         rvfileuploadoffer.setAdapter(makeanOfferAdapter);
         radioid.setChecked(true);
+
+
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -111,9 +115,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radiogreenid.setChecked(false);
                     status = "1";
                     offerPrice = etbudget.getText().toString();
-                    // etMakeOfferAmount.setFocusable(false);
-
-                    //  Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(getApplicationContext(), offerPrice, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -124,9 +126,42 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                     radioid.setChecked(false);
                     status = "2";
                     offerPrice = etMakeOfferAmount.getText().toString();
-                    //  etMakeOfferAmount.setFocusable(true);
-                    // Toast.makeText(getApplicationContext(), status + "," + offerPrice, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), offerPrice, Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        etbudget.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                offerPrice = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        etMakeOfferAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                offerPrice = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -182,6 +217,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
     private void makeAnOfferApi() {
         CustomProgressbar.showProgressBar(this, false);
+        Toast.makeText(getApplicationContext(), offerPrice, Toast.LENGTH_LONG).show();
         apiServices.makeAnOffer(missionId, userid, etAcceptOffer.getText().toString(), status, offerPrice).enqueue(new Callback<SaveOfferModle>() {
             @Override
             public void onResponse(Call<SaveOfferModle> call, Response<SaveOfferModle> response) {
@@ -194,8 +230,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                         } else {
 
                         }
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

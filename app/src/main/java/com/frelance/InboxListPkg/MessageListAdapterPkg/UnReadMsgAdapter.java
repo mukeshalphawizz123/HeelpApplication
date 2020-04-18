@@ -55,9 +55,11 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
-            userId = chatModleArrayList.get(position).getSenderId();
-            senderId = chatModleArrayList.get(position).getSenderId();
-            holder.tvUserNameMsg.setText(chatModleArrayList.get(position).getName());
+            if (chatModleArrayList.get(position).getName().isEmpty()) {
+               // holder.tvUserNameMsg.setText(chatModleArrayList.get(position).getName());
+            } else {
+                holder.tvUserNameMsg.setText(chatModleArrayList.get(position).getName());
+            }
             holder.tvtime.setText(Constants.missionDemandDate(chatModleArrayList.get(position).getDateAndTime()));
             if (chatModleArrayList.get(position).getImgUrl().isEmpty()) {
             } else {
@@ -75,29 +77,7 @@ public class UnReadMsgAdapter extends RecyclerView.Adapter<UnReadMsgAdapter.View
     public void addmymissionData(ArrayList<UnReadMessageUserModle> chatModleArrayList_) {
         this.chatModleArrayList = chatModleArrayList_;
         notifyDataSetChanged();
-       /* for (int i = 0; i < chatModleArrayList_.size(); i++) {
-            String senderId = chatModleArrayList_.get(i).getSenderId();
-            sendIdList.add(senderId);
-        }
-        Set<String> primesWithoutDuplicates = new LinkedHashSet<String>(sendIdList);
-        // now let's clear the ArrayList so that we can copy all elements from LinkedHashSet
-        sendIdList.clear(); // copying elements but without any duplicates
-        sendIdList.addAll(primesWithoutDuplicates);
-        Log.v("senderid", sendIdList.toString());
-       // chatModleArrayListDemo.clear();
-        for (int j = 0; j < sendIdList.size(); j++) {
-            for (int i = 0; i < chatModleArrayList_.size(); i++) {
-                String senderId = chatModleArrayList_.get(i).getSenderId();
-                if (sendIdList.get(j).equalsIgnoreCase(senderId)) {
-                    chatModleArrayList.add(chatModleArrayList_.get(i));
-                    break;
-                }
-                break;
-            }
-            break;
-        }
-        Log.v("chat", chatModleArrayList.toString());
-        notifyDataSetChanged();*/
+
     }
 
     @Override

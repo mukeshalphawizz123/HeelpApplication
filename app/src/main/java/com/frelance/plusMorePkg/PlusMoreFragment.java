@@ -89,6 +89,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private CircleImageView ivuserprofileimage;
     private AppCompatTextView tvname, tvdesination, tvRatingCountPlusMore;
     private String userImg, userName, userId;
+    private AppCompatImageView iveditprofilepins;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityPlusMoreBinding = DataBindingUtil.inflate(inflater, R.layout.activity_plus_more, container, false);
@@ -109,6 +110,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
 
 
     private void init(View view) {
+
         tvRatingCountPlusMore = view.findViewById(R.id.tvRatingCountPlusMoreId);
         pbUserEditProfile = view.findViewById(R.id.pbUserEditProfileId);
         IvUserProfilesettings = view.findViewById(R.id.IvUserProfilesettingsId);

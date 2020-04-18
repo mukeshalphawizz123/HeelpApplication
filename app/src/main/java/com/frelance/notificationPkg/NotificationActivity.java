@@ -6,10 +6,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
-
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -22,12 +20,9 @@ import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,8 +65,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         tvOfferCount = findViewById(R.id.tvOfferCountId);
         tvMsgCount = findViewById(R.id.tvMsgCountId);
         tvReviewCount = findViewById(R.id.tvReviewCountId);
-
-
         clickListenerSetup();
     }
 
@@ -109,7 +102,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             case R.id.rlPaymentNotificationId:
                 CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, CreditCardPayment.class);
                 break;
-
         }
     }
 

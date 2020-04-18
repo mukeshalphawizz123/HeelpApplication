@@ -11,4 +11,9 @@
     <string name="kindlyreviews">Kindly put your reviews</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="expiry">Expiry</string>
+    <string name="enter_card_number">Enter Card Number</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="validity">Validity</string>
+    <string name="mm_yy">MM/YY</string>
 </resources>
