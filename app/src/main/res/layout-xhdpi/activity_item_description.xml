@@ -298,6 +298,19 @@
 
                         </RelativeLayout>
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFilestextid"
+                            android:layout_marginEnd="128sp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="wrap_content"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1sp"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
 
                     </RelativeLayout>
 

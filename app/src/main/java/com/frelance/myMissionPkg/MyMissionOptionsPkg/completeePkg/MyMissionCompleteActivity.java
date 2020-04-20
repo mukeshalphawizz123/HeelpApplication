@@ -55,30 +55,33 @@ public class MyMissionCompleteActivity extends Fragment implements
     private TextView tvviewprofile;
     private ApiServices apiServices;
     private ProgressBar pbMymissionComplete;
-    private AppCompatTextView tvCommentValueMyMisssion, tvUserNameMyMisssion;
+    private AppCompatTextView tvCommentValueMyMisssion, tvMyMissTitle,tvUserNameMyMisssion;
     private CircleImageView ivUserImgMyMision;
-    private String missionId;
+    private String missionId,mission_mission_title;
 
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_complete, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
+        mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         filesList = new ArrayList<>();
-        //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myCompleted(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+        tvMyMissTitle.setText(mission_mission_title);
         return view;
     }
 
     private void init(View view) {
+        tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         pbMymissionComplete = view.findViewById(R.id.pbMymissionCompleteId);
         tvCommentValueMyMisssion = view.findViewById(R.id.tvCommentValueMyMisssionId);
         tvUserNameMyMisssion = view.findViewById(R.id.tvUserNameMyMisssionId);

@@ -182,7 +182,7 @@
                         android:letterSpacing="0.02"
                         android:maxLength="16"
                         android:singleLine="true"
-                        android:text="0000000000000000"
+                        android:hint="Card Number ****"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textSize="@dimen/_18sdp"
@@ -212,6 +212,7 @@
                         android:hint="@string/mm_yy"
                         android:maxLength="5"
                         android:singleLine="true"
+                        android:inputType="date"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textSize="@dimen/_10sdp" />

@@ -2,6 +2,7 @@ package com.frelance.homeTablayout.publishPkg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -85,6 +87,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<String> stringArrayList = new ArrayList<>();
     private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
+    private AppCompatTextView tvFilestext;
 
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -111,6 +114,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
 
     private void init() {
+        tvFilestext = findViewById(R.id.tvFilestextid);
         Pbitemdescription = findViewById(R.id.PbitemdescriptionId);
         rlPieceJoint = findViewById(R.id.rlPieceJointId);
         rlPieceJoint.setOnClickListener(this);
@@ -459,10 +463,30 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
             Uri content_describer = data.getData();
             files.add(content_describer);
 
-            // docPath = data.getData().getPath();
-            // docPath = data.getData().getPath();
-            // docPath = getRealPathFromURI(PostADemandActivity.this, content_describer);
-            // Log.v("images", docPath);
+            //===============file name proces===========
+            String uriString = content_describer.toString();
+            File myFile = new File(uriString);
+            String path = myFile.getAbsolutePath();
+            String displayName = null;
+
+            if (uriString.startsWith("content://")) {
+                Cursor cursor = null;
+                try {
+                    cursor = getContentResolver().query(content_describer, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        tvFilestext.setText(displayName);
+                    }
+                } finally {
+                    cursor.close();
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+                tvFilestext.setText(displayName);
+
+            }
+
+
             BufferedReader reader = null;
             try {
                 // open the user-picked file for reading:

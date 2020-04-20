@@ -39,6 +39,10 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.get
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.TransactionInResponseModle;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.AddCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.UpdateCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.GetCarListModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.retrivecardPkg.RetrveCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
@@ -145,6 +149,40 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Authentication/myprofilebyid")
     Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/add_credit_card")
+    Call<AddCardModel> add_credit_card(
+            @Field("card_no") String card_no,
+            @Field("expiry") String expiry,
+            @Field("user_id") String user_id,
+            @Field("name") String name,
+            @Field("email_id") String email_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("Client/update_credit_card")
+    Call<UpdateCardModel> update_credit_card(
+            @Field("card_no") String card_no,
+            @Field("expiry") String expiry,
+            @Field("user_id") String user_id,
+            @Field("name") String name,
+            @Field("card_id") String card_id
+    );
+
+    @FormUrlEncoded
+    @POST("Client/get_card_details")
+    Call<GetCarListModel> getCardList(@Field("user_id") String user_id);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/retrieve_a_card")
+    Call<RetrveCardModel> retrieve_a_card(@Field("user_id") String user_id);
+
+
 
 
     @FormUrlEncoded

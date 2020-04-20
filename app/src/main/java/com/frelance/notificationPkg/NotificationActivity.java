@@ -42,6 +42,8 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_notification);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+
+       // Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             notification(userId);

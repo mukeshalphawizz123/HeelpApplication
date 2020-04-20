@@ -30,14 +30,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         String massage = remoteMessage.getData().toString();
         Log.d("responce", String.valueOf(remoteMessage));
-        sendNotification(remoteMessage.getData().put("message", "message"));
+        sendNotification(remoteMessage.getData().put("message", "message"),
+                remoteMessage.getData().put("flag", "flag"));
     }
 
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody,String flag) {
         //  Log.d("responce", String.valueOf(messageBody));
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("data", "fromoutside");
+        intent.putExtra("data", flag);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, /*(int) when*/0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = getString(R.string.notification_channel_id);

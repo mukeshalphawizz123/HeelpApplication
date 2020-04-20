@@ -37,18 +37,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         String data = getIntent().getStringExtra("data");
         fragmentManager = getSupportFragmentManager();
         init();
-        if (data != null) {
-            if (data.equals("fromoutside")) {
-                chat();
-                addFragment(new MessageListTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+        try {
+            if (data != null) {
+                if (data.equalsIgnoreCase("Chat")) {
+                    chat();
+                    addFragment(new MessageListTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+                } else {
+                    addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+                    CheckNetwork.nextScreenWithoutFinish(getApplicationContext(), NotificationActivity.class);
+                }
             } else {
                 addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
-                CheckNetwork.nextScreenWithoutFinish(getApplicationContext(), NotificationActivity.class);
             }
-        } else {
+        } catch (Exception e) {
             addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
-        ///  addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+        ///
     }
 
     private void init() {

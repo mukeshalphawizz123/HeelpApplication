@@ -35,7 +35,7 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
     private ImageView ivpublisheddashboardback, ivnotification;
     private RelativeLayout rlreqpublishviewdetails;
     private TextView tvviewprofile;
-    private String projectId;
+    private String projectId, mission_demand_title;
     private AppCompatTextView tvPublishedTitle;
 
     @Override
@@ -49,17 +49,19 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
         View view = inflater.inflate(R.layout.activity_tablayout__my_request_published, container, false);
         try {
             projectId = this.getArguments().getString("projectId");
-            //  Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
 
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         AppSession.setStringPreferences(getActivity(), "projectid", projectId);
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         addTabs(view);
         return view;
     }
 
     private void addTabs(View view) {
+        tvPublishedTitle = view.findViewById(R.id.tvPublishedTitleId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
         tvviewprofile = view.findViewById(R.id.tvviewprofileid);
@@ -82,6 +84,7 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
         SpannableString content = new SpannableString(getResources().getString(R.string.view_details));
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         tvviewprofile.setText(content);
+        tvPublishedTitle.setText(mission_demand_title);
     }
 
     @Override

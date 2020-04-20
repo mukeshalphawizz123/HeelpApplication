@@ -51,6 +51,7 @@
                     android:src="@drawable/linechartred" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMyMissTitleId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -140,6 +141,7 @@
                     android:layout_marginLeft="15sp">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvMyMissionAvailbaleId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_1_er_livrable"
@@ -150,86 +152,13 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rlongoingbackgroundid"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_below="@+id/rlongoningtextId"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="15sp"
-                    android:layout_marginBottom="10sp"
-                    android:background="@drawable/completebackg">
 
-
-                    <RelativeLayout
-                        android:id="@+id/rldummyimgid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15sp">
-
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivUserInprogMissionId"
-                            android:layout_width="60sp"
-                            android:layout_height="60sp"
-                            app:civ_border_color="@color/lessBlack"
-                            app:civ_border_width="@dimen/_1sdp"
-                            android:src="@drawable/dashboarddummyimg" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvUserNameInProgMissionId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivUserInprogMissionId"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/zeeshan"
-                            android:textColor="@color/bluee"
-                            android:textSize="@dimen/_9sdp"
-                            android:textStyle="bold" />
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15sp"
-                        android:layout_toEndOf="@+id/rldummyimgid">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvtextidd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/your_comments"
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/_12sdp"
-                            android:textStyle="bold" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvCommentInProgMissionId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvtextidd"
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/_11sdp"
-                            android:textStyle="normal" />
-
-
-                    </RelativeLayout>
-
-
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rlrecyyleid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rlongoingbackgroundid"
+                    android:layout_below="@+id/rlongoningtextId"
                     android:layout_marginLeft="5sp"
                     android:layout_marginTop="2sp"
                     android:layout_marginRight="5sp">

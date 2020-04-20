@@ -22,6 +22,18 @@ public class Project {
     @Expose
     private String pictureUrl;
 
+    @SerializedName("creation_date")
+    @Expose
+    private String creation_date;
+
+    public String getCreation_date() {
+        return creation_date;
+    }
+
+    public void setCreation_date(String creation_date) {
+        this.creation_date = creation_date;
+    }
+
     /**
      * No args constructor for use in serialization
      * 

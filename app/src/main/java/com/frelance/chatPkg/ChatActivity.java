@@ -48,11 +48,13 @@ import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 import com.frelance.utility.ImagePicker;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -135,47 +137,25 @@ public class ChatActivity extends AppCompatActivity implements
         }
 
         //removing data from firebase server=====================================================
-      /*  DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userNameRef = rootRef.child("userList").child("user_" + userid + "_");
-        ValueEventListener eventListener = new ValueEventListener() {
+
+
+        // final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").child(clientId).removeValue();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("userList");
+        Query applesQuery = ref.child("user_" + userid + "_").orderByChild("senderId").equalTo(clientId);
+
+        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(clientId).exists()) {//create new user
-                    rootRef.removeValue();
-                } else {
+                for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
+                    appleSnapshot.getRef().removeValue();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Log.d(TAG, databaseError.getMessage()); //Don't ignore errors!
+                // Log.e(TAG, "onCancelled", databaseError.toException());
             }
-        };
-        userNameRef.addListenerForSingleValueEvent(eventListener);
-*/
-
-        // DatabaseReference userNameRef = FirebaseDatabase.getInstance().getReference().child("userList").child("user_" + userid + "_");
-        // userNameRef.child(clientId).removeValue();
-
-        // FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_").child(clientId).removeValue();
-
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + clientId + "_");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.child("senderId").getValue(String.class).equals(clientId)) {
-                        ds.child("senderId").getRef().removeValue();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-
         });
 
     }

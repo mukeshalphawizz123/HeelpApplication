@@ -159,13 +159,13 @@
                             android:id="@+id/EtItemdesTitleTextid"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
-                            android:layout_marginStart="6dp"
                             android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
                             android:layout_toEndOf="@+id/tvtitletextid"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/raleway_medium"
-                            android:singleLine="true"
                             android:hint="@string/eg_j_ai_besoin_d_aide_pour_mon_projet"
+                            android:singleLine="true"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
@@ -226,7 +226,6 @@
                             android:textColor="@color/lessBlack"
                             android:textSize="12sp"
                             android:textStyle="normal" />
-
 
 
                         <RelativeLayout
@@ -300,6 +299,20 @@
                         </RelativeLayout>
 
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFilestextid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginTop="1sp"
+                            android:layout_marginEnd="128sp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -314,6 +327,7 @@
                     android:layout_marginEnd="15sp"
                     app:cardBackgroundColor="@color/lessgray"
                     app:cardCornerRadius="2sp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -321,8 +335,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvselectimageId"
                             android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
 
 
                     </RelativeLayout>
@@ -436,13 +450,12 @@
         </ScrollView>
 
 
-            <ProgressBar
-                android:id="@+id/PbitemdescriptionId"
-                android:layout_width="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
+        <ProgressBar
+            android:id="@+id/PbitemdescriptionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

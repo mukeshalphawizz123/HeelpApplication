@@ -60,7 +60,6 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     @Override
     public int getItemCount() {
-        // return 6;
         return projectlist == null ? 0 : projectlist.size();
     }
 

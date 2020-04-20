@@ -44,14 +44,12 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
         View view = inflater.inflate(R.layout.fragment_message_tout, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
        // Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            //chatUserlist(userId);
             chatUserlist(userId);
         } else {
 
@@ -67,6 +65,14 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
         rvmsglist.setLayoutManager(layoutManager);
         messageToutAdapter = new MessageToutAdapter(getActivity(), this);
         rvmsglist.setAdapter(messageToutAdapter);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
     }
 
     public void onClick(View view, int position) {

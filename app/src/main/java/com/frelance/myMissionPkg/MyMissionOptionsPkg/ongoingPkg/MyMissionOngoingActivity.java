@@ -97,16 +97,14 @@ public class MyMissionOngoingActivity extends Fragment implements
     private ProgressBar pbMymissionProgress;
     private RelativeLayout rlmymissionongoingSendbrtn, rlproblem, rlmyMissProgressFile, rlmyMissProgressImag;
     private File fileForImage, fileForDocs;
-    private String filePath = null, profilImgPath, docPath, missionId, userId;
+    private String filePath = null, profilImgPath, docPath, missionId, userId, mission_mission_title;
     private static final int SELECT_PICTURE = 101;
     private static final int PERMISSION_READ_EXTERNAL_STORAGE = 100;
     private static final int FILE_SELECT_CODE = 0;
     private AppCompatEditText etMsgBoxInprogress;
     private static Animation shakeAnimation;
     private List<Datum> yourMissionList;
-    private AppCompatTextView tvUserNameInProgMission, tvCommentInProgMission;
     private CircleImageView ivUserInprogMission;
-
     private RecyclerView rvselectimageId;
     private SelectImageAdapter selectImageAdapter;
     private ArrayList<String> stringArrayList = new ArrayList<>();
@@ -115,6 +113,7 @@ public class MyMissionOngoingActivity extends Fragment implements
     private ArrayList<String> filesList;
     private OngoingAdapter ongoingAdapter;
     private FileDownloading fileDownloading;
+    private AppCompatTextView tvMyMissTitle, tvMyMissionAvailbale;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
@@ -122,14 +121,16 @@ public class MyMissionOngoingActivity extends Fragment implements
         fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         filesList = new ArrayList<>();
+
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMissionInProgress(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
-
+        tvMyMissTitle.setText(mission_mission_title);
         return view;
     }
 
@@ -139,10 +140,9 @@ public class MyMissionOngoingActivity extends Fragment implements
     }
 
     private void init(View view) {
+        tvMyMissionAvailbale = view.findViewById(R.id.tvMyMissionAvailbaleId);
+        tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         rvselectimageId = view.findViewById(R.id.rvselectimageId);
-        ivUserInprogMission = view.findViewById(R.id.ivUserInprogMissionId);
-        tvUserNameInProgMission = view.findViewById(R.id.tvUserNameInProgMissionId);
-        tvCommentInProgMission = view.findViewById(R.id.tvCommentInProgMissionId);
         etMsgBoxInprogress = view.findViewById(R.id.etMsgBoxInprogressId);
         rlmyMissProgressImag = view.findViewById(R.id.rlmyMissProgressImagId);
         rlmyMissProgressFile = view.findViewById(R.id.rlmyMissProgressFileId);
@@ -159,7 +159,7 @@ public class MyMissionOngoingActivity extends Fragment implements
         rlmissongoingviewdetails = view.findViewById(R.id.rlmissongoingviewdetailsid);
         rlmissongoingviewdetails.setOnClickListener(this);
         rvongoingfileupload = view.findViewById(R.id.rvongoingfileuploadid);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvongoingfileupload.setLayoutManager(layoutManager);
         ongoingAdapter = new OngoingAdapter(getActivity(), this);
         rvongoingfileupload.setAdapter(ongoingAdapter);
@@ -259,7 +259,7 @@ public class MyMissionOngoingActivity extends Fragment implements
             etMsgBoxInprogress.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
         } else {
             if (CheckNetwork.isNetAvailable(getActivity())) {
-                sendProjectPorgress("12");
+                sendProjectPorgress(missionId);
             } else {
                 Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
@@ -270,7 +270,6 @@ public class MyMissionOngoingActivity extends Fragment implements
 
     private void sendProjectPorgress(String myMissionId) {
         pbMymissionProgress.setVisibility(View.VISIBLE);
-
         MultipartBody.Part imgFileStation = null;
         MultipartBody.Part imgFileStationDoc = null;
         MultipartBody.Part[] parts = new MultipartBody.Part[stringArrayList.size()];
@@ -451,40 +450,12 @@ public class MyMissionOngoingActivity extends Fragment implements
                     MissionInProgressModle myMissionProposedModle = response.body();
                     if (myMissionProposedModle.getStatus() == true) {
                         yourMissionList = myMissionProposedModle.getData();
-                        tvUserNameInProgMission.setText(yourMissionList.get(0).getFirstName());
-                        tvCommentInProgMission.setText(yourMissionList.get(0).getYourComments());
-
-
-                        if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
-
+                        ongoingAdapter.addOnGoingFiles(yourMissionList);
+                        if (yourMissionList.size() > 1) {
+                            tvMyMissionAvailbale.setText(yourMissionList.size() + "Availables");
                         } else {
-                            Picasso.with(getActivity())
-                                    .load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
-                                            .get(0).getPictureUrl())
-                                    .into(ivUserInprogMission);
+                            tvMyMissionAvailbale.setText(yourMissionList.size() + "Available");
                         }
-
-
-                        if (yourMissionList.get(0).getProjectImage().isEmpty()) {
-
-                        } else {
-                            String[] imgesArray = yourMissionList.get(0).getProjectImage().split(",");
-                            for (int i = 0; i < imgesArray.length; i++) {
-                                filesList.add(imgesArray[i]);
-                            }
-                        }
-
-                        if (yourMissionList.get(0).getProjectFiles().isEmpty()) {
-
-                        } else {
-                            String[] filesArray = yourMissionList.get(0).getProjectFiles().split(",");
-                            for (int i = 0; i < filesArray.length; i++) {
-                                filesList.add(filesArray[i]);
-                            }
-                        }
-
-                        ongoingAdapter.addOnGoingFiles(filesList);
-
                     } else {
 
                     }

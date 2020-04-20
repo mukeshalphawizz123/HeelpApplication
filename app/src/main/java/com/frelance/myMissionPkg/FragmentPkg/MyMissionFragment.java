@@ -157,18 +157,19 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
             case R.id.rlmymissionid:
                 if (text.equals(getResources().getString(R.string.Proposée))) {
                     addFragment(new MyMissionProposeeActivity(), true, Constants.MY_MISSION_PROPOSEE_ACTIVITY, yourMission.getMissionId());
+                    AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
-                    /*replaceFragement(new MyMissionOngoingActivity());*/
                     addFragment(new MyMissionOngoingActivity(), true, Constants.MY_MISSION_ONGOING_ACTIVITY, yourMission.getMissionId());
+                    AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
                     addFragment(new MyMissionDeliveryActivity(), true, Constants.MY_MISSION_LIVERY_ACTIVITY, yourMission.getMissionId());
-                    // replaceFragement(new MyMissionDeliveryActivity());
+                    AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
                     addFragment(new MyMissionCompleteActivity(), true, Constants.MY_MISSION_COMPLETE_ACTIVITY, yourMission.getMissionId());
-                    //replaceFragement(new MyMissionCompleteActivity());
+                    AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyMissionInDisputeActivity(), true, Constants.MY_MISSION_DISPUTE_ACTIVITY, yourMission.getMissionId());
-                    // replaceFragement(new MyMissionInDisputeActivity());
+                    AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
                 }
                 break;
 

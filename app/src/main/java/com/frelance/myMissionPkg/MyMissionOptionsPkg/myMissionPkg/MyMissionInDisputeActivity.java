@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +35,7 @@ import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,16 +55,18 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     private MyMissionadapter myMissionadapter;
     private AppCompatImageView ivgifbutton;
     private ApiServices apiServices;
-    private String missionId, userId;
+    private String missionId, userId, mission_mission_title;
     private List<Datum> datumList;
     private Handler handler = new Handler();
     private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
+    private AppCompatTextView tvMyMissTitle;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_in_dispute, container, false);
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -70,10 +74,12 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         } else {
 
         }
+        tvMyMissTitle.setText(mission_mission_title);
         return view;
     }
 
     private void init(View view) {
+        tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         ivgifbutton = view.findViewById(R.id.ivgifbuttonid);
         rvMyMissionDispute = view.findViewById(R.id.rvMyMissionDisputeId);
         ettypemsg = view.findViewById(R.id.ettypemsgid);
@@ -124,7 +130,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
 
     private void myMissionDispute(String userId) {
-       /// CustomProgressbar.showProgressBar(getActivity(), false);
+        /// CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getprojectdispute(userId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {

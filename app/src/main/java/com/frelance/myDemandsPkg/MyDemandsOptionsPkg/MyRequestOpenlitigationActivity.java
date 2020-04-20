@@ -3,6 +3,7 @@ package com.frelance.myDemandsPkg.MyDemandsOptionsPkg;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -52,20 +53,22 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     private ImageView ivtextfeedbackreqdashboardback, ivnotification;
     private ApiServices apiServices;
     private AppCompatImageView ivgifbutton;
-    private String missionId, userId;
+    private String missionId, userId, mission_demand_title;
     private AppCompatEditText ettypemsg;
     private RecyclerView rvMyMissionDispute;
     private List<Datum> datumList;
     private MyMissionadapter myMissionadapter;
-      private Handler handler = new Handler();
+    private Handler handler = new Handler();
     private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
+    private AppCompatTextView tvDemandTitleRequest;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_openlitigation, container, false);
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -73,11 +76,13 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
         } else {
 
         }
+        tvDemandTitleRequest.setText(mission_demand_title);
         return view;
     }
 
     private void init(View view) {
 
+        tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         ivgifbutton = view.findViewById(R.id.ivgifbuttonid);
         rvMyMissionDispute = view.findViewById(R.id.rvMyMissionDisputeId);
         ettypemsg = view.findViewById(R.id.ettypemsgid);
@@ -105,7 +110,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     public void onResume() {
         super.onResume();
 
-        handler.postDelayed( runnable = new Runnable() {
+        handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 //do your function;
                 if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -117,6 +122,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
             }
         }, apiDelayed); // so basically after your getHeroes(), from next time it will be 5 sec repeated
     }
+
     @Override
     public void onPause() {
         super.onPause();

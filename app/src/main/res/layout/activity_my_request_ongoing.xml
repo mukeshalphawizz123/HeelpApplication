@@ -51,6 +51,7 @@
                     android:src="@drawable/myrequestblue" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDemandTitleRequestId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -106,7 +107,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
 
                 <RelativeLayout
@@ -135,95 +136,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rlcompletebtnid"
-                    android:layout_marginLeft="15sp">
+                    android:layout_marginStart="15sp">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvMyDemandCountId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_1_er_livrable"
                         android:textAlignment="center"
                         android:textColor="@color/orangeColor"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/rlmyreqliverybackgroundid"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_below="@+id/rlongoningtextId"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="15sp"
-                    android:layout_marginBottom="10sp"
-                    android:background="@drawable/completebackg">
-
-
-                    <RelativeLayout
-                        android:id="@+id/rldummyimgid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15sp">
-
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivUserProgDemainId"
-                            android:layout_width="60sp"
-                            android:layout_height="60sp"
-                            app:civ_border_width="@dimen/_1sdp"
-                            app:civ_border_color="@color/lessBlack"
-                            android:src="@drawable/dashboarddummyimg" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvUserNameDemandProgId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivUserProgDemainId"
-                            android:layout_centerHorizontal="true"
-                            android:text="@string/zeeshan"
-                            android:textColor="@color/bluee"
-                            android:textSize="@dimen/_9sdp"
-                            android:textStyle="bold" />
-
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="15sp"
-                        android:layout_toEndOf="@+id/rldummyimgid">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvtextidd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/freelancer_commits"
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/_12sdp"
-                            android:textStyle="bold" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvCommentDemandProgId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvtextidd"
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/_11sdp"
-                            android:textStyle="normal" />
-
-
-
-                    </RelativeLayout>
-
 
                 </RelativeLayout>
 
@@ -232,7 +155,7 @@
                     android:id="@+id/rlrecyclelongonigid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/rlmyreqliverybackgroundid">
+                    android:layout_below="@+id/rlongoningtextId">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvmyreqongoingfileuploadid"
@@ -291,15 +214,15 @@
         </ScrollView>
 
         <RelativeLayout
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
             <ProgressBar
-                android:visibility="invisible"
                 android:id="@+id/pbDemandProgressId"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

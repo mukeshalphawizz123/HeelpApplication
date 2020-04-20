@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
 
@@ -20,25 +19,40 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/orangelogo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".chatPkg.SingleImageActivity"></activity>
-        <activity android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity" />
-        <activity android:name=".notificationPkg.notificationReviewPkg.NotificationReviewActivity" />
-        <activity android:name=".notificationPkg.notificationMessagePkg.NotificationMessageActivity" />
-        <activity android:name=".notificationPkg.notificationOffersPkg.NotificationOfferActivity" />
-        <activity android:name=".notificationPkg.NotificationActivity" />
-        <activity android:name=".forgetpasswordPkg.ForgetPasswordActivity" />
+        <activity
+            android:name=".chatPkg.SingleImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notificationPkg.notificationReviewPkg.NotificationReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notificationPkg.notificationMessagePkg.NotificationMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notificationPkg.notificationOffersPkg.NotificationOfferActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".notificationPkg.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".forgetpasswordPkg.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".SelectLanguageDailoge" />
-        <activity android:name=".homefilterPkg.HomeCategoryFilterActivity" />
+        <activity android:name=".homefilterPkg.HomeCategoryFilterActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".EditProfileConfirmation" />
-        <activity android:name=".CreditCardPayerActivity" />
+        <activity
+            android:name=".CreditCardPayerActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".paymentPkg.ComfirmationActivity"
             android:screenOrientation="portrait" />
@@ -127,6 +141,9 @@
             android:name=".chatPkg.ChatActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.CreditCardListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".homeTablayout.publishPkg.PostADemandActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -171,6 +188,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.EditCreditCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".OptionActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -184,7 +204,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".stripePaymentPkg.CheckoutActivityJava"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".show_dispute_pkg.ShowDisputeActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".fcmintigationPkg.MyFirebaseMessagingService"

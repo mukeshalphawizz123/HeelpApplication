@@ -1,11 +1,9 @@
-
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class YourMission {
-
     @SerializedName("offer_id")
     @Expose
     private String offerId;
@@ -15,6 +13,11 @@ public class YourMission {
     @SerializedName("project_id")
     @Expose
     private String projectId;
+
+    @SerializedName("offer_budget")
+    @Expose
+    private String offer_budget;
+
     @SerializedName("user_id")
     @Expose
     private String userId;
@@ -48,6 +51,15 @@ public class YourMission {
     @SerializedName("duration")
     @Expose
     private String duration;
+
+
+    public String getOffer_budget() {
+        return offer_budget;
+    }
+
+    public void setOffer_budget(String offer_budget) {
+        this.offer_budget = offer_budget;
+    }
 
 
     public String getDuration() {

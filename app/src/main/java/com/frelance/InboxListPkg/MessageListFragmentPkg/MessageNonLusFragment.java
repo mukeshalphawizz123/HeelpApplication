@@ -51,9 +51,18 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         } else {
 
         }
-
         return view;
     }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
 
     private void init(View view) {
         rvmsglist = view.findViewById(R.id.rvmsglistId);

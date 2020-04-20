@@ -1,6 +1,7 @@
 package com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -54,23 +55,28 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     private ProgressBar PbMymissionProposed;
     private ApiServices apiServices;
     private List<YourMission> yourMissionList;
-    String missionId;
+    String missionId, mission_mission_title;
+    private AppCompatTextView tvMyMissTitle;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
-        Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+        mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
+        //  Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+        tvMyMissTitle.setText(mission_mission_title);
+
         return view;
     }
 
     private void init(View view) {
+        tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
         tvviewprofile = view.findViewById(R.id.tvviewprofileid);

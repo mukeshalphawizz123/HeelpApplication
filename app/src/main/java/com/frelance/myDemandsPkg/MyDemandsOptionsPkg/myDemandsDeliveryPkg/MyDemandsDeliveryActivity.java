@@ -78,9 +78,9 @@ public class MyDemandsDeliveryActivity extends Fragment
     private ApiServices apiServices;
     private ProgressBar pbDemandDelivery;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely;
+    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest;
     private CircleImageView ivUserDemandDely;
-    private String projectId, userid, clientId;
+    private String projectId, userid, clientId, mission_demand_title;
     private static Animation shakeAnimation;
     private CheckBox radiogray;
     private RelativeLayout rlliverymodificationbtnbtn, rlpaymentbtn;
@@ -94,6 +94,7 @@ public class MyDemandsDeliveryActivity extends Fragment
         projectId = this.getArguments().getString("projectId");
         clientId = AppSession.getStringPreferences(getActivity(), "clientId");
         userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         filesList = new ArrayList<>();
         // Toast.makeText(getActivity(), "" + clientId, Toast.LENGTH_LONG).show();
         init(view);
@@ -103,12 +104,12 @@ public class MyDemandsDeliveryActivity extends Fragment
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
-
-
+        tvDemandTitleRequest.setText(mission_demand_title);
         return view;
     }
 
     private void init(View view) {
+        tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         rlpaymentbtn = view.findViewById(R.id.rlpaymentbtnid);
         rlliverymodificationbtnbtn = view.findViewById(R.id.rlliverymodificationbtnbtnid);
         radiogray = view.findViewById(R.id.radiograyid);

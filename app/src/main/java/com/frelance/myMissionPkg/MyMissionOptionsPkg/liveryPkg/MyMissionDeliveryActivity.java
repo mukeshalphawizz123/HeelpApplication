@@ -57,17 +57,18 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private String livree, missionId, userId;
     private ApiServices apiServices;
     private ProgressBar pbMymissionDelivery;
-    private AppCompatTextView tvUserNameMyMissionDelivery, tvCommentMyMissionDelivery;
+    private AppCompatTextView tvUserNameMyMissionDelivery, tvCommentMyMissionDelivery, tvMyMissTitle;
     private CircleImageView ivUserMyMissionDelivery;
     private ArrayList<String> filesList;
-    FileDownloading fileDownloading;
-
+    private FileDownloading fileDownloading;
+    private String mission_mission_title;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_livery, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
+        mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         filesList = new ArrayList<>();
         // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
@@ -76,11 +77,16 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        tvMyMissTitle.setText(mission_mission_title);
         return view;
+
+
     }
 
 
     private void init(View view) {
+        tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         pbMymissionDelivery = view.findViewById(R.id.pbMymissionDeliveryId);
         tvmymissionliverytext = view.findViewById(R.id.tvmymissionliverytextid);
         tvCommentMyMissionDelivery = view.findViewById(R.id.tvCommentMyMissionDeliveryId);

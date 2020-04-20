@@ -96,7 +96,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         View view = activityPlusMoreBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
-        Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         prefData = new PrefData(getActivity());
 

@@ -258,6 +258,7 @@ three main needs of the student.</string>
     <string name="card_holder_name">Card Holder Name</string>
     <string name="validity">Validity</string>
     <string name="mm_yy">MM/YY</string>
+    <string name="update">Update</string>
 
 
 </resources>

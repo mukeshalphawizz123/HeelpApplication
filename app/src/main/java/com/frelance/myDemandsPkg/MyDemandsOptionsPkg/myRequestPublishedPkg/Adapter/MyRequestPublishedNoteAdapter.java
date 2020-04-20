@@ -44,19 +44,15 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
     @Override
     public void onBindViewHolder(@NonNull MyRequestPublishedNoteAdapter.ViewHolder holder, int position) {
         try {
-            holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
+            if (mymissionModelArrayList.get(position).getOffer_budget().isEmpty()) {
+                holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getMissionBudget() + "€");
+            } else {
+                holder.tvNoteBudgetsRow.setText(" : " + mymissionModelArrayList.get(position).getOffer_budget() + "€");
+            }
             holder.tvDesBudgetsRow.setText(mymissionModelArrayList.get(position).getMissionTitle());
             holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration());
-            /*if (Integer.parseInt(mymissionModelArrayList.get(position).getDuration()) > 10) {
-                holder.tvDaysNotesRow.setText(Constants.missionDemandDate(mymissionModelArrayList.get(position).getCreatedDate()));
-            }
-            else {
-                holder.tvDaysNotesRow.setText(mymissionModelArrayList.get(position).getDuration() + "days ago");
-            }*/
             if (mymissionModelArrayList.get(position).getPicture_url().isEmpty()) {
-               // Toast.makeText(context, mymissionModelArrayList.get(position).getPicture_url(), Toast.LENGTH_LONG).show();
             } else {
-              //  Toast.makeText(context, mymissionModelArrayList.get(position).getPicture_url(), Toast.LENGTH_LONG).show();
                 Picasso.with(context)
                         .load(RetrofitClient.MISSION_USER_IMAGE_URL + mymissionModelArrayList.get(0).getPicture_url())
                         .into(holder.ivmymission);

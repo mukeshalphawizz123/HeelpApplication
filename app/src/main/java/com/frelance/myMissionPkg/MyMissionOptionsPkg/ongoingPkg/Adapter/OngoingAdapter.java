@@ -8,19 +8,28 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.MyMissionOngoingActivity;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.Datum;
+import com.squareup.picasso.Picasso;
 
 
 public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHolder> {
-
     private Context context;
     private OngoingAppOnClickListener ongoingAppOnClickListener;
-    private ArrayList<String> filesList;
+    private List<Datum> filesList;
+    private ArrayList<String> fileImagesUrl;
+    private MyMisionOngoingChildAdapter myDemandOngoingChildAdapter;
 
 
     public OngoingAdapter(Context context, MyMissionOngoingActivity ongoingAppOnClickListener) {
@@ -39,10 +48,40 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull OngoingAdapter.ViewHolder holder, int position) {
-        holder.tvfilename.setText(filesList.get(position));
+        fileImagesUrl = new ArrayList<>();
+        fileImagesUrl.clear();
+        holder.tvUserNameInProgMission.setText(filesList.get(position).getFirstName());
+        holder.tvCommentInProgMission.setText(filesList.get(position).getYourComments());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
+        holder.rvOnGoingRow.setLayoutManager(layoutManager);
+        myDemandOngoingChildAdapter = new MyMisionOngoingChildAdapter(context);
+        holder.rvOnGoingRow.setAdapter(myDemandOngoingChildAdapter);
+        if (filesList.get(position).getPictureUrl().isEmpty()) {
+        } else {
+            Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + filesList.get(position).getPictureUrl()).into(holder.ivUserInprogMission);
+        }
+
+        if (filesList.get(position).getProjectImage().isEmpty()) {
+
+        } else {
+            String[] imgesArray = filesList.get(position).getProjectImage().split(",");
+            for (int i = 0; i < imgesArray.length; i++) {
+                fileImagesUrl.add(imgesArray[i]);
+            }
+        }
+        if (filesList.get(0).getProjectFiles().isEmpty()) {
+
+        } else {
+            String[] filesArray = filesList.get(position).getProjectFiles().split(",");
+            for (int i = 0; i < filesArray.length; i++) {
+                fileImagesUrl.add(filesArray[i]);
+            }
+        }
+
+        myDemandOngoingChildAdapter.addOnGoingDemandsFiles(fileImagesUrl);
     }
 
-    public void addOnGoingFiles(ArrayList<String> filesList) {
+    public void addOnGoingFiles(List<Datum> filesList) {
         this.filesList = filesList;
         notifyDataSetChanged();
     }
@@ -59,14 +98,17 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        RelativeLayout rlFileFolder;
-        AppCompatTextView tvfilename;
+        private CircleImageView ivUserInprogMission;
+        private RecyclerView rvOnGoingRow;
+        private AppCompatTextView tvUserNameInProgMission, tvCommentInProgMission;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rlFileFolder = itemView.findViewById(R.id.rlFileFolderId);
-            tvfilename = itemView.findViewById(R.id.tvfilenameid);
-            rlFileFolder.setOnClickListener(this);
+            rvOnGoingRow = itemView.findViewById(R.id.rvOnGoingRowId);
+            ivUserInprogMission = itemView.findViewById(R.id.ivUserInprogMissionId);
+            tvUserNameInProgMission = itemView.findViewById(R.id.tvUserNameInProgMissionId);
+            tvCommentInProgMission = itemView.findViewById(R.id.tvCommentInProgMissionId);
+
         }
 
         @Override

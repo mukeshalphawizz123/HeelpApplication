@@ -59,9 +59,9 @@ public class MyDemandsOngoingActivity extends Fragment
     private ProgressBar pbDemandProgress;
     private ApiServices apiServices;
     private List<Datum> datumList;
-    private AppCompatTextView tvCommentDemandProg, tvUserNameDemandProg;
+    private AppCompatTextView tvCommentDemandProg, tvUserNameDemandProg, tvMyDemandCount, tvDemandTitleRequest;
     private CircleImageView ivUserProgDemain;
-    private String projectId;
+    private String projectId, mission_demand_title;
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
 
@@ -77,22 +77,26 @@ public class MyDemandsOngoingActivity extends Fragment
             e.printStackTrace();
         }
         projectId = AppSession.getStringPreferences(getActivity(), "mission_id");
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
 
-
-        //   Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myOnProgressApi(projectId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        tvDemandTitleRequest.setText(mission_demand_title);
+
         return view;
 
 
     }
 
     private void init(View view) {
+        tvMyDemandCount = view.findViewById(R.id.tvMyDemandCountId);
+        tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         tvUserNameDemandProg = view.findViewById(R.id.tvUserNameDemandProgId);
         ivUserProgDemain = view.findViewById(R.id.ivUserProgDemainId);
         tvCommentDemandProg = view.findViewById(R.id.tvCommentDemandProgId);
@@ -111,7 +115,7 @@ public class MyDemandsOngoingActivity extends Fragment
         rlreqongoingviewdetails.setOnClickListener(this);
 
         rvmyreqongoingfileupload = view.findViewById(R.id.rvmyreqongoingfileuploadid);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvmyreqongoingfileupload.setLayoutManager(layoutManager);
         myDemandOngoingAdapter = new MyDemandOngoingAdapter(getActivity(), this);
         rvmyreqongoingfileupload.setAdapter(myDemandOngoingAdapter);
@@ -178,34 +182,12 @@ public class MyDemandsOngoingActivity extends Fragment
                         DemandOnProgressModle requestlist = response.body();
                         if (requestlist.getStatus()) {
                             datumList = requestlist.getData();
-                            tvUserNameDemandProg.setText(datumList.get(0).getFirstName());
-                            tvCommentDemandProg.setText(datumList.get(0).getYourComments());
-                            if (datumList.get(0).getPictureUrl().isEmpty()) {
-
+                            myDemandOngoingAdapter.addOnGoingDemandsFiles(datumList);
+                            if (datumList.size() > 1) {
+                                tvMyDemandCount.setText(datumList.size() + "Availables");
                             } else {
-                                Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + datumList.get(0).getPictureUrl()).into(ivUserProgDemain);
+                                tvMyDemandCount.setText(datumList.size() + "Available");
                             }
-
-
-                            if (datumList.get(0).getProjectImage().isEmpty()) {
-
-                            } else {
-                                String[] imgesArray = datumList.get(0).getProjectImage().split(",");
-                                for (int i = 0; i < imgesArray.length; i++) {
-                                    filesList.add(imgesArray[i]);
-                                }
-                            }
-
-                            if (datumList.get(0).getProjectFiles().isEmpty()) {
-
-                            } else {
-                                String[] filesArray = datumList.get(0).getProjectFiles().split(",");
-                                for (int i = 0; i < filesArray.length; i++) {
-                                    filesList.add(filesArray[i]);
-                                }
-                            }
-                            myDemandOngoingAdapter.addOnGoingDemandsFiles(filesList);
-
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -239,10 +221,10 @@ public class MyDemandsOngoingActivity extends Fragment
 
     @Override
     public void myDemandOnGoingOnClick(View view, int position) {
-        switch (view.getId()) {
+      /*  switch (view.getId()) {
             case R.id.rlFileFolderId:
-                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+              //  fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
                 break;
-        }
+        }*/
     }
 }

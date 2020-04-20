@@ -158,17 +158,22 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
             case R.id.rlmyrequestid:
                 if (text.equals(getResources().getString(R.string.Publiée))) {
                     addFragment(new MyDemandsPublishedTablayoutFragment(), true, Constants.MY_REQUEST_PUBLISHED_TABLAYOUT_FRAGMENT, datum.getId());
+                    AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Encours))) {
                     addFragment(new MyDemandsOngoingActivity(), true, Constants.MY_REQUEST_ONGOING_FRAGMENT, datum.getId());
                     AppSession.setStringPreferences(getActivity(), "mission_id", datum.getId());
+                    AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Livrée))) {
                     addFragment(new MyDemandsDeliveryActivity(), true, Constants.MY_REQUEST_LIVERY_FRAGMENT, datum.getId());
                     AppSession.setStringPreferences(getActivity(), "clientId", datum.getClient_id());
                     AppSession.setStringPreferences(getActivity(), "categoryTitle", datum.getCategoryTitle());
+                    AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Completée))) {
                     addFragment(new MyDemandsCompleteeActivity(), true, Constants.MY_REQUEST_COMPLETE_FRAGMENT, datum.getId());
+                    AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyRequestOpenlitigationActivity(), true, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT, datum.getId());
+                    AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
                 }
                 break;
         }

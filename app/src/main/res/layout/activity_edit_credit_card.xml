@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rlbackgroundid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rlcreditcardToolbarId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_75sdp"
+                android:background="@drawable/relativeredius">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivdashboardcreditcardbackId"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10sp"
+                    android:padding="5sp"
+                    android:src="@drawable/back" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/credit_card"
+                    android:textColor="@color/lessBlack"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlcreditcardimghhgid"
+            android:layout_width="match_parent"
+            android:layout_height="300sp"
+            android:layout_below="@+id/rlbackgroundid"
+            android:background="@drawable/cardbox">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etCardHolderNameRowId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="@string/card_holder_name"
+                android:padding="@dimen/_2sdp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="normal">
+
+            </androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivChipRowId"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/cardchip" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etCardNumberRowId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_90sdp"
+                android:layout_marginEnd="@dimen/_60sdp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:letterSpacing="0.02"
+                android:maxLength="16"
+                android:singleLine="true"
+                android:text="0000000000000000"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="normal" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvValidityRowId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etCardNumberRowId"
+                android:layout_marginStart="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:text="@string/validity"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etExpiryRowId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etCardNumberRowId"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_toEndOf="@+id/tvValidityRowId"
+                android:background="@android:color/transparent"
+                android:hint="@string/mm_yy"
+                android:maxLength="5"
+                android:inputType="date"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_10sdp" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_below="@+id/etCardNumberRowId"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_58sdp"
+                android:paddingBottom="@dimen/_1sdp"
+                android:src="@drawable/card_visa" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bottomRel"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_below="@+id/rlcreditcardimghhgid"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/blankbtn">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/update"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

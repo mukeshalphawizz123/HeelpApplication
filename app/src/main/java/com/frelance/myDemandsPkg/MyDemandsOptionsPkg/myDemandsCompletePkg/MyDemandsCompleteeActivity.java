@@ -60,11 +60,12 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     private ApiServices apiServices;
     private ProgressBar pbDemandComplete;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl;
+    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl,tvDemandTitleRequest;
     private CircleImageView ivUserDemandComp;
-    private String projectId;
+    private String projectId,mission_demand_title;
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         fileDownloading = new FileDownloading(getActivity());
         projectId = this.getArguments().getString("projectId");
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         filesList = new ArrayList<>();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -79,12 +81,16 @@ public class MyDemandsCompleteeActivity extends Fragment implements
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        tvDemandTitleRequest.setText(mission_demand_title);
+
         return view;
 
 
     }
 
     private void init(View view) {
+        tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         tvUserDemandComp = view.findViewById(R.id.tvUserDemandCompId);
         tvCommentDemandCompl = view.findViewById(R.id.tvCommentDemandComplId);
         ivUserDemandComp = view.findViewById(R.id.ivUserDemandCompId);

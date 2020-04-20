@@ -63,14 +63,12 @@ public class HomeCategoryFrament extends Fragment implements
         apiServices.publisherlist().enqueue(new Callback<ListOfProjectModel>() {
             @Override
             public void onResponse(Call<ListOfProjectModel> call, Response<ListOfProjectModel> response) {
+                CustomProgressbar.hideProgressBar();
                 if (response.isSuccessful()) {
-
                     try {
-                        CustomProgressbar.hideProgressBar();
                         ListOfProjectModel listOfProjectModel = response.body();
                         projectlist = listOfProjectModel.getProjects();
                         homeCategoryAdapter.projectlist(projectlist);
-                        homeCategoryAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -92,16 +90,15 @@ public class HomeCategoryFrament extends Fragment implements
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         rvphyFrag.setLayoutManager(layoutManager);
         homeCategoryAdapter = new HomeCategoryAdapter(getActivity(), this);
+       // homeCategoryAdapter.setHasStableIds(true);
         rvphyFrag.setAdapter(homeCategoryAdapter);
-        //homeCategoryAdapter.addHomeData(homeModelArrayList);
+        rvphyFrag.setHasFixedSize(true);
+        rvphyFrag.setNestedScrollingEnabled(false);
+
+       // rvphyFrag.setNestedScrollingEnabled(false);
+
     }
 
-    private void replaceFragement(Fragment fragment) {
-        FragmentTransaction home = getFragmentManager().beginTransaction();
-        home.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-        home.replace(R.id.flHomeId, fragment);
-        home.commit();
-    }
 
     @Override
     public void publishOnClick(View view, int position) {

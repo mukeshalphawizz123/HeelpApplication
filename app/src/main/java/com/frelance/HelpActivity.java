@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -23,6 +24,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
+import com.frelance.show_dispute_pkg.ShowDisputeActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -76,11 +78,12 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlsubmitbtnHelpid:
-                if (CheckNetwork.isNetAvailable(getActivity())) {
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
+               /* if (CheckNetwork.isNetAvailable(getActivity())) {
                     sendProjectDispute();
                 } else {
                     Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
-                }
+                }*/
 
                 break;
             case R.id.ivnotificationId:
