@@ -39,9 +39,10 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.get
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.TransactionInResponseModle;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.AddCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.UpdateCardModel;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.GetCarListModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.addCardDetailPkg.AddCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.deleteCardPkg.DeleteCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.FetchCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.retrivecardPkg.RetrveCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
@@ -151,6 +152,13 @@ public interface ApiServices {
     Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
 
 
+
+
+    @FormUrlEncoded
+    @POST("Client/deletestripecard")
+    Call<DeleteCardModel> deletestripecard(@Field("user_id") String user_id);
+
+
     @FormUrlEncoded
     @POST("Client/add_credit_card")
     Call<AddCardModel> add_credit_card(
@@ -172,15 +180,15 @@ public interface ApiServices {
             @Field("card_id") String card_id
     );
 
-    @FormUrlEncoded
+  /*  @FormUrlEncoded
     @POST("Client/get_card_details")
-    Call<GetCarListModel> getCardList(@Field("user_id") String user_id);
+    Call<GetCarListModel> getCardList(@Field("user_id") String user_id);*/
 
 
 
     @FormUrlEncoded
     @POST("Client/retrieve_a_card")
-    Call<RetrveCardModel> retrieve_a_card(@Field("user_id") String user_id);
+    Call<FetchCardModel> retrieve_a_card(@Field("user_id") String user_id);
 
 
 
@@ -235,6 +243,15 @@ public interface ApiServices {
                                             @Field("projectaname") String projectaname,
                                             @Field("mission_id") String mission_id,
                                             @Field("token_Id") String token_Id);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/addstripecard")
+    Call<AddCardModel> addStripCard(@Field("user_id") String user_id,
+                                    @Field("token_Id") String token_Id,
+                                    @Field("username") String username
+    );
 
 
     @FormUrlEncoded

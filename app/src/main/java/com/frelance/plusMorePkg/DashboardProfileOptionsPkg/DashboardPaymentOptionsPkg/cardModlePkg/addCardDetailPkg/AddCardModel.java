@@ -1,5 +1,5 @@
 
-package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg;
+package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.addCardDetailPkg;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,6 +12,9 @@ public class AddCardModel {
     @SerializedName("message")
     @Expose
     private String message;
+    @SerializedName("data")
+    @Expose
+    private Data data;
 
     /**
      * No args constructor for use in serialization
@@ -22,13 +25,15 @@ public class AddCardModel {
 
     /**
      * 
+     * @param data
      * @param message
      * @param status
      */
-    public AddCardModel(Boolean status, String message) {
+    public AddCardModel(Boolean status, String message, Data data) {
         super();
         this.status = status;
         this.message = message;
+        this.data = data;
     }
 
     public Boolean getStatus() {
@@ -45,6 +50,14 @@ public class AddCardModel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 
 }

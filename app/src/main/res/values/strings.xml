@@ -178,6 +178,7 @@ three main needs of the student.</string>
     <string name="mr_smith"></string>
     <string name="debra_martin">Debra Martin</string>
     <string name="june_2018">June 2018</string>
+    <string name="Delete">Delete</string>
     <string name="_4_8">4.8</string>
     <string name="_50">50 €</string>
     <string name="des_frais_de_9_seront_d_duits_n_ex_pour_un_retrait_de_10_vous_recevrez_9_1_soit_0_9_euros_de_frais">fees of 9% will be deducted Ex for a withdrawal of 10 € you will receive 9.1 € or 0.9 euros of fees</string>
@@ -259,6 +260,7 @@ three main needs of the student.</string>
     <string name="validity">Validity</string>
     <string name="mm_yy">MM/YY</string>
     <string name="update">Update</string>
+    <string name="enter_holder_name">Enter Holder Name</string>
 
 
 </resources>

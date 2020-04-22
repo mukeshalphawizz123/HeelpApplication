@@ -1,11 +1,10 @@
 
-package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle;
+package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.deleteCardPkg;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetCarListModel {
+public class DeleteCardModel {
 
     @SerializedName("status")
     @Expose
@@ -15,13 +14,13 @@ public class GetCarListModel {
     private String message;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private Data data;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public GetCarListModel() {
+    public DeleteCardModel() {
     }
 
     /**
@@ -30,7 +29,7 @@ public class GetCarListModel {
      * @param message
      * @param status
      */
-    public GetCarListModel(Boolean status, String message, List<Datum> data) {
+    public DeleteCardModel(Boolean status, String message, Data data) {
         super();
         this.status = status;
         this.message = message;
@@ -53,11 +52,11 @@ public class GetCarListModel {
         this.message = message;
     }
 
-    public List<Datum> getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

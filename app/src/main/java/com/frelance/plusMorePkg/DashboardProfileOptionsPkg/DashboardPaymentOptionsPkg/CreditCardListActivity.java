@@ -1,11 +1,8 @@
 package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -19,9 +16,6 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.AddCardModel;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.Datum;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.GetCarListModel;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -36,15 +30,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreditCardListActivity extends AppCompatActivity implements EditCardAdapter.CardEditAppOnClickListener {
+public class CreditCardListActivity extends AppCompatActivity{
     private ImageView ivdashboardcreditcardbackId, ivnotificationcreditcard;
     private RelativeLayout bottomRel, rlAddANewCard;
     private ApiServices apiServices;
     private AppCompatEditText etCardHolderName, etCardNumber, etExpiry;
     private RecyclerView rvEditCreditCard;
     private String userId;
-    private EditCardAdapter editCardAdapter;
-    private List<Datum> datumList;
+  //  private EditCardAdapter editCardAdapter;
+ //   private List<Datum> datumList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class CreditCardListActivity extends AppCompatActivity implements EditCar
         init();
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            getCardList();
+          ///  getCardList();
         } else {
             Toast.makeText(getApplicationContext(), "Check Internet Connection", Toast.LENGTH_LONG).show();
         }
@@ -66,8 +60,8 @@ public class CreditCardListActivity extends AppCompatActivity implements EditCar
         rvEditCreditCard = findViewById(R.id.rvEditCreditCardId);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         rvEditCreditCard.setLayoutManager(layoutManager);
-        editCardAdapter = new EditCardAdapter(getApplicationContext(), this);
-        rvEditCreditCard.setAdapter(editCardAdapter);
+     //   editCardAdapter = new EditCardAdapter(getApplicationContext(), this);
+     //   rvEditCreditCard.setAdapter(editCardAdapter);
 
         ivdashboardcreditcardbackId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +78,7 @@ public class CreditCardListActivity extends AppCompatActivity implements EditCar
         CheckNetwork.backScreenWithouFinish(CreditCardListActivity.this);
     }
 
-    private void getCardList() {
+ /*   private void getCardList() {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.getCardList(userId).enqueue(new Callback<GetCarListModel>() {
             @Override
@@ -122,10 +116,10 @@ public class CreditCardListActivity extends AppCompatActivity implements EditCar
             }
         });
 
-    }
+    }*/
 
 
-    @Override
+/*    @Override
     public void cardOnGoingOnClick(View view, int position, Datum datum) {
         switch (view.getId()) {
             case R.id.rlediterRowid:
@@ -140,5 +134,5 @@ public class CreditCardListActivity extends AppCompatActivity implements EditCar
                 finish();
                 break;
         }
-    }
+    }*/
 }

@@ -1,11 +1,11 @@
 
-package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.retrivecardPkg;
+package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+public class Data {
 
     @SerializedName("id")
     @Expose
@@ -72,7 +72,7 @@ public class Datum {
     private List<Object> metadata = null;
     @SerializedName("name")
     @Expose
-    private String name;
+    private Object name;
     @SerializedName("tokenization_method")
     @Expose
     private Object tokenizationMethod;
@@ -81,7 +81,7 @@ public class Datum {
      * No args constructor for use in serialization
      * 
      */
-    public Datum() {
+    public Data() {
     }
 
     /**
@@ -110,11 +110,7 @@ public class Datum {
      * @param addressLine1Check
      * @param customer
      */
-    public Datum(String id, String object, Object addressCity, Object addressCountry, Object addressLine1,
-                 Object addressLine1Check, Object addressLine2, Object addressState, String addressZip,
-                 String addressZipCheck, String brand, String country, String customer, String cvcCheck,
-                 Object dynamicLast4, Integer expMonth, Integer expYear, String fingerprint,
-                 String funding, String last4, List<Object> metadata, String name, Object tokenizationMethod) {
+    public Data(String id, String object, Object addressCity, Object addressCountry, Object addressLine1, Object addressLine1Check, Object addressLine2, Object addressState, String addressZip, String addressZipCheck, String brand, String country, String customer, String cvcCheck, Object dynamicLast4, Integer expMonth, Integer expYear, String fingerprint, String funding, String last4, List<Object> metadata, Object name, Object tokenizationMethod) {
         super();
         this.id = id;
         this.object = object;
@@ -309,11 +305,11 @@ public class Datum {
         this.metadata = metadata;
     }
 
-    public String getName() {
+    public Object getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Object name) {
         this.name = name;
     }
 

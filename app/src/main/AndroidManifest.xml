@@ -44,11 +44,13 @@
         <activity
             android:name=".notificationPkg.NotificationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".forgetpasswordPkg.ForgetPasswordActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".forgetpasswordPkg.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".SelectLanguageDailoge" />
-        <activity android:name=".homefilterPkg.HomeCategoryFilterActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".homefilterPkg.HomeCategoryFilterActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".EditProfileConfirmation" />
         <activity
             android:name=".CreditCardPayerActivity"
@@ -206,7 +208,11 @@
             android:name=".stripePaymentPkg.CheckoutActivityJava"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".show_dispute_pkg.ShowDisputeActivity"
+        <activity
+            android:name=".show_dispute_pkg.ShowDisputeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".stripePaymentPkg.AddCardActivityJava"
             android:screenOrientation="portrait"/>
 
         <service
