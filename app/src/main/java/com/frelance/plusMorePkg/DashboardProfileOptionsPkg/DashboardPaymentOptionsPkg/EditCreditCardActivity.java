@@ -23,7 +23,6 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.R;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.UpdateCardModel;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -199,7 +198,7 @@ public class EditCreditCardActivity extends AppCompatActivity implements View.On
                     etExpiry.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                 } else {
                     if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-                        updateaddCard();
+                       // updateaddCard();
                     } else {
                         Toast.makeText(getApplicationContext(), "Check Network Conncetion", Toast.LENGTH_LONG).show();
                     }
@@ -213,7 +212,7 @@ public class EditCreditCardActivity extends AppCompatActivity implements View.On
     }
 
 
-    private void updateaddCard() {
+   /* private void updateaddCard() {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.update_credit_card(etCardNumber.getText().toString(), etExpiry.getText().toString(),
                 userId, etCardHolderName.getText().toString(), cardid).enqueue(new Callback<UpdateCardModel>() {
@@ -253,7 +252,7 @@ public class EditCreditCardActivity extends AppCompatActivity implements View.On
             }
         });
 
-    }
+    }*/
 
 
 }

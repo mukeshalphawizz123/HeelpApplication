@@ -39,11 +39,10 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.get
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.TransactionInResponseModle;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.UpdateCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.addCardDetailPkg.AddCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.deleteCardPkg.DeleteCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.FetchCardModel;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.retrivecardPkg.RetrveCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.upadateCardpkg.UpdateCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
@@ -171,13 +170,12 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("Client/update_credit_card")
+    @POST("Client/editstripecard")
     Call<UpdateCardModel> update_credit_card(
-            @Field("card_no") String card_no,
-            @Field("expiry") String expiry,
+            @Field("exp_month") String exp_month,
+            @Field("exp_year") String exp_year,
             @Field("user_id") String user_id,
-            @Field("name") String name,
-            @Field("card_id") String card_id
+            @Field("name") String name_on_card
     );
 
   /*  @FormUrlEncoded

@@ -2,8 +2,10 @@ package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOpti
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,11 +22,12 @@ import android.widget.Toast;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
+import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.deleteCardPkg.DeleteCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.FetchCardModel;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.retrivecardPkg.RetrveCardModel;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.upadateCardpkg.UpdateCardModel;
 import com.frelance.stripePaymentPkg.AddCardActivityJava;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
@@ -34,7 +37,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -186,26 +188,14 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
             case R.id.rlediterid:
                 etCardHolderName.setEnabled(true);
                 etExpiry.setEnabled(true);
-                etCardNumber.setEnabled(true);
+                bottomRel.setEnabled(true);
                 etCardHolderName.requestFocus();
                 break;
             case R.id.rlAddANewCardId:
                 CheckNetwork.nextScreen(CreditCardActivity.this, AddCardActivityJava.class);
                 break;
             case R.id.bottomRel:
-               /* if (etCardHolderName.getText().toString().isEmpty()) {
-                    new CustomToast().Show_Toast(this, v, "Can't Empty");
-                    etCardHolderName.startAnimation(shakeAnimation);
-                    etCardHolderName.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                } else if (etCardNumber.getText().toString().isEmpty()) {
-                    new CustomToast().Show_Toast(this, v, "Can't Empty");
-                    etCardNumber.startAnimation(shakeAnimation);
-                    etCardNumber.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                } else if (etCardNumber.getText().toString().length() < 16) {
-                    new CustomToast().Show_Toast(this, v, "Invalid Card Number");
-                    etCardNumber.startAnimation(shakeAnimation);
-                    etCardNumber.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                } else if (etExpiry.getText().toString().isEmpty()) {
+                if (etExpiry.getText().toString().isEmpty()) {
                     new CustomToast().Show_Toast(this, v, "Can't Empty");
                     etExpiry.startAnimation(shakeAnimation);
                     etExpiry.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
@@ -215,11 +205,11 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                     etExpiry.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                 } else {
                     if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-                        addCard();
+                        upateCard();
                     } else {
                         Toast.makeText(getApplicationContext(), "Check Network Conncetion", Toast.LENGTH_LONG).show();
                     }
-                }*/
+                }
                 break;
             case R.id.ivdashboardcreditcardbackId:
                 onBackPressed();
@@ -259,20 +249,20 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
         dialog.show();
     }
 
-   /* private void addCard() {
+    private void upateCard() {
+        String date[] = etExpiry.getText().toString().split("/");
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.add_credit_card(etCardNumber.getText().toString(),
-                etExpiry.getText().toString(),
-                userId,
-                etCardHolderName.getText().toString()
-                , email).enqueue(new Callback<AddCardModel>() {
+        apiServices.update_credit_card(date[0],
+                date[1],
+                userId
+                , etCardHolderName.getText().toString()).enqueue(new Callback<UpdateCardModel>() {
             @Override
-            public void onResponse(Call<AddCardModel> call, Response<AddCardModel> response) {
+            public void onResponse(Call<UpdateCardModel> call, Response<UpdateCardModel> response) {
                 if (response.isSuccessful()) {
                     try {
                         CustomProgressbar.hideProgressBar();
-                        AddCardModel body = response.body();
-                        if (body.getStatus() == true) {
+                        UpdateCardModel body = response.body();
+                        if (body.getStatus()) {
                             Toast.makeText(getApplicationContext(), body.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception e) {
@@ -281,14 +271,12 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -297,12 +285,12 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
             }
 
             @Override
-            public void onFailure(Call<AddCardModel> call, Throwable t) {
+            public void onFailure(Call<UpdateCardModel> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
             }
         });
 
-    }*/
+    }
 
     private void getCardList() {
         final String[] updateYear = new String[1];
@@ -325,6 +313,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                             etCardHolderName.setEnabled(false);
                             etCardNumber.setEnabled(false);
                             etExpiry.setEnabled(false);
+                            bottomRel.setEnabled(false);
 
                         } else {
                             etCardHolderName.setText("");
@@ -333,6 +322,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                             etCardHolderName.setEnabled(false);
                             etCardNumber.setEnabled(false);
                             etExpiry.setEnabled(false);
+                            bottomRel.setEnabled(false);
 
                         }
                     } catch (Exception e) {
@@ -360,6 +350,8 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                 etCardHolderName.setEnabled(false);
                 etCardNumber.setEnabled(false);
                 etExpiry.setEnabled(false);
+                bottomRel.setEnabled(false);
+
 
             }
         });
