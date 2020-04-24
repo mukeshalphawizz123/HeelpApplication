@@ -2,13 +2,17 @@ package com.frelance.InboxListPkg.MessageListFragmentPkg;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -24,7 +28,10 @@ import com.frelance.utility.Constants;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -70,6 +77,8 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         rvmsglist.setLayoutManager(layoutManager);
         unReadMsgAdapter = new UnReadMsgAdapter(getActivity(), this);
         rvmsglist.setAdapter(messageToutAdapter);
+
+
     }
 
     private void chatDataSanpchat() {
@@ -79,9 +88,12 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.getValue() != null) {
+
+                    //  dataSnapshot.getChildrenCount();
+                    // Log.v("count", String.valueOf(size));
                     //CustomProgressbar.hideProgressBar();
 //                        postnotification("Alert", "You received message");
-                  //  datumList = new ArrayList<>();
+                    //  datumList = new ArrayList<>();
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("name"),
@@ -89,17 +101,20 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                             (String) mapMessage.get("dateAndTime"),
                             (String) mapMessage.get("senderId"));
                     try {
-                       // datumList.clear();
+                        // datumList.clear();
                         datumList.add(chatModle);
                         unReadMsgAdapter.addmymissionData(datumList);
                         unReadMsgAdapter.notifyDataSetChanged();
-                        // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
 
+                        AppSession.setStringPreferences(getActivity(), "count", "" + datumList.size());
+
+                        // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -126,7 +141,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         rvmsglist.setAdapter(unReadMsgAdapter);
 
     }
-
+    
     @Override
     public void msgOnClick(View view, int position, UnReadMessageUserModle unReadMessageUserModle) {
         switch (view.getId()) {

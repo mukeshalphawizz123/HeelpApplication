@@ -156,6 +156,19 @@
                 android:text="@string/inbox"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHomeNotificationCountId"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

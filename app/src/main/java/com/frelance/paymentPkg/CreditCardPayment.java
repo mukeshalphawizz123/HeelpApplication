@@ -17,6 +17,7 @@ import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.paymentPkg.paymentModlePkg.ProjectAmountResponseModle;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.PrizePoolActivity;
 import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
@@ -97,7 +98,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                 if (credit.equals("1")) {
                     CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CheckoutActivityJava.class);
                 } else if (credit.equals("2")) {
-                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CheckoutActivityJava.class);
+                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PrizePoolActivity.class);
 
                 }
                 break;
@@ -123,8 +124,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
 
                         tvcreditcardpricetwo.setText(projectAmountResponseModle.getData().get(0).getBankFee() + "€");
                         tvcreditcardprice.setText(projectAmountResponseModle.getData().get(0).getMissionBudget() + "€");
-                        tvTotalProjecdPrice.setText((Float.parseFloat(projectAmountResponseModle.getData().get(0).getMissionBudget()) +
-                                Float.parseFloat(projectAmountResponseModle.getData().get(0).getBankFee())) + "€");
+                        tvTotalProjecdPrice.setText((Float.parseFloat(projectAmountResponseModle.getData().get(0).getMissionBudget()) + Float.parseFloat(projectAmountResponseModle.getData().get(0).getBankFee())) + "€");
                         AppSession.setStringPreferences(getApplicationContext(), "totalamount", tvTotalProjecdPrice.getText().toString());
 
                     } else {

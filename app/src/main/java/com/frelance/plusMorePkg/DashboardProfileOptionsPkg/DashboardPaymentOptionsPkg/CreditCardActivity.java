@@ -304,16 +304,25 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                         FetchCardModel body = response.body();
                         if (body.getStatus()) {
                             etCardHolderName.setText(body.getUsername().get(0).getNameOnCard());
-                            etCardNumber.setText(body.getData().getLast4());
+                            String carddigits = body.getData().getLast4().toString().trim();
+                            //etCardNumber.setText("000000000000" +  body.getData().getLast4().toString().trim());
+                            etCardNumber.setText(carddigits);
                             if (body.getData().getExpYear().toString().length() == 4) {
                                 updateYear[0] = body.getData().getExpYear().toString().substring(2);
                             }
-                            etExpiry.setText("" + body.getData().getExpMonth() + "/" + updateYear[0]);
 
+                            int count = body.getData().getExpMonth().toString().length();
+                            if (count == 1) {
+                                etExpiry.setText("0" + body.getData().getExpMonth() + "/" + updateYear[0]);
+                            } else {
+                                etExpiry.setText("" + body.getData().getExpMonth() + "/" + updateYear[0]);
+                            }
                             etCardHolderName.setEnabled(false);
                             etCardNumber.setEnabled(false);
                             etExpiry.setEnabled(false);
                             bottomRel.setEnabled(false);
+                            rlediter.setEnabled(true);
+                            rlDelete.setEnabled(true);
 
                         } else {
                             etCardHolderName.setText("");
@@ -323,6 +332,9 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                             etCardNumber.setEnabled(false);
                             etExpiry.setEnabled(false);
                             bottomRel.setEnabled(false);
+
+                            rlediter.setEnabled(false);
+                            rlDelete.setEnabled(false);
 
                         }
                     } catch (Exception e) {

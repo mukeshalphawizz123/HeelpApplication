@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.frelance.CustomProgressbar;
+import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
+import com.frelance.chatPkg.chatModlePkg.UnReadMsgConsersation;
 import com.frelance.homeTablayout.HomeTablayoutFragment;
 import com.frelance.R;
 import com.frelance.InboxListPkg.MessageTablayout.MessageListTablayoutFragment;
@@ -21,19 +24,33 @@ import com.frelance.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.PlusMoreFragment;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static FragmentManager fragmentManager;
     private RelativeLayout rlHome, rlHomemymission, rlHomemyrequest, rlHomechat, rlHomemenu;
     private ImageView ivHomeDd, ivmymissionHome, ivMyrequestHome, ivchatHome, ivhomemenu;
-    private AppCompatTextView tvaccounthome, tvmymissionhome, tvmyrequesthome, tvchathome, tvhomeplus;
+    private AppCompatTextView tvaccounthome, tvmymissionhome, tvmyrequesthome, tvchathome, tvhomeplus, tvHomeNotificationCount;
+    private String userId;
+    private UnReadMsgConsersation consersation;
+    private ArrayList<UnReadMessageUserModle> datumList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        datumList = new ArrayList<>();
+        consersation = new UnReadMsgConsersation();
         String data = getIntent().getStringExtra("data");
         fragmentManager = getSupportFragmentManager();
         init();
@@ -52,10 +69,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            chatDataSanpchat();
+        } else {
+
+        }
         ///
     }
 
     private void init() {
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         rlHome = findViewById(R.id.rlHomeId);
         rlHomemymission = findViewById(R.id.rlHomemymissionId);
         rlHomemyrequest = findViewById(R.id.rlHomemyrequestId);
@@ -314,5 +338,86 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().beginTransaction().replace(R.id.flHomeId, fragment).addToBackStack(null).commit();
             }
         }
+    }
+
+
+    private void chatDataSanpchat() {
+        datumList.clear();
+        String userRecordinsertFormat = "user_" + userId + "_";
+        FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.getValue() != null) {
+                    HashMap mapMessage = (HashMap) dataSnapshot.getValue();
+                    UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
+                            (String) mapMessage.get("name"),
+                            (String) mapMessage.get("imgUrl"),
+                            (String) mapMessage.get("dateAndTime"),
+                            (String) mapMessage.get("senderId"));
+                    try {
+                        // datumList.clear();
+                        datumList.add(chatModle);
+                        AppSession.setStringPreferences(getApplicationContext(), "count", "" + datumList.size());
+                        // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                CustomProgressbar.hideProgressBar();
+
+            }
+        });
+
+        String count = AppSession.getStringPreferences(getApplicationContext(), "count");
+        if (count == null || count.isEmpty()) {
+            tvHomeNotificationCount.setVisibility(View.GONE);
+        } else {
+            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+            tvHomeNotificationCount.setText(count);
+        }
+        //tvHomeNotificationCount.setText();
+        //Toast.makeText(getActivity(), AppSession.getStringPreferences(getActivity(), "count"), Toast.LENGTH_LONG).show();
+        // AppSession.getStringPreferences(getActivity(),"count");
+        // Log.println(Log.VERBOSE, "count", AppSession.getStringPreferences(getActivity(), "count"));
+
+       /* DatabaseReference fbDb = null;
+        if (fbDb == null) {
+            fbDb = FirebaseDatabase.getInstance().getReference();
+        }*/
+/*
+        fbDb.child("ques/Technology")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // get total available quest
+                        int size = (int) dataSnapshot.getChildrenCount();
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });*/
+
+
     }
 }

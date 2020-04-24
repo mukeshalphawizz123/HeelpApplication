@@ -53,7 +53,6 @@ public class DashboardPaymentActivity extends Fragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.ivdashboardpaymentbackId:
                 removeThisFragment();
-                //removeAllFragment(new PlusMoreFragment(), false, Constants.PLUS_MORE_FRAGMENT);
                 break;
             case R.id.rlprizepoolpaymentid:
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), PrizePoolActivity.class);

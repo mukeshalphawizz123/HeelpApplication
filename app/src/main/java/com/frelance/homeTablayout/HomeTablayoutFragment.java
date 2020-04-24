@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
+import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
+import com.frelance.chatPkg.chatModlePkg.UnReadMsgConsersation;
 import com.frelance.homeTablayout.adapter.HomeCategoryFilterAdapter;
 import com.frelance.homeTablayout.fragment.HomeCategoryFrament;
 import com.frelance.homeTablayout.fragment.HomeMissionFragment;
@@ -37,10 +41,22 @@ import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
 import com.frelance.homeTablayout.homeModel.Project;
 import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
+import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,6 +74,10 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
     private List<Project> projectlist;
     private List<Project> projectlist1;
     Dialog dialog;
+    private String userId;
+    private UnReadMsgConsersation consersation;
+    private ArrayList<UnReadMessageUserModle> datumList;
+    private AppCompatTextView tvHomeNotificationCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,11 +88,21 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tablayout_home, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        datumList = new ArrayList<>();
+        consersation = new UnReadMsgConsersation();
+       // Toast.makeText(getActivity(),userId,Toast.LENGTH_LONG).show();
         addTabs(view);
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
     private void addTabs(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         ivSerachHome = view.findViewById(R.id.ivSerachHomeId);
         ivnotificationHome = view.findViewById(R.id.ivnotificationHomeId);
         tabLayout = view.findViewById(R.id.tabLayoutId);
@@ -242,6 +272,53 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
                 dialog.dismiss();
                 break;
         }
+
+    }
+
+
+    private void notification(String userId) {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        String totalNotification = String.valueOf(notificationResponseModle.getCountMessages() + notificationResponseModle.getCountMissionanddemands()
+                                + notificationResponseModle.getCountOffers() + notificationResponseModle.getCountPayment() + notificationResponseModle.getCountReviews());
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
 
     }
 }
