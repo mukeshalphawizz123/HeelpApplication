@@ -7,25 +7,34 @@ public class ChatModle {
     private String message;
     private String userImgPath;
     private String userVoice;
+    private String voiceTotalTime;
 
-    public ChatModle(String userId, String client, String dateTime, String message, String userImgPath
-            , String userVoice) {
+    public ChatModle(String userId,
+                     String client,
+                     String dateTime,
+                     String message,
+                     String userImgPath,
+                     String userVoice,
+                     String voiceTotalTime) {
         this.userId = userId;
         this.client = client;
         this.dateTime = dateTime;
         this.message = message;
         this.userImgPath = userImgPath;
         this.userVoice = userVoice;
+        this.voiceTotalTime = voiceTotalTime;
     }
 
 
-    /*    public ChatModle(String userId, String client, String dateTime, String message) {
-            this.userId = userId;
-            this.client = client;
-            this.dateTime = dateTime;
-            this.message = message;
+    public String getVoiceTotalTime() {
+        return voiceTotalTime;
+    }
 
-        }*/
+    public void setVoiceTotalTime(String voiceTotalTime) {
+        this.voiceTotalTime = voiceTotalTime;
+    }
+
+
     public String getUserVoice() {
         return userVoice;
     }

@@ -114,10 +114,14 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cvChatId"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="20sp"
+            android:layout_marginEnd="@dimen/_50sdp"
             app:cardCornerRadius="26dp"
             app:cardElevation="5sp">
 
@@ -141,6 +145,7 @@
                         android:id="@+id/ivsharefilebuttonid"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
+                        android:layout_marginEnd="@dimen/_8sdp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_weight="1"
@@ -148,6 +153,7 @@
                         android:src="@drawable/paperclip" />
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:id="@+id/rlVoiceRecordingId"
                         android:layout_width="wrap_content"
                         android:gravity="right"
@@ -197,6 +203,7 @@
 
 
                     </RelativeLayout>
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivgifbuttonid"
                         android:layout_width="25dp"
@@ -214,25 +221,21 @@
 
             <RelativeLayout
                 android:id="@+id/rltypemsgid"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="40sp"
-                android:layout_marginTop="10sp"
-                android:layout_marginEnd="100sp"
-                android:layout_marginBottom="10sp">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="left"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="100sp">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/ettypemsgid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_52sdp"
                     android:background="@android:color/transparent"
                     android:hint="@string/type_a_message"
                     android:padding="2sp"
-                    android:paddingStart="@dimen/_23sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:paddingTop="2sp"
                     android:paddingEnd="5sp"
                     android:textSize="14sp" />
@@ -241,6 +244,42 @@
 
 
         </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+
+        <com.devlomi.record_view.RecordView
+            android:id="@+id/record_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/record_button"
+            app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
+            app:slide_to_cancel_arrow_color="#000000"
+            app:slide_to_cancel_bounds="10dp"
+            app:slide_to_cancel_margin_right="10dp"
+            app:slide_to_cancel_text="Slide To Cancel"
+            app:counter_time_color="#ff0000"
+            />
+
+        <com.devlomi.record_view.RecordButton
+            android:id="@+id/record_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/circle"
+            android:scaleType="centerInside"
+            app:mic_icon="@drawable/recv_ic_mic_white"
+            android:layout_alignParentEnd="true"
+          />
 
 
     </RelativeLayout>

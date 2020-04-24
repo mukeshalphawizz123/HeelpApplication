@@ -44,7 +44,6 @@ public class TransactionCreditFragment extends Fragment implements TransactionCr
     private String userId;
     private List<Datum> datumList;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activityCreditTabBinding = DataBindingUtil.inflate(inflater, R.layout.activity_credit_tab, container, false);
         View view = activityCreditTabBinding.getRoot();
@@ -52,7 +51,7 @@ public class TransactionCreditFragment extends Fragment implements TransactionCr
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            getTransactionIn("1");
+            getTransactionIn(userId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }

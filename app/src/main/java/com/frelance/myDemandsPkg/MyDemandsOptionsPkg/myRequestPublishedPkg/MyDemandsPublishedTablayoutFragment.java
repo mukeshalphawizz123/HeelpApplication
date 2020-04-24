@@ -49,7 +49,7 @@ public class MyDemandsPublishedTablayoutFragment extends Fragment implements Vie
         View view = inflater.inflate(R.layout.activity_tablayout__my_request_published, container, false);
         try {
             projectId = this.getArguments().getString("projectId");
-            Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
 
         } catch (NullPointerException e) {
             e.printStackTrace();

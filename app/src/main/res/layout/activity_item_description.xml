@@ -60,7 +60,26 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:id="@+id/rlShowPostId"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/roundedbox"
+                        android:text=" Show >> "
+                        android:textStyle="bold"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_14sdp" />
+                </RelativeLayout>
 
 
                 <RelativeLayout

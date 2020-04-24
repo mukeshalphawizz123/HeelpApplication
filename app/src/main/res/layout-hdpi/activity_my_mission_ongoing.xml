@@ -172,7 +172,7 @@
 
                 <RelativeLayout
                     android:id="@+id/rlcommentboxid"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:layout_below="@+id/rlrecyyleid"
                     android:layout_centerHorizontal="true"
@@ -196,8 +196,8 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etMsgBoxInprogressId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_above="@+id/rlbottonbtnid"
                         android:layout_below="@+id/tvongoingidd"
                         android:layout_marginStart="10sp"

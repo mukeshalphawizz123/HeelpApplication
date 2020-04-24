@@ -62,6 +62,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:id="@+id/rlShowPostId"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/roundedbox"
+                        android:text=" Show >> "
+                        android:textStyle="bold"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_14sdp" />
+                </RelativeLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/rlhomeitemsid"
@@ -159,13 +178,13 @@
                             android:id="@+id/EtItemdesTitleTextid"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
-                            android:layout_marginStart="6dp"
                             android:layout_centerVertical="true"
+                            android:layout_marginStart="6dp"
                             android:layout_toEndOf="@+id/tvtitletextid"
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/raleway_medium"
-                            android:singleLine="true"
                             android:hint="@string/eg_j_ai_besoin_d_aide_pour_mon_projet"
+                            android:singleLine="true"
                             android:textColor="@color/gray"
                             android:textSize="12sp"
                             android:textStyle="normal" />
@@ -300,13 +319,13 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvFilestextid"
-                            android:layout_marginEnd="128sp"
-                            android:layout_alignParentBottom="true"
                             android:layout_width="wrap_content"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:layout_marginStart="@dimen/_5sdp"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:layout_marginTop="1sp"
+                            android:layout_marginEnd="128sp"
+                            android:layout_marginBottom="@dimen/_5sdp"
                             android:textColor="@color/Black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -325,6 +344,7 @@
                     android:layout_marginEnd="15sp"
                     app:cardBackgroundColor="@color/lessgray"
                     app:cardCornerRadius="2sp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -332,8 +352,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvselectimageId"
                             android:layout_width="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
 
 
                     </RelativeLayout>
@@ -447,13 +467,12 @@
         </ScrollView>
 
 
-            <ProgressBar
-                android:id="@+id/PbitemdescriptionId"
-                android:layout_width="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
+        <ProgressBar
+            android:id="@+id/PbitemdescriptionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

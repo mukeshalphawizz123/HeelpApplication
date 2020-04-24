@@ -52,7 +52,7 @@ public class TransactionDebitFragment extends Fragment implements TransactionDeb
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            getTransactionOut("1");
+            getTransactionOut(userId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }

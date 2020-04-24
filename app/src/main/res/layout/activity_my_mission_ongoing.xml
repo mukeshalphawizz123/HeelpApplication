@@ -153,7 +153,6 @@
                 </RelativeLayout>
 
 
-
                 <RelativeLayout
                     android:id="@+id/rlrecyyleid"
                     android:layout_width="wrap_content"
@@ -198,8 +197,8 @@
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etMsgBoxInprogressId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_above="@+id/rlbottonbtnid"
                         android:layout_below="@+id/tvongoingidd"
                         android:layout_marginStart="10sp"
@@ -207,7 +206,7 @@
                         android:layout_marginEnd="10sp"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/raleway_medium"
-                        android:gravity="top"
+                        android:gravity="top|left"
                         android:text="@string/my_comment_i_finished_again"
                         android:textColor="@color/lessBlack"
                         android:textSize="@dimen/_10sdp" />

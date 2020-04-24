@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval" >
+
+
+    <!-- You can omit below tag if you don't need stroke -->
+    <stroke android:color="#15A8DB" android:width="1dp"/>
+
+    <!-- Set the same val1e for both width and height to get a circular shape -->
+    <size android:width="50dp" android:height="50dp"/>
+
+    <!--if you need only a single color filled shape-->
+    <solid android:color="#15A8DB"/>
+
+
+</shape>

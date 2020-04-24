@@ -80,7 +80,7 @@ public class MyDemandsDeliveryActivity extends Fragment
     private List<Datum> datumList;
     private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest;
     private CircleImageView ivUserDemandDely;
-    private String projectId, userid, clientId, mission_demand_title;
+    private String projectId, userid, clientId, mission_demand_title, firstName;
     private static Animation shakeAnimation;
     private CheckBox radiogray;
     private RelativeLayout rlliverymodificationbtnbtn, rlpaymentbtn;
@@ -94,6 +94,7 @@ public class MyDemandsDeliveryActivity extends Fragment
         projectId = this.getArguments().getString("projectId");
         clientId = AppSession.getStringPreferences(getActivity(), "clientId");
         userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+        firstName = AppSession.getStringPreferences(getActivity(), Constants.FIRST_NAME);
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         filesList = new ArrayList<>();
         // Toast.makeText(getActivity(), "" + clientId, Toast.LENGTH_LONG).show();
@@ -358,6 +359,11 @@ public class MyDemandsDeliveryActivity extends Fragment
         RelativeLayout rlLogin = (RelativeLayout) dialog.findViewById(R.id.rlLoginId);
         final AppCompatEditText tvReviewBoxId = (AppCompatEditText) dialog.findViewById(R.id.tvReviewBoxId);
         final RatingBar rbRevewId = dialog.findViewById(R.id.rbRevewId);
+        if (firstName == null) {
+            tvUserNameReview.setText("None");
+        } else {
+            tvUserNameReview.setText(firstName);
+        }
         ivReviewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

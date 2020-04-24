@@ -88,6 +88,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
     private AppCompatTextView tvFilestext;
+    private RelativeLayout rlShowPost;
 
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -114,6 +115,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
 
     private void init() {
+        rlShowPost = findViewById(R.id.rlShowPostId);
         tvFilestext = findViewById(R.id.tvFilestextid);
         Pbitemdescription = findViewById(R.id.PbitemdescriptionId);
         rlPieceJoint = findViewById(R.id.rlPieceJointId);
@@ -130,6 +132,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         ivnotification = findViewById(R.id.ivnotificationId);
         ivdetailback.setOnClickListener(this);
         ivnotification.setOnClickListener(this);
+        rlShowPost.setOnClickListener(this);
         rlpublishapplication = findViewById(R.id.rlpublishapplicationid);
         rlpublishapplication.setOnClickListener(this);
         shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
@@ -394,6 +397,9 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rlShowPostId:
+                CheckNetwork.nextScreenWithoutFinish(PostADemandActivity.this, ShowPostActivity.class);
+                break;
             case R.id.ivnotificationId:
                 CheckNetwork.nextScreenWithoutFinish(PostADemandActivity.this, NotificationActivity.class);
                 break;

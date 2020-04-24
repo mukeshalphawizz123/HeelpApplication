@@ -23,9 +23,13 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/orangelogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".homeTablayout.publishPkg.ShowPostActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chatPkg.SingleImageActivity"
             android:screenOrientation="portrait" />
@@ -207,13 +211,12 @@
         <activity
             android:name=".stripePaymentPkg.CheckoutActivityJava"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".show_dispute_pkg.ShowDisputeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".stripePaymentPkg.AddCardActivityJava"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".fcmintigationPkg.MyFirebaseMessagingService"

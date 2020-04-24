@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -30,6 +32,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.devlomi.record_view.OnBasketAnimationEnd;
+import com.devlomi.record_view.OnRecordListener;
+import com.devlomi.record_view.RecordButton;
+import com.devlomi.record_view.RecordView;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -65,6 +71,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -110,6 +117,9 @@ public class ChatActivity extends AppCompatActivity implements
     private GetProfileModle missionlist;
     private String entryFlag = "0", firstname, lastName, user_picturUrl;
 
+    private RecordView recordView;
+    private RecordButton recordButton;
+    private CardView cvChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +136,6 @@ public class ChatActivity extends AppCompatActivity implements
         clientImg = getIntent().getStringExtra("clientImg");
         consersation = new Consersation();
         random = new Random();
-
-        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
 
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
@@ -161,6 +169,11 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     private void init() {
+        cvChat = (CardView) findViewById(R.id.cvChatId);
+        recordView = (RecordView) findViewById(R.id.record_view);
+        recordButton = (RecordButton) findViewById(R.id.record_button);
+        recordButton.setRecordView(recordView);
+
         tvTimer = findViewById(R.id.tvTimerId);
         rlVoiceRecordingStop = findViewById(R.id.rlVoiceRecordingStopId);
         ivrecordedbutton = findViewById(R.id.ivrecordedbuttonid);
@@ -185,6 +198,109 @@ public class ChatActivity extends AppCompatActivity implements
         rvmsglist.setLayoutManager(layoutManager);
         chatAdapter = new ChatAdapter(getApplicationContext(), this);
         chatDataSanpchat();
+
+
+        //Cancel Bounds is when the Slide To Cancel text gets before the timer . default is 8
+        recordView.setCancelBounds(8);
+
+        recordView.setSmallMicColor(Color.parseColor("#c2185b"));
+        //prevent recording under one Second
+        recordView.setLessThanSecondAllowed(false);
+
+        recordView.setSlideToCancelText("Slide To Cancel");
+
+        recordView.setCustomSounds(R.raw.record_start, R.raw.record_finished, 0);
+
+        recordView.setOnRecordListener(new OnRecordListener() {
+            @Override
+            public void onStart() {
+                cvChat.setVisibility(View.INVISIBLE);
+                AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "AudioRecording.3gp";
+                MediaRecorderReady();
+                try {
+                    mediaRecorder.prepare();
+                    mediaRecorder.start();
+                } catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                // tvTimer.setVisibility(View.VISIBLE);
+                // rlVoiceRecordingStop.setVisibility(View.VISIBLE);
+                // ivrecordedbutton.setVisibility(View.GONE);
+                //  tvTimer.start();
+                Toast.makeText(ChatActivity.this, getResources().getString(R.string.RecordingStarted), Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getApplicationContext(), "OnStartRecord", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancel() {
+                try {
+                    cvChat.setVisibility(View.VISIBLE);
+                    mediaRecorder.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(ChatActivity.this, "onCancel", Toast.LENGTH_SHORT).show();
+
+                //    Log.d("RecordView", "onCancel");
+
+            }
+
+            @Override
+            public void onFinish(long recordTime) {
+                String time = null;
+                try {
+                    cvChat.setVisibility(View.VISIBLE);
+                    time = getHumanTimeText(recordTime);
+                    mediaRecorder.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // tvTimer.stop();
+                // rlVoiceRecordingStop.setVisibility(View.GONE);
+                //  ivrecordedbutton.setVisibility(View.VISIBLE);
+                uploadSoundForChat(AudioSavePathInDevice, time);
+                // Toast.makeText(MainActivity.this, "onFinishRecord - Recorded Time is: " + time, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLessThanSecond() {
+                try {
+                    cvChat.setVisibility(View.VISIBLE);
+                    // String time = getHumanTimeText(recordTime);
+                    mediaRecorder.stop();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // Toast.makeText(MainActivity.this, "OnLessThanSecond", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        recordView.setOnBasketAnimationEndListener(new OnBasketAnimationEnd() {
+            @Override
+            public void onAnimationEnd() {
+                //  Log.d("RecordView", "Basket Animation Finished");
+            }
+        });
+
+        if (checkPermission()) {
+        } else {
+            requestPermission();
+        }
+
+    }
+
+
+    private String getHumanTimeText(long milliseconds) {
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(milliseconds),
+                TimeUnit.MILLISECONDS.toSeconds(milliseconds) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
     }
 
     private void chatDataSanpchat() {
@@ -201,7 +317,8 @@ public class ChatActivity extends AppCompatActivity implements
                             (String) mapMessage.get("dateTime"),
                             (String) mapMessage.get("message"),
                             (String) mapMessage.get("userImgPath"),
-                            (String) mapMessage.get("userVoice"));
+                            (String) mapMessage.get("userVoice"),
+                            (String) mapMessage.get("voiceTotalTime"));
 
                     consersation.getListMessageData().add(chatModle);
                     chatAdapter.addChatList(consersation.getListMessageData());
@@ -252,7 +369,7 @@ public class ChatActivity extends AppCompatActivity implements
                 tvTimer.stop();
                 rlVoiceRecordingStop.setVisibility(View.GONE);
                 ivrecordedbutton.setVisibility(View.VISIBLE);
-                uploadSoundForChat(AudioSavePathInDevice);
+                // uploadSoundForChat(AudioSavePathInDevice);
                 break;
             case R.id.ivrecordedbuttonid:
                 if (checkPermission()) {
@@ -297,7 +414,7 @@ public class ChatActivity extends AppCompatActivity implements
                     ettypemsg.setText("");
                     String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
                     String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
-                    ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message, "", "");
+                    ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), message, "", "", "");
                     FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
                     FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
 
@@ -462,7 +579,7 @@ public class ChatActivity extends AppCompatActivity implements
                         String imgurl = chatImageResponseModle.getData().get(0).getImageName();
                         String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
                         String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
-                        ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), "", imgurl, "");
+                        ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), "", imgurl, "", "");
                         FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
                         FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
                     }
@@ -494,7 +611,7 @@ public class ChatActivity extends AppCompatActivity implements
 
     }
 
-    private void uploadSoundForChat(String profilImgPath) {
+    private void uploadSoundForChat(String profilImgPath, String recordTime) {
         CustomProgressbar.showProgressBar(this, false);
         MultipartBody.Part imgFileStation = null;
         if (profilImgPath == null) {
@@ -514,7 +631,7 @@ public class ChatActivity extends AppCompatActivity implements
                         String voiceUrl = recordingResponseModle.getData().get(0).getVoicefileName();
                         String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
                         String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
-                        ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), "", "", voiceUrl);
+                        ChatModle newMessage = new ChatModle(userid, clientId, Constants.currentDateAndTime(), "", "", voiceUrl, recordTime);
                         FirebaseDatabase.getInstance().getReference().child("message/" + userRecordinsertFormat).push().setValue(newMessage);
                         FirebaseDatabase.getInstance().getReference().child("message/" + clientRecordinsertFormat).push().setValue(newMessage);
                     }

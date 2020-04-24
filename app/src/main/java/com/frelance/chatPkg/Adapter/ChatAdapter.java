@@ -141,7 +141,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 holder.ivchaRecordingPlayImageleft.setVisibility(View.GONE);
                 holder.ivchaRecordingStopImageleft.setVisibility(View.VISIBLE);
                 mediaPlayer.stop();
-                notifyDataSetChanged();
+
+                //   notifyDataSetChanged();
             }
         });
 
@@ -152,6 +153,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 holder.ivchaRecordingStopImageRight.setVisibility(View.VISIBLE);
                 holder.ivchaRecordingPlayImageRight.setVisibility(View.GONE);
                 mediaPlayer.stop();
+
             }
         });
 
@@ -171,6 +173,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 }
 
                 mediaPlayer.start();
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (mediaPlayer.isPlaying()) {
+                        } else {
+                            holder.ivchaRecordingPlayImageleft.setVisibility(View.GONE);
+                            holder.ivchaRecordingStopImageleft.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
             }
         });
 
@@ -189,8 +203,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 }
 
                 mediaPlayer.start();
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (mediaPlayer.isPlaying()) {
+                        } else {
+                            holder.ivchaRecordingPlayImageRight.setVisibility(View.GONE);
+                            holder.ivchaRecordingStopImageRight.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
             }
         });
+
+
     }
 
     @Override
@@ -210,7 +238,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatTextView tvusertime, tvSenderChat, tvSenderImagetimeVoice,
                 tvSendertime, tvUserChat;
-        private CircleImageView ivchatprofile,ivchatImageprofile;
+        private CircleImageView ivchatprofile, ivchatImageprofile;
         private RelativeLayout rlChatuUserLeft, rlChatuUserRight, rlChatuUserImgLeft, rlChatuUserImgRight, rlChatuUserVoiceRight, rlChatuUserVoiceLeft;
         private AppCompatImageView ivchatSharedImage, ivchaRecordingPlayImageleft, ivchaRecordingStopImageleft,
                 ivchatSharedImageRight, ivchaRecordingStopImageRight, ivchaRecordingPlayImageRight;
@@ -241,7 +269,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             tvSenderImagetime = itemView.findViewById(R.id.tvSenderImagetimeId);
             tvSendSharetimeRight = itemView.findViewById(R.id.tvSendSharetimeRightId);
             tvvoicetimePlayRight = itemView.findViewById(R.id.tvvoicetimePlayRightId);
-          //  tvvoicetimeRight = itemView.findViewById(R.id.tvvoicetimeRightId);
+            //  tvvoicetimeRight = itemView.findViewById(R.id.tvvoicetimeRightId);
 
         }
     }
