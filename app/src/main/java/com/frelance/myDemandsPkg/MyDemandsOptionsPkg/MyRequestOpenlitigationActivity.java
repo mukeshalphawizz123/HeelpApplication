@@ -66,10 +66,11 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_openlitigation, container, false);
-        missionId = this.getArguments().getString("missionId");
+        missionId = this.getArguments().getString("projectId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        // Toast.makeText(getActivity(),missionId,Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDemandDispute(userId);
@@ -102,8 +103,11 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvMyMissionDispute.setLayoutManager(layoutManager);
+
         myMissionadapter = new MyMissionadapter(getActivity(), this);
         rvMyMissionDispute.setAdapter(myMissionadapter);
+
+
     }
 
     @Override
@@ -157,6 +161,9 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     }
 
     private void replaceFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
         AppSession.setStringPreferences(getActivity(), "OnGoing", "MyReqEnlitige");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -183,12 +190,18 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
                 if (response.isSuccessful()) {
-                    GetAllDiputeResponseModle getAllDiputeResponseModle = response.body();
-                    if (getAllDiputeResponseModle.getStatus()) {
-                        datumList = getAllDiputeResponseModle.getData();
-                        myMissionadapter.addDisputeList(datumList);
-                    } else {
+                    try {
+                        GetAllDiputeResponseModle getAllDiputeResponseModle = response.body();
+                        if (getAllDiputeResponseModle.getStatus()) {
+                            datumList = getAllDiputeResponseModle.getData();
+                            myMissionadapter.addDisputeList(datumList);
+                            rvMyMissionDispute.smoothScrollToPosition(myMissionadapter.getItemCount() - 1);
 
+                        } else {
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     //  Tvmymissionitemnot.setVisibility(View.VISIBLE);
 

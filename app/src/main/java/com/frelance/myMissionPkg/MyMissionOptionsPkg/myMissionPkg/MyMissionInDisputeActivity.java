@@ -58,7 +58,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     private String missionId, userId, mission_mission_title;
     private List<Datum> datumList;
     private Handler handler = new Handler();
-    private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
+    private int apiDelayed = 4 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
     private AppCompatTextView tvMyMissTitle;
 
@@ -196,6 +196,10 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     }
 
     private void replaceFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
+
         AppSession.setStringPreferences(getActivity(), "OnGoing", "litige");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -224,11 +228,13 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SendDiputeResponseModle missionlist = response.body();
+                    // myMissionadapter.addDisputeList(datumList);
                     if (missionlist.getStatus()) {
                         ettypemsg.setText("");
                     } else {
 
                     }
+                    myMissionDispute(userId);
 
                 } else {
                     if (response.code() == 400) {

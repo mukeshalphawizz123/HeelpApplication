@@ -18,6 +18,7 @@ import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.GoDisputeModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.FetchProjectPriceModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
@@ -400,6 +401,13 @@ public interface ApiServices {
             @Field("message") String message,
             @Field("date_created") String date_created
     );
+
+
+    @FormUrlEncoded
+    @POST("Client/update_project_status")
+    Call<GoDisputeModle> sendDisputeState(
+            @Field("project_id") String project_id);
+
 
 
     @Multipart

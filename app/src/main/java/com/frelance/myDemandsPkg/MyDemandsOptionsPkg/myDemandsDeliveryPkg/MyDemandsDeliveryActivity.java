@@ -529,6 +529,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                             radioid.setChecked(true);
                             radioid.setEnabled(false);
                             dialog.dismiss();
+                            removeThisFragment();
                         } else {
                         }
                     } catch (Exception e) {

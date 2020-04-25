@@ -81,7 +81,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         }
         init(view);
         getPreference();
-        // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
         if (CheckNetwork.isNetAvailable(getActivity())) {
             // myMissionViewDetail("145");
             myMissionViewDetail(missionId);

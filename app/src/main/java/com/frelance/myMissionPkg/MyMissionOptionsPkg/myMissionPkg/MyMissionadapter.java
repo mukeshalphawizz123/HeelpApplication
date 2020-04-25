@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
+import com.frelance.utility.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +41,17 @@ public class MyMissionadapter extends RecyclerView.Adapter<MyMissionadapter.View
 
     @Override
     public void onBindViewHolder(@NonNull MyMissionadapter.ViewHolder holder, int position) {
-        String sm = "<b>" + "Support message:" + "</b> ";
+        // String sm = "<b>" + "Support message:" + "</b> ";
         if (datumList.get(position).getMessageType().equalsIgnoreCase("admin_message")) {
             if (datumList.get(position).getMessage().isEmpty()) {
                 holder.rlSenderBox.setVisibility(View.GONE);
                 holder.rltime.setVisibility(View.GONE);
-                holder.tvSupportMsg.setVisibility(View.VISIBLE);
+                holder.tvSupportMsg.setVisibility(View.GONE);
                 holder.rlsupportmsgbox.setVisibility(View.GONE);
 
             } else {
-                holder.tvSupportMsg.setText(Html.fromHtml(sm) + "\n" + datumList.get(position).getMessage());
+                // holder.tvSupportMsg.setText(Html.fromHtml(sm) + "\n" + datumList.get(position).getMessage());
+                holder.tvSupportMsg.setText(datumList.get(position).getMessage());
                 holder.rlSenderBox.setVisibility(View.GONE);
                 holder.rltime.setVisibility(View.GONE);
                 holder.tvSupportMsg.setVisibility(View.VISIBLE);
@@ -57,7 +59,7 @@ public class MyMissionadapter extends RecyclerView.Adapter<MyMissionadapter.View
             }
         } else {
             holder.tvSenderMessage.setText(datumList.get(position).getMessage());
-            holder.tvtime.setText(datumList.get(position).getMessageDateTime());
+            holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
             holder.rlSenderBox.setVisibility(View.VISIBLE);
             holder.rltime.setVisibility(View.VISIBLE);
             holder.tvSupportMsg.setVisibility(View.GONE);

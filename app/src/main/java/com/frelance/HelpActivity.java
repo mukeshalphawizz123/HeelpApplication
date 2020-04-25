@@ -5,7 +5,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.GoDisputeModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.frelance.show_dispute_pkg.ShowDisputeActivity;
@@ -78,13 +78,11 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlsubmitbtnHelpid:
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
-               /* if (CheckNetwork.isNetAvailable(getActivity())) {
-                    sendProjectDispute();
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    sendDisputeState();
                 } else {
                     Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
-                }*/
-
+                }
                 break;
             case R.id.ivnotificationId:
                 // replaceFragement(new NotificationActivity());
@@ -118,6 +116,41 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
         // Toast.makeText(this, ""+manager, Toast.LENGTH_SHORT).show();
     }
 
+    private void sendDisputeState() {
+        pbHelp.setVisibility(View.VISIBLE);
+        apiServices.sendDisputeState(missionId).enqueue(new Callback<GoDisputeModle>() {
+            @Override
+            public void onResponse(Call<GoDisputeModle> call, Response<GoDisputeModle> response) {
+                if (response.isSuccessful()) {
+                    pbHelp.setVisibility(View.GONE);
+                    GoDisputeModle goDisputeModle = response.body();
+                    if (goDisputeModle.getStatus()) {
+                        CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbHelp.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GoDisputeModle> call, Throwable t) {
+                pbHelp.setVisibility(View.GONE);
+            }
+        });
+
+    }
 
     private void sendProjectDispute() {
         pbHelp.setVisibility(View.VISIBLE);
@@ -131,6 +164,7 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
                     ProjectSendDisputeModle projectSendDisputeModle = response.body();
                     if (projectSendDisputeModle.getStatus()) {
                         Toast.makeText(getActivity(), projectSendDisputeModle.getData().getMessage(), Toast.LENGTH_LONG).show();
+                        CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
                     }
                 } else {
                     if (response.code() == 400) {

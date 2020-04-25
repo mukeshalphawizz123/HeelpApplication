@@ -60,8 +60,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
         flag = AppSession.getStringPreferences(getApplicationContext(), "clientEntry");
         init();
-        Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
-
+       // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
 
         if (flag.equalsIgnoreCase("client")) {
             if (CheckNetwork.isNetAvailable(getApplicationContext())) {

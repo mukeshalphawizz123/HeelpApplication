@@ -20,11 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionadapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
+import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.SendDiputeResponseModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
@@ -104,7 +106,16 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivgifbuttonid:
+                if (CheckNetwork.isNetAvailable(ShowDisputeActivity.this)) {
+                    if (TextUtils.isEmpty(ettypemsg.getText().toString())) {
+                    } else {
+                        sendDispute();
+                    }
+                } else {
+                    Toast.makeText(ShowDisputeActivity.this, "Check network connection", Toast.LENGTH_LONG).show();
+                }
                 break;
+
             case R.id.ivmissionfeedbackdashboardbackId:
                 onBackPressed();
                 break;
@@ -157,6 +168,51 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onFailure(Call<GetAllDiputeResponseModle> call, Throwable t) {
 
+            }
+        });
+
+    }
+
+
+    private void sendDispute() {
+        CustomProgressbar.showProgressBar(ShowDisputeActivity.this, false);
+        apiServices.projectsenddispute(missionId, ettypemsg.getText().toString(), userId).enqueue(new Callback<SendDiputeResponseModle>() {
+            @Override
+            public void onResponse(Call<SendDiputeResponseModle> call, Response<SendDiputeResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    SendDiputeResponseModle missionlist = response.body();
+                    if (missionlist.getStatus()) {
+                        ettypemsg.setText("");
+                    } else {
+
+                    }
+                    if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                        myMissionDispute(userId);
+                    } else {
+
+                    }
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!response.isSuccessful()) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(ShowDisputeActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SendDiputeResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
             }
         });
 

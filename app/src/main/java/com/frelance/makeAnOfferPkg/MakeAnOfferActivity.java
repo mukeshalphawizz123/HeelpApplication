@@ -81,7 +81,6 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         } else {
             Toast.makeText(MakeAnOfferActivity.this, "Check Network Connection", Toast.LENGTH_LONG).show();
         }
-
     }
 
     private void init() {
@@ -166,7 +165,6 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         });
     }
 
-
     private void makeAnOfferDetailApi() {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.getofferid(missionId).enqueue(new Callback<MakeOfferDetailModle>() {
@@ -217,7 +215,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
 
     private void makeAnOfferApi() {
         CustomProgressbar.showProgressBar(this, false);
-        Toast.makeText(getApplicationContext(), offerPrice, Toast.LENGTH_LONG).show();
+       // Toast.makeText(getApplicationContext(), offerPrice, Toast.LENGTH_LONG).show();
         apiServices.makeAnOffer(missionId, userid, etAcceptOffer.getText().toString(), status, offerPrice).enqueue(new Callback<SaveOfferModle>() {
             @Override
             public void onResponse(Call<SaveOfferModle> call, Response<SaveOfferModle> response) {

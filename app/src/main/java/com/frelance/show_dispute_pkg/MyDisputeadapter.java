@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
+import com.frelance.utility.Constants;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class MyDisputeadapter extends RecyclerView.Adapter<MyDisputeadapter.View
             }
         } else {
             holder.tvSenderMessage.setText(datumList.get(position).getMessage());
-            holder.tvtime.setText(datumList.get(position).getMessageDateTime());
+            holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
             holder.rlSenderBox.setVisibility(View.VISIBLE);
             holder.rltime.setVisibility(View.VISIBLE);
             holder.tvSupportMsg.setVisibility(View.GONE);
