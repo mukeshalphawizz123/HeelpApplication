@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +41,14 @@ import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.HelpActivity;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.Adapter.MyDemandsLiveryAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.Datum;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.FetchProjectPriceModel;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.paymentPkg.CreditCardPayment;
@@ -80,12 +85,13 @@ public class MyDemandsDeliveryActivity extends Fragment
     private List<Datum> datumList;
     private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest;
     private CircleImageView ivUserDemandDely;
-    private String projectId, userid, clientId, mission_demand_title, firstName;
+    private String projectId, userid, clientId, mission_demand_title, firstName, projectAmount;
     private static Animation shakeAnimation;
     private CheckBox radiogray;
     private RelativeLayout rlliverymodificationbtnbtn, rlpaymentbtn;
     private ArrayList<String> filesList;
-    FileDownloading fileDownloading;
+    private FileDownloading fileDownloading;
+    private RelativeLayout rldummyimg;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_request_livery, container, false);
@@ -100,16 +106,23 @@ public class MyDemandsDeliveryActivity extends Fragment
         // Toast.makeText(getActivity(), "" + clientId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
-            // Toast.makeText(getActivity(), "" + projectId, Toast.LENGTH_LONG).show();
             myOnDeliveryApi(projectId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            projectPrice();
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         tvDemandTitleRequest.setText(mission_demand_title);
         return view;
     }
 
     private void init(View view) {
+        rldummyimg = view.findViewById(R.id.rldummyimgid);
         tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         rlpaymentbtn = view.findViewById(R.id.rlpaymentbtnid);
         rlliverymodificationbtnbtn = view.findViewById(R.id.rlliverymodificationbtnbtnid);
@@ -144,6 +157,7 @@ public class MyDemandsDeliveryActivity extends Fragment
         rlliverymodificationbtnbtn.setOnClickListener(this);
         rlpaymentbtn.setOnClickListener(this);
         rlliverymodificationbtnbtn.setEnabled(false);
+        rldummyimg.setOnClickListener(this);
         radioid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -183,9 +197,13 @@ public class MyDemandsDeliveryActivity extends Fragment
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "clientId", clientId);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
+                break;
             case R.id.rlpaymentbtnid:
                 if (radioid.isChecked()) {
-                    CheckNetwork.nextScreenWithoutFinish(getActivity(), CreditCardPayment.class);
+                    relasePaymentDialoge();
                 } else {
                     Toast.makeText(getActivity(), getResources().getString(R.string.kindlyreviews), Toast.LENGTH_LONG).show();
                 }
@@ -252,6 +270,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                         tvUserDemandDely.setText(datumList.get(0).getFirstName());
                         tvCommentDemandDely.setText(datumList.get(0).getYourComments());
 
+
                         if (datumList.get(0).getPictureUrl().isEmpty()) {
 
                         } else {
@@ -285,16 +304,14 @@ public class MyDemandsDeliveryActivity extends Fragment
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -309,6 +326,41 @@ public class MyDemandsDeliveryActivity extends Fragment
         });
     }
 
+    private void projectPrice() {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.get_amount(projectId).enqueue(new Callback<FetchProjectPriceModel>() {
+            @Override
+            public void onResponse(Call<FetchProjectPriceModel> call, Response<FetchProjectPriceModel> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    FetchProjectPriceModel fetchProjectPriceModel = response.body();
+                    if (fetchProjectPriceModel.getStatus()) {
+                        projectAmount = fetchProjectPriceModel.getAmount();
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FetchProjectPriceModel> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+    }
+//projectPrice
 
     private void askToModify(String misionid) {
         CustomProgressbar.showProgressBar(getActivity(), false);
@@ -324,16 +376,14 @@ public class MyDemandsDeliveryActivity extends Fragment
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -348,6 +398,34 @@ public class MyDemandsDeliveryActivity extends Fragment
         });
     }
 
+
+    private void relasePaymentDialoge() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.release_payment_dialoge);
+        final AppCompatTextView tvCancel = (AppCompatTextView) dialog.findViewById(R.id.tvCancelId);
+        final AppCompatTextView tvYes = (AppCompatTextView) dialog.findViewById(R.id.tvYesId);
+        RelativeLayout rlLogin = (RelativeLayout) dialog.findViewById(R.id.rlLoginId);
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tvYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    amountReleasedApi(dialog);
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        });
+        dialog.show();
+    }
 
     private void reveiwDialoge() {
         final Dialog dialog = new Dialog(getActivity());
@@ -380,7 +458,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                     tvReviewBoxId.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
                 } else {
                     if (CheckNetwork.isNetAvailable(getActivity())) {
-                        submitReviewApi(tvReviewBoxId.getText().toString(), String.valueOf(rbRevewId.getNumStars()), dialog);
+                        submitReviewApi(tvReviewBoxId.getText().toString(), String.valueOf(rbRevewId.getRating()), dialog);
                     } else {
                         Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
                     }
@@ -392,7 +470,10 @@ public class MyDemandsDeliveryActivity extends Fragment
 
     private void submitReviewApi(String reveriewMsg, String numberOfStar, final Dialog dialog) {
         CustomProgressbar.showProgressBar(getActivity(), false);
-        apiServices.addReviewToUser(clientId, numberOfStar, reveriewMsg, userid).enqueue(new Callback<SubmitReviewModle>() {
+
+        //   Log.v("testingfordata", userid + "," + numberOfStar + "," + reveriewMsg + "," + clientId);
+
+        apiServices.addReviewToUser(userid, numberOfStar, reveriewMsg, clientId).enqueue(new Callback<SubmitReviewModle>() {
             @Override
             public void onResponse(Call<SubmitReviewModle> call, Response<SubmitReviewModle> response) {
                 if (response.isSuccessful()) {
@@ -411,16 +492,14 @@ public class MyDemandsDeliveryActivity extends Fragment
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -431,6 +510,52 @@ public class MyDemandsDeliveryActivity extends Fragment
             @Override
             public void onFailure(Call<SubmitReviewModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+            }
+        });
+    }
+
+    private void amountReleasedApi(Dialog dialog) {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        //Toast.makeText(getActivity(), projectAmount, Toast.LENGTH_LONG).show();
+        apiServices.amount_released(projectAmount, userid, projectId).enqueue(new Callback<ReleasePaymenModel>() {
+            @Override
+            public void onResponse(Call<ReleasePaymenModel> call, Response<ReleasePaymenModel> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        ReleasePaymenModel releasePaymenModel = response.body();
+                        if (releasePaymenModel.getStatus()) {
+                            Toast.makeText(getActivity(), releasePaymenModel.getMessage(), Toast.LENGTH_LONG).show();
+                            radioid.setChecked(true);
+                            radioid.setEnabled(false);
+                            dialog.dismiss();
+                        } else {
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                dialog.dismiss();
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReleasePaymenModel> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+                dialog.dismiss();
             }
         });
     }

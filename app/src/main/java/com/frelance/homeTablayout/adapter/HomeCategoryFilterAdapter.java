@@ -43,7 +43,6 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
                 } else {
                     List<Project> filteredList = new ArrayList<>();
                     for (Project row : projectlist1) {
-
                         if (row.getTitle().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
@@ -115,6 +114,10 @@ public class HomeCategoryFilterAdapter extends RecyclerView.Adapter<HomeCategory
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
 
     @Override
     public int getItemCount() {

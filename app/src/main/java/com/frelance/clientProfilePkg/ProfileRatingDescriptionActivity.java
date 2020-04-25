@@ -17,10 +17,10 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 
-import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.clientProfilePkg.AdapterPkg.ProfileRatingAdapter;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.Review;
+import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.clientProfilePkg.AdapterPkg.ProfileRatingAdapter;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -49,7 +49,6 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     private RatingBar rbhelperprofile;
     private AppCompatTextView tvReveiw;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,15 +60,19 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
         flag = AppSession.getStringPreferences(getApplicationContext(), "clientEntry");
         init();
+        Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+
 
         if (flag.equalsIgnoreCase("client")) {
             if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
                 getReviews(clientId);
             } else {
                 Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
         } else {
             if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_LONG).show();
                 getReviews(userId);
             } else {
                 Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
@@ -91,9 +94,8 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                         if (getUserReviewsModel.getStatus()) {
                             tvReveiw.setVisibility(View.GONE);
                             tvname.setText(getUserReviewsModel.getUserDetail().getFullName());
-                            rbhelperprofile.setNumStars(getUserReviewsModel.getUserDetail().getRatingAvg());
+                            rbhelperprofile.setRating(Float.parseFloat(getUserReviewsModel.getUserDetail().getRatingAvg()));
                             if (getUserReviewsModel.getUserDetail().getPictureUrl().isEmpty()) {
-
                             } else {
                                 Picasso.with(getApplicationContext())
                                         .load(RetrofitClient.MISSION_USER_IMAGE_URL + getUserReviewsModel.getUserDetail().getPictureUrl())
@@ -110,16 +112,14 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 Pbgetuserreviews.setVisibility(View.GONE);
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -156,7 +156,6 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                 .load(RetrofitClient.MISSION_USER_IMAGE_URL + userImg)
                 .into(ivuserprofileimage);
 
-
         //   userImg
     }
 
@@ -170,9 +169,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
             case R.id.ivnotificationuserprofileId:
                 CheckNetwork.nextScreenWithoutFinish(ProfileRatingDescriptionActivity.this, NotificationActivity.class);
                 break;
-
         }
-
     }
 
     @Override

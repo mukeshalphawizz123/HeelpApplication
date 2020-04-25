@@ -6,6 +6,7 @@ import com.frelance.chatPkg.chatModlePkg.ChatEntryModel;
 import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
+import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.frelance.detailsPkg.detailModlePkg.MissionViewDetailModle;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.forgetpasswordPkg.ForgetPasswordModle;
@@ -18,6 +19,8 @@ import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.FetchProjectPriceModel;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
@@ -45,7 +48,6 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptio
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.upadateCardpkg.UpdateCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.dashboardsupportModlePkg.Dashboardsupportmodel;
 import com.frelance.signUpInitial.RegistrationPkgModel.RegistrationModel;
-import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.frelance.stripePaymentPkg.stripModlePkg.PaymentResponseModle;
 
 import okhttp3.MultipartBody;
@@ -151,8 +153,6 @@ public interface ApiServices {
     Call<GetProfileModle> getMyProfile(@Field("user_id") String user_id);
 
 
-
-
     @FormUrlEncoded
     @POST("Client/deletestripecard")
     Call<DeleteCardModel> deletestripecard(@Field("user_id") String user_id);
@@ -183,12 +183,9 @@ public interface ApiServices {
     Call<GetCarListModel> getCardList(@Field("user_id") String user_id);*/
 
 
-
     @FormUrlEncoded
     @POST("Client/retrieve_a_card")
     Call<FetchCardModel> retrieve_a_card(@Field("user_id") String user_id);
-
-
 
 
     @FormUrlEncoded
@@ -241,7 +238,6 @@ public interface ApiServices {
                                             @Field("projectaname") String projectaname,
                                             @Field("mission_id") String mission_id,
                                             @Field("token_Id") String token_Id);
-
 
 
     @FormUrlEncoded
@@ -308,14 +304,29 @@ public interface ApiServices {
     @POST("Client/not_satisfied")
     Call<AskToModifyResponseModle> askToModify(@Field("mission_id") String mission_id);
 
+
+
+
+    @FormUrlEncoded
+    @POST("Client/get_amount")
+    Call<FetchProjectPriceModel> get_amount(@Field("mission_id") String mission_id);
+
+
     @FormUrlEncoded
     @POST("Client/addReviewToUser")
     Call<SubmitReviewModle> addReviewToUser(
             @Field("client_user_id") String client_user_id,
             @Field("rating") String rating,
-            @Field("reveiw_msg") String reveiw_msg,
+            @Field("comment") String comment,
             @Field("my_user_id") String my_user_id);
 
+
+    @FormUrlEncoded
+    @POST("Client/amount_released")
+    Call<ReleasePaymenModel> amount_released(
+            @Field("amount") String amount,
+            @Field("user_id") String user_id,
+            @Field("mission_id") String mission_id);
 
     @FormUrlEncoded
     @POST("Client/projectPorgress")

@@ -14,7 +14,7 @@ public class UserDetail {
     private String pictureUrl;
     @SerializedName("rating_avg")
     @Expose
-    private Integer ratingAvg;
+    private String ratingAvg;
 
     /**
      * No args constructor for use in serialization
@@ -29,7 +29,7 @@ public class UserDetail {
      * @param fullName
      * @param ratingAvg
      */
-    public UserDetail(String fullName, String pictureUrl, Integer ratingAvg) {
+    public UserDetail(String fullName, String pictureUrl, String ratingAvg) {
         super();
         this.fullName = fullName;
         this.pictureUrl = pictureUrl;
@@ -52,11 +52,11 @@ public class UserDetail {
         this.pictureUrl = pictureUrl;
     }
 
-    public Integer getRatingAvg() {
+    public String getRatingAvg() {
         return ratingAvg;
     }
 
-    public void setRatingAvg(Integer ratingAvg) {
+    public void setRatingAvg(String ratingAvg) {
         this.ratingAvg = ratingAvg;
     }
 

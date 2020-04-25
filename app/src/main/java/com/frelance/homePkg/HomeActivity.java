@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.frelance.CustomProgressbar;
+import com.frelance.FirebaseUnreadUserCount;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.UnReadMsgConsersation;
 import com.frelance.homeTablayout.HomeTablayoutFragment;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private String userId;
     private UnReadMsgConsersation consersation;
     private ArrayList<UnReadMessageUserModle> datumList;
+    private FirebaseUnreadUserCount firebaseUnreadUserCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         consersation = new UnReadMsgConsersation();
         String data = getIntent().getStringExtra("data");
         fragmentManager = getSupportFragmentManager();
+        firebaseUnreadUserCount = new FirebaseUnreadUserCount(getApplicationContext());
         init();
         try {
             if (data != null) {
@@ -70,10 +73,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
 
-        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+       /* if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             chatDataSanpchat();
         } else {
 
+        }*/
+        String count = firebaseUnreadUserCount.chatDataSanpchat();
+        if (count == null || count.isEmpty()) {
+            tvHomeNotificationCount.setVisibility(View.GONE);
+        } else {
+            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+            tvHomeNotificationCount.setText(count);
         }
         ///
     }

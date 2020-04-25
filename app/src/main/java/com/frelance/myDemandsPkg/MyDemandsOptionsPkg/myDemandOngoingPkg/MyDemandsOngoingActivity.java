@@ -181,6 +181,7 @@ public class MyDemandsOngoingActivity extends Fragment
                         CustomProgressbar.hideProgressBar();
                         DemandOnProgressModle requestlist = response.body();
                         if (requestlist.getStatus()) {
+                            tvMyDemandCount.setVisibility(View.VISIBLE);
                             datumList = requestlist.getData();
                             myDemandOngoingAdapter.addOnGoingDemandsFiles(datumList);
                             if (datumList.size() > 1) {
@@ -188,6 +189,8 @@ public class MyDemandsOngoingActivity extends Fragment
                             } else {
                                 tvMyDemandCount.setText(datumList.size() + "Available");
                             }
+                        } else {
+                            tvMyDemandCount.setVisibility(View.GONE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -196,6 +199,7 @@ public class MyDemandsOngoingActivity extends Fragment
                 } else {
                     if (response.code() == 400) {
                         if (!response.isSuccessful()) {
+                            tvMyDemandCount.setVisibility(View.GONE);
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -215,6 +219,7 @@ public class MyDemandsOngoingActivity extends Fragment
             @Override
             public void onFailure(Call<DemandOnProgressModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+                tvMyDemandCount.setVisibility(View.GONE);
             }
         });
     }

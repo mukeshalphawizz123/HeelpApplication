@@ -18,4 +18,5 @@
     <string name="mm_yy">MM/YY</string>
     <string name="update">Update</string>
     <string name="enter_holder_name">Enter Holder Name</string>
+    <string name="do_you_want_to_release_payment">Do you want to release payment</string>
 </resources>

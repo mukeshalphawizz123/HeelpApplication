@@ -52,6 +52,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_user_profile);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
+        //Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
         init();
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
@@ -62,7 +63,6 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
     }
 
     private void init() {
-
         try {
             rbhelperprofile = findViewById(R.id.rbhelperprofileId);
             tvRatingCountPlusMore = findViewById(R.id.tvRatingCountPlusMoreId);
@@ -75,7 +75,6 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
             tvcategoriess = findViewById(R.id.tvcategoriessid);
             tvcompetencesss = findViewById(R.id.tvcompetencesssid);
             ivuserprofileimage = findViewById(R.id.ivuserprofileimageId);
-
 
             ivnotificationuserprofile = findViewById(R.id.ivnotificationuserprofileId);
             ivnotificationuserprofile.setOnClickListener(this);
@@ -91,10 +90,10 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
             donutprogress = findViewById(R.id.donutprogressid);
 
 // you can set max and current progress values individually
-            donutprogress.setMaxProgress(5);
-            //  donutprogress.setCurrentProgress(4.3);
+            //   donutprogress.setMaxProgress(5);
+            // donutprogress.setCurrentProgress(4000);
 // or all at once
-            //   donutprogress.setProgress(4.3, 5);
+            //   donutprogress.setProgress(4000, 5000);
 
 // you can get progress values using following getters
             donutprogress.getProgress(); // returns 4
@@ -137,7 +136,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                         GetProfileModle missionlist = response.body();
                         if (missionlist.getStatus() == true) {
                             clientDetailList = missionlist.getYourMissions();
-                           // Toast.makeText(getApplicationContext(), clientDetailList.get(0).getUsername(), Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getApplicationContext(), clientDetailList.get(0).getUsername(), Toast.LENGTH_LONG).show();
                             tvname.setText(clientDetailList.get(0).getUsername());
                             // tvdesination.setText(clientDetailList.get(0).getSkills());
                             if (clientDetailList.get(0).getPictureUrl().isEmpty()) {
@@ -154,15 +153,16 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                             tvunivercityy.setText(clientDetailList.get(0).getUniversity());
                             tvcategoriess.setText(clientDetailList.get(0).getIntrestedCategory());
                             tvcompetencesss.setText(clientDetailList.get(0).getSkills());
-
-                            if (clientDetailList.get(0).getProfileRate().isEmpty()) {
+                            // Toast.makeText(getApplicationContext(), missionlist.getRating(), Toast.LENGTH_LONG).show();
+                            if (missionlist.getRating().isEmpty()) {
                             } else {
-                                donutprogress.setCurrentProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()));
+                                // donutprogress.setCurrentProgress(Double.parseDouble(missionlist.getRating()));
                             }
 // or all at once
-                            donutprogress.setProgress(Double.parseDouble(clientDetailList.get(0).getProfileRate()), 5);
-                            rbhelperprofile.setRating(Float.parseFloat(clientDetailList.get(0).getProfileRate()));
-                            tvRatingCountPlusMore.setText(clientDetailList.get(0).getProfileRate());
+                            // donutprogress.setProgress(Double.parseDouble(missionlist.getRating()), 5);
+                            rbhelperprofile.setRating(Float.parseFloat(missionlist.getRating()));
+                            tvRatingCountPlusMore.setText(missionlist.getRating());
+                            // Toast.makeText(getApplicationContext(), missionlist.getRating(), Toast.LENGTH_LONG).show();
 
                         }
                     } catch (Exception e) {

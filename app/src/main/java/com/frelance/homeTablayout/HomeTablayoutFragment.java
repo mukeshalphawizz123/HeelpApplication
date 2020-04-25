@@ -191,8 +191,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 homeCategoryFilterAdapter.getFilter().filter(s);
             }
 
@@ -261,13 +260,13 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
     public void publishOnClick(View view, int position, Project project) {
         switch (view.getId()) {
             case R.id.rlhomeitemsRowid:
-                //Toast.makeText(getActivity(), "sdfsdf", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(), ""+position, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), PostADemandActivity.class);
-                intent.putExtra("imagetitle", projectlist.get(position).getTitle());
-                intent.putExtra("title", projectlist.get(position).getTitle());
-                intent.putExtra("description", projectlist.get(position).getDescription());
-                intent.putExtra("budget", projectlist.get(position).getBudget());
-                intent.putExtra("imageUrl", projectlist.get(position).getPictureUrl());
+                intent.putExtra("imagetitle", project.getTitle());
+                intent.putExtra("title", project.getTitle());
+                intent.putExtra("description", project.getDescription());
+                intent.putExtra("budget", project.getBudget());
+                intent.putExtra("imageUrl", project.getPictureUrl());
                 getActivity().startActivity(intent);
                 dialog.dismiss();
                 break;

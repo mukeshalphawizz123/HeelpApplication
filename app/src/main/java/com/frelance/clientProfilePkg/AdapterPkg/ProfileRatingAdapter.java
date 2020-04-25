@@ -48,7 +48,7 @@ public class ProfileRatingAdapter extends RecyclerView.Adapter<ProfileRatingAdap
                 e.printStackTrace();
             }
 
-            holder.rbhelperprofile.setNumStars(Integer.parseInt(getuserreview.get(position).getRating()));
+            holder.rbhelperprofile.setRating(Float.parseFloat(getuserreview.get(position).getRating()));
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
