@@ -48,7 +48,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_notification);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
-        // Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             notification(userId);
@@ -115,9 +114,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        /*Intent intent = new Intent(NotificationActivity.this, HomeActivity.class);
-        startActivity(intent)*/
-        ;
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
         finish();
     }

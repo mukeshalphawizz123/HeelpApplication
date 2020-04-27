@@ -44,15 +44,6 @@ public class MyMissionAdapter extends RecyclerView.Adapter<MyMissionAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      /*  if (filterTag.equalsIgnoreCase(mymissionModelArrayList.get(position).getName())){
-
-            holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);
-        }else {
-            holder.tvtextmission.setText(mymissionModelArrayList.get(position).getName());
-            holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);
-
-        }
-*/
        holder.tvtextmission.setText(mymissionModelArrayList.get(position).getName());
        holder.changeToSelect(selectedPos == position ? Color.parseColor("#000000") : Color.GRAY);
 

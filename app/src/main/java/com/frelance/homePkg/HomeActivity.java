@@ -73,11 +73,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
            // addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
 
-       /* if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            chatDataSanpchat();
-        } else {
 
-        }*/
         String count = firebaseUnreadUserCount.chatDataSanpchat();
         if (count == null || count.isEmpty()) {
             tvHomeNotificationCount.setVisibility(View.GONE);

@@ -15,6 +15,8 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
+import com.frelance.notificationPkg.NotificatinModel;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.notificationPkg.RemoveNotificationCountModle;
@@ -82,6 +84,12 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
                 wrlNotReview.setRefreshing(false);
             }
         });
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notificationCount(userId);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -187,6 +195,56 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
 
             @Override
             public void onFailure(Call<RemoveNotificationCountModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+    private void notificationCount(String userId) {
+        CustomProgressbar.showProgressBar(this, false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        // notificatinCount.onTotalCounts(totalNotification);
+                        NotificatinModel.getInstance().setNotificationCount("" + totalNotification);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
             }
         });

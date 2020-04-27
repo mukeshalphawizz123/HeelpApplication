@@ -40,16 +40,15 @@ import com.frelance.R;
 import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
 import com.frelance.homeTablayout.homeModel.Project;
 import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
+import com.frelance.notificationPkg.NotificatinModel;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.notificationPkg.NotificationCountResponseModle;
+import com.frelance.notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +63,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeTablayoutFragment extends Fragment implements View.OnClickListener, HomeCategoryFilterAdapter.HomePublisherRequest {
+public class HomeTablayoutFragment extends Fragment implements
+        View.OnClickListener,
+        HomeCategoryFilterAdapter.HomePublisherRequest
+        , NotificatinModel.OnCustomCartListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageView ivnotificationHome, ivSerachHome;
@@ -91,7 +93,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         datumList = new ArrayList<>();
         consersation = new UnReadMsgConsersation();
-        // Toast.makeText(getActivity(),userId,Toast.LENGTH_LONG).show();
+
         addTabs(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             notification(userId);
@@ -328,6 +330,19 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
                 tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
+
+    }
+
+
+    @Override
+    public void changeCartState() {
+        if (NotificatinModel.getInstance().getNotificationCount().isEmpty()) {
+            tvHomeNotificationCount.setVisibility(View.GONE);
+        } else {
+            tvHomeNotificationCount.setText(NotificatinModel.getInstance().getNotificationCount());
+            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+
+        }
 
     }
 }
