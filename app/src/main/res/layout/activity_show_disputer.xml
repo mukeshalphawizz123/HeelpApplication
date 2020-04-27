@@ -98,13 +98,9 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlHomeToolbarId"
-        android:scrollbars="none">
 
         <RelativeLayout
+            android:layout_below="@+id/rlHomeToolbarId"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -134,17 +130,25 @@
             </RelativeLayout>
 
 
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/wrlShowDisputeId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_below="@+id/rlproposeebtnid">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMyMissionDisputeId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
-                android:layout_below="@+id/rlproposeebtnid"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp">
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
             <RelativeLayout
@@ -220,7 +224,7 @@
 
         </RelativeLayout>
 
-    </ScrollView>
+
 
     <androidx.cardview.widget.CardView
         android:visibility="visible"

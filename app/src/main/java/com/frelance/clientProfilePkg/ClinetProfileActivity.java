@@ -17,6 +17,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 
+import com.frelance.chatPkg.ChatActivity;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.YourMission;
@@ -45,6 +46,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
     private AppCompatTextView tvname, tvdesination, tvpresentation, tvlevelofstudyy, tvfiledofstudyy, tvunivercityy, tvcategoriess, tvcompetencesss, tvRatingCountPlusMore;
     CircularProgressIndicator donutprogress;
     private RatingBar rbhelperprofile;
+    private String chatFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_user_profile);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
-        //Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+        chatFlag = AppSession.getStringPreferences(getApplicationContext(), "chatEntry");
         init();
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
@@ -112,7 +114,14 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                 startActivity(intent);
                 break;
             case R.id.rldiscussid:
-                CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
+                if (chatFlag.equalsIgnoreCase("chat")) {
+                    CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
+                } else {
+                    Intent intent1 = new Intent(ClinetProfileActivity.this, ChatActivity.class);
+                    intent1.putExtra("client_id", clientId);
+                    startActivity(intent1);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                }
                 //  CheckNetwork.nextScreenWithoutFinish(ClinetProfileActivity.this, ChatActivityMain.class);
                 break;
             case R.id.ivbackproffilemsgId:

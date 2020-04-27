@@ -99,7 +99,6 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
       //  Toast.makeText(getActivity(), userId, Toast.LENGTH_LONG).show();
         init(view);
         prefData = new PrefData(getActivity());
-
         if (CheckNetwork.isNetAvailable(getActivity())) {
             getProfileApi(userId);
         } else {

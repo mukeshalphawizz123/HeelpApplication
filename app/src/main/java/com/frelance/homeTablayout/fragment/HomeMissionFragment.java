@@ -88,6 +88,14 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
     private void homeRespondeList(String userId, String category_id) {
         //   pbHomeRespondlist.setVisibility(View.VISIBLE);
         CustomProgressbar.showProgressBar(getActivity(), false);
@@ -136,7 +144,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                             startActivity(intent1);
                             getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                         } else {
-                           // dialog.dismiss();
+                            // dialog.dismiss();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

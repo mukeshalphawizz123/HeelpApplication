@@ -72,7 +72,6 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMissionDispute(userId);
         } else {
-
         }
         tvMyMissTitle.setText(mission_mission_title);
         return view;
@@ -131,7 +130,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
     private void myMissionDispute(String userId) {
         /// CustomProgressbar.showProgressBar(getActivity(), false);
-        apiServices.getprojectdispute(userId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+        apiServices.getprojectdispute(userId,missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
                 if (response.isSuccessful()) {

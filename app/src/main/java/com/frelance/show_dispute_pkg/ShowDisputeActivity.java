@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -57,6 +58,7 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
     private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
     private AppCompatTextView tvMyMissTitle;
+    private SwipeRefreshLayout wrlShowDispute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +66,32 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_show_disputer);
         /// missionId = getIntent().getStringExtra("missionId");
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
-        // mission_mission_title = AppSession.getStringPreferences(getApplicationContext(), "mission_mission_title");
+        missionId = AppSession.getStringPreferences(getApplicationContext(), "dispute_mission_id");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             myMissionDispute(userId);
         } else {
-
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
         tvMyMissTitle.setText(mission_mission_title);
+
+
+        wrlShowDispute.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                    myMissionDispute(userId);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                wrlShowDispute.setRefreshing(false);
+            }
+        });
     }
 
     private void init() {
+        wrlShowDispute = findViewById(R.id.wrlShowDisputeId);
         tvMyMissTitle = findViewById(R.id.tvMyMissTitleId);
         ivgifbutton = findViewById(R.id.ivgifbuttonid);
         rvMyMissionDispute = findViewById(R.id.rvMyMissionDisputeId);
@@ -136,9 +152,30 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                //do your function;
+                if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                    myMissionDispute(userId);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                handler.postDelayed(runnable, apiDelayed);
+            }
+        }, apiDelayed); // so basically after your getHeroes(), from next time it will be 5 sec repeated
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable); //stop handler when activity not visible
+    }
+
     private void myMissionDispute(String userId) {
-        /// CustomProgressbar.showProgressBar(getActivity(), false);
-        apiServices.getprojectdispute(userId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+        apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
                 if (response.isSuccessful()) {
@@ -146,12 +183,10 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
                     if (getAllDiputeResponseModle.getStatus()) {
                         datumList = getAllDiputeResponseModle.getData();
                         myMissionadapter.addDisputeList(datumList);
-                    } else {
-
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -184,18 +219,14 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
                     SendDiputeResponseModle missionlist = response.body();
                     if (missionlist.getStatus()) {
                         ettypemsg.setText("");
-                    } else {
-
                     }
                     if (CheckNetwork.isNetAvailable(getApplicationContext())) {
                         myMissionDispute(userId);
-                    } else {
-
                     }
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());

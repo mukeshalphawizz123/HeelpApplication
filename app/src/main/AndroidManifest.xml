@@ -138,6 +138,9 @@
             android:name=".plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".plusMorePkg.PlusMoreFragment"
             android:screenOrientation="portrait" />
         <activity

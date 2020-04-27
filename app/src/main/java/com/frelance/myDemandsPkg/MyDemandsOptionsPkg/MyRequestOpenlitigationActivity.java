@@ -70,7 +70,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
-        // Toast.makeText(getActivity(),missionId,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myDemandDispute(userId);
@@ -185,8 +185,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     }
 
     private void myDemandDispute(String userId) {
-        //  PbMymission.setVisibility(View.VISIBLE);
-        apiServices.getprojectdispute(userId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+        apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
                 if (response.isSuccessful()) {

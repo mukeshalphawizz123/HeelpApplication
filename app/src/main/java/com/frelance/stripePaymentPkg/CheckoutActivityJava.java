@@ -84,6 +84,8 @@ public class CheckoutActivityJava extends AppCompatActivity {
         totalamount = AppSession.getStringPreferences(getApplicationContext(), "totalamount");
         missionId = AppSession.getStringPreferences(getApplicationContext(), "pay_mission_id");
 
+       // Toast.makeText(getApplicationContext(), totalamount, Toast.LENGTH_LONG).show();
+
         // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         PaymentConfiguration.init(getApplicationContext(), "pk_test_IKgHpz7lpleTM3rcFSnyoxC700UDOoixI7"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         payButton = findViewById(R.id.payButton);

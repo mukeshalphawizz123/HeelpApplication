@@ -38,8 +38,10 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragm
 import com.frelance.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
+import com.frelance.notificationPkg.RemoveNotificationCountModle;
 import com.frelance.paymentPkg.paymentModlePkg.ProjectAmountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
+import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getWalletModlePkg.GetWattetAmountModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.updateProfileModlePkg.UpdateProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.TransactionOutResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactionInModlePkg.TransactionInResponseModle;
@@ -119,7 +121,9 @@ public interface ApiServices {
 
     @FormUrlEncoded
     @POST("Client/getprojectdispute")
-    Call<GetAllDiputeResponseModle> getprojectdispute(@Field("user_id") String user_id);
+    Call<GetAllDiputeResponseModle> getprojectdispute(
+            @Field("user_id") String user_id,
+            @Field("mission_id") String mission_id);
 
 
     @FormUrlEncoded
@@ -135,6 +139,15 @@ public interface ApiServices {
     Call<NotificationResponseModle> getNotification(
             @Field("user_id") String user_id,
             @Field("type_id") String type_id);
+
+
+
+    @FormUrlEncoded
+    @POST("Client/update_notification_status")
+    Call<RemoveNotificationCountModle> update_notification_status(
+            @Field("user_id") String user_id,
+            @Field("type_id") String type_id);
+
 
 
     @FormUrlEncoded
@@ -197,12 +210,17 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("Client/payment_in")
+    @POST("Client/payment_out")
     Call<TransactionInResponseModle> payment_in(@Field("user_id") String user_id);
 
 
     @FormUrlEncoded
-    @POST("Client/payment_out")
+    @POST("Client/get_wallet_balance")
+    Call<GetWattetAmountModle> get_wallet_balance(@Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST("Client/payment_in")
     Call<TransactionOutResponseModle> payment_out(@Field("user_id") String user_id);
 
 
@@ -399,8 +417,13 @@ public interface ApiServices {
     Call<ProjectSendDisputeModle> sendDispute(
             @Field("project_id") String project_id,
             @Field("message") String message,
+            @Field("user_id") String user_id,
             @Field("date_created") String date_created
     );
+
+
+
+
 
 
     @FormUrlEncoded

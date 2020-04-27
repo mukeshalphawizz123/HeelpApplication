@@ -25,6 +25,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.Adapter.MyDemandsCompleteAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.Datum;
@@ -55,17 +56,17 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     private MyDemandsCompleteAdapter myRequestCompleteAdapter;
     private RecyclerView rvmyreqcompletefileupload;
     private ImageView ivdashboardcompleteback, ivnotification;
-    private RelativeLayout rlreqcompleteviewdetils;
+    private RelativeLayout rlreqcompleteviewdetils, rldummyimg;
     private TextView tvviewprofile;
     private ApiServices apiServices;
     private ProgressBar pbDemandComplete;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl,tvDemandTitleRequest;
+    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl, tvDemandTitleRequest;
     private CircleImageView ivUserDemandComp;
-    private String projectId,mission_demand_title;
+    private String projectId, mission_demand_title;
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
-
+    private String clientId;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     }
 
     private void init(View view) {
+        rldummyimg = view.findViewById(R.id.rldummyimgid);
         tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         tvUserDemandComp = view.findViewById(R.id.tvUserDemandCompId);
         tvCommentDemandCompl = view.findViewById(R.id.tvCommentDemandComplId);
@@ -103,6 +105,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
 
         ivdashboardcompleteback = view.findViewById(R.id.ivdashboardcompletebackId);
         ivdashboardcompleteback.setOnClickListener(this);
+        rldummyimg.setOnClickListener(this);
 
         rlreqcompleteviewdetils = view.findViewById(R.id.rlreqcompleteviewdetilsid);
         rlreqcompleteviewdetils.setOnClickListener(this);
@@ -122,6 +125,11 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                AppSession.setStringPreferences(getActivity(), "clientId", clientId);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
+                break;
             case R.id.ivdashboardcompletebackId:
                 removeThisFragment();
                 // replaceFragementWithoutStack(new MyDemandFragment());
@@ -172,6 +180,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
                             datumList = requestlist.getData();
                             tvUserDemandComp.setText(datumList.get(0).getFirstName());
                             tvCommentDemandCompl.setText(datumList.get(0).getYourComments());
+                            clientId = datumList.get(0).getUserId();
 
                             if (datumList.get(0).getPictureUrl().isEmpty()) {
                             } else {

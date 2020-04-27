@@ -26,6 +26,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.HelpActivity;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.liveryPkg.Adapter.LiveryAdapter;
@@ -52,7 +53,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private LiveryAdapter liveryAdapter;
     private RecyclerView rvLiveryfileupload;
     private ImageView ivmissionliverydashboardback, ivnotification;
-    private RelativeLayout rlmissliveryviewdetails;
+    private RelativeLayout rlmissliveryviewdetails, rldummyimg;
     private TextView tvviewprofile, tvmymissionliverytext;
     private String livree, missionId, userId;
     private ApiServices apiServices;
@@ -62,6 +63,8 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     private ArrayList<String> filesList;
     private FileDownloading fileDownloading;
     private String mission_mission_title;
+    private String clientId;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_livery, container, false);
@@ -86,6 +89,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
 
 
     private void init(View view) {
+        rldummyimg = view.findViewById(R.id.rldummyimgid);
         tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         pbMymissionDelivery = view.findViewById(R.id.pbMymissionDeliveryId);
         tvmymissionliverytext = view.findViewById(R.id.tvmymissionliverytextid);
@@ -93,6 +97,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
         ivUserMyMissionDelivery = view.findViewById(R.id.ivUserMyMissionDeliveryId);
         tvUserNameMyMissionDelivery = view.findViewById(R.id.tvUserNameMyMissionDeliveryId);
         tvmymissionliverytext.setOnClickListener(this);
+        rldummyimg.setOnClickListener(this);
 
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
@@ -124,6 +129,11 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                AppSession.setStringPreferences(getActivity(), "clientId", clientId);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
+                break;
             case R.id.ivmissionliverydashboardbackId:
                 removeThisFragment();
                 // replaceWithoutAddToStack(new MyMissionFragment());
@@ -132,6 +142,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
                 replaceFragement(new DetailsActivity());
                 break;
             case R.id.tvmymissionliverytextid:
+                AppSession.setStringPreferences(getActivity(), "dispute_mission_id", missionId);
                 replaceFragement(new HelpActivity());
                 break;
             case R.id.ivnotificationId:
@@ -176,6 +187,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
                     CustomProgressbar.hideProgressBar();
                     MissionCompleteModle missionCompleteModle = response.body();
                     if (missionCompleteModle.getStatus()) {
+                        clientId = missionCompleteModle.getData().get(0).getUserId();
                         tvUserNameMyMissionDelivery.setText(missionCompleteModle.getData().get(0).getFirstName());
                         tvCommentMyMissionDelivery.setText(missionCompleteModle.getData().get(0).getYourComments());
                         if (missionCompleteModle.getData().get(0).getPictureUrl().isEmpty()) {

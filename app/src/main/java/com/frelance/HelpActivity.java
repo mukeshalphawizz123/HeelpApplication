@@ -152,7 +152,7 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
 
     }
 
-    private void sendProjectDispute() {
+   /* private void sendProjectDispute() {
         pbHelp.setVisibility(View.VISIBLE);
         String dispute = etEnterDispute.getText().toString();
         String date = Constants.currentDate();
@@ -191,5 +191,5 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
             }
         });
 
-    }
+    }*/
 }

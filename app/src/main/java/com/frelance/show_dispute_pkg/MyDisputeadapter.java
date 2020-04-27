@@ -45,7 +45,7 @@ public class MyDisputeadapter extends RecyclerView.Adapter<MyDisputeadapter.View
             if (datumList.get(position).getMessage().isEmpty()) {
                 holder.rlSenderBox.setVisibility(View.GONE);
                 holder.rltime.setVisibility(View.GONE);
-                holder.tvSupportMsg.setVisibility(View.VISIBLE);
+                holder.tvSupportMsg.setVisibility(View.GONE);
                 holder.rlsupportmsgbox.setVisibility(View.GONE);
 
             } else {
@@ -56,12 +56,29 @@ public class MyDisputeadapter extends RecyclerView.Adapter<MyDisputeadapter.View
                 holder.rlsupportmsgbox.setVisibility(View.VISIBLE);
             }
         } else {
+            if (datumList.get(position).getMessage().isEmpty()) {
+                holder.rlSenderBox.setVisibility(View.GONE);
+                holder.rltime.setVisibility(View.GONE);
+                holder.tvSupportMsg.setVisibility(View.GONE);
+                holder.rlsupportmsgbox.setVisibility(View.GONE);
+
+            } else {
+                holder.rlSenderBox.setVisibility(View.VISIBLE);
+                holder.tvSenderMessage.setVisibility(View.VISIBLE);
+                holder.rltime.setVisibility(View.VISIBLE);
+                holder.tvSenderMessage.setText(datumList.get(position).getMessage());
+                holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
+                holder.tvSupportMsg.setVisibility(View.GONE);
+                holder.rlsupportmsgbox.setVisibility(View.GONE);
+            }
+
+          /*
             holder.tvSenderMessage.setText(datumList.get(position).getMessage());
             holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
             holder.rlSenderBox.setVisibility(View.VISIBLE);
             holder.rltime.setVisibility(View.VISIBLE);
             holder.tvSupportMsg.setVisibility(View.GONE);
-            holder.rlsupportmsgbox.setVisibility(View.GONE);
+            holder.rlsupportmsgbox.setVisibility(View.GONE);*/
         }
 
     }

@@ -106,14 +106,14 @@ public class MyDemandOngoingAdapter extends RecyclerView.Adapter<MyDemandOngoing
 
 
     public interface MyRequestOngoingAppOnClickListener {
-        void myDemandOnGoingOnClick(View view, int position);
+        void myDemandOnGoingOnClick(View view, int position,Datum datum);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RecyclerView rvOnGoingChild;
         private AppCompatTextView tvCommentDemandProg, tvUserNameDemandProg;
         private CircleImageView ivUserProgDemain;
-
+        private RelativeLayout rldummyimg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,12 +121,14 @@ public class MyDemandOngoingAdapter extends RecyclerView.Adapter<MyDemandOngoing
             ivUserProgDemain = itemView.findViewById(R.id.ivUserProgDemainId);
             tvCommentDemandProg = itemView.findViewById(R.id.tvCommentDemandProgId);
             rvOnGoingChild = itemView.findViewById(R.id.rvOnGoingChildId);
+            rldummyimg = itemView.findViewById(R.id.rldummyimgid);
+            rldummyimg.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View v) {
-            myRequestOngoingAppOnClickListener.myDemandOnGoingOnClick(v, getAdapterPosition());
+            myRequestOngoingAppOnClickListener.myDemandOnGoingOnClick(v, getAdapterPosition(),filesList.get(getAdapterPosition()));
         }
     }
 }

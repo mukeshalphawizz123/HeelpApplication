@@ -91,7 +91,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         datumList = new ArrayList<>();
         consersation = new UnReadMsgConsersation();
-       // Toast.makeText(getActivity(),userId,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getActivity(),userId,Toast.LENGTH_LONG).show();
         addTabs(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             notification(userId);
@@ -260,7 +260,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
     public void publishOnClick(View view, int position, Project project) {
         switch (view.getId()) {
             case R.id.rlhomeitemsRowid:
-              //  Toast.makeText(getActivity(), ""+position, Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity(), ""+position, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), PostADemandActivity.class);
                 intent.putExtra("imagetitle", project.getTitle());
                 intent.putExtra("title", project.getTitle());
@@ -284,16 +284,25 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
                     CustomProgressbar.hideProgressBar();
                     NotificationCountResponseModle notificationResponseModle = response.body();
                     if (notificationResponseModle.getStatus()) {
-                        String totalNotification = String.valueOf(notificationResponseModle.getCountMessages() + notificationResponseModle.getCountMissionanddemands()
-                                + notificationResponseModle.getCountOffers() + notificationResponseModle.getCountPayment() + notificationResponseModle.getCountReviews());
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
 
                         if (totalNotification == null || totalNotification.isEmpty()) {
                             tvHomeNotificationCount.setVisibility(View.GONE);
                         } else {
+                            tvHomeNotificationCount.setText(totalNotification);
                             tvHomeNotificationCount.setVisibility(View.VISIBLE);
                         }
-                    }
-                    else {
+                    } else {
                         tvHomeNotificationCount.setVisibility(View.GONE);
                     }
                 } else {
@@ -316,6 +325,7 @@ public class HomeTablayoutFragment extends Fragment implements View.OnClickListe
             @Override
             public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

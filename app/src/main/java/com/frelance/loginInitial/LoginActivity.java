@@ -34,6 +34,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
+import com.frelance.FirebaseUnreadUserCount;
 import com.frelance.forgetpasswordPkg.ForgetPasswordActivity;
 import com.frelance.loginInitial.LoginPkgModel.Loginmodel;
 import com.frelance.OptionActivity;
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleSignInClient googleSignInClient;
     private CallbackManager callbackManager;
     private String token, auth_token;
+    private FirebaseUnreadUserCount firebaseUnreadUserCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         Window window = getWindow();
         StatusBarManagment.hideShowStatusBar(getApplicationContext(), window);
+        firebaseUnreadUserCount = new FirebaseUnreadUserCount(getApplicationContext());
         init();
 
         rememberradio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -189,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
                             sociallogin1(first_name + last_name, id, "2");
-                           // Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -226,7 +229,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-       // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
@@ -298,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             AppSession.setStringPreferences(LoginActivity.this, "status", "auth");
                         }
-                      //  Toast.makeText(getApplicationContext(), getLoginModle.getData().getId(), Toast.LENGTH_LONG).show();
+                        //  Toast.makeText(getApplicationContext(), getLoginModle.getData().getId(), Toast.LENGTH_LONG).show();
                         Toast.makeText(getApplicationContext(), "Successfully Login", Toast.LENGTH_LONG).show();
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().getUsername());
@@ -308,6 +311,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+                       // String count = firebaseUnreadUserCount.chatDataSanpchat();
+                      //  Toast.makeText(getApplicationContext(), count, Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), getLoginModle.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -364,15 +369,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

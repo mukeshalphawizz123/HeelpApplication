@@ -17,6 +17,7 @@ import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
+import com.frelance.notificationPkg.RemoveNotificationCountModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -60,6 +61,27 @@ public class NotificationOfferActivity extends AppCompatActivity implements Noti
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            update_notification_status(userId, "3");
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
+        wrlNotOffer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+                    notification(userId, "3");
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+                wrlNotOffer.setRefreshing(false);
+            }
+        });
+
+
+
     }
 
     private void init() {
@@ -123,6 +145,47 @@ public class NotificationOfferActivity extends AppCompatActivity implements Noti
 
             @Override
             public void onFailure(Call<NotificationResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+    private void update_notification_status(String userId, String typeId) {
+        CustomProgressbar.showProgressBar(this, false);
+        apiServices.update_notification_status(userId, typeId).enqueue(new Callback<RemoveNotificationCountModle>() {
+            @Override
+            public void onResponse(Call<RemoveNotificationCountModle> call, Response<RemoveNotificationCountModle> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        CustomProgressbar.hideProgressBar();
+                        RemoveNotificationCountModle notificationResponseModle = response.body();
+                        if (notificationResponseModle.getStatus()) {
+                            ////   notificationList = notificationResponseModle.getData());
+                            //  notificationMessageAdapter.addmymissionData(notificationList);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RemoveNotificationCountModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
             }
         });

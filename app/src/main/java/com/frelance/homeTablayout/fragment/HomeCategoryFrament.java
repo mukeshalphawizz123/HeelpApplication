@@ -57,6 +57,15 @@ public class HomeCategoryFrament extends Fragment implements
         return view;
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
     private void homePublisherList() {
         // pbHomepublisherlist.setVisibility(View.VISIBLE);
         CustomProgressbar.showProgressBar(getActivity(), false);

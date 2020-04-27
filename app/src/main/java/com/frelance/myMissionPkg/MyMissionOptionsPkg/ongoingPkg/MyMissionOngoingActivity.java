@@ -42,6 +42,7 @@ import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.HelpActivity;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.homeTablayout.publishPkg.SelectImageAdapter;
@@ -220,6 +221,7 @@ public class MyMissionOngoingActivity extends Fragment implements
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.tvmymissionongoingtextid:
+                AppSession.setStringPreferences(getActivity(), "dispute_mission_id", missionId);
                 replaceFragement(new HelpActivity());
                 break;
         }
@@ -533,11 +535,15 @@ public class MyMissionOngoingActivity extends Fragment implements
     }
 
     @Override
-    public void myMissOnGoingOnClick(View view, int position) {
+    public void myMissOnGoingOnClick(View view, int position, Datum datum) {
         switch (view.getId()) {
-            case R.id.rlFileFolderId:
-                fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+            case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                AppSession.setStringPreferences(getActivity(), "clientId", datum.getUserId());
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
+            //  fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+
         }
     }
 }

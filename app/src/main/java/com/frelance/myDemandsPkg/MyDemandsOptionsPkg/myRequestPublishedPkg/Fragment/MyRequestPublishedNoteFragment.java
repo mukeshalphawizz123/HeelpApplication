@@ -91,6 +91,7 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                 break;
 
             case R.id.ivmymissionid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
                 AppSession.setStringPreferences(getActivity(), "clientId", yourMission.getUserId());
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
 

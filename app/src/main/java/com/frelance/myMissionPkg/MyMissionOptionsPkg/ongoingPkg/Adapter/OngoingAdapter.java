@@ -94,13 +94,14 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
 
 
     public interface OngoingAppOnClickListener {
-        void myMissOnGoingOnClick(View view, int position);
+        void myMissOnGoingOnClick(View view, int position,Datum datum);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CircleImageView ivUserInprogMission;
         private RecyclerView rvOnGoingRow;
         private AppCompatTextView tvUserNameInProgMission, tvCommentInProgMission;
+        private RelativeLayout rldummyimg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,12 +109,13 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
             ivUserInprogMission = itemView.findViewById(R.id.ivUserInprogMissionId);
             tvUserNameInProgMission = itemView.findViewById(R.id.tvUserNameInProgMissionId);
             tvCommentInProgMission = itemView.findViewById(R.id.tvCommentInProgMissionId);
-
+            rldummyimg = itemView.findViewById(R.id.rldummyimgid);
+            rldummyimg.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            ongoingAppOnClickListener.myMissOnGoingOnClick(v, getAdapterPosition());
+            ongoingAppOnClickListener.myMissOnGoingOnClick(v, getAdapterPosition(),filesList.get(getAdapterPosition()));
         }
     }
 }

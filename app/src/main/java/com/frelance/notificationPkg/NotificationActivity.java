@@ -6,12 +6,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
+import com.frelance.notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity;
 import com.frelance.notificationPkg.notificationMessagePkg.NotificationMessageActivity;
 import com.frelance.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity;
 import com.frelance.notificationPkg.notificationOffersPkg.NotificationOfferActivity;
@@ -20,9 +23,12 @@ import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,8 +48,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_notification);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
-
-       // Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(),userId,Toast.LENGTH_LONG).show();
         init();
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             notification(userId);
@@ -102,7 +107,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                 onBackPressed();
                 break;
             case R.id.rlPaymentNotificationId:
-                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, CreditCardPayment.class);
+                CheckNetwork.nextScreenWithoutFinish(NotificationActivity.this, NotificationPaymentActivity.class);
                 break;
         }
     }
@@ -133,7 +138,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                         } else {
                             tvPaymentCount.setText("" + notificationResponseModle.getCountPayment());
                         }
-
 
                         if (notificationResponseModle.getCountMissionanddemands() > 10) {
                             tvStatusCount.setText("10" + "+");

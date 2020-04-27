@@ -398,6 +398,7 @@ public class ChatActivity extends AppCompatActivity implements
                 askStoragePermission();
                 break;
             case R.id.rlmessageuserprofileid:
+                AppSession.setStringPreferences(getApplicationContext(), "chatEntry", "chat");
                 AppSession.setStringPreferences(getApplicationContext(), "clientId", clientId);
                 CheckNetwork.nextScreenWithoutFinish(ChatActivity.this, ClinetProfileActivity.class);
                 break;

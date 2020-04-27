@@ -51,7 +51,6 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demand
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -198,6 +197,7 @@ public class MyDemandsDeliveryActivity extends Fragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
                 AppSession.setStringPreferences(getActivity(), "clientId", clientId);
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
@@ -219,6 +219,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.tvliverycontactid:
+                AppSession.setStringPreferences(getActivity(), "dispute_mission_id", projectId);
                 replaceFragement(new HelpActivity());
                 break;
             case R.id.rlliverymodificationbtnbtnid:

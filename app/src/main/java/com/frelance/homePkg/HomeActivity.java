@@ -64,13 +64,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     addFragment(new MessageListTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
                 } else {
                     addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
-                    CheckNetwork.nextScreenWithoutFinish(getApplicationContext(), NotificationActivity.class);
+                    CheckNetwork.nextScreenWithoutFinish(HomeActivity.this, NotificationActivity.class);
                 }
             } else {
                 addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
             }
         } catch (Exception e) {
-            addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+           // addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
 
        /* if (CheckNetwork.isNetAvailable(getApplicationContext())) {

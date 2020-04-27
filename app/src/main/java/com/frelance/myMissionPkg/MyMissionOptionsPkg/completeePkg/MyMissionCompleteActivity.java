@@ -25,6 +25,7 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
@@ -55,12 +56,14 @@ public class MyMissionCompleteActivity extends Fragment implements
     private TextView tvviewprofile;
     private ApiServices apiServices;
     private ProgressBar pbMymissionComplete;
-    private AppCompatTextView tvCommentValueMyMisssion, tvMyMissTitle,tvUserNameMyMisssion;
+    private AppCompatTextView tvCommentValueMyMisssion, tvMyMissTitle, tvUserNameMyMisssion;
     private CircleImageView ivUserImgMyMision;
-    private String missionId,mission_mission_title;
+    private String missionId, mission_mission_title;
 
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
+
+    private String clientId;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,6 +119,9 @@ public class MyMissionCompleteActivity extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                AppSession.setStringPreferences(getActivity(), "clientId", clientId);
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
             case R.id.ivmissioncompleterdashboardbackId:
                 removeThisFragment();
@@ -165,6 +171,7 @@ public class MyMissionCompleteActivity extends Fragment implements
                     CustomProgressbar.hideProgressBar();
                     MissionCompleteModle missionCompleteModle = response.body();
                     if (missionCompleteModle.getStatus()) {
+                        clientId = missionCompleteModle.getData().get(0).getUserId();
                         tvUserNameMyMisssion.setText(missionCompleteModle.getData().get(0).getFirstName());
                         tvCommentValueMyMisssion.setText(missionCompleteModle.getData().get(0).getYourComments());
 

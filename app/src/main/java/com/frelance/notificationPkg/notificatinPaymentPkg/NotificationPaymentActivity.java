@@ -1,15 +1,15 @@
-package com.frelance.notificationPkg.notificationReviewPkg;
+package com.frelance.notificationPkg.notificatinPaymentPkg;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -33,12 +33,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NotificationReviewActivity extends AppCompatActivity implements NotificationReviewAdapter.NotReviewAppOnClickListener {
+public class NotificationPaymentActivity extends AppCompatActivity implements NotificationPaymentAdapter.NotReviewAppOnClickListener {
 
     private RecyclerView rvNotificationReview;
     private ProgressBar pbNotReview;
     private SwipeRefreshLayout wrlNotReview;
-    private NotificationReviewAdapter notificationReviewAdapter;
+    private NotificationPaymentAdapter notificationReviewAdapter;
     private AppCompatImageView ivnotificationback;
     private ApiServices apiServices;
     private String userId;
@@ -47,7 +47,7 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_review);
+        setContentView(R.layout.activity_notification_payment);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
@@ -59,13 +59,13 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
         });
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            notification(userId, "5");
+            notification(userId, "1");
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            update_notification_status(userId, "5");
+            update_notification_status(userId, "1");
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -75,7 +75,7 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
             @Override
             public void onRefresh() {
                 if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-                    notification(userId, "5");
+                    notification(userId, "1");
                 } else {
                     Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
                 }
@@ -93,7 +93,7 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         rvNotificationReview.setLayoutManager(layoutManager);
-        notificationReviewAdapter = new NotificationReviewAdapter(getApplicationContext(), this);
+        notificationReviewAdapter = new NotificationPaymentAdapter(getApplicationContext(), this);
         rvNotificationReview.setAdapter(notificationReviewAdapter);
     }
 
@@ -105,7 +105,7 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        CheckNetwork.backScreenWithouFinish(NotificationReviewActivity.this);
+        CheckNetwork.backScreenWithouFinish(NotificationPaymentActivity.this);
     }
 
 

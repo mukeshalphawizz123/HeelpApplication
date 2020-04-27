@@ -25,6 +25,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.HelpActivity;
 import com.frelance.R;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.Adapter.MyDemandOngoingAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.Datum;
@@ -139,7 +140,7 @@ public class MyDemandsOngoingActivity extends Fragment
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.rlproblemstatementid:
-                // CheckNetwork.goTobackScreen(getActivity(), DashboardSupportActivity.class);
+                AppSession.setStringPreferences(getActivity(), "dispute_mission_id", projectId);
                 replaceFragement(new HelpActivity());
                 break;
 
@@ -225,11 +226,15 @@ public class MyDemandsOngoingActivity extends Fragment
     }
 
     @Override
-    public void myDemandOnGoingOnClick(View view, int position) {
-      /*  switch (view.getId()) {
-            case R.id.rlFileFolderId:
-              //  fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+    public void myDemandOnGoingOnClick(View view, int position, Datum datum) {
+        switch (view.getId()) {
+            case R.id.rldummyimgid:
+                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                AppSession.setStringPreferences(getActivity(), "clientId", datum.getUserId());
+                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
-        }*/
+            //  fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
+
+        }
     }
 }

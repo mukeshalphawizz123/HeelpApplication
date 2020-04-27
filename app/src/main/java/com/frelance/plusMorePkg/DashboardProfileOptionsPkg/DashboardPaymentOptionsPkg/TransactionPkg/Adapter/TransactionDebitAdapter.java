@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frelance.R;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.TransactionDebitFragment;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.TransactionPkg.Fragment.transactionModlePkg.transactioOutModlePkg.Datum;
+import com.frelance.utility.Constants;
 
 
 import java.util.List;
@@ -39,9 +40,9 @@ public class TransactionDebitAdapter extends RecyclerView.Adapter<TransactionDeb
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvdebitdatetime.setText(transactionList.get(position).getCreatedDate());
+        holder.tvdebitdatetime.setText(Constants.transactionDate(transactionList.get(position).getCreatedDate()));
         holder.tvdebitprojecttitle.setText(transactionList.get(position).getProjectTitle());
-        holder.tvdebitprojetcost.setText(transactionList.get(position).getAmount() + "$");
+        holder.tvdebitprojetcost.setText(transactionList.get(position).getAmount() + "€");
         holder.tvdebitprojectdescription.setText("Project of : " + transactionList.get(position).getUsername());
 
     }

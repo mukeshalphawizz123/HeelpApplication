@@ -1,6 +1,5 @@
 package com.frelance.paymentPkg;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,8 +33,9 @@ import retrofit2.Response;
 public class CreditCardPayment extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivnotificationcreditcard, ivdashboardcreditcardback, Ivwalletpoint, IvCreditcardpoint;
     private RelativeLayout rlpayer, rlcreditcard, rlMaCanotte;
-    private String credit;
+    private String credit, missionId;
     private ApiServices apiServices;
+    private float projectBudget, bankFees, totalAmount;
 
     private AppCompatTextView tvcreditcardprice, tvcreditcardpricetwo, tvTotalProjecdPrice;
 
@@ -44,10 +44,11 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit_card_payment);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
+        missionId = AppSession.getStringPreferences(getApplicationContext(), "pay_mission_id");
         init();
         credit = "1";
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-            getAmount("19");
+            getAmount(missionId);
         } else {
             Toast.makeText(getApplicationContext(), "Check Netork Connection", Toast.LENGTH_LONG).show();
         }
@@ -98,7 +99,8 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                 if (credit.equals("1")) {
                     CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, CheckoutActivityJava.class);
                 } else if (credit.equals("2")) {
-                    CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PrizePoolActivity.class);
+                    Toast.makeText(getApplicationContext(), "There is insufficient balance on the wallet", Toast.LENGTH_LONG).show();
+                    // CheckNetwork.nextScreenWithoutFinish(CreditCardPayment.this, PrizePoolActivity.class);
 
                 }
                 break;
@@ -119,23 +121,40 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<ProjectAmountResponseModle> call, Response<ProjectAmountResponseModle> response) {
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
-                    ProjectAmountResponseModle projectAmountResponseModle = response.body();
-                    if (projectAmountResponseModle.getStatus()) {
+                    try {
+                        ProjectAmountResponseModle projectAmountResponseModle = response.body();
+                        if (projectAmountResponseModle.getStatus()) {
+                            tvcreditcardpricetwo.setText(projectAmountResponseModle.getData().get(0).getBankFee() + "€");
+                            tvcreditcardprice.setText(projectAmountResponseModle.getData().get(0).getMissionBudget() + "€");
 
-                        tvcreditcardpricetwo.setText(projectAmountResponseModle.getData().get(0).getBankFee() + "€");
-                        tvcreditcardprice.setText(projectAmountResponseModle.getData().get(0).getMissionBudget() + "€");
-                        tvTotalProjecdPrice.setText((Float.parseFloat(projectAmountResponseModle.getData().get(0).getMissionBudget()) + Float.parseFloat(projectAmountResponseModle.getData().get(0).getBankFee())) + "€");
-                        AppSession.setStringPreferences(getApplicationContext(), "totalamount", tvTotalProjecdPrice.getText().toString());
+                            if (projectAmountResponseModle.getData().get(0).getMissionBudget().isEmpty()) {
+                                projectBudget = 0.0f;
+                            } else {
+                                projectBudget = Float.parseFloat(projectAmountResponseModle.getData().get(0).getMissionBudget());
+                            }
 
-                    } else {
-                        tvcreditcardpricetwo.setText("0€");
-                        tvcreditcardprice.setText("0€");
-                        tvTotalProjecdPrice.setText("0€");
+                            if (projectAmountResponseModle.getData().get(0).getBankFee().isEmpty()) {
+                                bankFees = 0.0f;
+                            } else {
+                                bankFees = Float.parseFloat(projectAmountResponseModle.getData().get(0).getBankFee());
+                            }
 
+                            totalAmount = projectBudget + bankFees;
+                            tvTotalProjecdPrice.setText((totalAmount) + "€");
+                            AppSession.setStringPreferences(getApplicationContext(), "totalamount", "" + totalAmount);
+
+                        } else {
+                            tvcreditcardpricetwo.setText("0€");
+                            tvcreditcardprice.setText("0€");
+                            tvTotalProjecdPrice.setText("0€");
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -151,7 +170,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<ProjectAmountResponseModle> call, Throwable t) {
-                Log.d("test", String.valueOf(t));
+                //  Log.d("test", String.valueOf(t));
                 CustomProgressbar.hideProgressBar();
             }
         });
