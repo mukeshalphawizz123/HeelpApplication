@@ -20,6 +20,7 @@ import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.notificationPkg.RemoveNotificationCountModle;
+import com.frelance.notificationPkg.notificationCountModlePkg.MsgModel;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -34,7 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotificationMessageActivity extends AppCompatActivity implements NotificationMessageAdapter.NotificationMessageAppOnClickListener {
+public class NotificationMessageActivity extends AppCompatActivity
+        implements NotificationMessageAdapter.NotificationMessageAppOnClickListener {
 
     private RecyclerView rvNotificationMessage;
     private ProgressBar pbNotMsg;
@@ -69,7 +71,6 @@ public class NotificationMessageActivity extends AppCompatActivity implements No
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
-
 
         sflNotMs.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -225,6 +226,7 @@ public class NotificationMessageActivity extends AppCompatActivity implements No
 
                         // notificatinCount.onTotalCounts(totalNotification);
                         NotificatinModel.getInstance().setNotificationCount("" + totalNotification);
+                        MsgModel.getInstance().setNotificationMsgCount("" + messageCount);
                     }
                 } else {
                     if (response.code() == 400) {

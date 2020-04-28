@@ -186,16 +186,14 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 Pbsearch.setVisibility(View.GONE);
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -216,7 +214,6 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-                // Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());

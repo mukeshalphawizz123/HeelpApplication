@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +82,9 @@ public class HomeTablayoutFragment extends Fragment implements
     private UnReadMsgConsersation consersation;
     private ArrayList<UnReadMessageUserModle> datumList;
     private AppCompatTextView tvHomeNotificationCount;
+    private Handler handler = new Handler();
+    private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
+    private Runnable runnable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -203,7 +208,6 @@ public class HomeTablayoutFragment extends Fragment implements
             }
         });
 
-
         dialog.show();
     }
 
@@ -278,12 +282,12 @@ public class HomeTablayoutFragment extends Fragment implements
 
 
     private void notification(String userId) {
-        CustomProgressbar.showProgressBar(getActivity(), false);
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
             @Override
             public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
                 if (response.isSuccessful()) {
-                    CustomProgressbar.hideProgressBar();
+                    // CustomProgressbar.hideProgressBar();
                     NotificationCountResponseModle notificationResponseModle = response.body();
                     if (notificationResponseModle.getStatus()) {
                         int messageCount = notificationResponseModle.getCountMessages();
@@ -326,11 +330,35 @@ public class HomeTablayoutFragment extends Fragment implements
 
             @Override
             public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
-                CustomProgressbar.hideProgressBar();
+                // CustomProgressbar.hideProgressBar();
                 tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                //do your function;
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    //  Log.v("test","t");
+                    notification(userId);
+                } else {
+                }
+                handler.postDelayed(runnable, apiDelayed);
+            }
+        }, apiDelayed); // so basically after your getHeroes(), from next time it will be 5 sec repeated
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable); //stop handler when activity not visible
     }
 
 

@@ -21,6 +21,8 @@ import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.notificationPkg.RemoveNotificationCountModle;
+import com.frelance.notificationPkg.notificationCountModlePkg.MsgModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.PaymentInterfaceModel;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -226,8 +228,9 @@ public class NotificationPaymentActivity extends AppCompatActivity implements No
                                 + messageCountPayment
                                 + messageCountReveiews);
 
-                       // notificatinCount.onTotalCounts(totalNotification);
+                        // notificatinCount.onTotalCounts(totalNotification);
                         NotificatinModel.getInstance().setNotificationCount("" + totalNotification);
+                        PaymentInterfaceModel.getInstance().setNotificationPaymentCount("" + messageCountPayment);
                     }
                 } else {
                     if (response.code() == 400) {

@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -47,6 +48,7 @@ import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
+import com.frelance.homePkg.NotificatinCountChatInterface;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
@@ -69,6 +71,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -115,16 +118,19 @@ public class ChatActivity extends AppCompatActivity implements
     private RelativeLayout rlVoiceRecordingStop;
     private Chronometer tvTimer;
     private GetProfileModle missionlist;
-    private String entryFlag = "0", firstname, lastName, user_picturUrl;
+    private String entryFlag = "1", firstname, lastName, user_picturUrl;
 
     private RecordView recordView;
     private RecordButton recordButton;
     private CardView cvChat;
 
+    private ArrayList<UnReadMessageUserModle> datumList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        datumList = new ArrayList<>();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         firstname = AppSession.getStringPreferences(getApplicationContext(), Constants.FIRST_NAME);
@@ -138,6 +144,7 @@ public class ChatActivity extends AppCompatActivity implements
         random = new Random();
 
         init();
+
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             getProfileApi(clientId);
         } else {
@@ -146,9 +153,15 @@ public class ChatActivity extends AppCompatActivity implements
 
         //removing data from firebase server=====================================================
 
-
         // final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").child(clientId).removeValue();
 
+        chatUnReadCount();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("userList");
         Query applesQuery = ref.child("user_" + userid + "_").orderByChild("senderId").equalTo(clientId);
 
@@ -158,6 +171,8 @@ public class ChatActivity extends AppCompatActivity implements
                 for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
                     appleSnapshot.getRef().removeValue();
                 }
+
+
             }
 
             @Override
@@ -165,7 +180,6 @@ public class ChatActivity extends AppCompatActivity implements
                 // Log.e(TAG, "onCancelled", databaseError.toException());
             }
         });
-
     }
 
     private void init() {
@@ -244,9 +258,6 @@ public class ChatActivity extends AppCompatActivity implements
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(ChatActivity.this, "onCancel", Toast.LENGTH_SHORT).show();
-
-                //    Log.d("RecordView", "onCancel");
 
             }
 
@@ -260,9 +271,7 @@ public class ChatActivity extends AppCompatActivity implements
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                // tvTimer.stop();
-                // rlVoiceRecordingStop.setVisibility(View.GONE);
-                //  ivrecordedbutton.setVisibility(View.VISIBLE);
+
                 uploadSoundForChat(AudioSavePathInDevice, time);
                 // Toast.makeText(MainActivity.this, "onFinishRecord - Recorded Time is: " + time, Toast.LENGTH_SHORT).show();
             }
@@ -309,8 +318,7 @@ public class ChatActivity extends AppCompatActivity implements
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.getValue() != null) {
-                    //CustomProgressbar.hideProgressBar();
-//                        postnotification("Alert", "You received message");
+
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     ChatModle chatModle = new ChatModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("client"),
@@ -325,9 +333,6 @@ public class ChatActivity extends AppCompatActivity implements
                     chatAdapter.notifyDataSetChanged();
                     layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
 
-                    if (entryFlag.equalsIgnoreCase("0")) {
-                        entryFlag = "1";
-                    }
 
                 }
 
@@ -427,7 +432,6 @@ public class ChatActivity extends AppCompatActivity implements
 
                     if (entryFlag.equalsIgnoreCase("1")) {
                         entryFlag = "2";
-
                         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                         DatabaseReference userNameRef = rootRef.child("userList").child("user_" + clientId + "_");
                         ValueEventListener eventListener = new ValueEventListener() {
@@ -492,20 +496,19 @@ public class ChatActivity extends AppCompatActivity implements
                                     .into(ivUserMsg);
                         }
 
+
                     }
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -536,16 +539,14 @@ public class ChatActivity extends AppCompatActivity implements
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -756,13 +757,11 @@ public class ChatActivity extends AppCompatActivity implements
         }
     }
 
-
     private void chooseFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
-
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
@@ -777,5 +776,68 @@ public class ChatActivity extends AppCompatActivity implements
                 cursor.close();
             }
         }
+    }
+
+
+    private void chatUnReadCount() {
+        datumList.clear();
+        String userRecordinsertFormat = "user_" + userid + "_";
+        FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.getValue() != null) {
+                    HashMap mapMessage = (HashMap) dataSnapshot.getValue();
+                    UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
+                            (String) mapMessage.get("name"),
+                            (String) mapMessage.get("imgUrl"),
+                            (String) mapMessage.get("dateAndTime"),
+                            (String) mapMessage.get("senderId"));
+                    try {
+
+                        datumList.add(chatModle);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.v("tt", "count");
+                                // int count=datumList.size();
+                                NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
+                                //Toast.makeText(getApplicationContext(), "count", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                        //  Toast.makeText(getApplicationContext(), "count", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                //  Toast.makeText(getApplicationContext(), "count1", Toast.LENGTH_LONG).show();
+            }
+
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //  Toast.makeText(getApplicationContext(), "count2", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                //  Toast.makeText(getApplicationContext(), "count3", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //  CustomProgressbar.hideProgressBar();
+                //  Toast.makeText(getApplicationContext(), "count4", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
     }
 }

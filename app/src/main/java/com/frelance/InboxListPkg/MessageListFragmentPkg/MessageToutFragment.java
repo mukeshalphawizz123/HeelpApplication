@@ -58,8 +58,6 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     }
 
     private void init(View view) {
-        //  rlmsguserid=view.findViewById(R.id.rlmsguserid);
-        // rlmsguserid.setOnClickListener(this);
         rvmsglist = view.findViewById(R.id.rvmsglistId);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvmsglist.setLayoutManager(layoutManager);

@@ -44,6 +44,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
     private UnReadMsgConsersation consersation;
     LinearLayoutManager layoutManager;
     private UnReadMsgAdapter unReadMsgAdapter;
+    private String entryFlag = "1";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
@@ -88,12 +89,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot.getValue() != null) {
-
-                    //  dataSnapshot.getChildrenCount();
-                    // Log.v("count", String.valueOf(size));
-                    //CustomProgressbar.hideProgressBar();
-//                        postnotification("Alert", "You received message");
-                    //  datumList = new ArrayList<>();
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
                             (String) mapMessage.get("name"),
@@ -105,7 +100,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                         datumList.add(chatModle);
                         unReadMsgAdapter.addmymissionData(datumList);
                         unReadMsgAdapter.notifyDataSetChanged();
-
                         AppSession.setStringPreferences(getActivity(), "count", "" + datumList.size());
 
                         // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
@@ -113,35 +107,44 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                         e.printStackTrace();
                     }
                 }
+
+
+              /*  getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        datumList.clear();
+                    }
+                });*/
+
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                datumList.clear();
             }
 
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                datumList.clear();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                datumList.clear();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 CustomProgressbar.hideProgressBar();
-
+                datumList.clear();
             }
         });
 
         rvmsglist.setAdapter(unReadMsgAdapter);
 
     }
-    
+
     @Override
     public void msgOnClick(View view, int position, UnReadMessageUserModle unReadMessageUserModle) {
         switch (view.getId()) {

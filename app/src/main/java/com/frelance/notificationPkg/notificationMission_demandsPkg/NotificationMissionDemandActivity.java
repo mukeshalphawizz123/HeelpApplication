@@ -20,6 +20,8 @@ import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.notificationPkg.RemoveNotificationCountModle;
+import com.frelance.notificationPkg.notificationCountModlePkg.MissionStatusModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.MsgModel;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -224,6 +226,7 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
 
                         // notificatinCount.onTotalCounts(totalNotification);
                         NotificatinModel.getInstance().setNotificationCount("" + totalNotification);
+                        MissionStatusModel.getInstance().setNotificationMissCount("" + messageDemands);
                     }
                 } else {
                     if (response.code() == 400) {

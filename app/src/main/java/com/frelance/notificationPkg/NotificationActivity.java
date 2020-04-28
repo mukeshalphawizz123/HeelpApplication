@@ -14,7 +14,13 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
+import com.frelance.homePkg.NotificatinCountChatInterface;
 import com.frelance.notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity;
+import com.frelance.notificationPkg.notificationCountModlePkg.MissionStatusModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.MsgModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.OfferInterfaceModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.PaymentInterfaceModel;
+import com.frelance.notificationPkg.notificationCountModlePkg.ReviewModel;
 import com.frelance.notificationPkg.notificationMessagePkg.NotificationMessageActivity;
 import com.frelance.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity;
 import com.frelance.notificationPkg.notificationOffersPkg.NotificationOfferActivity;
@@ -33,14 +39,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotificationActivity extends AppCompatActivity implements View.OnClickListener {
+public class NotificationActivity extends AppCompatActivity implements View.OnClickListener,
+        MsgModel.OnMsgListener,
+        ReviewModel.OnReviewListener,
+        MissionStatusModel.OnMissListener,
+        OfferInterfaceModel.OnOfferListener,
+        PaymentInterfaceModel.OnPayemntListener {
     private ImageView ivnotificationback;
     private RelativeLayout rlPaymentNotification, rlnotification, rlStatusNotification, rlOffersNotification, rlMsgsNotification, rlAvisNotification;
     private ProgressBar pbNotification;
     private ApiServices apiServices;
     private String userId;
     private AppCompatTextView tvPaymentCount, tvStatusCount, tvOfferCount, tvMsgCount, tvReviewCount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,13 +151,11 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                             tvStatusCount.setText("" + notificationResponseModle.getCountMissionanddemands());
                         }
 
-
                         if (notificationResponseModle.getCountOffers() > 10) {
                             tvOfferCount.setText("10" + "+");
                         } else {
                             tvOfferCount.setText("" + notificationResponseModle.getCountOffers());
                         }
-
 
                         if (notificationResponseModle.getCountMessages() > 10) {
                             tvMsgCount.setText("10" + "+");
@@ -165,16 +173,14 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -188,5 +194,67 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+    }
+
+
+    @Override
+    public void changeMsgState() {
+        if (MsgModel.getInstance().getNotificationMsgCount().isEmpty()) {
+        } else {
+            if (MsgModel.getInstance().getNotificationMsgCount().length() > 10) {
+                tvMsgCount.setText("10" + "+");
+            } else {
+                tvMsgCount.setText(MsgModel.getInstance().getNotificationMsgCount());
+            }
+        }
+    }
+
+    @Override
+    public void changeReviewState() {
+        if (ReviewModel.getInstance().getNotificationReviewCount().isEmpty()) {
+        } else {
+            if (ReviewModel.getInstance().getNotificationReviewCount().length() > 10) {
+                tvReviewCount.setText("10" + "+");
+            } else {
+                tvReviewCount.setText(ReviewModel.getInstance().getNotificationReviewCount());
+            }
+        }
+
+    }
+
+    @Override
+    public void changeMissState() {
+        if (MissionStatusModel.getInstance().getNotificationMissCount().isEmpty()) {
+        } else {
+            if (MissionStatusModel.getInstance().getNotificationMissCount().length() > 10) {
+                tvStatusCount.setText("10" + "+");
+            } else {
+                tvStatusCount.setText(MissionStatusModel.getInstance().getNotificationMissCount());
+            }
+        }
+    }
+
+    @Override
+    public void changeOfferState() {
+        if (OfferInterfaceModel.getInstance().getNotificationOfferCount().isEmpty()) {
+        } else {
+            if (OfferInterfaceModel.getInstance().getNotificationOfferCount().length() > 10) {
+                tvOfferCount.setText("10" + "+");
+            } else {
+                tvOfferCount.setText(OfferInterfaceModel.getInstance().getNotificationOfferCount());
+            }
+        }
+    }
+
+    @Override
+    public void changePaymentState() {
+        if (PaymentInterfaceModel.getInstance().getNotificationPaymentCount().isEmpty()) {
+        } else {
+            if (PaymentInterfaceModel.getInstance().getNotificationPaymentCount().length() > 10) {
+                tvPaymentCount.setText("10" + "+");
+            } else {
+                tvPaymentCount.setText(PaymentInterfaceModel.getInstance().getNotificationPaymentCount());
+            }
+        }
     }
 }

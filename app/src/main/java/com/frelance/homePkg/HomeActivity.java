@@ -3,9 +3,11 @@ package com.frelance.homePkg;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.frelance.R;
 import com.frelance.InboxListPkg.MessageTablayout.MessageListTablayoutFragment;
 import com.frelance.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
+import com.frelance.notificationPkg.NotificatinModel;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.PlusMoreFragment;
 import com.frelance.utility.AppSession;
@@ -36,7 +39,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity
+        implements View.OnClickListener,
+        NotificatinCountChatInterface.OnCustomCartListener {
     private static FragmentManager fragmentManager;
     private RelativeLayout rlHome, rlHomemymission, rlHomemyrequest, rlHomechat, rlHomemenu;
     private ImageView ivHomeDd, ivmymissionHome, ivMyrequestHome, ivchatHome, ivhomemenu;
@@ -70,18 +75,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
             }
         } catch (Exception e) {
-           // addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
+            // addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
 
 
-        String count = firebaseUnreadUserCount.chatDataSanpchat();
-        if (count == null || count.isEmpty()) {
-            tvHomeNotificationCount.setVisibility(View.GONE);
-        } else {
-            tvHomeNotificationCount.setVisibility(View.VISIBLE);
-            tvHomeNotificationCount.setText(count);
-        }
-        ///
+        chatDataSanpchat();
+
     }
 
     private void init() {
@@ -108,13 +107,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         rlHomemenu.setOnClickListener(this);
     }
 
-
-    private void replaceFragement(Fragment fragment) {
-        FragmentTransaction home = getSupportFragmentManager().beginTransaction();
-        // home.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-        home.replace(R.id.flHomeId, fragment);
-        home.commit();
-    }
 
     public void addFragment(Fragment fragment, boolean addToBackStack,
                             String tag) {
@@ -363,8 +355,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         // datumList.clear();
                         datumList.add(chatModle);
-                        AppSession.setStringPreferences(getApplicationContext(), "count", "" + datumList.size());
-                        // layoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                               // NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
+                                // AppSession.setStringPreferences(getApplicationContext(), "count", "" + datumList.size());
+                               if (datumList.size() == 0) {
+                                    tvHomeNotificationCount.setVisibility(View.GONE);
+                                } else {
+                                    tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                                    tvHomeNotificationCount.setText("" + datumList.size());
+                                }
+                                // Toast.makeText(getApplicationContext(),"any mesage",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     }
@@ -390,40 +396,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 CustomProgressbar.hideProgressBar();
-
             }
         });
-
-        String count = AppSession.getStringPreferences(getApplicationContext(), "count");
-        if (count == null || count.isEmpty()) {
-            tvHomeNotificationCount.setVisibility(View.GONE);
-        } else {
-            tvHomeNotificationCount.setVisibility(View.VISIBLE);
-            tvHomeNotificationCount.setText(count);
-        }
-        //tvHomeNotificationCount.setText();
-        //Toast.makeText(getActivity(), AppSession.getStringPreferences(getActivity(), "count"), Toast.LENGTH_LONG).show();
-        // AppSession.getStringPreferences(getActivity(),"count");
-        // Log.println(Log.VERBOSE, "count", AppSession.getStringPreferences(getActivity(), "count"));
-
-       /* DatabaseReference fbDb = null;
-        if (fbDb == null) {
-            fbDb = FirebaseDatabase.getInstance().getReference();
-        }*/
-/*
-        fbDb.child("ques/Technology")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // get total available quest
-                        int size = (int) dataSnapshot.getChildrenCount();
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
-
-
     }
+
+    @Override
+    public void changeChatState() {
+        if (NotificatinCountChatInterface.getInstance().getNotificationChatCount().isEmpty()) {
+            tvHomeNotificationCount.setVisibility(View.GONE);
+            //   Toast.makeText(getApplicationContext(), NotificatinCountChatInterface.getInstance().getNotificationChatCount(), Toast.LENGTH_LONG).show();
+        } else {
+            tvHomeNotificationCount.setText(NotificatinCountChatInterface.getInstance().getNotificationChatCount());
+            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+        }
+    }
+
 }
