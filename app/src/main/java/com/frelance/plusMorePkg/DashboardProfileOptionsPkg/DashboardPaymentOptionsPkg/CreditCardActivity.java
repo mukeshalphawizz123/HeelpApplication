@@ -2,6 +2,7 @@ package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOpti
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
@@ -46,13 +47,13 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
     private ImageView ivdashboardcreditcardbackId, ivnotificationcreditcard;
     private RelativeLayout bottomRel, rlediter, rlAddANewCard, rlDelete;
     private ApiServices apiServices;
-    private AppCompatEditText etCardHolderName, etCardNumber, etExpiry;
+    private AppCompatEditText etCardHolderName, etExpiry;
+    private AppCompatTextView etCardNumber;
     String a;
     int keyDel;
     private String userId, email;
     private static Animation shakeAnimation;
     // private List<Datum> datumList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +86,9 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
         ivnotificationcreditcard.setOnClickListener(this);
         bottomRel.setOnClickListener(this);
         rlDelete.setOnClickListener(this);
-        // bottomRel.setVisibility(View.GONE);
         rlAddANewCard.setOnClickListener(this);
         rlediter.setOnClickListener(this);
+        bottomRel.setVisibility(View.GONE);
 
         etExpiry.addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,7 +119,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
         });
 
 
-        etCardNumber.addTextChangedListener(new TextWatcher() {
+       /* etCardNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -172,7 +173,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -190,6 +191,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                 etExpiry.setEnabled(true);
                 bottomRel.setEnabled(true);
                 etCardHolderName.requestFocus();
+                bottomRel.setVisibility(View.VISIBLE);
                 break;
             case R.id.rlAddANewCardId:
                 CheckNetwork.nextScreen(CreditCardActivity.this, AddCardActivityJava.class);
@@ -304,9 +306,10 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                         FetchCardModel body = response.body();
                         if (body.getStatus()) {
                             etCardHolderName.setText(body.getUsername().get(0).getNameOnCard());
-                            String carddigits = body.getData().getLast4().toString().trim();
-                            //etCardNumber.setText("000000000000" +  body.getData().getLast4().toString().trim());
-                            etCardNumber.setText(carddigits);
+                            String carddigits = body.getData().getLast4().trim();
+                            etCardNumber.setText("************" +carddigits);
+                            //etCardNumber.setText(carddigits);
+                            //   etCardNumber.setText("************" + carddigits);
                             if (body.getData().getExpYear().toString().length() == 4) {
                                 updateYear[0] = body.getData().getExpYear().toString().substring(2);
                             }
@@ -323,6 +326,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                             bottomRel.setEnabled(false);
                             rlediter.setEnabled(true);
                             rlDelete.setEnabled(true);
+                            bottomRel.setVisibility(View.GONE);
 
                         } else {
                             etCardHolderName.setText("");
@@ -332,7 +336,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                             etCardNumber.setEnabled(false);
                             etExpiry.setEnabled(false);
                             bottomRel.setEnabled(false);
-
+                            bottomRel.setVisibility(View.GONE);
                             rlediter.setEnabled(false);
                             rlDelete.setEnabled(false);
 
@@ -363,6 +367,7 @@ public class CreditCardActivity extends AppCompatActivity implements View.OnClic
                 etCardNumber.setEnabled(false);
                 etExpiry.setEnabled(false);
                 bottomRel.setEnabled(false);
+                bottomRel.setVisibility(View.GONE);
 
 
             }

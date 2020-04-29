@@ -262,6 +262,7 @@ three main needs of the student.</string>
     <string name="update">Update</string>
     <string name="enter_holder_name">Enter Holder Name</string>
     <string name="do_you_want_to_release_payment">Do you want to release payment?</string>
+    <string name="card_number">Card Number ****</string>
 
 
 </resources>

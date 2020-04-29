@@ -197,7 +197,7 @@
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/cardchip" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/etCardNumberId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -206,11 +206,9 @@
                         android:layout_marginEnd="@dimen/_60sdp"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:inputType="numberPassword"
-                        android:letterSpacing="0.02"
                         android:maxLength="16"
                         android:singleLine="true"
-                        android:hint="Card Number ****"
+                        android:hint="@string/card_number"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textSize="@dimen/_18sdp"
@@ -263,6 +261,7 @@
 
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/bottomRel"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
@@ -275,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/save"
+                android:text="@string/update"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="normal" />

@@ -14,7 +14,6 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-import com.frelance.homePkg.NotificatinCountChatInterface;
 import com.frelance.notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity;
 import com.frelance.notificationPkg.notificationCountModlePkg.MissionStatusModel;
 import com.frelance.notificationPkg.notificationCountModlePkg.MsgModel;
@@ -25,7 +24,6 @@ import com.frelance.notificationPkg.notificationMessagePkg.NotificationMessageAc
 import com.frelance.notificationPkg.notificationMission_demandsPkg.NotificationMissionDemandActivity;
 import com.frelance.notificationPkg.notificationOffersPkg.NotificationOfferActivity;
 import com.frelance.notificationPkg.notificationReviewPkg.NotificationReviewActivity;
-import com.frelance.paymentPkg.CreditCardPayment;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;

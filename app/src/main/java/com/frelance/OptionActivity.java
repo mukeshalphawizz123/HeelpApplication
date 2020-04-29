@@ -234,7 +234,6 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
     private void sociallogin1(String name, String email, final String status ) {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {

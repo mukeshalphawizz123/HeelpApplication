@@ -316,7 +316,8 @@
                         android:layout_toEndOf="@+id/radiogreenid"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
-                        android:text="100"
+                        android:text="0"
+                        android:textColor="@color/blue"
                         android:textSize="14sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -327,6 +328,7 @@
                         android:layout_toEndOf="@+id/etMakeOfferAmountId"
                         android:fontFamily="@font/poppins_reguiar"
                         android:text="€"
+                        android:textColor="@color/blue"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
