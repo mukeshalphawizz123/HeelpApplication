@@ -171,8 +171,6 @@ public class ChatActivity extends AppCompatActivity implements
                 for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
                     appleSnapshot.getRef().removeValue();
                 }
-
-
             }
 
             @Override
@@ -790,12 +788,11 @@ public class ChatActivity extends AppCompatActivity implements
                             (String) mapMessage.get("dateAndTime"),
                             (String) mapMessage.get("senderId"));
                     try {
-
                         datumList.add(chatModle);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.v("tt", "count");
+                               // Log.v("tt", "count");
                                 // int count=datumList.size();
                                 NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
                                 //Toast.makeText(getApplicationContext(), "count", Toast.LENGTH_LONG).show();

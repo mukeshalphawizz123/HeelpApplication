@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -64,6 +65,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
     private List<YourMission> mymissionlist;
     private String position, filtertag;
     private String userId;
+    private SwipeRefreshLayout sflMyMission;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentHomePublisharequestBinding = DataBindingUtil.inflate(inflater, R.layout.activity_mymissions, container, false);
@@ -85,11 +87,25 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+       /* sflMyMission.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    myMission("0");
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+
+                sflMyMission.setRefreshing(false);
+            }
+        });*/
         return view;
     }
 
 
     private void init(View view) {
+       // sflMyMission = view.findViewById(R.id.sflMyMissionId);
         Tvmymissionitemnot = view.findViewById(R.id.TvmymissionitemnotId);
         PbMymission = view.findViewById(R.id.PbMymissionId);
         ivnotification = view.findViewById(R.id.ivnotificationId);

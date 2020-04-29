@@ -176,7 +176,9 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
         Pbsearch.setVisibility(View.VISIBLE);
         apiServices.getuserslist(userId).enqueue(new Callback<ChatUserResponseModle>() {
             @Override
-            public void onResponse(Call<ChatUserResponseModle> call, Response<ChatUserResponseModle> response) {
+            public void onResponse(Call<ChatUserResponseModle> call, Response<ChatUserResponseModle> response)
+            {
+                Pbsearch.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     ChatUserResponseModle chatUserResponseModle = response.body();
                     if (chatUserResponseModle.getStatus()) {

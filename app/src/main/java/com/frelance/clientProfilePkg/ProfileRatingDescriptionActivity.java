@@ -60,25 +60,23 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
         flag = AppSession.getStringPreferences(getApplicationContext(), "clientEntry");
         init();
-       // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
 
         if (flag.equalsIgnoreCase("client")) {
             if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-               // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
                 getReviews(clientId);
             } else {
                 Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
         } else {
             if (CheckNetwork.isNetAvailable(getApplicationContext())) {
-               // Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_LONG).show();
                 getReviews(userId);
             } else {
                 Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
-
         }
-
     }
 
     private void getReviews(String user_id) {

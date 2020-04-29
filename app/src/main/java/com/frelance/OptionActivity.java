@@ -5,10 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -49,6 +54,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import retrofit2.Call;
@@ -60,7 +67,7 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
     private AppCompatTextView tvUnderLine;
     private GoogleSignInClient googleSignInClient;
     private CallbackManager callbackManager;
-    private String  token;
+    private String token;
     private ApiServices apiServices;
 
     @Override
@@ -71,7 +78,9 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         Window window = getWindow();
         StatusBarManagment.hideShowStatusBar(getApplicationContext(), window);
         init();
+        printHashKey(getApplicationContext());
     }
+
     private void init() {
         rlFacbookLogin = findViewById(R.id.rlFacbookLoginId);
         rlgoogleLogin = findViewById(R.id.rlgoogleLoginId);
@@ -87,7 +96,6 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         tvUnderLine.setText(content);
 
         tvUnderLine.setOnClickListener(this);
-
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -127,11 +135,11 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                           // Log.w(TAG, "getInstanceId failed", task.getException());
+                            // Log.w(TAG, "getInstanceId failed", task.getException());
                             return;
                         }
                         token = task.getResult().getToken();
-                        Log.d("token",token);
+                        Log.d("token", token);
 
                     }
                 });
@@ -182,8 +190,8 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
                             String first_name = object.getString("first_name");
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
-                            sociallogin1(first_name + " "+last_name, id, "2");
-                          //  Toast.makeText(OptionActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
+                            sociallogin1(first_name + " " + last_name, id, "2");
+                            //  Toast.makeText(OptionActivity.this, ""+first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -197,24 +205,24 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         request.executeAsync();
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 101) {
                 try {
                     Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                     GoogleSignInAccount account = task.getResult(ApiException.class);
                     onLoggedIn(account);
                 } catch (ApiException e) {
-                  //  Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+                    //  Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
                 }
             } else {
                 callbackManager.onActivityResult(requestCode, resultCode, data);
 
             }
-        }
-        else {
+        } else {
             try {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -225,15 +233,16 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-      //  Toast.makeText(this, ""+email, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(this, ""+email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
 
-    private void sociallogin1(String name, String email, final String status ) {
+    private void sociallogin1(String name, String email, final String status) {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {
             @Override
@@ -273,4 +282,19 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    public static void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = pContext.getPackageManager().getPackageInfo(pContext.getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i("dsa", hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+           // Log.e(TAG, "printHashKey()", e);
+        } catch (Exception e) {
+          //  Log.e(TAG, "printHashKey()", e);
+        }
+    }
 }
