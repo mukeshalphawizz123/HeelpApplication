@@ -2,6 +2,7 @@ package com.frelance.notificationPkg.notificationReviewPkg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -47,6 +48,7 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
     private ApiServices apiServices;
     private String userId;
     private List<Datum> notificationList;
+    private AppCompatTextView tvItemNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +98,11 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
     }
 
     private void init() {
+        tvItemNotFound = findViewById(R.id.tvItemNotFoundId);
         ivnotificationback = findViewById(R.id.ivnotificationbackId);
         wrlNotReview = findViewById(R.id.wrlNotReviewId);
         rvNotificationReview = findViewById(R.id.rvNotificationReviewid);
         pbNotReview = findViewById(R.id.pbNotReviewId);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         rvNotificationReview.setLayoutManager(layoutManager);
         notificationReviewAdapter = new NotificationReviewAdapter(getApplicationContext(), this);
@@ -129,9 +131,13 @@ public class NotificationReviewActivity extends AppCompatActivity implements Not
                         CustomProgressbar.hideProgressBar();
                         NotificationResponseModle notificationResponseModle = response.body();
                         if (notificationResponseModle.getStatus()) {
+                            tvItemNotFound.setVisibility(View.GONE);
                             notificationList = notificationResponseModle.getData();
                             notificationReviewAdapter.addmymissionData(notificationList);
+                        }else {
+                            tvItemNotFound.setVisibility(View.VISIBLE);
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

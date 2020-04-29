@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -106,10 +104,10 @@
                 android:background="@color/white">
 
                 <RelativeLayout
-                    android:layout_alignParentLeft="true"
                     android:id="@+id/rlDeleteid"
                     android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvDeleteid"
@@ -125,19 +123,20 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="30sp"
-                        android:layout_marginTop="10sp"
                         android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10sp"
+                        android:layout_marginEnd="5sp"
                         android:src="@drawable/ic_delete_forever_black_24dp" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_alignParentRight="true"
                     android:id="@+id/rlediterid"
                     android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="invisible">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvediterid"
@@ -154,9 +153,9 @@
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="30sp"
                         android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="15sp"
-                        android:layout_marginRight="5sp"
+                        android:layout_marginEnd="5sp"
                         android:src="@drawable/editprofilepin" />
 
                 </RelativeLayout>
@@ -206,9 +205,9 @@
                         android:layout_marginEnd="@dimen/_60sdp"
                         android:background="@android:color/transparent"
                         android:gravity="center"
+                        android:hint="@string/card_number"
                         android:maxLength="16"
                         android:singleLine="true"
-                        android:hint="@string/card_number"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textSize="@dimen/_18sdp"
@@ -236,9 +235,9 @@
                         android:layout_toEndOf="@+id/tvValidityId"
                         android:background="@android:color/transparent"
                         android:hint="@string/mm_yy"
+                        android:inputType="date"
                         android:maxLength="5"
                         android:singleLine="true"
-                        android:inputType="date"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
                         android:textSize="@dimen/_10sdp" />
@@ -261,13 +260,13 @@
 
 
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/bottomRel"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/blankbtn">
+            android:background="@drawable/blankbtn"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"

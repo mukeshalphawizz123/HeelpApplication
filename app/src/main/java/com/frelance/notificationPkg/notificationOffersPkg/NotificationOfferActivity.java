@@ -2,6 +2,7 @@ package com.frelance.notificationPkg.notificationOffersPkg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,6 +47,7 @@ public class NotificationOfferActivity extends AppCompatActivity implements Noti
     private ApiServices apiServices;
     private String userId;
     private List<Datum> notificationList;
+    private AppCompatTextView tvItemNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class NotificationOfferActivity extends AppCompatActivity implements Noti
     }
 
     private void init() {
+        tvItemNotFound = findViewById(R.id.tvItemNotFoundId);
         ivnotificationback = findViewById(R.id.ivnotificationbackId);
         wrlNotOffer = findViewById(R.id.wrlNotOfferId);
         rvNotificationOffer = findViewById(R.id.rvNotificationOfferid);
@@ -128,8 +131,12 @@ public class NotificationOfferActivity extends AppCompatActivity implements Noti
                         CustomProgressbar.hideProgressBar();
                         NotificationResponseModle notificationResponseModle = response.body();
                         if (notificationResponseModle.getStatus()) {
+                            tvItemNotFound.setVisibility(View.GONE);
                             notificationList = notificationResponseModle.getData();
                             notificationOfferAdapter.addmymissionData(notificationList);
+                        }
+                        else {
+                            tvItemNotFound.setVisibility(View.VISIBLE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

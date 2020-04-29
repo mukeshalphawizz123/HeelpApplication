@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -70,6 +71,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     private String userId;
     private Dialog dialog;
     private boolean flag;
+    private SwipeRefreshLayout srlFindMission;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,6 +87,23 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+
+        srlFindMission.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    flag = false;
+                    homeRespondeList(userId, "0");
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+
+                srlFindMission.setRefreshing(false);
+            }
+        });
+
+
         return view;
     }
 
@@ -161,6 +180,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     private void init(View view) {
+        srlFindMission = view.findViewById(R.id.srlFindMissionId);
         rvcategoriesFrag = view.findViewById(R.id.rvcategoriesFragId);
         Rlcategories = view.findViewById(R.id.rlcategoriesId);
         Rlcategories.setOnClickListener(this);
@@ -256,7 +276,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     private void homePublisherList() {
-        PbsearchId.setVisibility(View.VISIBLE);
+       // PbsearchId.setVisibility(View.VISIBLE);
         apiServices.publisherlist().enqueue(new Callback<ListOfProjectModel>() {
             @Override
             public void onResponse(Call<ListOfProjectModel> call, Response<ListOfProjectModel> response) {

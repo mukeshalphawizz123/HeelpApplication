@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -43,6 +44,7 @@ public class HomeCategoryFrament extends Fragment implements
     private ApiServices apiServices;
     private List<Project> projectlist;
     private Context context;
+    private SwipeRefreshLayout srlHomeCat;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +56,29 @@ public class HomeCategoryFrament extends Fragment implements
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        srlHomeCat.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
+
+
+        srlHomeCat.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (CheckNetwork.isNetAvailable(getActivity())) {
+                    homePublisherList();
+                } else {
+                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+                }
+
+                srlHomeCat.setRefreshing(false);
+            }
+        });
+
+
         return view;
     }
 
@@ -94,17 +119,18 @@ public class HomeCategoryFrament extends Fragment implements
     }
 
     private void init(View view) {
+        srlHomeCat = view.findViewById(R.id.srlHomeCatId);
         pbHomepublisherlist = view.findViewById(R.id.pbHomepublisherlistId);
         rvphyFrag = view.findViewById(R.id.rvphyFragId);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         rvphyFrag.setLayoutManager(layoutManager);
         homeCategoryAdapter = new HomeCategoryAdapter(getActivity(), this);
-       // homeCategoryAdapter.setHasStableIds(true);
+        // homeCategoryAdapter.setHasStableIds(true);
         rvphyFrag.setAdapter(homeCategoryAdapter);
         rvphyFrag.setHasFixedSize(true);
         rvphyFrag.setNestedScrollingEnabled(false);
 
-       // rvphyFrag.setNestedScrollingEnabled(false);
+        // rvphyFrag.setNestedScrollingEnabled(false);
 
     }
 

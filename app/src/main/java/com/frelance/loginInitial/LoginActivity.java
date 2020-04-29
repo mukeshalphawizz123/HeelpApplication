@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String first_name = object.getString("first_name");
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
-                            sociallogin1(first_name + last_name, id, "2");
+                            sociallogin1(first_name + " "+last_name, id, "2");
                             // Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -319,16 +319,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(LoginActivity.this, "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -359,7 +357,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SocialLoginModel getLoginModle = response.body();
-                    if (getLoginModle.getStatus() == true) {
+                    if (getLoginModle.getStatus()) {
                         Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());

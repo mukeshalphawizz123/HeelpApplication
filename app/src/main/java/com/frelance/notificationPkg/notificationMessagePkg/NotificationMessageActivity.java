@@ -2,6 +2,7 @@ package com.frelance.notificationPkg.notificationMessagePkg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,6 +47,8 @@ public class NotificationMessageActivity extends AppCompatActivity
     private ApiServices apiServices;
     private String userId;
     private List<Datum> notificationList;
+    private AppCompatTextView tvItemNotFound;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,7 @@ public class NotificationMessageActivity extends AppCompatActivity
     }
 
     private void init() {
+        tvItemNotFound = findViewById(R.id.tvItemNotFoundId);
         ivnotificationback = findViewById(R.id.ivnotificationbackId);
         sflNotMs = findViewById(R.id.sflNotMsgId);
         rvNotificationMessage = findViewById(R.id.rvNotificationMessageid);
@@ -127,24 +131,25 @@ public class NotificationMessageActivity extends AppCompatActivity
                         CustomProgressbar.hideProgressBar();
                         NotificationResponseModle notificationResponseModle = response.body();
                         if (notificationResponseModle.getStatus()) {
+                            tvItemNotFound.setVisibility(View.GONE);
                             notificationList = notificationResponseModle.getData();
                             notificationMessageAdapter.addmymissionData(notificationList);
+                        } else {
+                            tvItemNotFound.setVisibility(View.VISIBLE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

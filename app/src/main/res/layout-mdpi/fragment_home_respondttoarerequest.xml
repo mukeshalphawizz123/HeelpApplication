@@ -4,58 +4,65 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlFindMissionId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <RelativeLayout
-                android:id="@+id/rlcategoriesId"
-                android:layout_width="210sp"
-                android:layout_height="60sp"
-                android:layout_marginStart="20sp"
-                android:layout_marginTop="10sp"
-                android:background="@drawable/homesectabback">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivhomesecmenuId"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:src="@drawable/homemenu" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_toEndOf="@+id/ivhomesecmenuId"
-                    android:text="@string/all_categories"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="normal" />
-
-
-            </RelativeLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvcategoriesFragId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/rlcategoriesId"
-                android:layout_marginTop="10sp"
-                android:layout_marginBottom="10sp"
-                android:nestedScrollingEnabled="false" />
+                android:layout_height="match_parent">
 
-        </RelativeLayout>
-    </ScrollView>
+
+                <RelativeLayout
+                    android:id="@+id/rlcategoriesId"
+                    android:layout_width="210sp"
+                    android:layout_height="60sp"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@drawable/homesectabback">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivhomesecmenuId"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/homemenu" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_toEndOf="@+id/ivhomesecmenuId"
+                        android:text="@string/all_categories"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvcategoriesFragId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rlcategoriesId"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="10sp"
+                    android:nestedScrollingEnabled="false" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <ProgressBar

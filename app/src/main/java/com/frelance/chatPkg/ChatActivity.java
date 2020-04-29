@@ -223,7 +223,7 @@ public class ChatActivity extends AppCompatActivity implements
 
         recordView.setSlideToCancelText("Slide To Cancel");
 
-        recordView.setCustomSounds(R.raw.record_start, R.raw.record_finished, 0);
+        recordView.setCustomSounds(0, 0, 0);
 
         recordView.setOnRecordListener(new OnRecordListener() {
             @Override
@@ -234,10 +234,7 @@ public class ChatActivity extends AppCompatActivity implements
                 try {
                     mediaRecorder.prepare();
                     mediaRecorder.start();
-                } catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
+                } catch (IllegalStateException | IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }

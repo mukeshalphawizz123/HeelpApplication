@@ -2,6 +2,7 @@ package com.frelance.notificationPkg.notificationMission_demandsPkg;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,6 +47,7 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
     private ApiServices apiServices;
     private String userId;
     private List<Datum> notificationList;
+    private AppCompatTextView tvItemNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,7 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
     }
 
     private void init() {
+        tvItemNotFound = findViewById(R.id.tvItemNotFoundId);
         ivnotificationback = findViewById(R.id.ivnotificationbackId);
         rvNotificationMissionAndDemands = findViewById(R.id.rvNotificationMissionAndDemandsid);
         sflNotMissAndDemand = findViewById(R.id.sflNotMissAndDemandId);
@@ -129,8 +132,12 @@ public class NotificationMissionDemandActivity extends AppCompatActivity impleme
                         CustomProgressbar.hideProgressBar();
                         NotificationResponseModle notificationResponseModle = response.body();
                         if (notificationResponseModle.getStatus()) {
+                            tvItemNotFound.setVisibility(View.GONE);
                             notificationList = notificationResponseModle.getData();
                             missionAndDemandsAdapter.addmymissionData(notificationList);
+                        }
+                        else {
+                            tvItemNotFound.setVisibility(View.VISIBLE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

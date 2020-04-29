@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -48,6 +49,7 @@ public class NotificationPaymentActivity extends AppCompatActivity implements No
     private ApiServices apiServices;
     private String userId;
     private List<Datum> notificationList;
+    private AppCompatTextView tvItemNotFound;
 
 
     @Override
@@ -99,6 +101,7 @@ public class NotificationPaymentActivity extends AppCompatActivity implements No
     }
 
     private void init() {
+        tvItemNotFound = findViewById(R.id.tvItemNotFoundId);
         ivnotificationback = findViewById(R.id.ivnotificationbackId);
         wrlNotReview = findViewById(R.id.wrlNotReviewId);
         rvNotificationReview = findViewById(R.id.rvNotificationReviewid);
@@ -132,8 +135,11 @@ public class NotificationPaymentActivity extends AppCompatActivity implements No
                         CustomProgressbar.hideProgressBar();
                         NotificationResponseModle notificationResponseModle = response.body();
                         if (notificationResponseModle.getStatus()) {
+                            tvItemNotFound.setVisibility(View.GONE);
                             notificationList = notificationResponseModle.getData();
                             notificationReviewAdapter.addmymissionData(notificationList);
+                        } else {
+                            tvItemNotFound.setVisibility(View.VISIBLE);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
