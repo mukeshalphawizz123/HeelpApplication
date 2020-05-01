@@ -94,129 +94,122 @@
 
     </RelativeLayout>
 
-    <ScrollView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rlHomeToolbarId"
-        android:scrollbars="none">
+        android:layout_marginBottom="@dimen/_50sdp">
+
 
         <RelativeLayout
-            android:layout_marginBottom="@dimen/_50sdp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/rlproposeebtnid"
+            android:layout_width="@dimen/_135sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5sp"
+            android:background="@drawable/litige_box">
 
-
-            <RelativeLayout
-                android:id="@+id/rlproposeebtnid"
-                android:layout_width="@dimen/_135sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5sp"
-                android:background="@drawable/litige_box">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="5sp"
-                    android:fontFamily="@font/raleway_bold"
-                    android:paddingBottom="@dimen/_3sdp"
-                    android:text="@string/open_litigation"
-                    android:textColor="@color/lightRed"
-                    android:textSize="@dimen/_13sdp"
-                    app:fontFamily="@font/raleway_bold" />
-
-            </RelativeLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMyMissionDisputeId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_below="@+id/rlproposeebtnid"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-
-            <RelativeLayout
-                android:id="@+id/rlsupportmsgboxid"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_below="@+id/rlproposeebtnid"
-                android:layout_marginStart="20sp"
-                android:layout_marginTop="35dp"
-                android:layout_marginEnd="50sp"
-                android:background="@drawable/textbackground"
-                android:paddingBottom="30sp"
-                android:visibility="gone">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginTop="10sp"
-                    android:layout_marginEnd="10sp"
-                    android:background="@android:color/transparent"
-                    android:hint="@string/support_message"
-                    android:textColorHint="@color/Black"
-                    android:textSize="13sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rltimeid"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rlsupportmsgboxid"
-                android:layout_marginTop="25dp"
-                android:visibility="gone">
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvtimeId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20sp"
-                    android:text="@string/today_4_12pm"
-                    android:textSize="12sp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_below="@+id/rltimeid"
-                android:layout_marginStart="110dp"
+                android:layout_centerInParent="true"
                 android:layout_marginTop="5sp"
-                android:layout_marginEnd="20sp"
-                android:layout_marginBottom="100sp"
-                android:background="@drawable/bluetextbox"
-                android:visibility="gone">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="5sp"
-                    android:text="@string/let_me_know_when_you_complete"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-
-
-            </RelativeLayout>
+                android:fontFamily="@font/raleway_bold"
+                android:paddingBottom="@dimen/_3sdp"
+                android:text="@string/open_litigation"
+                android:textColor="@color/lightRed"
+                android:textSize="@dimen/_13sdp"
+                app:fontFamily="@font/raleway_bold" />
 
         </RelativeLayout>
 
 
-    </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyMissionDisputeId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlproposeebtnid"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:nestedScrollingEnabled="false">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+        <RelativeLayout
+            android:id="@+id/rlsupportmsgboxid"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_below="@+id/rlproposeebtnid"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="50sp"
+            android:background="@drawable/textbackground"
+            android:paddingBottom="30sp"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="10sp"
+                android:background="@android:color/transparent"
+                android:hint="@string/support_message"
+                android:textColorHint="@color/Black"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rltimeid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlsupportmsgboxid"
+            android:layout_marginTop="25dp"
+            android:visibility="gone">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvtimeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20sp"
+                android:text="@string/today_4_12pm"
+                android:textSize="12sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/rltimeid"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginEnd="20sp"
+            android:layout_marginBottom="100sp"
+            android:background="@drawable/bluetextbox"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5sp"
+                android:text="@string/let_me_know_when_you_complete"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

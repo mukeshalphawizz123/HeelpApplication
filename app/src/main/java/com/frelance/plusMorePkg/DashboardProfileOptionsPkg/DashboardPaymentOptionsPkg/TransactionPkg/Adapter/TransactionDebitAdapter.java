@@ -43,7 +43,7 @@ public class TransactionDebitAdapter extends RecyclerView.Adapter<TransactionDeb
         holder.tvdebitdatetime.setText(Constants.transactionDate(transactionList.get(position).getCreatedDate()));
         holder.tvdebitprojecttitle.setText(transactionList.get(position).getProjectTitle());
         holder.tvdebitprojetcost.setText(transactionList.get(position).getAmount() + "€");
-        holder.tvdebitprojectdescription.setText("Project of : " + transactionList.get(position).getUsername());
+        holder.tvdebitprojectdescription.setText("Send To : " + transactionList.get(position).getSent_from_username());
 
     }
 

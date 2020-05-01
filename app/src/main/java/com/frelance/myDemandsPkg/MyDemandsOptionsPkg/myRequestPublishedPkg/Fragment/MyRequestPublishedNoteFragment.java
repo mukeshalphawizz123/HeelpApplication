@@ -83,7 +83,6 @@ public class MyRequestPublishedNoteFragment extends Fragment implements MyReques
                 break;
 
             case R.id.rldiscuteridd:
-               // CheckNetwork.nextScreenWithoutFinish(getActivity(), ChatActivity.class);
                 Intent intent1 = new Intent(getActivity(), ChatActivity.class);
                 intent1.putExtra("client_id",yourMission.getUserId());
                 startActivity(intent1);

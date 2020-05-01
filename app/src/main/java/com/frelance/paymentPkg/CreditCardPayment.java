@@ -140,8 +140,9 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                             }
 
                             totalAmount = projectBudget + bankFees;
+                            int total = (int) totalAmount;
                             tvTotalProjecdPrice.setText((totalAmount) + "€");
-                            AppSession.setStringPreferences(getApplicationContext(), "totalamount", "" + totalAmount);
+                            AppSession.setStringPreferences(getApplicationContext(), "totalamount", "" + total);
 
                         } else {
                             tvcreditcardpricetwo.setText("0€");

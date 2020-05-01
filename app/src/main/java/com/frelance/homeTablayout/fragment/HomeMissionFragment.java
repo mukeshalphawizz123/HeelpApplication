@@ -158,17 +158,20 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                         CustomProgressbar.hideProgressBar();
                         ChatEntryModel chatEntryModel = response.body();
                         if (chatEntryModel.getStatus()) {
+
                             Intent intent1 = new Intent(getActivity(), ChatActivity.class);
                             intent1.putExtra("client_id", client);
                             startActivity(intent1);
                             getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+
+
                         } else {
                             // dialog.dismiss();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //seearchDoctorAdapter.doctorList(doctorList);
+
                 }
             }
 
@@ -276,7 +279,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
     }
 
     private void homePublisherList() {
-       // PbsearchId.setVisibility(View.VISIBLE);
+        // PbsearchId.setVisibility(View.VISIBLE);
         apiServices.publisherlist().enqueue(new Callback<ListOfProjectModel>() {
             @Override
             public void onResponse(Call<ListOfProjectModel> call, Response<ListOfProjectModel> response) {

@@ -157,8 +157,7 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 dialogeMessageUserAdapter.getFilter().filter(s);
             }
 
@@ -178,7 +177,7 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
             @Override
             public void onResponse(Call<ChatUserResponseModle> call, Response<ChatUserResponseModle> response)
             {
-                Pbsearch.setVisibility(View.VISIBLE);
+                Pbsearch.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     ChatUserResponseModle chatUserResponseModle = response.body();
                     if (chatUserResponseModle.getStatus()) {
@@ -202,13 +201,11 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<ChatUserResponseModle> call, Throwable t) {
                 Pbsearch.setVisibility(View.GONE);
             }
         });
-
 
     }
 

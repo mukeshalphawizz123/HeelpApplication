@@ -61,6 +61,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     private int apiDelayed = 4 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
     private AppCompatTextView tvMyMissTitle;
+    private LinearLayoutManager layoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_in_dispute, container, false);
@@ -94,7 +95,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
         tvviewprofile = view.findViewById(R.id.tvviewprofileid);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvMyMissionDispute.setLayoutManager(layoutManager);
         myMissionadapter = new MyMissionadapter(getActivity(), this);
         rvMyMissionDispute.setAdapter(myMissionadapter);
@@ -130,7 +131,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
     private void myMissionDispute(String userId) {
         /// CustomProgressbar.showProgressBar(getActivity(), false);
-        apiServices.getprojectdispute(userId,missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+        apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
                 if (response.isSuccessful()) {
@@ -138,6 +139,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
                     if (getAllDiputeResponseModle.getStatus()) {
                         datumList = getAllDiputeResponseModle.getData();
                         myMissionadapter.addDisputeList(datumList);
+                        layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
                     } else {
 
                     }

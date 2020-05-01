@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String first_name = object.getString("first_name");
                             String last_name = object.getString("last_name");
                             String id = object.getString("id");
-                            sociallogin1(first_name + " "+last_name, id, "2");
+                            sociallogin1(first_name + " " + last_name, id, "2");
                             // Toast.makeText(LoginActivity.this, "" + first_name, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -229,7 +229,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-        // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
@@ -247,9 +246,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 CheckNetwork.nextScreen(LoginActivity.this, SignupActivity.class);
                 break;
             case R.id.rlFacbookLoginId:
+                LoginManager.getInstance().logOut();
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 break;
             case R.id.rlgoogleLoginId:
+                GoogleSignInOptions gso = new GoogleSignInOptions.
+                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                        build();
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+                googleSignInClient.signOut();
+
+
                 GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
                 if (alreadyloggedAccount != null) {
                     onLoggedIn(alreadyloggedAccount);
@@ -311,8 +318,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                       // String count = firebaseUnreadUserCount.chatDataSanpchat();
-                      //  Toast.makeText(getApplicationContext(), count, Toast.LENGTH_LONG).show();
+                        // String count = firebaseUnreadUserCount.chatDataSanpchat();
+                        //  Toast.makeText(getApplicationContext(), count, Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), getLoginModle.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -351,13 +358,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void sociallogin1(String name, String email, final String status) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {
+        apiServices.sociallogin(name, email, status, token).enqueue(new Callback<SocialLoginModel>() {
             @Override
             public void onResponse(Call<SocialLoginModel> call, Response<SocialLoginModel> response) {
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SocialLoginModel getLoginModle = response.body();
                     if (getLoginModle.getStatus()) {
+                        AppSession.setStringPreferences(LoginActivity.this, "status", "auth");
                         Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
                         AppSession.setStringPreferences(LoginActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());

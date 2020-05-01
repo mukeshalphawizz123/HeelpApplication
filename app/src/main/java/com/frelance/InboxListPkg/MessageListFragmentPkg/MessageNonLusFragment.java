@@ -88,6 +88,9 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
         FirebaseDatabase.getInstance().getReference().child("userList/" + userRecordinsertFormat).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //Log.v("te",s);
+              //  String str = s;
+
                 if (dataSnapshot.getValue() != null) {
                     HashMap mapMessage = (HashMap) dataSnapshot.getValue();
                     UnReadMessageUserModle chatModle = new UnReadMessageUserModle((String) mapMessage.get("userId"),
@@ -96,7 +99,6 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
                             (String) mapMessage.get("dateAndTime"),
                             (String) mapMessage.get("senderId"));
                     try {
-                        // datumList.clear();
                         datumList.add(chatModle);
                         unReadMsgAdapter.addmymissionData(datumList);
                         unReadMsgAdapter.notifyDataSetChanged();

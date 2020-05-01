@@ -49,6 +49,7 @@ public class TransactionCreditFragment extends Fragment implements TransactionCr
         View view = activityCreditTabBinding.getRoot();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
+
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             getTransactionIn(userId);
@@ -86,16 +87,14 @@ public class TransactionCreditFragment extends Fragment implements TransactionCr
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }

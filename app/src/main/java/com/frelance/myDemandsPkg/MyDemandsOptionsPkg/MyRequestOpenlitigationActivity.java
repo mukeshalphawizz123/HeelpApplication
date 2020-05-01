@@ -62,6 +62,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
     private AppCompatTextView tvDemandTitleRequest;
+    LinearLayoutManager layoutManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,8 +102,9 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
         tvviewprofile.setText(content);
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rvMyMissionDispute.setLayoutManager(layoutManager);
+        // layoutManager.setStackFromEnd(true);
 
         myMissionadapter = new MyMissionadapter(getActivity(), this);
         rvMyMissionDispute.setAdapter(myMissionadapter);
@@ -113,7 +115,6 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     @Override
     public void onResume() {
         super.onResume();
-
         handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 //do your function;
@@ -194,7 +195,8 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
                         if (getAllDiputeResponseModle.getStatus()) {
                             datumList = getAllDiputeResponseModle.getData();
                             myMissionadapter.addDisputeList(datumList);
-                            rvMyMissionDispute.smoothScrollToPosition(myMissionadapter.getItemCount() - 1);
+                            layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
+
 
                         } else {
 
@@ -206,7 +208,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -241,10 +243,10 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
                     } else {
 
                     }
-
+                    myDemandDispute(userId);
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());

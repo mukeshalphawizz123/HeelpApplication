@@ -108,11 +108,20 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    public void addFragment(Fragment fragment, boolean addToBackStack,
-                            String tag) {
+    public void addFragment(Fragment fragment, boolean addToBackStack, String tag) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.addToBackStack(null);
+        if (addToBackStack) {
+            ft.addToBackStack(tag);
+        }
+        ft.replace(R.id.flHomeId, fragment, tag);
+        ft.commitAllowingStateLoss();
+    }
+
+    public void addFragmentSec(Fragment fragment, boolean addToBackStack, String tag) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
         if (addToBackStack) {
             ft.addToBackStack(tag);
         }
@@ -143,7 +152,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.rlHomechatId:
                 chat();
                 removeThisFragment();
-                addFragment(new MessageListTablayoutFragment(), false, Constants.MESSAGE_LIST_TAB_LAYOUT_FRAGMENT);
+                addFragmentSec(new MessageListTablayoutFragment(), false, Constants.MESSAGE_LIST_TAB_LAYOUT_FRAGMENT);
                 // replaceFragement(new MessageListTablayoutFragment());
                 break;
             case R.id.rlHomemenuId:
@@ -358,9 +367,9 @@ public class HomeActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                               // NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
+                                // NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
                                 // AppSession.setStringPreferences(getApplicationContext(), "count", "" + datumList.size());
-                               if (datumList.size() == 0) {
+                                if (datumList.size() == 0) {
                                     tvHomeNotificationCount.setVisibility(View.GONE);
                                 } else {
                                     tvHomeNotificationCount.setVisibility(View.VISIBLE);

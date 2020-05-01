@@ -130,6 +130,7 @@ public class ChatActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         datumList = new ArrayList<>();
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
@@ -156,6 +157,8 @@ public class ChatActivity extends AppCompatActivity implements
         // final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").child(clientId).removeValue();
 
         chatUnReadCount();
+
+       // NotificatinCountChatInterface.getInstance().setNotificationChatCount("12");
 
     }
 
@@ -299,7 +302,6 @@ public class ChatActivity extends AppCompatActivity implements
 
     }
 
-
     private String getHumanTimeText(long milliseconds) {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(milliseconds),
@@ -378,10 +380,7 @@ public class ChatActivity extends AppCompatActivity implements
                     try {
                         mediaRecorder.prepare();
                         mediaRecorder.start();
-                    } catch (IllegalStateException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (IllegalStateException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -479,7 +478,7 @@ public class ChatActivity extends AppCompatActivity implements
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     missionlist = response.body();
-                    if (missionlist.getStatus() == true) {
+                    if (missionlist.getStatus()) {
                         tvUserNameMsg.setText(missionlist.getYourMissions().get(0).getUsername());
                         tvUserProffesion.setText(missionlist.getYourMissions().get(0).getSkills());
                         if (missionlist.getYourMissions().get(0).getPictureUrl().isEmpty()) {
@@ -572,7 +571,7 @@ public class ChatActivity extends AppCompatActivity implements
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     ChatImageResponseModle chatImageResponseModle = response.body();
-                    if (chatImageResponseModle.getStatus() == true) {
+                    if (chatImageResponseModle.getStatus()) {
                         String imgurl = chatImageResponseModle.getData().get(0).getImageName();
                         String userRecordinsertFormat = "user_" + userid + "_" + "client_" + clientId;
                         String clientRecordinsertFormat = "user_" + clientId + "_" + "client_" + userid;
@@ -583,16 +582,14 @@ public class ChatActivity extends AppCompatActivity implements
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -635,16 +632,14 @@ public class ChatActivity extends AppCompatActivity implements
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
                                 CustomProgressbar.hideProgressBar();
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
+                            } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -792,7 +787,7 @@ public class ChatActivity extends AppCompatActivity implements
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                               // Log.v("tt", "count");
+                                // Log.v("tt", "count");
                                 // int count=datumList.size();
                                 NotificatinCountChatInterface.getInstance().setNotificationChatCount("" + datumList.size());
                                 //Toast.makeText(getApplicationContext(), "count", Toast.LENGTH_LONG).show();

@@ -161,11 +161,19 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.rlFacbookLoginId:
                 /*CheckNetwork.goTobackScreen(OptionActivity.this, HomeActivity.class);*/
                 /*finish();*/
+                LoginManager.getInstance().logOut();
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 break;
             case R.id.rlgoogleLoginId:
               /*  CheckNetwork.goTobackScreen(OptionActivity.this, HomeActivity.class);
                 finish();*/
+                GoogleSignInOptions gso = new GoogleSignInOptions.
+                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                        build();
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+                googleSignInClient.signOut();
+
+
                 GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
                 if (alreadyloggedAccount != null) {
                     onLoggedIn(alreadyloggedAccount);
@@ -244,13 +252,14 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sociallogin1(String name, String email, final String status) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {
+        apiServices.sociallogin(name, email, status, token).enqueue(new Callback<SocialLoginModel>() {
             @Override
             public void onResponse(Call<SocialLoginModel> call, Response<SocialLoginModel> response) {
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SocialLoginModel getLoginModle = response.body();
                     if (getLoginModle.getStatus()) {
+                        AppSession.setStringPreferences(OptionActivity.this, "status", "auth");
                         Toast.makeText(OptionActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
                         AppSession.setStringPreferences(OptionActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
                         AppSession.setStringPreferences(OptionActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
@@ -292,9 +301,9 @@ public class OptionActivity extends AppCompatActivity implements View.OnClickLis
                 Log.i("dsa", hashKey);
             }
         } catch (NoSuchAlgorithmException e) {
-           // Log.e(TAG, "printHashKey()", e);
+            // Log.e(TAG, "printHashKey()", e);
         } catch (Exception e) {
-          //  Log.e(TAG, "printHashKey()", e);
+            //  Log.e(TAG, "printHashKey()", e);
         }
     }
 }

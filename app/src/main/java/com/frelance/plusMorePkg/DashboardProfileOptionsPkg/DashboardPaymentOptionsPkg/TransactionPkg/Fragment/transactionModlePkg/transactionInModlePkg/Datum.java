@@ -31,6 +31,32 @@ public class Datum {
     @Expose
     private String projectTitle;
 
+    @SerializedName("sent_from_username")
+    @Expose
+    private String sent_from_username;
+
+    @SerializedName("sent_to_username")
+    @Expose
+    private String sent_to_username;
+
+
+    public String getSent_from_username() {
+        return sent_from_username;
+    }
+
+    public void setSent_from_username(String sent_from_username) {
+        this.sent_from_username = sent_from_username;
+    }
+
+    public String getSent_to_username() {
+        return sent_to_username;
+    }
+
+    public void setSent_to_username(String sent_to_username) {
+        this.sent_to_username = sent_to_username;
+    }
+
+
     /**
      * No args constructor for use in serialization
      * 

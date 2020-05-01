@@ -43,7 +43,7 @@ public class TransactionCreditAdapter extends RecyclerView.Adapter<TransactionCr
         holder.tvdatetime.setText(Constants.transactionDate(transactionList.get(0).getCreatedDate()));
         holder.tvprojecttitle.setText(transactionList.get(0).getProjectTitle());
         holder.tvprojetcost.setText(transactionList.get(0).getAmount() + "€");
-        holder.tvprojectdescription.setText("Project of : " + transactionList.get(0).getUsername());
+        holder.tvprojectdescription.setText("Received From : " + transactionList.get(0).getSent_to_username());
 
     }
 

@@ -196,7 +196,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 CheckNetwork.nextScreenWithoutFinish(SignupActivity.this, AcceptConditionActivity.class);
                 break;
             case R.id.rlgoogleLoginId:
+
+                GoogleSignInOptions gso = new GoogleSignInOptions.
+                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                        build();
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+                googleSignInClient.signOut();
+
                 GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
+
                 if (alreadyloggedAccount != null) {
                     onLoggedIn(alreadyloggedAccount);
                 } else {
@@ -206,6 +214,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.rlFacbookLoginId:
+                LoginManager.getInstance().logOut();
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 // CheckNetwork.backScreenWithouFinish(SignupActivity.this);
                 break;
@@ -316,7 +325,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 });
 
@@ -324,7 +332,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         parameters.putString("fields", "first_name,last_name,email,id");
         request.setParameters(parameters);
         request.executeAsync();
-
     }
 
     @Override
@@ -349,7 +356,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         String name = googleSignInAccount.getDisplayName();
         String email = googleSignInAccount.getEmail();
-       // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "" + email, Toast.LENGTH_SHORT).show();
         sociallogin1(name, email, "1");
     }
 
@@ -363,20 +370,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sociallogin1(String name, String email, final String status) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.sociallogin(name, status, email, token).enqueue(new Callback<SocialLoginModel>() {
+        apiServices.sociallogin(name, email, status, token).enqueue(new Callback<SocialLoginModel>() {
             @Override
             public void onResponse(Call<SocialLoginModel> call, Response<SocialLoginModel> response) {
                 if (response.isSuccessful()) {
                     CustomProgressbar.hideProgressBar();
                     SocialLoginModel getLoginModle = response.body();
                     if (getLoginModle.getStatus()) {
+                        AppSession.setStringPreferences(SignupActivity.this, "status", "auth");
                         Toast.makeText(SignupActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
                         AppSession.setStringPreferences(SignupActivity.this, Constants.USERID, getLoginModle.getData().get(0).getId());
                         AppSession.setStringPreferences(SignupActivity.this, Constants.USERNAME, getLoginModle.getData().get(0).getUsername());
                         Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-
                     }
                 } else {
                     if (response.code() == 400) {

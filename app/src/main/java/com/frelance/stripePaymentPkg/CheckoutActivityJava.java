@@ -85,7 +85,6 @@ public class CheckoutActivityJava extends AppCompatActivity {
         missionId = AppSession.getStringPreferences(getApplicationContext(), "pay_mission_id");
 
        // Toast.makeText(getApplicationContext(), totalamount, Toast.LENGTH_LONG).show();
-
         // PaymentConfiguration.init(getApplicationContext(), "pk_live_uCA4uxOsl9sM5e534oDNRbJK00mGBuYjsW"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         PaymentConfiguration.init(getApplicationContext(), "pk_test_IKgHpz7lpleTM3rcFSnyoxC700UDOoixI7"); // Get your key here: https://stripe.com/docs/keys#obtain-api-keys
         payButton = findViewById(R.id.payButton);
@@ -113,8 +112,7 @@ public class CheckoutActivityJava extends AppCompatActivity {
                                 + "\"items\":[" + "{\"id\":\"photo_subscription\"}" + "],"
                                 + "\"token\":\"" + result.getId() + "\"" + "}";
                         Log.v("token", result.getId());
-                        paymentStrip(clientId, userId, userName, "100", categoryTitle, result.getId());
-
+                        paymentStrip(clientId, userId, userName, totalamount, categoryTitle, result.getId());
                     }
 
                     @Override
@@ -125,69 +123,12 @@ public class CheckoutActivityJava extends AppCompatActivity {
             }
         });
 
-       /* payButton.setOnClickListener((View view) -> {
-            CardMultilineWidget cardInputWidget = findViewById(R.id.cardInputWidget);
-            Card card = cardInputWidget.getCard();
-            if (card != null) {
-                stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
-                stripe.createToken(card, new ApiResultCallback<Token>() {
-                    @Override
-                    public void onSuccess(@NonNull Token result) {
-                        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-                        String json = "{" + "\"currency\":\"usd\","
-                                + "\"items\":[" + "{\"id\":\"photo_subscription\"}" + "],"
-                                + "\"token\":\"" + result.getId() + "\"" + "}";
-
-                        Log.v("token", result.getId());
-
-                        RequestBody body = RequestBody.create(json, mediaType);
-                        Request request = new Request.Builder()
-                                .url(BACKEND_URL + "pay")
-                                .post(body)
-                                .build();
-                        httpClient.newCall(request)
-                                .enqueue(new Callback() {
-                                    @Override
-                                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                        // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
-                                    }
-
-                                    @Override
-                                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                                        if (!response.isSuccessful()) {
-                                            //  weakActivity.get().displayAlert("Failed to decode response from server", "Error: " + response, false);
-                                            return;
-                                        }
-                                        String responseData = response.body().string();
-                                        try {
-                                            JSONObject responseMap = new JSONObject(responseData);
-                                            String error = responseMap.optString("error", null);
-                                            if (error != null) {
-                                                // weakActivity.get().displayAlert("Payment failed", error, false);
-                                            } else {
-                                                //weakActivity.get().displayAlert("Success", "Payment succeeded!", true);
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Exception e) {
-                        // weakActivity.get().displayAlert("Failed to decode response from server", e.getLocalizedMessage(), false);
-                    }
-                });
-            }
-        });*/
     }
 
 
     private void paymentStrip(String clientid, String userId, String username, String amount, String projectName, String token) {
         CustomProgressbar.showProgressBar(this, false);
-        apiServices.paymentStrip(clientid, userId, username, amount, projectName,missionId, token)
+        apiServices.paymentStrip(clientid, userId, username, amount, projectName, missionId, token)
                 .enqueue(new retrofit2.Callback<PaymentResponseModle>() {
                     @Override
                     public void onResponse(retrofit2.Call<PaymentResponseModle> call, retrofit2.Response<PaymentResponseModle> response) {

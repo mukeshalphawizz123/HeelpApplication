@@ -210,7 +210,7 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("Client/payment_out")
+    @POST("Client/payment_in")
     Call<TransactionInResponseModle> payment_in(@Field("user_id") String user_id);
 
 
@@ -220,7 +220,7 @@ public interface ApiServices {
 
 
     @FormUrlEncoded
-    @POST("Client/payment_in")
+    @POST("Client/payment_out")
     Call<TransactionOutResponseModle> payment_out(@Field("user_id") String user_id);
 
 

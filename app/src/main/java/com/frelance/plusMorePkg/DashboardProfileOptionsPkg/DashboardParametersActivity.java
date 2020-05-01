@@ -24,11 +24,7 @@ public class DashboardParametersActivity extends Fragment implements View.OnClic
     private RelativeLayout rltermsandcondition, rlpowerbtn;
     private ImageView ivdashboardparametersback, ivnotificationparameters;
 
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard_parameters);
-        init();*/
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_dashboard_parameters, container, false);
         init(view);
