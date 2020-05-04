@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity
     private RelativeLayout rlHome, rlHomemymission, rlHomemyrequest, rlHomechat, rlHomemenu;
     private ImageView ivHomeDd, ivmymissionHome, ivMyrequestHome, ivchatHome, ivhomemenu;
     private AppCompatTextView tvaccounthome, tvmymissionhome, tvmyrequesthome, tvchathome, tvhomeplus, tvHomeNotificationCount;
-    private String userId;
+    private String userId, chatEntry;
     private UnReadMsgConsersation consersation;
     private ArrayList<UnReadMessageUserModle> datumList;
     private FirebaseUnreadUserCount firebaseUnreadUserCount;
@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity
         datumList = new ArrayList<>();
         consersation = new UnReadMsgConsersation();
         String data = getIntent().getStringExtra("data");
+        chatEntry = getIntent().getStringExtra("chat");
         fragmentManager = getSupportFragmentManager();
         firebaseUnreadUserCount = new FirebaseUnreadUserCount(getApplicationContext());
         init();
@@ -78,10 +79,22 @@ public class HomeActivity extends AppCompatActivity
             // addFragment(new HomeTablayoutFragment(), false, Constants.HOME_TABLAYOUT_FRAGMENT);
         }
 
+        if (chatEntry == null || chatEntry.isEmpty()) {
 
-        chatDataSanpchat();
+        } else {
+            chat();
+            removeThisFragment();
+            addFragment(new MessageListTablayoutFragment(), false, Constants.MESSAGE_LIST_TAB_LAYOUT_FRAGMENT);
+        }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        chatDataSanpchat();
+    }
+
 
     private void init() {
         tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
@@ -152,7 +165,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.rlHomechatId:
                 chat();
                 removeThisFragment();
-                addFragmentSec(new MessageListTablayoutFragment(), false, Constants.MESSAGE_LIST_TAB_LAYOUT_FRAGMENT);
+                addFragment(new MessageListTablayoutFragment(), false, Constants.MESSAGE_LIST_TAB_LAYOUT_FRAGMENT);
                 // replaceFragement(new MessageListTablayoutFragment());
                 break;
             case R.id.rlHomemenuId:
@@ -413,7 +426,7 @@ public class HomeActivity extends AppCompatActivity
     public void changeChatState() {
         if (NotificatinCountChatInterface.getInstance().getNotificationChatCount().isEmpty()) {
             tvHomeNotificationCount.setVisibility(View.GONE);
-            //   Toast.makeText(getApplicationContext(), NotificatinCountChatInterface.getInstance().getNotificationChatCount(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "testingsdfsdffds", Toast.LENGTH_LONG).show();
         } else {
             tvHomeNotificationCount.setText(NotificatinCountChatInterface.getInstance().getNotificationChatCount());
             tvHomeNotificationCount.setVisibility(View.VISIBLE);

@@ -391,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<SocialLoginModel> call, Throwable t) {
-                Log.d("test", String.valueOf(t));
+              //  Log.d("test", String.valueOf(t));
                 CustomProgressbar.hideProgressBar();
             }
         });

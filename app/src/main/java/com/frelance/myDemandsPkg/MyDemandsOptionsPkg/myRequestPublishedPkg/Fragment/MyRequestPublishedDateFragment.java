@@ -81,6 +81,7 @@ public class MyRequestPublishedDateFragment extends Fragment implements MyReques
                 break;
 
             case R.id.rldiscuteridd:
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","");
                 Intent intent1 = new Intent(getActivity(), ChatActivity.class);
                 intent1.putExtra("client_id", yourMission.getUserId());
                 startActivity(intent1);

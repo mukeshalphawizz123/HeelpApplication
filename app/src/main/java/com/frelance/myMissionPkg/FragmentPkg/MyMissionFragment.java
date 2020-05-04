@@ -105,7 +105,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
 
 
     private void init(View view) {
-       // sflMyMission = view.findViewById(R.id.sflMyMissionId);
+        // sflMyMission = view.findViewById(R.id.sflMyMissionId);
         Tvmymissionitemnot = view.findViewById(R.id.TvmymissionitemnotId);
         PbMymission = view.findViewById(R.id.PbMymissionId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
@@ -186,6 +186,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyMissionInDisputeActivity(), true, Constants.MY_MISSION_DISPUTE_ACTIVITY, yourMission.getMissionId());
                     AppSession.setStringPreferences(getActivity(), "mission_mission_title", yourMission.getMission_title());
+                    AppSession.setStringPreferences(getActivity(), "msg", "");
                 }
                 break;
 

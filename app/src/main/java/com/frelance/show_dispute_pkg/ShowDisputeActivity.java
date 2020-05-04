@@ -59,6 +59,7 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
     private Runnable runnable;
     private AppCompatTextView tvMyMissTitle;
     private SwipeRefreshLayout wrlShowDispute;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
         tvMyMissTitle.setText(mission_mission_title);
-
 
         wrlShowDispute.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -108,7 +108,7 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
 
         tvviewprofile = findViewById(R.id.tvviewprofileid);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+        layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         rvMyMissionDispute.setLayoutManager(layoutManager);
         myMissionadapter = new MyDisputeadapter(getApplicationContext(), this);
         rvMyMissionDispute.setAdapter(myMissionadapter);
@@ -183,6 +183,7 @@ public class ShowDisputeActivity extends AppCompatActivity implements View.OnCli
                     if (getAllDiputeResponseModle.getStatus()) {
                         datumList = getAllDiputeResponseModle.getData();
                         myMissionadapter.addDisputeList(datumList);
+                        layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
                     }
                 } else {
                     if (response.code() == 400) {

@@ -158,7 +158,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
                         CustomProgressbar.hideProgressBar();
                         ChatEntryModel chatEntryModel = response.body();
                         if (chatEntryModel.getStatus()) {
-
+                            AppSession.setStringPreferences(getActivity(),"chatEntrty","");
                             Intent intent1 = new Intent(getActivity(), ChatActivity.class);
                             intent1.putExtra("client_id", client);
                             startActivity(intent1);

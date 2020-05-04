@@ -28,6 +28,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
+import com.frelance.myMissionPkg.FragmentPkg.MyMissionFragment;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.SendDiputeResponseModle;
@@ -55,7 +56,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     private MyMissionadapter myMissionadapter;
     private AppCompatImageView ivgifbutton;
     private ApiServices apiServices;
-    private String missionId, userId, mission_mission_title;
+    private String missionId, userId, mission_mission_title, msg;
     private List<Datum> datumList;
     private Handler handler = new Handler();
     private int apiDelayed = 4 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
@@ -68,6 +69,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         missionId = this.getArguments().getString("missionId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
+        msg = AppSession.getStringPreferences(getActivity(), "msg");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -75,6 +77,16 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         } else {
         }
         tvMyMissTitle.setText(mission_mission_title);
+
+        if (msg.isEmpty() || msg == null) {
+
+        } else {
+            if (CheckNetwork.isNetAvailable(getActivity())) {
+                sendHelpDispute();
+            } else {
+            }
+        }
+
         return view;
     }
 
@@ -147,7 +159,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -184,7 +196,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
                 break;
             case R.id.ivmissionfeedbackdashboardbackId:
                 removeThisFragment();
-                //replaceFragementWithoutStack(new MyMissionFragment());
+               // replaceFragementWithoutStack(new MyMissionFragment());
                 break;
             case R.id.rlmissproposeviewdetailsid:
                 replaceFragement(new DetailsActivity());
@@ -200,7 +212,6 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         Bundle bundle = new Bundle();
         bundle.putString("missionId", missionId);
         fragment.setArguments(bundle);
-
         AppSession.setStringPreferences(getActivity(), "OnGoing", "litige");
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
@@ -211,14 +222,13 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
     private void replaceFragementWithoutStack(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.flHomeId, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.add(R.id.flHomeId, fragment);
+        //fragmentTransaction.commit();
     }
 
     public void removeThisFragment() {
         final FragmentManager manager = getFragmentManager();
         manager.popBackStackImmediate();
-        // Toast.makeText(this, ""+manager, Toast.LENGTH_SHORT).show();
     }
 
     private void sendDispute() {
@@ -239,7 +249,7 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());
@@ -262,5 +272,46 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
     }
 
+
+    private void sendHelpDispute() {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.projectsenddispute(missionId, msg, userId).enqueue(new Callback<SendDiputeResponseModle>() {
+            @Override
+            public void onResponse(Call<SendDiputeResponseModle> call, Response<SendDiputeResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    SendDiputeResponseModle missionlist = response.body();
+                    // myMissionadapter.addDisputeList(datumList);
+                    if (missionlist.getStatus()) {
+                        ettypemsg.setText("");
+                    } else {
+
+                    }
+                    myMissionDispute(userId);
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SendDiputeResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
 
 }

@@ -213,6 +213,7 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","inbox");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());

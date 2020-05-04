@@ -79,8 +79,6 @@ public class MyDemandsOngoingActivity extends Fragment
         }
         projectId = AppSession.getStringPreferences(getActivity(), "mission_id");
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
-
-        //Toast.makeText(getActivity(), projectId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myOnProgressApi(projectId);
@@ -140,10 +138,11 @@ public class MyDemandsOngoingActivity extends Fragment
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.rlproblemstatementid:
+                AppSession.setStringPreferences(getActivity(), "mission_demand_title", mission_demand_title);
                 AppSession.setStringPreferences(getActivity(), "dispute_mission_id", projectId);
+                AppSession.setStringPreferences(getActivity(), "MyDemand_MyMission", "MyDemand");
                 replaceFragement(new HelpActivity());
                 break;
-
 
         }
 

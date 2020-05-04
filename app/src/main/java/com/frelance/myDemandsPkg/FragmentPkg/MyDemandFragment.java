@@ -172,6 +172,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyRequestOpenlitigationActivity(), true, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT, datum.getId());
                     AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
+                    AppSession.setStringPreferences(getActivity(), "msg","");
                 }
                 break;
         }

@@ -80,7 +80,7 @@ public class MessageToutFragment extends Fragment implements MessageToutAdapter.
     public void msgOnClick(View view, int position) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
-               // Toast.makeText(getActivity(), datumList.get(position).getClientId(), Toast.LENGTH_LONG).show();
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","inbox");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", datumList.get(position).getClientId());
                 intent.putExtra("firstName", datumList.get(position).getFirstName());

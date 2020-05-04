@@ -221,6 +221,7 @@ public class MyMissionOngoingActivity extends Fragment implements
                 CheckNetwork.nextScreenWithoutFinish(getActivity(), NotificationActivity.class);
                 break;
             case R.id.tvmymissionongoingtextid:
+                AppSession.setStringPreferences(getActivity(), "MyDemand_MyMission", "MyMission");
                 AppSession.setStringPreferences(getActivity(), "dispute_mission_id", missionId);
                 replaceFragement(new HelpActivity());
                 break;
@@ -266,9 +267,7 @@ public class MyMissionOngoingActivity extends Fragment implements
                 Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
         }
-
     }
-
 
     private void sendProjectPorgress(String myMissionId) {
         pbMymissionProgress.setVisibility(View.VISIBLE);

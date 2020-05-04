@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -22,6 +23,8 @@ import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.GoDisputeModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity;
+import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionInDisputeActivity;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.frelance.show_dispute_pkg.ShowDisputeActivity;
@@ -45,14 +48,16 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
     private ApiServices apiServices;
     private ProgressBar pbHelp;
     private AppCompatEditText etEnterDispute;
-    private String userid, missionId;
+    private String userid, missionId, mission_demand_title, entryTag;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //  fragmentMessageToutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message_tout, container, false);
         View view = inflater.inflate(R.layout.activity_help, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         missionId = getArguments().getString("missionId");
+        mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
+        entryTag = AppSession.getStringPreferences(getActivity(), "MyDemand_MyMission");
+        // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         return view;
     }
@@ -109,11 +114,35 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
         fragmentTransaction.commit();
     }
 
+
+    private void addMyDemandFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("projectId", missionId);
+        fragment.setArguments(bundle);
+        AppSession.setStringPreferences(getActivity(), "OnGoing", "MyReqEncours");
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+        fragmentTransaction.replace(R.id.flHomeId, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+
+    private void addMyMissionFragement(Fragment fragment) {
+        Bundle bundle = new Bundle();
+        bundle.putString("missionId", missionId);
+        fragment.setArguments(bundle);
+        AppSession.setStringPreferences(getActivity(), "OnGoing", "MyReqEncours");
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left, R.anim.slide_in_right, R.anim.slide_out_right);
+        fragmentTransaction.replace(R.id.flHomeId, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
     public void removeThisFragment() {
         final FragmentManager manager = getFragmentManager();
         manager.popBackStackImmediate();
-
-        // Toast.makeText(this, ""+manager, Toast.LENGTH_SHORT).show();
     }
 
     private void sendDisputeState() {
@@ -125,7 +154,17 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
                     pbHelp.setVisibility(View.GONE);
                     GoDisputeModle goDisputeModle = response.body();
                     if (goDisputeModle.getStatus()) {
-                        CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
+                        if (entryTag.equalsIgnoreCase("MyDemand")) {
+                            //  etEnterDispute.getText().toString();
+                            addMyDemandFragement(new MyRequestOpenlitigationActivity());
+                            AppSession.setStringPreferences(getActivity(), "mission_demand_title", mission_demand_title);
+                            AppSession.setStringPreferences(getActivity(), "msg", etEnterDispute.getText().toString());
+                        } else {
+                            addMyMissionFragement(new MyMissionInDisputeActivity());
+                            AppSession.setStringPreferences(getActivity(), "mission_demand_title", mission_demand_title);
+                            AppSession.setStringPreferences(getActivity(), "msg", etEnterDispute.getText().toString());
+                        }
+                        // CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
                     }
                 } else {
                     if (response.code() == 400) {

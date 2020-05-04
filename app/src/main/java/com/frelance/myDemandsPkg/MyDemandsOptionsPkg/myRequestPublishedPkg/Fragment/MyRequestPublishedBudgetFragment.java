@@ -82,6 +82,7 @@ public class MyRequestPublishedBudgetFragment extends Fragment implements MyRequ
                 acceptOffer(yourMission.getOfferId(), userId, yourMission.getMissionId(), "1");
                 break;
             case R.id.rldiscuteridd:
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","");
                 Intent intent1 = new Intent(getActivity(), ChatActivity.class);
                 intent1.putExtra("client_id", yourMission.getUserId());
                 startActivity(intent1);

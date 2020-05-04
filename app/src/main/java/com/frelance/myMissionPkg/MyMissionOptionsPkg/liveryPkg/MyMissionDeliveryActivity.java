@@ -142,6 +142,7 @@ public class MyMissionDeliveryActivity extends Fragment implements LiveryAdapter
                 replaceFragement(new DetailsActivity());
                 break;
             case R.id.tvmymissionliverytextid:
+                AppSession.setStringPreferences(getActivity(), "MyDemand_MyMission", "MyMission");
                 AppSession.setStringPreferences(getActivity(), "dispute_mission_id", missionId);
                 replaceFragement(new HelpActivity());
                 break;

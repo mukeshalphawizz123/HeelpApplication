@@ -151,6 +151,7 @@ public class MessageNonLusFragment extends Fragment implements UnReadMsgAdapter.
     public void msgOnClick(View view, int position, UnReadMessageUserModle unReadMessageUserModle) {
         switch (view.getId()) {
             case R.id.rlmsguserid:
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","inbox");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", unReadMessageUserModle.getSenderId());
                 intent.putExtra("firstName", unReadMessageUserModle.getName());

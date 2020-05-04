@@ -48,6 +48,7 @@ import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
+import com.frelance.homePkg.HomeActivity;
 import com.frelance.homePkg.NotificatinCountChatInterface;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.clientProfilePkg.ClinetProfileActivity;
@@ -118,7 +119,7 @@ public class ChatActivity extends AppCompatActivity implements
     private RelativeLayout rlVoiceRecordingStop;
     private Chronometer tvTimer;
     private GetProfileModle missionlist;
-    private String entryFlag = "1", firstname, lastName, user_picturUrl;
+    private String entryFlag = "1", firstname, lastName, user_picturUrl, inbox;
 
     private RecordView recordView;
     private RecordButton recordButton;
@@ -136,6 +137,7 @@ public class ChatActivity extends AppCompatActivity implements
         userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         firstname = AppSession.getStringPreferences(getApplicationContext(), Constants.FIRST_NAME);
         user_picturUrl = AppSession.getStringPreferences(getApplicationContext(), Constants.PICTURE_URL);
+        inbox = AppSession.getStringPreferences(getApplicationContext(), "chatEntrty");
 
         clientId = getIntent().getStringExtra("client_id");
         fName = getIntent().getStringExtra("firstName");
@@ -155,11 +157,8 @@ public class ChatActivity extends AppCompatActivity implements
         //removing data from firebase server=====================================================
 
         // final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").child(clientId).removeValue();
-
         chatUnReadCount();
-
-       // NotificatinCountChatInterface.getInstance().setNotificationChatCount("12");
-
+        NotificatinCountChatInterface.getInstance().setNotificationChatCount("12");
     }
 
     @Override
@@ -189,9 +188,9 @@ public class ChatActivity extends AppCompatActivity implements
         recordButton = (RecordButton) findViewById(R.id.record_button);
         recordButton.setRecordView(recordView);
 
-        tvTimer = findViewById(R.id.tvTimerId);
+       /* tvTimer = findViewById(R.id.tvTimerId);
         rlVoiceRecordingStop = findViewById(R.id.rlVoiceRecordingStopId);
-        ivrecordedbutton = findViewById(R.id.ivrecordedbuttonid);
+        ivrecordedbutton = findViewById(R.id.ivrecordedbuttonid);*/
         ivsharefilebutton = findViewById(R.id.ivsharefilebuttonid);
         ivUserMsg = findViewById(R.id.ivUserMsgId);
         tvUserProffesion = findViewById(R.id.tvUserProffesionId);
@@ -203,8 +202,8 @@ public class ChatActivity extends AppCompatActivity implements
         ivgifbutton = findViewById(R.id.ivgifbuttonid);
         ivbackmsg.setOnClickListener(this);
         ivgifbutton.setOnClickListener(this);
-        rlVoiceRecordingStop.setOnClickListener(this);
-        ivrecordedbutton.setOnClickListener(this);
+        /// rlVoiceRecordingStop.setOnClickListener(this);
+//        ivrecordedbutton.setOnClickListener(this);
         ivsharefilebutton.setOnClickListener(this);
         rlmessageuserprofile = findViewById(R.id.rlmessageuserprofileid);
         rlmessageuserprofile.setOnClickListener(this);
@@ -217,15 +216,11 @@ public class ChatActivity extends AppCompatActivity implements
 
         //Cancel Bounds is when the Slide To Cancel text gets before the timer . default is 8
         recordView.setCancelBounds(8);
-
         recordView.setSmallMicColor(Color.parseColor("#c2185b"));
         //prevent recording under one Second
         recordView.setLessThanSecondAllowed(false);
-
         recordView.setSlideToCancelText("Slide To Cancel");
-
         recordView.setCustomSounds(0, 0, 0);
-
         recordView.setOnRecordListener(new OnRecordListener() {
             @Override
             public void onStart() {
@@ -239,12 +234,6 @@ public class ChatActivity extends AppCompatActivity implements
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                // tvTimer.setVisibility(View.VISIBLE);
-                // rlVoiceRecordingStop.setVisibility(View.VISIBLE);
-                // ivrecordedbutton.setVisibility(View.GONE);
-                //  tvTimer.start();
-                Toast.makeText(ChatActivity.this, getResources().getString(R.string.RecordingStarted), Toast.LENGTH_LONG).show();
-                //  Toast.makeText(getApplicationContext(), "OnStartRecord", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -366,7 +355,7 @@ public class ChatActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rlVoiceRecordingStopId:
+          /*  case R.id.rlVoiceRecordingStopId:
                 mediaRecorder.stop();
                 tvTimer.stop();
                 rlVoiceRecordingStop.setVisibility(View.GONE);
@@ -392,7 +381,7 @@ public class ChatActivity extends AppCompatActivity implements
                 } else {
                     requestPermission();
                 }
-                break;
+                break;*/
             case R.id.ivsharefilebuttonid:
                 askStoragePermission();
                 break;
@@ -466,8 +455,18 @@ public class ChatActivity extends AppCompatActivity implements
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-        finish();
+        if (inbox.equalsIgnoreCase("inbox")) {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            intent.putExtra("chat","chatEntry");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+        } else {
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+            finish();
+        }
+
     }
 
     private void getProfileApi(String user_id) {

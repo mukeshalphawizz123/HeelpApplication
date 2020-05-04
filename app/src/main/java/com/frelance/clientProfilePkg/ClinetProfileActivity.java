@@ -117,6 +117,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                 if (chatFlag.equalsIgnoreCase("chat")) {
                     CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
                 } else {
+                    AppSession.setStringPreferences(getApplicationContext(),"chatEntrty","");
                     Intent intent1 = new Intent(ClinetProfileActivity.this, ChatActivity.class);
                     intent1.putExtra("client_id", clientId);
                     startActivity(intent1);

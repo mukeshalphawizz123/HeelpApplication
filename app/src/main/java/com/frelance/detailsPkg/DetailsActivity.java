@@ -66,7 +66,6 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
     private List<YourMission> yourMissionList;
     private AppCompatTextView etdescription, ettitletext, etbudget;
     private ArrayList<String> filesList;
-
     FileDownloading fileDownloading;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class DetailsActivity extends Fragment implements DetailsAdapter.DetailsA
         }
         init(view);
         getPreference();
-       // Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "" + missionId, Toast.LENGTH_LONG).show();
         if (CheckNetwork.isNetAvailable(getActivity())) {
             // myMissionViewDetail("145");
             myMissionViewDetail(missionId);

@@ -140,6 +140,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     public void mymissionpropose(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlMyMissionDiscusseDelId:
+                AppSession.setStringPreferences(getActivity(),"chatEntrty","");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", yourMission.getClient_id());
                 startActivity(intent);

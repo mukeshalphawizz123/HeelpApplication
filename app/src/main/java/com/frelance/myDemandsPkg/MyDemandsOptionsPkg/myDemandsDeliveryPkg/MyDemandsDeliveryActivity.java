@@ -220,6 +220,7 @@ public class MyDemandsDeliveryActivity extends Fragment
                 break;
             case R.id.tvliverycontactid:
                 AppSession.setStringPreferences(getActivity(), "dispute_mission_id", projectId);
+                AppSession.setStringPreferences(getActivity(), "MyDemand_MyMission", "MyDemand");
                 replaceFragement(new HelpActivity());
                 break;
             case R.id.rlliverymodificationbtnbtnid:
@@ -243,15 +244,7 @@ public class MyDemandsDeliveryActivity extends Fragment
         fragmentTransaction.replace(R.id.flHomeId, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commitAllowingStateLoss();
-
     }
-
-    private void replaceFragementWithoutStack(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.flHomeId, fragment);
-        fragmentTransaction.commit();
-    }
-
 
     public void removeThisFragment() {
         final FragmentManager manager = getFragmentManager();

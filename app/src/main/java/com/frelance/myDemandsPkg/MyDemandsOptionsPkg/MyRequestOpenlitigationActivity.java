@@ -28,6 +28,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
+import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionadapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
@@ -53,7 +54,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     private ImageView ivtextfeedbackreqdashboardback, ivnotification;
     private ApiServices apiServices;
     private AppCompatImageView ivgifbutton;
-    private String missionId, userId, mission_demand_title;
+    private String missionId, userId, mission_demand_title, msg;
     private AppCompatEditText ettypemsg;
     private RecyclerView rvMyMissionDispute;
     private List<Datum> datumList;
@@ -70,6 +71,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
         missionId = this.getArguments().getString("projectId");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
+        msg = AppSession.getStringPreferences(getActivity(), "msg");
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         //Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
@@ -79,11 +81,21 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
         }
         tvDemandTitleRequest.setText(mission_demand_title);
+
+
+        if (msg.isEmpty() || msg == null) {
+        } else {
+            if (CheckNetwork.isNetAvailable(getActivity())) {
+                sendHelpDispute();
+            } else {
+            }
+        }
+
+
         return view;
     }
 
     private void init(View view) {
-
         tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         ivgifbutton = view.findViewById(R.id.ivgifbuttonid);
         rvMyMissionDispute = view.findViewById(R.id.rvMyMissionDisputeId);
@@ -176,8 +188,8 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
     private void replaceFragementWithoutStack(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.flHomeId, fragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.add(R.id.flHomeId, fragment);
+        // fragmentTransaction.commit();
     }
 
     public void removeThisFragment() {
@@ -196,8 +208,6 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
                             datumList = getAllDiputeResponseModle.getData();
                             myMissionadapter.addDisputeList(datumList);
                             layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
-
-
                         } else {
 
                         }
@@ -227,7 +237,6 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
             }
         });
-
     }
 
     private void sendDispute() {
@@ -244,6 +253,50 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
 
                     }
                     myDemandDispute(userId);
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SendDiputeResponseModle> call, Throwable t) {
+                CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+    private void sendHelpDispute() {
+        CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.projectsenddispute(missionId, msg, userId).enqueue(new Callback<SendDiputeResponseModle>() {
+            @Override
+            public void onResponse(Call<SendDiputeResponseModle> call, Response<SendDiputeResponseModle> response) {
+                if (response.isSuccessful()) {
+                    CustomProgressbar.hideProgressBar();
+                    SendDiputeResponseModle missionlist = response.body();
+                    // myMissionadapter.addDisputeList(datumList);
+                    if (missionlist.getStatus()) {
+                        ettypemsg.setText("");
+                    } else {
+                    }
+                    if (CheckNetwork.isNetAvailable(getActivity())) {
+                        myDemandDispute(userId);
+                    } else {
+
+                    }
+
                 } else {
                     if (response.code() == 400) {
                         if (!false) {
