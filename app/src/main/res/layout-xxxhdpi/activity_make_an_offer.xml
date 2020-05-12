@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -26,19 +25,44 @@
                 android:padding="5sp"
                 android:src="@drawable/back" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivnotificationId"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15sp"
-                android:src="@drawable/ring" />
+            <RelativeLayout
+                android:id="@+id/rlnotificationHomeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivnotificationId"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@drawable/ring" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHomeNotificationCountId"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ivnotificationId"
+                android:layout_below="@+id/rlnotificationHomeId"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
                 android:text="@string/make_an_offer"
@@ -240,9 +264,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="5sp"
                                 android:background="@android:color/transparent"
+                                android:enabled="false"
                                 android:inputType="number"
                                 android:maxLength="8"
-                                android:enabled="false"
                                 android:textColor="@color/blue"
                                 android:textSize="18sp" />
 
@@ -305,9 +329,9 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etMakeOfferAmountId"
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="5sp"
-                        android:layout_marginStart="@dimen/_2sdp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_marginTop="5sp"
                         android:layout_toEndOf="@+id/radiogreenid"
                         android:background="@android:color/transparent"
                         android:fontFamily="@font/poppins_reguiar"
@@ -316,15 +340,15 @@
                         android:textSize="14sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_toEndOf="@+id/etMakeOfferAmountId"
-                        android:layout_width="wrap_content"
                         android:id="@+id/ivEuroMakeAnOfferId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_toEndOf="@+id/etMakeOfferAmountId"
+                        android:fontFamily="@font/poppins_reguiar"
                         android:text="€"
                         android:textColor="@color/blue"
-                        android:fontFamily="@font/poppins_reguiar"
-                        android:textSize="14sp"
-                        android:layout_marginTop="5sp"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="14sp" />
 
 
                 </RelativeLayout>

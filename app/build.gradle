@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.devlomi.record-view:record-view:2.0.1'
 
+
 /*    implementation 'com.google.firebase:firebase-auth:16.0.3'*/
 
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'

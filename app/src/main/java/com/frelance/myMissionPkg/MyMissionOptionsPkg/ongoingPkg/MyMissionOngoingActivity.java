@@ -1,16 +1,5 @@
 package com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,6 +23,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
 import com.frelance.ApiPkg.ApiServices;
@@ -44,7 +43,6 @@ import com.frelance.HelpActivity;
 import com.frelance.R;
 import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.detailsPkg.DetailsActivity;
-import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.homeTablayout.publishPkg.SelectImageAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.Adapter.OngoingAdapter;
@@ -52,13 +50,13 @@ import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModleP
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 import com.frelance.utility.FileDownloading;
 import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,7 +112,7 @@ public class MyMissionOngoingActivity extends Fragment implements
     private ArrayList<String> filesList;
     private OngoingAdapter ongoingAdapter;
     private FileDownloading fileDownloading;
-    private AppCompatTextView tvMyMissTitle, tvMyMissionAvailbale;
+    private AppCompatTextView tvMyMissTitle, tvMyMissionAvailbale, tvHomeNotificationCount;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
@@ -131,6 +129,12 @@ public class MyMissionOngoingActivity extends Fragment implements
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         tvMyMissTitle.setText(mission_mission_title);
         return view;
     }
@@ -141,6 +145,7 @@ public class MyMissionOngoingActivity extends Fragment implements
     }
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvMyMissionAvailbale = view.findViewById(R.id.tvMyMissionAvailbaleId);
         tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         rvselectimageId = view.findViewById(R.id.rvselectimageId);
@@ -544,5 +549,62 @@ public class MyMissionOngoingActivity extends Fragment implements
             //  fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
 
         }
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

@@ -1,17 +1,11 @@
 package com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -20,12 +14,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.deleteCardPkg.DeleteCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.getCardDetailModle.FetchCardModel;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.cardModlePkg.upadateCardpkg.UpdateCardModel;
@@ -51,11 +51,12 @@ CreditCardActivity extends AppCompatActivity implements View.OnClickListener {
     private RelativeLayout bottomRel, rlediter, rlAddANewCard, rlDelete;
     private ApiServices apiServices;
     private AppCompatEditText etCardHolderName, etExpiry;
-    private AppCompatTextView etCardNumber;
+    private AppCompatTextView etCardNumber, tvHomeNotificationCount;
     String a;
     int keyDel;
     private String userId, email;
     private static Animation shakeAnimation;
+
     // private List<Datum> datumList;
 
     @Override
@@ -72,11 +73,19 @@ CreditCardActivity extends AppCompatActivity implements View.OnClickListener {
         } else {
             Toast.makeText(getApplicationContext(), "Check Internet Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void init() {
         shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
         rlDelete = findViewById(R.id.rlDeleteid);
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         rlediter = findViewById(R.id.rlediterid);
         etCardHolderName = findViewById(R.id.etCardHolderNameId);
         etCardNumber = findViewById(R.id.etCardNumberId);
@@ -310,7 +319,7 @@ CreditCardActivity extends AppCompatActivity implements View.OnClickListener {
                         if (body.getStatus()) {
                             etCardHolderName.setText(body.getUsername().get(0).getNameOnCard());
                             String carddigits = body.getData().getLast4().trim();
-                            etCardNumber.setText("************" +carddigits);
+                            etCardNumber.setText("************" + carddigits);
                             //etCardNumber.setText(carddigits);
                             //   etCardNumber.setText("************" + carddigits);
                             if (body.getData().getExpYear().toString().length() == 4) {
@@ -378,6 +387,61 @@ CreditCardActivity extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
+    }
 
     private void deleteCard() {
         CustomProgressbar.showProgressBar(this, false);

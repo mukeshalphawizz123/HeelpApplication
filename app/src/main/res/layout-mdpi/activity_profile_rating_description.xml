@@ -41,26 +41,54 @@
                     android:textSize="30sp"
                     android:textStyle="normal" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivnotificationuserprofileId"
-                    android:layout_width="30sp"
-                    android:layout_height="30sp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="15sp"
-                    android:src="@drawable/ring" />
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:id="@+id/rlnotificationHomeId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivnotificationuserprofileId"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@drawable/ring" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvHomeNotificationCountId"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/circle"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
 
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivuserprofileimageId"
                     android:layout_width="130sp"
-                    android:layout_height="130sp"
+                    android:layout_height="120sp"
                     android:layout_below="@+id/rbhelperprofileId"
                     android:layout_centerHorizontal="true"
+                    android:scaleType="fitXY"
                     android:layout_marginTop="5sp"
+                    android:padding="@dimen/_4sdp"
                     android:layout_marginEnd="15sp"
-                    android:src="@drawable/userprofileimage" />
+                    android:src="@drawable/dashboarddummyimg"
+                    />
 
 
                 <androidx.appcompat.widget.AppCompatTextView

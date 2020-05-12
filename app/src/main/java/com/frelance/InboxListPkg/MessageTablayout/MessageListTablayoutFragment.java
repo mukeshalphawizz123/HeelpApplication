@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.InboxListPkg.MessageListAdapterPkg.DialogeMessageUserAdapter;
 import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.InboxListPkg.msgModlePkg.Datum;
@@ -34,6 +36,7 @@ import com.frelance.InboxListPkg.MessageListFragmentPkg.MessageNonLusFragment;
 import com.frelance.InboxListPkg.MessageListFragmentPkg.MessageToutFragment;
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -61,6 +64,7 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
     private DialogeMessageUserAdapter dialogeMessageUserAdapter;
     private List<Datum> datumList;
     private List<Datum> datumList1;
+    private AppCompatTextView tvHomeNotificationCount;
     private RelativeLayout rlUserSearchBox;
 
     @Override
@@ -75,10 +79,17 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         addTabs(view);
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         return view;
     }
 
     private void addTabs(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         rlUserSearchBox = view.findViewById(R.id.rlUserSearchBoxId);
         ivnotificationmsg = view.findViewById(R.id.ivnotificationmsgId);
         ivnotificationmsg.setOnClickListener(this);
@@ -223,6 +234,64 @@ public class MessageListTablayoutFragment extends Fragment implements View.OnCli
                 (getActivity()).overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                 break;
         }
+    }
+
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 
 /*    public Filter getFilter() {

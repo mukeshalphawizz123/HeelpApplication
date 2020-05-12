@@ -1,5 +1,24 @@
 package com.frelance.chatPkg;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,27 +30,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Chronometer;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.devlomi.record_view.OnBasketAnimationEnd;
 import com.devlomi.record_view.OnRecordListener;
@@ -48,16 +46,15 @@ import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.chatResponseModlePkg.ChatImageResponseModle;
 import com.frelance.chatPkg.chatModlePkg.voiceRecordingModle.RecordingResponseModle;
+import com.frelance.clientProfilePkg.ClinetProfileActivity;
 import com.frelance.homePkg.HomeActivity;
 import com.frelance.homePkg.NotificatinCountChatInterface;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.clientProfilePkg.ClinetProfileActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
-import com.frelance.utility.ImagePicker;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -124,6 +121,7 @@ public class ChatActivity extends AppCompatActivity implements
     private RecordView recordView;
     private RecordButton recordButton;
     private CardView cvChat;
+    private AppCompatTextView tvHomeNotificationCount;
 
     private ArrayList<UnReadMessageUserModle> datumList;
 
@@ -154,11 +152,17 @@ public class ChatActivity extends AppCompatActivity implements
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
 
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notification(userid);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         //removing data from firebase server=====================================================
 
         // final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("userList/" + "user_" + userid + "_").child(clientId).removeValue();
         chatUnReadCount();
-        NotificatinCountChatInterface.getInstance().setNotificationChatCount("12");
+        // NotificatinCountChatInterface.getInstance().setNotificationChatCount("12");
     }
 
     @Override
@@ -183,14 +187,11 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     private void init() {
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         cvChat = (CardView) findViewById(R.id.cvChatId);
         recordView = (RecordView) findViewById(R.id.record_view);
         recordButton = (RecordButton) findViewById(R.id.record_button);
         recordButton.setRecordView(recordView);
-
-       /* tvTimer = findViewById(R.id.tvTimerId);
-        rlVoiceRecordingStop = findViewById(R.id.rlVoiceRecordingStopId);
-        ivrecordedbutton = findViewById(R.id.ivrecordedbuttonid);*/
         ivsharefilebutton = findViewById(R.id.ivsharefilebuttonid);
         ivUserMsg = findViewById(R.id.ivUserMsgId);
         tvUserProffesion = findViewById(R.id.tvUserProffesionId);
@@ -457,7 +458,7 @@ public class ChatActivity extends AppCompatActivity implements
         super.onBackPressed();
         if (inbox.equalsIgnoreCase("inbox")) {
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            intent.putExtra("chat","chatEntry");
+            intent.putExtra("chat", "chatEntry");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
@@ -517,6 +518,61 @@ public class ChatActivity extends AppCompatActivity implements
 
     }
 
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
+    }
 
     private void sendChat(String clientId, String msg) {
         // CustomProgressbar.showProgressBar(this, false);

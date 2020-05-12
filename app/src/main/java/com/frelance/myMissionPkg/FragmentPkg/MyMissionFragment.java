@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,6 +24,7 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.databinding.ActivityMymissionsBinding;
+import com.frelance.makeAnOfferPkg.MakeAnOfferActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.MyMissionCompleteActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.liveryPkg.MyMissionDeliveryActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionInDisputeActivity;
@@ -34,6 +36,7 @@ import com.frelance.myMissionPkg.Mymissionmodle.mymissionModle;
 import com.frelance.myMissionPkg.myMissionModlePkg.MyMissionModel;
 import com.frelance.myMissionPkg.myMissionModlePkg.YourMission;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -58,7 +61,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
     private RecyclerView rvhorizontaldata, rvmymissionFrag;
     private ImageView ivnotification;
     private TextView Tvmymissionitemnot;
-    private String filterTag;
+    private String filterTag,userid;
     private ApiServices apiServices;
     private ProgressBar PbMymission;
     public MyMissionsecAdapter myMissionsecAdapter;
@@ -66,6 +69,7 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
     private String position, filtertag;
     private String userId;
     private SwipeRefreshLayout sflMyMission;
+    private AppCompatTextView tvHomeNotificationCount;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentHomePublisharequestBinding = DataBindingUtil.inflate(inflater, R.layout.activity_mymissions, container, false);
@@ -88,25 +92,18 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
 
-       /* sflMyMission.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (CheckNetwork.isNetAvailable(getActivity())) {
-                    myMission("0");
-                } else {
-                    Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
-                }
-
-                sflMyMission.setRefreshing(false);
-            }
-        });*/
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
 
     private void init(View view) {
-        // sflMyMission = view.findViewById(R.id.sflMyMissionId);
         Tvmymissionitemnot = view.findViewById(R.id.TvmymissionitemnotId);
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         PbMymission = view.findViewById(R.id.PbMymissionId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
@@ -159,6 +156,63 @@ public class MyMissionFragment extends Fragment implements MyMissionsecAdapter.M
             @Override
             public void onFailure(Call<MyMissionModel> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

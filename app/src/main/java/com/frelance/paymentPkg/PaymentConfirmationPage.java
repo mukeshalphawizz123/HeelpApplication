@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.frelance.R;
 import com.frelance.homePkg.HomeActivity;
@@ -15,6 +16,7 @@ import com.frelance.utility.CheckNetwork;
 public class PaymentConfirmationPage extends AppCompatActivity implements View.OnClickListener {
     private ImageView ivnotification, ivdashboardback;
     private RelativeLayout RlPaymentConfrm;
+    private AppCompatTextView tvHomeNotificationCount;
 
 
     @Override
@@ -26,6 +28,7 @@ public class PaymentConfirmationPage extends AppCompatActivity implements View.O
 
     private void init() {
         //ivdashboardback = findViewById(R.id.ivdashboardbackId);
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         RlPaymentConfrm = findViewById(R.id.RlPaymentConfrmId);
         ivnotification = findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);

@@ -1,14 +1,5 @@
 package com.frelance.plusMorePkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,15 +21,26 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.EditProfileConfirmation;
 import com.frelance.R;
 import com.frelance.SelectLanguageDailoge;
+import com.frelance.clientProfilePkg.ProfileRatingDescriptionActivity;
 import com.frelance.databinding.ActivityPlusMoreBinding;
 import com.frelance.homePkg.HomeActivity;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.paymentPkg.DashboardPaymentActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardHelpActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
@@ -47,7 +49,6 @@ import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardParametersAc
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DeshboardSponsorshipActivity;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.UserProfileEditActivity;
-import com.frelance.clientProfilePkg.ProfileRatingDescriptionActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -87,7 +88,7 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
     private ProgressBar pbUserEditProfile;
     private List<YourMission> yourMissionList;
     private CircleImageView ivuserprofileimage;
-    private AppCompatTextView tvname, tvdesination, tvRatingCountPlusMore;
+    private AppCompatTextView tvname, tvdesination, tvRatingCountPlusMore, tvHomeNotificationCount;
     private String userImg, userName, userId;
     private AppCompatImageView iveditprofilepins;
 
@@ -104,12 +105,20 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
+
         return view;
     }
 
 
     private void init(View view) {
-
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvRatingCountPlusMore = view.findViewById(R.id.tvRatingCountPlusMoreId);
         pbUserEditProfile = view.findViewById(R.id.pbUserEditProfileId);
         IvUserProfilesettings = view.findViewById(R.id.IvUserProfilesettingsId);
@@ -393,6 +402,63 @@ public class PlusMoreFragment extends Fragment implements PlusMoreAdapter.PlusMo
             @Override
             public void onFailure(Call<GetProfileModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

@@ -51,6 +51,7 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demand
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -82,7 +83,7 @@ public class MyDemandsDeliveryActivity extends Fragment
     private ApiServices apiServices;
     private ProgressBar pbDemandDelivery;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest;
+    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest,tvHomeNotificationCount;
     private CircleImageView ivUserDemandDely;
     private String projectId, userid, clientId, mission_demand_title, firstName, projectAmount;
     private static Animation shakeAnimation;
@@ -116,11 +117,18 @@ public class MyDemandsDeliveryActivity extends Fragment
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
 
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userid);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         tvDemandTitleRequest.setText(mission_demand_title);
         return view;
     }
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         rldummyimg = view.findViewById(R.id.rldummyimgid);
         tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         rlpaymentbtn = view.findViewById(R.id.rlpaymentbtnid);
@@ -354,8 +362,61 @@ public class MyDemandsDeliveryActivity extends Fragment
             }
         });
     }
-//projectPrice
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
 
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
+    }
     private void askToModify(String misionid) {
         CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.askToModify(misionid).enqueue(new Callback<AskToModifyResponseModle>() {

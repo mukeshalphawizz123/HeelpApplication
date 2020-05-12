@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,11 +34,16 @@ import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.Datum;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 import com.frelance.utility.FileDownloading;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +69,7 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
     private static Animation shakeAnimation;
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
+    private AppCompatTextView tvHomeNotificationCount;
 
 
     @Override
@@ -81,10 +88,17 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
         } else {
             Toast.makeText(MakeAnOfferActivity.this, "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(MakeAnOfferActivity.this)) {
+            notification(userid);
+        } else {
+            Toast.makeText(MakeAnOfferActivity.this, "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void init() {
         shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         etMakeOfferAmount = findViewById(R.id.etMakeOfferAmountId);
         etAcceptOffer = findViewById(R.id.etAcceptOfferId);
         etbudget = findViewById(R.id.etbudgetid);
@@ -282,6 +296,62 @@ public class MakeAnOfferActivity extends AppCompatActivity implements MakeanOffe
                 fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
                 break;
         }
+    }
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 }
 

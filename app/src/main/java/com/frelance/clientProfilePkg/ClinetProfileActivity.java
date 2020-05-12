@@ -1,10 +1,7 @@
 package com.frelance.clientProfilePkg;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,17 +9,22 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.GetProfileModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardModlePkg.getProfileModlePkg.YourMission;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -39,7 +41,7 @@ import retrofit2.Response;
 public class ClinetProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private RelativeLayout rlcircleprrogressbar, rldiscuss, rlmessageuserprofile;
     private ImageView ivbackproffilemsg, ivnotificationuserprofile;
-    private String clientId;
+    private String clientId, userid;
     private ApiServices apiServices;
     private List<YourMission> clientDetailList;
     private AppCompatImageView ivuserprofileimage;
@@ -47,6 +49,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
     CircularProgressIndicator donutprogress;
     private RatingBar rbhelperprofile;
     private String chatFlag;
+    private AppCompatTextView tvHomeNotificationCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,19 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         clientId = AppSession.getStringPreferences(getApplicationContext(), "clientId");
         chatFlag = AppSession.getStringPreferences(getApplicationContext(), "chatEntry");
+        userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
+
+        // Toast.makeText(getApplicationContext(), clientId, Toast.LENGTH_LONG).show();
 
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
             getProfileApi(clientId);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notification(userid);
         } else {
             Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -66,6 +78,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
 
     private void init() {
         try {
+            tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
             rbhelperprofile = findViewById(R.id.rbhelperprofileId);
             tvRatingCountPlusMore = findViewById(R.id.tvRatingCountPlusMoreId);
             tvname = findViewById(R.id.tvnameid);
@@ -90,6 +103,10 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
             rlcircleprrogressbar.setOnClickListener(this);
 
             donutprogress = findViewById(R.id.donutprogressid);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ivuserprofileimage.setClipToOutline(true);
+            }
+
 
 // you can set max and current progress values individually
             //   donutprogress.setMaxProgress(5);
@@ -117,7 +134,7 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
                 if (chatFlag.equalsIgnoreCase("chat")) {
                     CheckNetwork.backScreenWithouFinish(ClinetProfileActivity.this);
                 } else {
-                    AppSession.setStringPreferences(getApplicationContext(),"chatEntrty","");
+                    AppSession.setStringPreferences(getApplicationContext(), "chatEntrty", "");
                     Intent intent1 = new Intent(ClinetProfileActivity.this, ChatActivity.class);
                     intent1.putExtra("client_id", clientId);
                     startActivity(intent1);
@@ -200,6 +217,62 @@ public class ClinetProfileActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onFailure(Call<GetProfileModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

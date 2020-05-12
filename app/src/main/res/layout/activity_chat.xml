@@ -84,15 +84,42 @@
 
             </RelativeLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivnotificationHomeId"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_alignParentRight="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="15sp"
-                android:src="@drawable/ring" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlnotificationHomeId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivnotificationHomeId"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25sp"
+                    android:src="@drawable/ring" />
+
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHomeNotificationCountId"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

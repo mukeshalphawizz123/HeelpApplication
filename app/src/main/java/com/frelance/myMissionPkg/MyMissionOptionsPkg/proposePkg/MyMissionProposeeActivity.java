@@ -1,13 +1,5 @@
 package com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -21,17 +13,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
-
 import com.frelance.chatPkg.ChatActivity;
 import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.Adapter.ProposeAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.YourMission;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -56,13 +56,15 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     private ApiServices apiServices;
     private List<YourMission> yourMissionList;
     String missionId, mission_mission_title;
-    private AppCompatTextView tvMyMissTitle;
+    private AppCompatTextView tvMyMissTitle, tvHomeNotificationCount;
+    private String userId;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_proposee, container, false);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = this.getArguments().getString("missionId");
         mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
+        userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         //  Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -70,12 +72,20 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+
+        }
         tvMyMissTitle.setText(mission_mission_title);
 
         return view;
     }
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
         ivnotification.setOnClickListener(this);
@@ -140,7 +150,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
     public void mymissionpropose(View view, int position, YourMission yourMission) {
         switch (view.getId()) {
             case R.id.rlMyMissionDiscusseDelId:
-                AppSession.setStringPreferences(getActivity(),"chatEntrty","");
+                AppSession.setStringPreferences(getActivity(), "chatEntrty", "");
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra("client_id", yourMission.getClient_id());
                 startActivity(intent);
@@ -229,6 +239,63 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
             @Override
             public void onFailure(Call<MyMissionProposedModle> call, Throwable t) {
                 CustomProgressbar.hideProgressBar();
+            }
+        });
+
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

@@ -39,6 +39,7 @@ import com.frelance.CustomToast;
 import com.frelance.R;
 import com.frelance.homeTablayout.publishPkg.publishModlePkg.PostDemandModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.paymentPkg.ComfirmationActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
@@ -46,6 +47,9 @@ import com.frelance.utility.Constants;
 import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -87,8 +91,9 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<String> stringArrayList = new ArrayList<>();
     private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
-    private AppCompatTextView tvFilestext;
+    private AppCompatTextView tvFilestext,tvHomeNotificationCount;
     private RelativeLayout rlShowPost;
+
 
     public static final void customToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
@@ -110,11 +115,18 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
         init();
 
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notification(client_id);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         return;
     }
 
 
     private void init() {
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         rlShowPost = findViewById(R.id.rlShowPostId);
         tvFilestext = findViewById(R.id.tvFilestextid);
         Pbitemdescription = findViewById(R.id.PbitemdescriptionId);
@@ -583,5 +595,61 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
 
                 break;
         }
+    }
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

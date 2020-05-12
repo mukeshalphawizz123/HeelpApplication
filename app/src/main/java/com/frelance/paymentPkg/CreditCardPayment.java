@@ -1,7 +1,6 @@
 package com.frelance.paymentPkg;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +15,6 @@ import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.paymentPkg.paymentModlePkg.ProjectAmountResponseModle;
-import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.PrizePoolActivity;
 import com.frelance.stripePaymentPkg.CheckoutActivityJava;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
@@ -37,7 +35,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
     private ApiServices apiServices;
     private float projectBudget, bankFees, totalAmount;
 
-    private AppCompatTextView tvcreditcardprice, tvcreditcardpricetwo, tvTotalProjecdPrice;
+    private AppCompatTextView tvcreditcardprice, tvcreditcardpricetwo, tvTotalProjecdPrice, tvHomeNotificationCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +53,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
     }
 
     private void init() {
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         tvTotalProjecdPrice = findViewById(R.id.tvTotalProjecdPriceId);
         tvcreditcardpricetwo = findViewById(R.id.tvcreditcardpricetwoidd);
         tvcreditcardprice = findViewById(R.id.tvcreditcardpriceidd);

@@ -38,15 +38,41 @@
                     android:textSize="30sp"
                     android:textStyle="normal" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivnotificationuserprofileId"
-                    android:layout_width="28dp"
-                    android:layout_height="30sp"
-                    android:layout_alignParentRight="true"
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="15sp"
-                    android:src="@drawable/ring" />
+                    android:id="@+id/rlnotificationHomeId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivnotificationuserprofileId"
+                        android:layout_width="28dp"
+                        android:layout_height="30sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:src="@drawable/ring" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvHomeNotificationCountId"
+                        android:background="@drawable/circle"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:text="0"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
 
                 <RatingBar
                     android:id="@+id/rbhelperprofileId"
@@ -62,23 +88,36 @@
                     android:transformPivotX="0dp"
                     android:transformPivotY="0dp" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivuserprofileimageId"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                <RelativeLayout
+                    android:id="@+id/rlRoudedid"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:layout_below="@+id/rbhelperprofileId"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5sp"
-                    android:layout_marginEnd="15sp"
-                    android:src="@drawable/userprofileimage" />
+                    android:layout_centerHorizontal="true">
 
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivuserprofileimageId"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5sp"
+                        android:src="@drawable/dashboarddummyimg"
+                        android:scaleType="fitXY"
+                        android:padding="@dimen/_3sdp"
+                        android:background="@drawable/image_rounded" />
+
+
+
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/rldiscussid"
                     android:layout_width="wrap_content"
                     android:layout_height="100sp"
                     android:layout_below="@+id/rbhelperprofileId"
                     android:layout_margin="10sp"
-                    android:layout_toEndOf="@+id/ivuserprofileimageId"
+                    android:layout_toEndOf="@+id/rlRoudedid"
                     android:background="@drawable/discussbtn">
 
                 </RelativeLayout>
@@ -87,7 +126,7 @@
                     android:id="@+id/rlusernameid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivuserprofileimageId"
+                    android:layout_below="@+id/rlRoudedid"
                     android:layout_centerInParent="true"
                     android:layout_margin="10sp">
 

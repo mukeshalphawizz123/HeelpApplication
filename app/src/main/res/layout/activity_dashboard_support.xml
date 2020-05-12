@@ -13,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <RelativeLayout
@@ -32,19 +32,46 @@
                     android:padding="5sp"
                     android:src="@drawable/back" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivnotificationsupportId"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="15sp"
-                    android:src="@drawable/ring" />
+
+                <RelativeLayout
+                    android:id="@+id/rlnotificationHomeId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_1sdp">
+
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivnotificationsupportId"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@drawable/ring" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvHomeNotificationCountId"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:background="@drawable/circle"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+
+                </RelativeLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivnotificationsupportId"
+                    android:layout_below="@+id/rlnotificationHomeId"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="25dp"
                     android:text="@string/support_and_contact"

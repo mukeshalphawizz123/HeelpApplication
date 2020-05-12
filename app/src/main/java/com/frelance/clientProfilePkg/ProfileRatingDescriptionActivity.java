@@ -1,11 +1,5 @@
 package com.frelance.clientProfilePkg;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,14 +7,21 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
+import com.frelance.CustomProgressbar;
 import com.frelance.R;
-
+import com.frelance.clientProfilePkg.AdapterPkg.ProfileRatingAdapter;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.GetUserReviewsModel;
 import com.frelance.clientProfilePkg.getuserreviewsModulePkg.Review;
 import com.frelance.notificationPkg.NotificationActivity;
-import com.frelance.clientProfilePkg.AdapterPkg.ProfileRatingAdapter;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -47,7 +48,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     private AppCompatTextView tvname;
     private AppCompatImageView ivuserprofileimage;
     private RatingBar rbhelperprofile;
-    private AppCompatTextView tvReveiw;
+    private AppCompatTextView tvReveiw, tvHomeNotificationCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,13 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
                 Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
             }
         }
+
+        if (CheckNetwork.isNetAvailable(getApplicationContext())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getApplicationContext(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void getReviews(String user_id) {
@@ -133,6 +141,7 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
     }
 
     private void init() {
+        tvHomeNotificationCount = findViewById(R.id.tvHomeNotificationCountId);
         tvReveiw = findViewById(R.id.tvReveiwId);
         rbhelperprofile = findViewById(R.id.rbhelperprofileId);
         tvname = findViewById(R.id.tvnameid);
@@ -156,7 +165,6 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         //   userImg
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -175,4 +183,62 @@ public class ProfileRatingDescriptionActivity extends AppCompatActivity implemen
         CheckNetwork.backScreenWithouFinish(ProfileRatingDescriptionActivity.this);
 
     }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getApplicationContext(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
 }

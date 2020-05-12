@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,17 +24,18 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.databinding.ActivityMyrequestBinding;
-import com.frelance.myDemandsPkg.MyRequestAdapter.MyRequestAdapter;
-import com.frelance.myDemandsPkg.MyRequestAdapter.MyRequestsecAdapter;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.MyDemandsCompleteeActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.MyDemandsDeliveryActivity;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.MyDemandsOngoingActivity;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.MyDemandsPublishedTablayoutFragment;
+import com.frelance.myDemandsPkg.MyRequestAdapter.MyRequestAdapter;
+import com.frelance.myDemandsPkg.MyRequestAdapter.MyRequestsecAdapter;
 import com.frelance.myDemandsPkg.Myrequestmodle.myrequestModle;
 import com.frelance.myDemandsPkg.myRequestModlePkg.Datum;
 import com.frelance.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -66,6 +68,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
     public MyRequestsecAdapter myRequestsecAdapter;
     private List<Datum> myrequestlist;
     private String userId;
+    private AppCompatTextView tvHomeNotificationCount;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,11 +89,19 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         return view;
     }
 
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         Tvmyrequestitemnot = view.findViewById(R.id.TvmyrequestitemnotId);
         PbMyrequest = view.findViewById(R.id.PbMyrequestId);
         ivnotification = view.findViewById(R.id.ivnotificationId);
@@ -147,6 +158,63 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
         });
     }
 
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
     public void onClick(View view, int position) {
     }
 
@@ -172,7 +240,7 @@ public class MyDemandFragment extends Fragment implements MyRequestsecAdapter.My
                 } else if (text.equals(getResources().getString(R.string.Enlitige))) {
                     addFragment(new MyRequestOpenlitigationActivity(), true, Constants.MY_REQUEST_OPENLITIGATION_FRAGMENT, datum.getId());
                     AppSession.setStringPreferences(getActivity(), "mission_demand_title", datum.getMission_title());
-                    AppSession.setStringPreferences(getActivity(), "msg","");
+                    AppSession.setStringPreferences(getActivity(), "msg", "");
                 }
                 break;
         }

@@ -1,14 +1,5 @@
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -21,6 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -31,8 +30,10 @@ import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.Adapte
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.Datum;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
@@ -61,12 +62,12 @@ public class MyDemandsCompleteeActivity extends Fragment implements
     private ApiServices apiServices;
     private ProgressBar pbDemandComplete;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl, tvDemandTitleRequest;
+    private AppCompatTextView tvUserDemandComp, tvCommentDemandCompl, tvDemandTitleRequest, tvHomeNotificationCount;
     private CircleImageView ivUserDemandComp;
     private String projectId, mission_demand_title;
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
-    private String clientId;
+    private String clientId, userid;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,10 +76,17 @@ public class MyDemandsCompleteeActivity extends Fragment implements
         fileDownloading = new FileDownloading(getActivity());
         projectId = this.getArguments().getString("projectId");
         mission_demand_title = AppSession.getStringPreferences(getActivity(), "mission_demand_title");
+        userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         filesList = new ArrayList<>();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myOnCompleteApi(projectId);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userid);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
@@ -92,6 +100,7 @@ public class MyDemandsCompleteeActivity extends Fragment implements
 
     private void init(View view) {
         rldummyimg = view.findViewById(R.id.rldummyimgid);
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvDemandTitleRequest = view.findViewById(R.id.tvDemandTitleRequestId);
         tvUserDemandComp = view.findViewById(R.id.tvUserDemandCompId);
         tvCommentDemandCompl = view.findViewById(R.id.tvCommentDemandComplId);
@@ -235,6 +244,62 @@ public class MyDemandsCompleteeActivity extends Fragment implements
                 CustomProgressbar.hideProgressBar();
             }
         });
+    }
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     @Override

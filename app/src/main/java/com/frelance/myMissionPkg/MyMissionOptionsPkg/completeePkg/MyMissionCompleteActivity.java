@@ -1,14 +1,5 @@
 package com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -21,6 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
@@ -30,8 +29,10 @@ import com.frelance.detailsPkg.DetailsActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.Adapter.CompleteeFileUploadAdapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
+import com.frelance.utility.Constants;
 import com.frelance.utility.FileDownloading;
 import com.squareup.picasso.Picasso;
 
@@ -56,12 +57,14 @@ public class MyMissionCompleteActivity extends Fragment implements
     private TextView tvviewprofile;
     private ApiServices apiServices;
     private ProgressBar pbMymissionComplete;
-    private AppCompatTextView tvCommentValueMyMisssion, tvMyMissTitle, tvUserNameMyMisssion;
+    private AppCompatTextView tvCommentValueMyMisssion, tvMyMissTitle, tvUserNameMyMisssion, tvHomeNotificationCount;
     private CircleImageView ivUserImgMyMision;
     private String missionId, mission_mission_title;
 
     private ArrayList<String> filesList;
     FileDownloading fileDownloading;
+    private String userid;
+
 
     private String clientId;
 
@@ -71,6 +74,7 @@ public class MyMissionCompleteActivity extends Fragment implements
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         fileDownloading = new FileDownloading(getActivity());
         missionId = this.getArguments().getString("missionId");
+        userid = AppSession.getStringPreferences(getActivity(), Constants.USERID);
         mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         filesList = new ArrayList<>();
         init(view);
@@ -79,11 +83,19 @@ public class MyMissionCompleteActivity extends Fragment implements
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userid);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
+
         tvMyMissTitle.setText(mission_mission_title);
         return view;
     }
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
         pbMymissionComplete = view.findViewById(R.id.pbMymissionCompleteId);
         tvCommentValueMyMisssion = view.findViewById(R.id.tvCommentValueMyMisssionId);
@@ -240,5 +252,62 @@ public class MyMissionCompleteActivity extends Fragment implements
                 fileDownloading.DownloadImage(RetrofitClient.DOWNLOAD_URL + filesList.get(position));
                 break;
         }
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
+            }
+        });
+
     }
 }

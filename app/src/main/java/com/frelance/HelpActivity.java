@@ -1,12 +1,5 @@
 package com.frelance;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -19,15 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
-import com.frelance.externalModlePkg.ProjectSendDisputeModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.GoDisputeModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.MyRequestOpenlitigationActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionInDisputeActivity;
 import com.frelance.notificationPkg.NotificationActivity;
+import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.plusMorePkg.DashboardProfileOptionsPkg.DashboardPaymentOptionsPkg.supportPkg.DashboardSupportActivity;
-import com.frelance.show_dispute_pkg.ShowDisputeActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -49,6 +48,7 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
     private ProgressBar pbHelp;
     private AppCompatEditText etEnterDispute;
     private String userid, missionId, mission_demand_title, entryTag;
+    private AppCompatTextView tvHomeNotificationCount;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_help, container, false);
@@ -59,10 +59,17 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
         entryTag = AppSession.getStringPreferences(getActivity(), "MyDemand_MyMission");
         // Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
+
+        if (CheckNetwork.isNetAvailable(getActivity())) {
+            notification(userid);
+        } else {
+            Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
+        }
         return view;
     }
 
     private void init(View view) {
+        tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         etEnterDispute = view.findViewById(R.id.etEnterDisputeId);
         pbHelp = view.findViewById(R.id.pbHelpId);
         ivdashboardback = view.findViewById(R.id.ivdashboardbackId);
@@ -186,6 +193,63 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<GoDisputeModle> call, Throwable t) {
                 pbHelp.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+
+    private void notification(String userId) {
+        //    CustomProgressbar.showProgressBar(getActivity(), false);
+        apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
+            @Override
+            public void onResponse(Call<NotificationCountResponseModle> call, Response<NotificationCountResponseModle> response) {
+                if (response.isSuccessful()) {
+                    // CustomProgressbar.hideProgressBar();
+                    NotificationCountResponseModle notificationResponseModle = response.body();
+                    if (notificationResponseModle.getStatus()) {
+                        int messageCount = notificationResponseModle.getCountMessages();
+                        int messageDemands = notificationResponseModle.getCountMissionanddemands();
+                        int messageOffers = notificationResponseModle.getCountOffers();
+                        int messageCountPayment = notificationResponseModle.getCountPayment();
+                        int messageCountReveiews = notificationResponseModle.getCountReviews();
+
+                        String totalNotification = String.valueOf(messageCount
+                                + messageOffers
+                                + messageDemands
+                                + messageCountPayment
+                                + messageCountReveiews);
+
+                        if (totalNotification == null || totalNotification.isEmpty()) {
+                            tvHomeNotificationCount.setVisibility(View.GONE);
+                        } else {
+                            tvHomeNotificationCount.setText(totalNotification);
+                            tvHomeNotificationCount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvHomeNotificationCount.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                CustomProgressbar.hideProgressBar();
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationCountResponseModle> call, Throwable t) {
+                // CustomProgressbar.hideProgressBar();
+                tvHomeNotificationCount.setVisibility(View.GONE);
             }
         });
 

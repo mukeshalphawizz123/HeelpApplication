@@ -467,7 +467,7 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                     }
                 } else {
                     if (response.code() == 400) {
-                        if (!response.isSuccessful()) {
+                        if (!false) {
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(response.errorBody().string());

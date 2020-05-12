@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,33 +30,28 @@ import androidx.viewpager.widget.ViewPager;
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
+import com.frelance.R;
 import com.frelance.chatPkg.chatModlePkg.UnReadMessageUserModle;
 import com.frelance.chatPkg.chatModlePkg.UnReadMsgConsersation;
 import com.frelance.homeTablayout.adapter.HomeCategoryFilterAdapter;
 import com.frelance.homeTablayout.fragment.HomeCategoryFrament;
 import com.frelance.homeTablayout.fragment.HomeMissionFragment;
-
-import com.frelance.R;
-
 import com.frelance.homeTablayout.homeModel.ListOfProjectModel;
 import com.frelance.homeTablayout.homeModel.Project;
 import com.frelance.homeTablayout.publishPkg.PostADemandActivity;
 import com.frelance.notificationPkg.NotificatinModel;
 import com.frelance.notificationPkg.NotificationActivity;
 import com.frelance.notificationPkg.NotificationCountResponseModle;
-import com.frelance.notificationPkg.notificatinPaymentPkg.NotificationPaymentActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
 import com.google.android.material.tabs.TabLayout;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -341,7 +335,6 @@ public class HomeTablayoutFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-
         handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 //do your function;
