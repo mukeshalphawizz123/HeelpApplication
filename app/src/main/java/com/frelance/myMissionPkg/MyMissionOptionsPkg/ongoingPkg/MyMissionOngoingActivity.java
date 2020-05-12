@@ -1,5 +1,6 @@
 package com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -112,7 +115,7 @@ public class MyMissionOngoingActivity extends Fragment implements
     private ArrayList<String> filesList;
     private OngoingAdapter ongoingAdapter;
     private FileDownloading fileDownloading;
-    private AppCompatTextView tvMyMissTitle, tvMyMissionAvailbale, tvHomeNotificationCount;
+    private AppCompatTextView tvMyMissTitle, tvMyMissionAvailbale, tvHomeNotificationCount, tvFileNameOngoing;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mission_ongoing, container, false);
@@ -145,6 +148,7 @@ public class MyMissionOngoingActivity extends Fragment implements
     }
 
     private void init(View view) {
+        tvFileNameOngoing = view.findViewById(R.id.tvFileNameOngoingId);
         tvHomeNotificationCount = view.findViewById(R.id.tvHomeNotificationCountId);
         tvMyMissionAvailbale = view.findViewById(R.id.tvMyMissionAvailbaleId);
         tvMyMissTitle = view.findViewById(R.id.tvMyMissTitleId);
@@ -201,7 +205,7 @@ public class MyMissionOngoingActivity extends Fragment implements
                 pickerDialog.show(getChildFragmentManager(), "picker");
                 break;
             case R.id.rlmyMissProgressFileId:
-                showFileChooser();
+                askStoragePermission();
                 break;
             case R.id.rlproblemid:
                 if (CheckNetwork.isNetAvailable(getActivity())) {
@@ -296,7 +300,7 @@ public class MyMissionOngoingActivity extends Fragment implements
         MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            File file = new File(FileUtil.getPath(files.get(i), getActivity()));
+            File file = new File(FileUtil.getPath(getActivity(), files.get(i)));
             RequestBody fileBody = RequestBody.create(mediaType, file);
             //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
             fileParts[i] = MultipartBody.Part.createFormData("project_files[]", file.getPath(), fileBody);
@@ -357,7 +361,7 @@ public class MyMissionOngoingActivity extends Fragment implements
         switch (requestCode) {
             case PERMISSION_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    chooseFromGallery();
+                    showFileChooser();
                 } else {
                     //Constants.customToast(getApplicationContext(), "Permission Denied");
                     Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_LONG).show();
@@ -369,6 +373,17 @@ public class MyMissionOngoingActivity extends Fragment implements
         }
     }
 
+    private void askStoragePermission() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_READ_EXTERNAL_STORAGE);
+            }
+        } else {
+            showFileChooser();
+        }
+    }
 
     private void showFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -388,8 +403,31 @@ public class MyMissionOngoingActivity extends Fragment implements
             Uri content_describer = data.getData();
             // Uri content_describer = data.getData();
             files.add(content_describer);
-            // docPath = getRealPathFromURI(getActivity(), content_describer);
-            // Log.v("images", docPath);
+
+
+            String uriString = content_describer.toString();
+            File myFile = new File(uriString);
+            String path = myFile.getAbsolutePath();
+            String displayName = null;
+
+            if (uriString.startsWith("content://")) {
+                Cursor cursor = null;
+                try {
+                    cursor = getActivity().getContentResolver().query(content_describer, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        tvFileNameOngoing.setText(displayName);
+                    }
+                } finally {
+                    cursor.close();
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+                tvFileNameOngoing.setText(displayName);
+
+            }
+
+
             BufferedReader reader = null;
             try {
                 // open the user-picked file for reading:

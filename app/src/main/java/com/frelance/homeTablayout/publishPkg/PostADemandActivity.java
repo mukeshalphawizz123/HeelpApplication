@@ -1,13 +1,5 @@
 package com.frelance.homeTablayout.publishPkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +21,14 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.asksira.bsimagepicker.BSImagePicker;
 import com.bumptech.glide.Glide;
@@ -91,7 +91,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<String> stringArrayList = new ArrayList<>();
     private List<Uri> files = new ArrayList<>();
     private ArrayList<Uri> uriArrayList = new ArrayList<>();
-    private AppCompatTextView tvFilestext,tvHomeNotificationCount;
+    private AppCompatTextView tvFilestext, tvHomeNotificationCount;
     private RelativeLayout rlShowPost;
 
 
@@ -190,10 +190,14 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            File file = new File(FileUtil.getPath(files.get(i), getApplicationContext()));
-            RequestBody fileBody = RequestBody.create(mediaType, file);
-            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
-            fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+            try {
+                File file = new File(FileUtil.getPath(getApplicationContext(), files.get(i)));
+                RequestBody fileBody = RequestBody.create(mediaType, file);
+                //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+                fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
         }
 
@@ -235,10 +239,16 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         MediaType mediaType = MediaType.parse("*/*");//Based on the Postman logs,it's not specifying Content-Type, this is why I've made this empty content/mediaType
         MultipartBody.Part[] fileParts = new MultipartBody.Part[files.size()];
         for (int i = 0; i < files.size(); i++) {
-            File file = new File(FileUtil.getPath(files.get(i), getApplicationContext()));
-            RequestBody fileBody = RequestBody.create(mediaType, file);
-            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
-            fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+            try {
+                //getRealPathFromURI(PostADemandActivity.this, uriList.get(i))
+                //File file = new File(getRealPathFromURI(PostADemandActivity.this, files.get(i)));
+                File file = new File((FileUtil.getPath(getApplicationContext(), files.get(i))));
+                RequestBody fileBody = RequestBody.create(mediaType, file);
+                //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+                fileParts[i] = MultipartBody.Part.createFormData("project_file[]", file.getPath(), fileBody);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // fileParts[i] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH, "files[%d]", i), file.getName(), fileBody);
         }
 
@@ -363,7 +373,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                         PERMISSION_READ_EXTERNAL_STORAGE);
             }
         } else {
-            chooseFromGallery();
+            showFileChooser();
         }
     }
 
@@ -378,7 +388,7 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
         switch (requestCode) {
             case PERMISSION_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    chooseFromGallery();
+                    showFileChooser();
                 } else {
                     //Constants.customToast(getApplicationContext(), "Permission Denied");
                     Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_LONG).show();
@@ -431,7 +441,8 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 pickerDialog.show(getSupportFragmentManager(), "picker");
                 break;
             case R.id.rlPieceJointId:
-                showFileChooser();
+                askStoragePermission();
+                //showFileChooser();
                 break;
 
         }
@@ -518,8 +529,6 @@ public class PostADemandActivity extends AppCompatActivity implements View.OnCli
                 }
                 // Do something with the content in
                 //  some_view.setText(builder.toString());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,10 +25,10 @@
                 android:src="@drawable/back" />
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/_10sdp"
                 android:id="@+id/rlnotificationHomeId"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
 
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -52,10 +51,10 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/circle"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
 
             </RelativeLayout>
@@ -235,6 +234,17 @@
                         android:hint="@string/my_comment_i_finished_again"
                         android:textColor="@color/lessBlack"
                         android:textSize="@dimen/_10sdp" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvFileNameOngoingId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="4sp"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/_12sdp" />
+
 
                     <RelativeLayout
                         android:id="@+id/rlbottonbtnid"

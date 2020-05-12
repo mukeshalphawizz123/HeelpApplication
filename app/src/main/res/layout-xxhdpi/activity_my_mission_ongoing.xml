@@ -239,6 +239,16 @@
                         android:textColor="@color/lessBlack"
                         android:textSize="@dimen/_10sdp" />
 
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvFileNameOngoingId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="4sp"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/_12sdp" />
+
                     <RelativeLayout
                         android:id="@+id/rlbottonbtnid"
                         android:layout_width="130dp"

@@ -125,7 +125,6 @@ public class CheckoutActivityJava extends AppCompatActivity {
 
     }
 
-
     private void paymentStrip(String clientid, String userId, String username, String amount, String projectName, String token) {
         CustomProgressbar.showProgressBar(this, false);
         apiServices.paymentStrip(clientid, userId, username, amount, projectName, missionId, token)
