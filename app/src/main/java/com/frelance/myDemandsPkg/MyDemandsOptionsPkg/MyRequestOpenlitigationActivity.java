@@ -1,15 +1,5 @@
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -23,12 +13,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.R;
 import com.frelance.detailsPkg.DetailsActivity;
-import com.frelance.myDemandsPkg.FragmentPkg.MyDemandFragment;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.MyMissionadapter;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.Datum;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
@@ -63,7 +62,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     private Handler handler = new Handler();
     private int apiDelayed = 5 * 1000; //1 second=1000 milisecond, 5*1000=5seconds
     private Runnable runnable;
-    private AppCompatTextView tvDemandTitleRequest,tvHomeNotificationCount;
+    private AppCompatTextView tvDemandTitleRequest, tvHomeNotificationCount;
     LinearLayoutManager layoutManager;
 
 

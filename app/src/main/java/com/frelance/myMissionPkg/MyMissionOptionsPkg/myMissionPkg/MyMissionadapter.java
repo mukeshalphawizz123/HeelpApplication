@@ -40,38 +40,43 @@ public class MyMissionadapter extends RecyclerView.Adapter<MyMissionadapter.View
     @Override
     public void onBindViewHolder(@NonNull MyMissionadapter.ViewHolder holder, int position) {
         // String sm = "<b>" + "Support message:" + "</b> ";
-        if (datumList.get(position).getMessageType().equalsIgnoreCase("admin_message")) {
-            if (datumList.get(position).getMessage().isEmpty()) {
-                holder.rlSenderBox.setVisibility(View.GONE);
-                holder.rltime.setVisibility(View.GONE);
-                holder.tvSupportMsg.setVisibility(View.GONE);
-                holder.rlsupportmsgbox.setVisibility(View.GONE);
+        try {
+            if (datumList.get(position).getMessageType().equalsIgnoreCase("admin_message")) {
+                if (datumList.get(position).getMessage().isEmpty()) {
+                    holder.rlSenderBox.setVisibility(View.GONE);
+                    holder.rltime.setVisibility(View.GONE);
+                    holder.tvSupportMsg.setVisibility(View.GONE);
+                    holder.rlsupportmsgbox.setVisibility(View.GONE);
 
+                } else {
+                    // holder.tvSupportMsg.setText(Html.fromHtml(sm) + "\n" + datumList.get(position).getMessage());
+                    holder.tvSupportMsg.setText(datumList.get(position).getMessage());
+                    holder.rlSenderBox.setVisibility(View.GONE);
+                    holder.rltime.setVisibility(View.GONE);
+                    holder.tvSupportMsg.setVisibility(View.VISIBLE);
+                    holder.rlsupportmsgbox.setVisibility(View.VISIBLE);
+                    if (position == 0) {
+                        holder.rlsupportmsgbox.setBackground(context.getResources().getDrawable(R.drawable.blue_support_chat_box));
+                        holder.tvSupportMsg.setTextColor(context.getResources().getColor(R.color.white));
+                    }
+                }
             } else {
-                // holder.tvSupportMsg.setText(Html.fromHtml(sm) + "\n" + datumList.get(position).getMessage());
-                holder.tvSupportMsg.setText(datumList.get(position).getMessage());
-                holder.rlSenderBox.setVisibility(View.GONE);
-                holder.rltime.setVisibility(View.GONE);
-                holder.tvSupportMsg.setVisibility(View.VISIBLE);
-                holder.rlsupportmsgbox.setVisibility(View.VISIBLE);
-            }
-        } else {
 
-            if (datumList.get(position).getMessage().isEmpty()) {
-                holder.rlSenderBox.setVisibility(View.GONE);
-                holder.rltime.setVisibility(View.GONE);
-                holder.tvSupportMsg.setVisibility(View.GONE);
-                holder.rlsupportmsgbox.setVisibility(View.GONE);
+                if (datumList.get(position).getMessage().isEmpty()) {
+                    holder.rlSenderBox.setVisibility(View.GONE);
+                    holder.rltime.setVisibility(View.GONE);
+                    holder.tvSupportMsg.setVisibility(View.GONE);
+                    holder.rlsupportmsgbox.setVisibility(View.GONE);
 
-            } else {
-                holder.rlSenderBox.setVisibility(View.VISIBLE);
-                holder.tvSenderMessage.setVisibility(View.VISIBLE);
-                holder.rltime.setVisibility(View.VISIBLE);
-                holder.tvSenderMessage.setText(datumList.get(position).getMessage());
-                holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
-                holder.tvSupportMsg.setVisibility(View.GONE);
-                holder.rlsupportmsgbox.setVisibility(View.GONE);
-            }
+                } else {
+                    holder.rlSenderBox.setVisibility(View.VISIBLE);
+                    holder.tvSenderMessage.setVisibility(View.VISIBLE);
+                    holder.rltime.setVisibility(View.VISIBLE);
+                    holder.tvSenderMessage.setText(datumList.get(position).getMessage());
+                    holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
+                    holder.tvSupportMsg.setVisibility(View.GONE);
+                    holder.rlsupportmsgbox.setVisibility(View.GONE);
+                }
 
          /*   holder.tvSenderMessage.setText(datumList.get(position).getMessage());
             holder.tvtime.setText(Constants.missionChatDate(datumList.get(position).getMessageDateTime()));
@@ -79,6 +84,9 @@ public class MyMissionadapter extends RecyclerView.Adapter<MyMissionadapter.View
             holder.rltime.setVisibility(View.VISIBLE);
             holder.tvSupportMsg.setVisibility(View.GONE);
             holder.rlsupportmsgbox.setVisibility(View.GONE);*/
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

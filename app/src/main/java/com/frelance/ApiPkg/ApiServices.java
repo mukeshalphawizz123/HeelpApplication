@@ -1,6 +1,8 @@
 package com.frelance.ApiPkg;
 
 
+import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
+import com.frelance.SendAdminMsgModle;
 import com.frelance.SetLangPkg.SetLangmodel;
 import com.frelance.chatPkg.chatModlePkg.ChatEntryModel;
 import com.frelance.chatPkg.chatModlePkg.MsgSentModel;
@@ -17,12 +19,17 @@ import com.frelance.loginInitial.LoginPkgModel.Loginmodel;
 import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.MakeOfferDetailModle;
 import com.frelance.makeAnOfferPkg.makeAnOfferModlePkg.saveOfferModel.SaveOfferModle;
-import com.frelance.InboxListPkg.msgModlePkg.ChatUserResponseModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.GoDisputeModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.AskToModifyResponseModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.FetchProjectPriceModel;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.ReleasePaymenModel;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
+import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
 import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.notesModlePkg.AcceptOfferModle;
+import com.frelance.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.completeePkg.myMissionCompleteModlePkg.MissionCompleteModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.GetAllDiputeResponseModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.myMissionPkg.disputeModlePkg.SendDiputeResponseModle;
@@ -30,12 +37,6 @@ import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModleP
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.ongoingPkg.InProgressModlePkg.viewProgressModle.MissionInProgressModle;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.MyMissionProposedModle;
 import com.frelance.myMissionPkg.myMissionModlePkg.MyMissionModel;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandOngoingPkg.demandProgressModlePkg.DemandOnProgressModle;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsCompletePkg.demandCompleteModlePkg.DemandCompleteModle;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.DemandDeliveredModle;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg.demandDeliveryModlePkg.SubmitReviewModle;
-import com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myRequestPublishedPkg.Fragment.proposedModlePkg.DemandInProgressModle;
-import com.frelance.myDemandsPkg.myRequestModlePkg.MyDemandeModel;
 import com.frelance.notificationPkg.NotificationCountResponseModle;
 import com.frelance.notificationPkg.NotificationModlePkg.NotificationResponseModle;
 import com.frelance.notificationPkg.RemoveNotificationCountModle;
@@ -141,13 +142,11 @@ public interface ApiServices {
             @Field("type_id") String type_id);
 
 
-
     @FormUrlEncoded
     @POST("Client/update_notification_status")
     Call<RemoveNotificationCountModle> update_notification_status(
             @Field("user_id") String user_id,
             @Field("type_id") String type_id);
-
 
 
     @FormUrlEncoded
@@ -324,8 +323,6 @@ public interface ApiServices {
     Call<AskToModifyResponseModle> askToModify(@Field("mission_id") String mission_id);
 
 
-
-
     @FormUrlEncoded
     @POST("Client/get_amount")
     Call<FetchProjectPriceModel> get_amount(@Field("mission_id") String mission_id);
@@ -345,7 +342,8 @@ public interface ApiServices {
     Call<ReleasePaymenModel> amount_released(
             @Field("amount") String amount,
             @Field("user_id") String user_id,
-            @Field("mission_id") String mission_id);
+            @Field("mission_id") String mission_id,
+            @Field("client_id") String client_id);
 
     @FormUrlEncoded
     @POST("Client/projectPorgress")
@@ -422,15 +420,19 @@ public interface ApiServices {
     );
 
 
-
-
-
-
     @FormUrlEncoded
     @POST("Client/update_project_status")
     Call<GoDisputeModle> sendDisputeState(
             @Field("project_id") String project_id);
 
+
+    @FormUrlEncoded
+    @POST("Client/projectdefaultsenddispute")
+    Call<SendAdminMsgModle> projectdefaultsenddispute(
+            @Field("user_id") String user_id,
+            @Field("project_id") String project_id,
+            @Field("message") String message
+    );
 
 
     @Multipart

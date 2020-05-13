@@ -1,25 +1,10 @@
 package com.frelance.myDemandsPkg.MyDemandsOptionsPkg.myDemandsDeliveryPkg;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +19,18 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.ApiPkg.ApiServices;
 import com.frelance.ApiPkg.RetrofitClient;
@@ -83,7 +80,7 @@ public class MyDemandsDeliveryActivity extends Fragment
     private ApiServices apiServices;
     private ProgressBar pbDemandDelivery;
     private List<Datum> datumList;
-    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest,tvHomeNotificationCount;
+    private AppCompatTextView tvUserDemandDely, tvCommentDemandDely, tvDemandTitleRequest, tvHomeNotificationCount;
     private CircleImageView ivUserDemandDely;
     private String projectId, userid, clientId, mission_demand_title, firstName, projectAmount;
     private static Animation shakeAnimation;
@@ -362,6 +359,7 @@ public class MyDemandsDeliveryActivity extends Fragment
             }
         });
     }
+
     private void notification(String userId) {
         //    CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getnotificationcount(userId).enqueue(new Callback<NotificationCountResponseModle>() {
@@ -417,6 +415,7 @@ public class MyDemandsDeliveryActivity extends Fragment
         });
 
     }
+
     private void askToModify(String misionid) {
         CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.askToModify(misionid).enqueue(new Callback<AskToModifyResponseModle>() {
@@ -572,7 +571,7 @@ public class MyDemandsDeliveryActivity extends Fragment
     private void amountReleasedApi(Dialog dialog) {
         CustomProgressbar.showProgressBar(getActivity(), false);
         //Toast.makeText(getActivity(), projectAmount, Toast.LENGTH_LONG).show();
-        apiServices.amount_released(projectAmount, userid, projectId).enqueue(new Callback<ReleasePaymenModel>() {
+        apiServices.amount_released(projectAmount, userid, projectId, clientId).enqueue(new Callback<ReleasePaymenModel>() {
             @Override
             public void onResponse(Call<ReleasePaymenModel> call, Response<ReleasePaymenModel> response) {
                 if (response.isSuccessful()) {

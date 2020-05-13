@@ -79,7 +79,7 @@ public class MyDemandOngoingAdapter extends RecyclerView.Adapter<MyDemandOngoing
                 fileImagesUrl.add(imgesArray[i]);
             }
         }
-        if (filesList.get(0).getProjectFiles().isEmpty()) {
+        if (filesList.get(position).getProjectFiles().isEmpty()) {
 
         } else {
             String[] filesArray = filesList.get(position).getProjectFiles().split(",");

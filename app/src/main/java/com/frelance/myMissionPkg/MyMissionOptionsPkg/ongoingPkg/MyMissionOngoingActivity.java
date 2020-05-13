@@ -61,6 +61,7 @@ import com.frelance.utility.FileDownloading;
 import com.frelance.utility.FileUtil;
 import com.frelance.utility.ImagePicker;
 
+import org.bouncycastle.util.io.TeeOutputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -128,6 +129,7 @@ public class MyMissionOngoingActivity extends Fragment implements
 
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
+            //Toast.makeText(getActivity(),missionId, Toast.LENGTH_LONG).show();
             myMissionInProgress(missionId);
         } else {
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();

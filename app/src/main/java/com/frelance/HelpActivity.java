@@ -161,6 +161,54 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
                     pbHelp.setVisibility(View.GONE);
                     GoDisputeModle goDisputeModle = response.body();
                     if (goDisputeModle.getStatus()) {
+                        sendAdminMsg();
+                        /*if (entryTag.equalsIgnoreCase("MyDemand")) {
+                            //  etEnterDispute.getText().toString();
+                            addMyDemandFragement(new MyRequestOpenlitigationActivity());
+                            AppSession.setStringPreferences(getActivity(), "mission_demand_title", mission_demand_title);
+                            AppSession.setStringPreferences(getActivity(), "msg", etEnterDispute.getText().toString());
+                        } else {
+                            addMyMissionFragement(new MyMissionInDisputeActivity());
+                            AppSession.setStringPreferences(getActivity(), "mission_demand_title", mission_demand_title);
+                            AppSession.setStringPreferences(getActivity(), "msg", etEnterDispute.getText().toString());
+                        }*/
+                        // CheckNetwork.nextScreenWithoutFinish(getActivity(), ShowDisputeActivity.class);
+                    }
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                pbHelp.setVisibility(View.GONE);
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GoDisputeModle> call, Throwable t) {
+                pbHelp.setVisibility(View.GONE);
+            }
+        });
+
+    }
+
+
+    private void sendAdminMsg() {
+        pbHelp.setVisibility(View.VISIBLE);
+        apiServices.projectdefaultsenddispute(userid, missionId, "").enqueue(new Callback<SendAdminMsgModle>() {
+            @Override
+            public void onResponse(Call<SendAdminMsgModle> call, Response<SendAdminMsgModle> response) {
+                if (response.isSuccessful()) {
+                    pbHelp.setVisibility(View.GONE);
+                    SendAdminMsgModle goDisputeModle = response.body();
+                    if (goDisputeModle.getStatus()) {
                         if (entryTag.equalsIgnoreCase("MyDemand")) {
                             //  etEnterDispute.getText().toString();
                             addMyDemandFragement(new MyRequestOpenlitigationActivity());
@@ -191,13 +239,12 @@ public class HelpActivity extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<GoDisputeModle> call, Throwable t) {
+            public void onFailure(Call<SendAdminMsgModle> call, Throwable t) {
                 pbHelp.setVisibility(View.GONE);
             }
         });
 
     }
-
 
     private void notification(String userId) {
         //    CustomProgressbar.showProgressBar(getActivity(), false);

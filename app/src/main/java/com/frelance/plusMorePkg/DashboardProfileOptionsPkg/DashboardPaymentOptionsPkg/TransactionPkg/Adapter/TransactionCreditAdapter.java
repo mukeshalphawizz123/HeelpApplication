@@ -40,10 +40,10 @@ public class TransactionCreditAdapter extends RecyclerView.Adapter<TransactionCr
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvdatetime.setText(Constants.transactionDate(transactionList.get(0).getCreatedDate()));
-        holder.tvprojecttitle.setText(transactionList.get(0).getProjectTitle());
-        holder.tvprojetcost.setText(transactionList.get(0).getAmount() + "€");
-        holder.tvprojectdescription.setText("Received From : " + transactionList.get(0).getSent_to_username());
+        holder.tvdatetime.setText(Constants.transactionDate(transactionList.get(position).getCreatedDate()));
+        holder.tvprojecttitle.setText(transactionList.get(position).getProjectTitle());
+        holder.tvprojetcost.setText(transactionList.get(position).getAmount() + "€");
+        holder.tvprojectdescription.setText("Received From : " + transactionList.get(position).getSent_to_username());
 
     }
 

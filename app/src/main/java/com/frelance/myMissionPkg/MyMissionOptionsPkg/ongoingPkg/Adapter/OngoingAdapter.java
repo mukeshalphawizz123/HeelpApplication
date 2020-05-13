@@ -30,6 +30,7 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
     private List<Datum> filesList;
     private ArrayList<String> fileImagesUrl;
     private MyMisionOngoingChildAdapter myDemandOngoingChildAdapter;
+  //  LinearLayoutManager layoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
 
 
     public OngoingAdapter(Context context, MyMissionOngoingActivity ongoingAppOnClickListener) {
@@ -56,6 +57,7 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
         holder.rvOnGoingRow.setLayoutManager(layoutManager);
         myDemandOngoingChildAdapter = new MyMisionOngoingChildAdapter(context);
         holder.rvOnGoingRow.setAdapter(myDemandOngoingChildAdapter);
+
         if (filesList.get(position).getPictureUrl().isEmpty()) {
         } else {
             Picasso.with(context).load(RetrofitClient.MISSION_USER_IMAGE_URL + filesList.get(position).getPictureUrl()).into(holder.ivUserInprogMission);
@@ -69,7 +71,7 @@ public class OngoingAdapter extends RecyclerView.Adapter<OngoingAdapter.ViewHold
                 fileImagesUrl.add(imgesArray[i]);
             }
         }
-        if (filesList.get(0).getProjectFiles().isEmpty()) {
+        if (filesList.get(position).getProjectFiles().isEmpty()) {
 
         } else {
             String[] filesArray = filesList.get(position).getProjectFiles().split(",");
