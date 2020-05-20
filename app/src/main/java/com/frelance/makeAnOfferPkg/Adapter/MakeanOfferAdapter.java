@@ -51,6 +51,7 @@ public class MakeanOfferAdapter extends RecyclerView.Adapter<MakeanOfferAdapter.
     }
 
 
+
     public interface MakeanOfferAppOnClickListener {
         void myMakeAnOfferDetailTabClick(View view, int position);
     }

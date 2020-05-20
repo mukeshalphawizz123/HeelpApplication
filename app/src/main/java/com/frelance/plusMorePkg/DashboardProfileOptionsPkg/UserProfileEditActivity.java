@@ -496,7 +496,6 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
 
-
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
