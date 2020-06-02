@@ -304,10 +304,99 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rlpassesid"
+                    android:id="@+id/rlActNoid"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_below="@+id/rlemailid"
+                    android:layout_marginLeft="20sp"
+                    android:layout_marginRight="20sp"
+                    android:background="@drawable/editgraybtn">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="100sp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/editbluebtn" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/account_no"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/EtActNoId"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="95dp"
+                        android:layout_marginEnd="15sp"
+                        android:inputType="number"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_reguiar"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlIfscid"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/rlActNoid"
+                    android:layout_marginLeft="20sp"
+                    android:layout_marginRight="20sp"
+                    android:background="@drawable/editgraybtn">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="100sp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/editbluebtn" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="100sp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/ifsc_code"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/EtIfscID"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="95dp"
+                        android:layout_marginEnd="15sp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins_reguiar"
+                        android:maxLength="12"
+                        android:singleLine="true"
+                        android:textColor="@color/lessBlack"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlpassesid"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/rlIfscid"
                     android:layout_marginLeft="20sp"
                     android:layout_marginRight="20sp"
                     android:background="@drawable/editgraybtn">

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -30,72 +28,79 @@
                     android:layout_below="@+id/rlcreditcardToolbarId"
                     android:layout_centerHorizontal="true">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/rlcreditcardpaymentId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_40sdp"
+                        android:weightSum="2">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/ivcreditcardtextidd"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0sp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15sp"
                             android:layout_marginTop="15sp"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/amount" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvcreditcardpriceidd"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0sp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="60sp"
                             android:layout_marginTop="15sp"
-                            android:layout_toEndOf="@+id/ivcreditcardtextidd"
-                            android:text="600 €" />
+                            android:layout_weight="1"
+                            android:gravity="center" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/rlcreditcardpaymentId"
-                        android:layout_centerHorizontal="true">
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_40sdp"
+                        android:weightSum="2">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/ivcreditcardtexttwoidd"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0sp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15sp"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/service_fees" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/ivcreditcardtextthreeidd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivcreditcardtextfouridd"
                             android:layout_marginStart="15sp"
-                            android:text="@string/bank_fees" />
+                            android:text="@string/bank_fees"
+                            android:visibility="gone" />
 
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/ivcreditcardtextfouridd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/ivcreditcardtexttwoidd"
                             android:layout_marginStart="50sp"
-                            android:text="+" />
+                            android:text="+"
+                            android:visibility="gone" />
 
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvcreditcardpricetwoidd"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0sp"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="70dp"
-                            android:layout_toEndOf="@+id/ivcreditcardtextfouridd"
-                            android:text=": 600 €" />
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="0.25€ + 12%" />
 
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -139,9 +144,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="610,5 €"
                         android:textColor="@color/Black"
-                        android:textSize="17dp"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
 
@@ -206,13 +210,14 @@
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:background="@drawable/circle"
                             android:gravity="center"
-                            android:visibility="gone"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
 
                     </RelativeLayout>
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -237,7 +242,7 @@
                 android:layout_marginStart="15sp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="15sp"
-                android:weightSum="2">
+                android:weightSum="1">
 
 
                 <RelativeLayout
@@ -253,7 +258,8 @@
                         android:layout_height="30sp"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="5sp"
-                        android:src="@drawable/yellowcircle" />
+                        android:src="@drawable/yellowcircle"
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivcreditcardpaymentid"
@@ -281,22 +287,25 @@
                             android:textSize="@dimen/_11sdp"
                             android:textStyle="normal" />
 
-
                     </RelativeLayout>
+
+
                 </RelativeLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/rlMaCanotteId"
                     android:layout_width="0sp"
                     android:layout_height="210dp"
                     android:layout_weight="1"
-                    android:background="@drawable/paymentbackimg">
+                    android:background="@drawable/paymentbackimg"
+                    android:visibility="gone">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/IvwalletpointId"
                         android:layout_width="30sp"
                         android:layout_height="30sp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="5sp"
                         android:src="@drawable/yellowcircle"
                         android:visibility="gone" />
@@ -328,6 +337,8 @@
                             android:textStyle="normal" />
 
                     </RelativeLayout>
+
+
                 </RelativeLayout>
             </LinearLayout>
 

@@ -97,7 +97,9 @@ public class Constants {
 
     public static String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd HH:mm:ss";
-        String outputPattern = "dd-MMM-yyyy h:mm a";
+//        HH:mm:ss
+       // String outputPattern = "dd-MMM-yyyy h:mm a";
+        String outputPattern = "dd-MMM-yyyy hh:mm";
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 

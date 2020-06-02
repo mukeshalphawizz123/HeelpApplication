@@ -263,8 +263,7 @@ public class HomeMissionFragment extends Fragment implements HomeCategoryFilterA
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 homeCategoryFilterAdapter.getFilter().filter(s);
             }
 

@@ -92,12 +92,12 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
     private ProgressBar pbUserEditProfile;
     private List<YourMission> yourMissionList;
     private AppCompatTextView tvname, tvdesinationedit;
-    private AppCompatEditText EtName, EtUsername, EtStatus, EtEmail, EtPassword, Etcountry;
+    private AppCompatEditText EtName, EtUsername, EtActNo, EtIfsc, EtStatus, EtEmail, EtPassword, Etcountry;
     private AppCompatEditText tvpresentation, tvlevelofstudyy, tvfiledofstudyy, tvunivercityy,
             tvcategoriess, tvcompetencesss;
     private RelativeLayout rlnextpager;
     private static Animation shakeAnimation;
-    private AppCompatImageView iveditprofilepin,iveditprofilepins;
+    private AppCompatImageView iveditprofilepin, iveditprofilepins;
     private File fileForImage;
     private String profilImgPath, userId;
 
@@ -125,6 +125,8 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         tvcategoriess = view.findViewById(R.id.tvcategoriessid);
         tvcompetencesss = view.findViewById(R.id.tvcompetencesssid);
 
+        EtIfsc = view.findViewById(R.id.EtIfscID);
+        EtActNo = view.findViewById(R.id.EtActNoId);
         EtName = view.findViewById(R.id.EtNameid);
         EtUsername = view.findViewById(R.id.EtUsernameId);
         EtStatus = view.findViewById(R.id.EtStatusId);
@@ -260,13 +262,15 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
                             EtEmail.setText(yourMissionList.get(0).getEmail());
                             EtPassword.setText(yourMissionList.get(0).getPassword_show());
                             Etcountry.setText(yourMissionList.get(0).getCountry());
+                            EtActNo.setText(yourMissionList.get(0).getAccount_number());
+                            EtIfsc.setText(yourMissionList.get(0).getIfsc_code());
                             Tvdob.setText(yourMissionList.get(0).getDob());
                             tvdesinationedit.setText(yourMissionList.get(0).getSkills());
                             if (yourMissionList.get(0).getPictureUrl().isEmpty()) {
                             } else {
                                 Picasso.with(getActivity()).load(RetrofitClient.MISSION_USER_IMAGE_URL + yourMissionList
                                         .get(0).getPictureUrl())
-                                        .resize(200,200)
+                                        .resize(200, 200)
                                         .into(ivuserprofileimage);
                             }
 
@@ -328,12 +332,15 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
             new CustomToast().Show_Toast(getActivity(), v, "Invalid Email Id");
             EtEmail.startAnimation(shakeAnimation);
             EtEmail.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-        }/* else if (EtPassword.getText().toString().isEmpty()) {
-            new CustomToast().Show_Toast(getActivity(), v, "Can't Empty");
-            EtPassword.startAnimation(shakeAnimation);
-            EtPassword.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-            EtPassword.getText().toString().trim();
-        }*/ else {
+        } else if (EtActNo.getText().toString().isEmpty()) {
+            new CustomToast().Show_Toast(getActivity(), v, "Account Number Can't Empty");
+            EtActNo.startAnimation(shakeAnimation);
+            EtActNo.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        } else if (EtIfsc.getText().toString().isEmpty()) {
+            new CustomToast().Show_Toast(getActivity(), v, "IFSC Code Can't Empty");
+            EtIfsc.startAnimation(shakeAnimation);
+            EtIfsc.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+        } else {
             if (EtPassword.getText().toString().isEmpty()) {
                 if (CheckNetwork.isNetAvailable(getActivity())) {
                     updateProfileWithoutPass();
@@ -376,10 +383,13 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         MultipartBody.Part skill = MultipartBody.Part.createFormData("skills", tvcompetencesss.getText().toString());
         MultipartBody.Part field_of_study = MultipartBody.Part.createFormData("Field_of_study", tvfiledofstudyy.getText().toString());
         MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
+        MultipartBody.Part account_number_ = MultipartBody.Part.createFormData("account_number", EtActNo.getText().toString());
+        MultipartBody.Part ifsc_code_ = MultipartBody.Part.createFormData("ifsc_code", EtIfsc.getText().toString());
 
 
         apiServices.updateProfile(profile_id_, last_name_, name_, email_, username_, password_, dob_,
-                country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study, categroy_of_interest).enqueue(new Callback<UpdateProfileModle>() {
+                country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study,
+                categroy_of_interest, account_number_, ifsc_code_).enqueue(new Callback<UpdateProfileModle>() {
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
                 if (response.isSuccessful()) {
@@ -446,10 +456,13 @@ public class UserProfileEditActivity extends Fragment implements View.OnClickLis
         MultipartBody.Part skill = MultipartBody.Part.createFormData("skills", tvcompetencesss.getText().toString());
         MultipartBody.Part field_of_study = MultipartBody.Part.createFormData("Field_of_study", tvfiledofstudyy.getText().toString());
         MultipartBody.Part categroy_of_interest = MultipartBody.Part.createFormData("intrested_category", tvcategoriess.getText().toString());
-
+        MultipartBody.Part account_number_ = MultipartBody.Part.createFormData("account_number", EtActNo.getText().toString());
+        MultipartBody.Part ifsc_code_ = MultipartBody.Part.createFormData("ifsc_code", EtIfsc.getText().toString());
 
         apiServices.updateProfileWithouPassword(profile_id_, state_, name_, email_, username_, dob_,
-                country, imgFileStation, presentation, level_of_study, school_college, skill, field_of_study, categroy_of_interest).enqueue(new Callback<UpdateProfileModle>() {
+                country, imgFileStation, presentation, level_of_study,
+                school_college, skill, field_of_study, categroy_of_interest,
+                account_number_, ifsc_code_).enqueue(new Callback<UpdateProfileModle>() {
             @Override
             public void onResponse(Call<UpdateProfileModle> call, Response<UpdateProfileModle> response) {
                 if (response.isSuccessful()) {

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.frelance.R;
 import com.frelance.notificationPkg.NotificationModlePkg.Datum;
-import com.frelance.utility.Constants;
 
 import java.util.List;
 
@@ -45,7 +44,8 @@ public class NotificationMessageAdapter extends RecyclerView.Adapter<Notificatio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvtime.setText(Constants.parseDateToddMMyyyy(mymissionModelArrayList.get(position).getCreated()));
+        holder.tvtime.setText(mymissionModelArrayList.get(position).getCreated());
+        // holder.tvtime.setText(Constants.parseDateToddMMyyyy(mymissionModelArrayList.get(position).getCreated()));
         holder.tvUserNameChat.setText(mymissionModelArrayList.get(position).getNotification());
     }
 

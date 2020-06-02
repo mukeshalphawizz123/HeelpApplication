@@ -66,6 +66,20 @@ public class YourMission {
     private String client_id;
 
 
+    @SerializedName("offer_budget")
+    @Expose
+    private String offer_budget;
+
+
+    public String getOffer_budget() {
+        return offer_budget;
+    }
+
+    public void setOffer_budget(String offer_budget) {
+        this.offer_budget = offer_budget;
+    }
+
+
     public String getClient_id() {
         return client_id;
     }

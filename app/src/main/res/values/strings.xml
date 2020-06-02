@@ -265,6 +265,8 @@ three main needs of the student.</string>
     <string name="card_number">Card Number ****</string>
     <string name="items_not_found">Items Not Found</string>
     <string name="costumer_service_chat">Costumer Service Chat</string>
+    <string name="account_no">Account No</string>
+    <string name="ifsc_code">Ifsc code</string>
 
 
 </resources>

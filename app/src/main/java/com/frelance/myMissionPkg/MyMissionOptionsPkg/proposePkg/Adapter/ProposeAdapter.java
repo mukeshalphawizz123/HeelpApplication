@@ -15,7 +15,6 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.R;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.MyMissionProposeeActivity;
 import com.frelance.myMissionPkg.MyMissionOptionsPkg.proposePkg.myMissionProposedModlePkg.YourMission;
-import com.frelance.utility.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ProposeAdapter extends RecyclerView.Adapter<ProposeAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvMyMissionDelTitle.setText(yourMissionList.get(position).getCategory_title());
         holder.tvMyMissionDesDel.setText(yourMissionList.get(position).getMissionTitle());
-        holder.tvOfferValueDel.setText(yourMissionList.get(position).getMissionBudget() + "€");
+        holder.tvOfferValueDel.setText(yourMissionList.get(position).getOffer_budget() + "€");
         holder.tvMyMissionDaysDel.setText(yourMissionList.get(position).getDuration());
         Picasso.with(context).load(RetrofitClient.IMAGE_URL + yourMissionList.get(position).getCategory_image()).into(holder.ivMymissionDel);
     }

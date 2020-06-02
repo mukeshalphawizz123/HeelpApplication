@@ -20,4 +20,6 @@
     <string name="enter_holder_name">Enter Holder Name</string>
     <string name="do_you_want_to_release_payment">Do you want to release payment</string>
     <string name="card_number">Card Number ****</string>
+    <string name="account_no">Account No</string>
+    <string name="ifsc_code">Ifsc code</string>
 </resources>

@@ -130,12 +130,11 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-
         handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 //do your function;
                 if (CheckNetwork.isNetAvailable(getActivity())) {
-                    myMissionDispute(userId);
+                    myMissionRefreshDispute(userId);
                 } else {
                 }
                 handler.postDelayed(runnable, apiDelayed);
@@ -151,7 +150,6 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
 
 
     private void myMissionDispute(String userId) {
-        /// CustomProgressbar.showProgressBar(getActivity(), false);
         apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
             @Override
             public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
@@ -161,6 +159,45 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
                         datumList = getAllDiputeResponseModle.getData();
                         myMissionadapter.addDisputeList(datumList);
                         layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
+                    } else {
+
+                    }
+                    //  Tvmymissionitemnot.setVisibility(View.VISIBLE);
+
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAllDiputeResponseModle> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void myMissionRefreshDispute(String userId) {
+        apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+            @Override
+            public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
+                if (response.isSuccessful()) {
+                    GetAllDiputeResponseModle getAllDiputeResponseModle = response.body();
+                    if (getAllDiputeResponseModle.getStatus()) {
+                        datumList = getAllDiputeResponseModle.getData();
+                        myMissionadapter.addDisputeList(datumList);
+                      //  layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
                     } else {
 
                     }
@@ -229,11 +266,6 @@ public class MyMissionInDisputeActivity extends Fragment implements View.OnClick
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    private void replaceFragementWithoutStack(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.flHomeId, fragment);
-        //fragmentTransaction.commit();
-    }
 
     public void removeThisFragment() {
         final FragmentManager manager = getFragmentManager();

@@ -138,6 +138,7 @@ public class HomeActivity extends AppCompatActivity
         if (addToBackStack) {
             ft.addToBackStack(tag);
         }
+
         ft.replace(R.id.flHomeId, fragment, tag);
         ft.commitAllowingStateLoss();
     }

@@ -44,7 +44,8 @@ public class NotificationPaymentAdapter extends RecyclerView.Adapter<Notificatio
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvtime.setText(Constants.parseDateToddMMyyyy(mymissionModelArrayList.get(position).getCreated()));
+        holder.tvtime.setText(mymissionModelArrayList.get(position).getCreated());
+       // holder.tvtime.setText(Constants.parseDateToddMMyyyy(mymissionModelArrayList.get(position).getCreated()));
         holder.tvUserNameChat.setText(mymissionModelArrayList.get(position).getNotification());
     }
 

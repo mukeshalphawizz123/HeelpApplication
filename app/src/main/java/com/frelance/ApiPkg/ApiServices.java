@@ -380,7 +380,10 @@ public interface ApiServices {
                                            @Part MultipartBody.Part school_college,
                                            @Part MultipartBody.Part skill,
                                            @Part MultipartBody.Part field_of_study,
-                                           @Part MultipartBody.Part categroy_of_interest);
+                                           @Part MultipartBody.Part categroy_of_interest,
+                                           @Part MultipartBody.Part account_number,
+                                           @Part MultipartBody.Part ifsc_code
+    );
 
 
     @Multipart
@@ -398,7 +401,10 @@ public interface ApiServices {
                                                          @Part MultipartBody.Part school_college,
                                                          @Part MultipartBody.Part skill,
                                                          @Part MultipartBody.Part field_of_study,
-                                                         @Part MultipartBody.Part categroy_of_interest);
+                                                         @Part MultipartBody.Part categroy_of_interest,
+                                                         @Part MultipartBody.Part account_number,
+                                                         @Part MultipartBody.Part ifsc_code
+    );
 
 
     @Multipart

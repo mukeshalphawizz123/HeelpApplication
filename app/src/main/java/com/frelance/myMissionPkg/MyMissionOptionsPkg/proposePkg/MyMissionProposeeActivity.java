@@ -65,7 +65,7 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
         missionId = this.getArguments().getString("missionId");
         mission_mission_title = AppSession.getStringPreferences(getActivity(), "mission_mission_title");
         userId = AppSession.getStringPreferences(getActivity(), Constants.USERID);
-        //  Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
+       //  Toast.makeText(getActivity(), missionId, Toast.LENGTH_LONG).show();
         init(view);
         if (CheckNetwork.isNetAvailable(getActivity())) {
             myMission(missionId);

@@ -46,7 +46,7 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_credit_card_payment);
         apiServices = RetrofitClient.getClient().create(ApiServices.class);
         missionId = AppSession.getStringPreferences(getApplicationContext(), "pay_mission_id");
-        userid=AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
+        userid = AppSession.getStringPreferences(getApplicationContext(), Constants.USERID);
         init();
         credit = "1";
         if (CheckNetwork.isNetAvailable(getApplicationContext())) {
@@ -134,8 +134,8 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                     try {
                         ProjectAmountResponseModle projectAmountResponseModle = response.body();
                         if (projectAmountResponseModle.getStatus()) {
-                            tvcreditcardpricetwo.setText(projectAmountResponseModle.getData().get(0).getBankFee() + "€");
-                            tvcreditcardprice.setText(projectAmountResponseModle.getData().get(0).getMissionBudget() + "€");
+                            // tvcreditcardpricetwo.setText(projectAmountResponseModle.getData().get(0).getBankFee() + "€");
+                             tvcreditcardprice.setText(projectAmountResponseModle.getData().get(0).getMissionBudget() + "€");
 
                             if (projectAmountResponseModle.getData().get(0).getMissionBudget().isEmpty()) {
                                 projectBudget = 0.0f;
@@ -143,14 +143,15 @@ public class CreditCardPayment extends AppCompatActivity implements View.OnClick
                                 projectBudget = Float.parseFloat(projectAmountResponseModle.getData().get(0).getMissionBudget());
                             }
 
-                            if (projectAmountResponseModle.getData().get(0).getBankFee().isEmpty()) {
+                           /* if (projectAmountResponseModle.getData().get(0).getBankFee().isEmpty()) {
                                 bankFees = 0.0f;
                             } else {
                                 bankFees = Float.parseFloat(projectAmountResponseModle.getData().get(0).getBankFee());
                             }
-
-                            totalAmount = projectBudget + bankFees;
-                            int total = (int) totalAmount;
+*/
+                            bankFees = (12 * projectBudget) / 100;
+                            totalAmount = (float) (projectBudget + bankFees + 0.25);
+                            int total = (int) projectBudget;
                             tvTotalProjecdPrice.setText((totalAmount) + "€");
                             AppSession.setStringPreferences(getApplicationContext(), "totalamount", "" + total);
 

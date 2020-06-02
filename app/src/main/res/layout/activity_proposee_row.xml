@@ -70,11 +70,13 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:gravity="center"
                 android:id="@+id/rlofferid"
+                android:layout_alignEnd="@+id/rlmymisssionitemsid"
+                android:layout_alignStart="@+id/rlmymisssionitemsid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rlmymisssionitemsid"
-                android:layout_marginStart="12sp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="15sp">
 

@@ -137,7 +137,7 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
             public void run() {
                 //do your function;
                 if (CheckNetwork.isNetAvailable(getActivity())) {
-                    myDemandDispute(userId);
+                    myDemandRefreshDispute(userId);
                 } else {
 
                 }
@@ -201,6 +201,47 @@ public class MyRequestOpenlitigationActivity extends Fragment implements View.On
     public void removeThisFragment() {
         final FragmentManager manager = getFragmentManager();
         manager.popBackStackImmediate();
+    }
+
+
+    private void myDemandRefreshDispute(String userId) {
+        apiServices.getprojectdispute(userId, missionId).enqueue(new Callback<GetAllDiputeResponseModle>() {
+            @Override
+            public void onResponse(Call<GetAllDiputeResponseModle> call, Response<GetAllDiputeResponseModle> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        GetAllDiputeResponseModle getAllDiputeResponseModle = response.body();
+                        if (getAllDiputeResponseModle.getStatus()) {
+                            datumList = getAllDiputeResponseModle.getData();
+                            myMissionadapter.addDisputeList(datumList);
+                            ///layoutManager.scrollToPosition(myMissionadapter.getItemCount() - 1);
+                        } else {
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //  Tvmymissionitemnot.setVisibility(View.VISIBLE);
+                } else {
+                    if (response.code() == 400) {
+                        if (!false) {
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.errorBody().string());
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetAllDiputeResponseModle> call, Throwable t) {
+
+            }
+        });
     }
 
     private void myDemandDispute(String userId) {
