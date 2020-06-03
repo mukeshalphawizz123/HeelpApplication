@@ -73,7 +73,6 @@ public class MyMissionProposeeActivity extends Fragment implements ProposeAdapte
             Toast.makeText(getActivity(), "Check Network Connection", Toast.LENGTH_LONG).show();
         }
 
-
         if (CheckNetwork.isNetAvailable(getActivity())) {
             notification(userId);
         } else {

@@ -58,7 +58,6 @@ public class MyRequestPublishedNoteAdapter extends RecyclerView.Adapter<MyReques
                         .into(holder.ivmymission);
 
             }
-
             holder.ratingpubished.setRating(Float.parseFloat(mymissionModelArrayList.get(position).getProfile_Rate()));
         } catch (Exception e) {
             e.printStackTrace();

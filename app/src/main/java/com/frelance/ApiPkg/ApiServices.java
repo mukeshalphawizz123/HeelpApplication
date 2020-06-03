@@ -204,6 +204,7 @@ public interface ApiServices {
     @FormUrlEncoded
     @POST("Client/send_message")
     Call<MsgSentModel> send_message(
+            @Field("sender_id") String sender_id,
             @Field("receiver_id") String receiver_id,
             @Field("message_dta") String message_dta);
 

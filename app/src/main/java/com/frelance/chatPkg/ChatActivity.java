@@ -575,8 +575,7 @@ public class ChatActivity extends AppCompatActivity implements
     }
 
     private void sendChat(String clientId, String msg) {
-        // CustomProgressbar.showProgressBar(this, false);
-        apiServices.send_message(clientId, msg).enqueue(new Callback<MsgSentModel>() {
+        apiServices.send_message(userid,clientId, msg).enqueue(new Callback<MsgSentModel>() {
             @Override
             public void onResponse(Call<MsgSentModel> call, Response<MsgSentModel> response) {
                 if (response.isSuccessful()) {

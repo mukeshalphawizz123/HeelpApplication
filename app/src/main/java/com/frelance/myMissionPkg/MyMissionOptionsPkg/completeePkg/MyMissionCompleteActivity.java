@@ -131,9 +131,9 @@ public class MyMissionCompleteActivity extends Fragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rldummyimgid:
-                AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
-                AppSession.setStringPreferences(getActivity(), "clientId", clientId);
-                CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
+                //AppSession.setStringPreferences(getActivity(), "chatEntry", "other");
+                //AppSession.setStringPreferences(getActivity(), "clientId", clientId);
+               // CheckNetwork.nextScreenWithoutFinish(getActivity(), ClinetProfileActivity.class);
                 break;
             case R.id.ivmissioncompleterdashboardbackId:
                 removeThisFragment();
