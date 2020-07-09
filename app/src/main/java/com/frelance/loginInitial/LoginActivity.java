@@ -1,10 +1,5 @@
 package com.frelance.loginInitial;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -21,6 +16,11 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -35,13 +35,13 @@ import com.frelance.ApiPkg.RetrofitClient;
 import com.frelance.CustomProgressbar;
 import com.frelance.CustomToast;
 import com.frelance.FirebaseUnreadUserCount;
-import com.frelance.forgetpasswordPkg.ForgetPasswordActivity;
-import com.frelance.loginInitial.LoginPkgModel.Loginmodel;
 import com.frelance.OptionActivity;
 import com.frelance.R;
+import com.frelance.forgetpasswordPkg.ForgetPasswordActivity;
+import com.frelance.homePkg.HomeActivity;
+import com.frelance.loginInitial.LoginPkgModel.Loginmodel;
 import com.frelance.loginInitial.LoginPkgModel.socialLoginPkg.SocialLoginModel;
 import com.frelance.signUpInitial.SignupActivity;
-import com.frelance.homePkg.HomeActivity;
 import com.frelance.utility.AppSession;
 import com.frelance.utility.CheckNetwork;
 import com.frelance.utility.Constants;
@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
     private String token, auth_token;
     private FirebaseUnreadUserCount firebaseUnreadUserCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,7 +257,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
                 googleSignInClient.signOut();
 
-
                 GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
                 if (alreadyloggedAccount != null) {
                     onLoggedIn(alreadyloggedAccount);
@@ -391,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<SocialLoginModel> call, Throwable t) {
-              //  Log.d("test", String.valueOf(t));
+                //  Log.d("test", String.valueOf(t));
                 CustomProgressbar.hideProgressBar();
             }
         });
